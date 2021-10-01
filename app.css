@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply transition-all;
+    @apply duration-100;
+  }
+  body {
+    @apply overflow-hidden;
+  }
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  span {
+    @apply p-1 m-1 rounded-xl;
+  }
+}
