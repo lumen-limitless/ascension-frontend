@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import Button from "../components/button";
-import Section from "../components/section";
-import Card from "../components/card";
+import Button from "../components/base/button";
+import Section from "../components/base/section";
+import Card from "../components/base/card";
 import chainData from "../utils/chainData";
 import { TransactionReceipt } from "@ethersproject/abstract-provider";
 import { useAscendBalance } from "../hooks/useAscendBalance";
@@ -184,9 +184,9 @@ export default function Sniper() {
     <>
       <Section>
         <Card color="bg-gray-800" w="full" h="2/3">
-          <div className="flex  h-full w-full">
+          <div className="flex flex-col h-full w-full">
             {" "}
-            <div className="text-center">
+            <div className="flex flex-col items-center justify-center w-full">
               <svg
                 width="128"
                 height="128"
@@ -220,8 +220,11 @@ export default function Sniper() {
                 <rect x="111" y="200" width="9" height="38" fill={!listening ? "red" : "green"} />
               </svg>
               <h1>{STATUS[status]}</h1>
+              <Button color={listening ? "bg-red-600" : "bg-green-600"} onClick={toggleListener}>
+                {listening ? "Stop Sniper" : "Start Sniper"}
+              </Button>
             </div>
-            <div className="flex flex-col m-1">
+            <div className="flex flex-col justify-center m-2 ">
               <ul className="flex flex-col">
                 <li className="flex items-center">
                   Target:{" "}
@@ -297,11 +300,6 @@ export default function Sniper() {
                   {slippage}%
                 </li>
               </ul>
-              <div className="flex">
-                <Button color={listening ? "bg-red-600" : "bg-green-600"} onClick={toggleListener}>
-                  {listening ? "Stop Sniper" : "Start Sniper"}
-                </Button>
-              </div>
             </div>
           </div>
         </Card>

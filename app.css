@@ -16,7 +16,4 @@
   h2 {
     @apply text-xl;
   }
-  span {
-    @apply p-1 m-1 rounded-xl;
-  }
 }

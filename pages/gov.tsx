@@ -1,6 +1,6 @@
 import React from "react";
-import Section from "../components/section";
-import Card from "../components/card";
+import Section from "../components/base/section";
+import Card from "../components/base/card";
 
 export default function Treasury() {
   return (

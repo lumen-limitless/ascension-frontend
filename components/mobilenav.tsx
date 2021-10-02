@@ -4,12 +4,12 @@ import { useRouter } from "next/dist/client/router";
 
 interface NavProps {}
 
-export default function Nav() {
+export default function MobileNav(): JSX.Element {
   const { pathname } = useRouter();
 
   return (
-    <nav className="hidden md:flex  h-full w-3/6  items-center justify-center  text-white mx-8">
-      <ul className="flex content-center items-center justify-evenly w-full h-full my-auto">
+    <nav className="flex md:hidden  h-full w-3/6  items-center justify-center  text-white mx-8">
+      <ul className="flex flex-col content-center items-center  justify-evenly w-full h-full my-auto">
         <li
           title="Dashboard"
           className={`w-full flex justify-center items-center h-full cursor-pointer opacity-50 hover:opacity-100 ${
