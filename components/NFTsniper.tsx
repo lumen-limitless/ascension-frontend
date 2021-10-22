@@ -37,8 +37,10 @@ export default function NFTSniper(): JSX.Element {
             <h1>Connect wallet</h1>
             <ConnectButton />
           </>
+        ) : !ascendBalance ? (
+          <>Loading...</>
         ) : parseFloat(ascendBalance) < 1 ? (
-          <>You must have 1 ASCEND to use this tool!</>
+          <h1>You must have 1 ASCEND to use this tool!</h1>
         ) : !SUPPORTED_CHAINS.includes(chainId as number) ? (
           <>Chain not supported: {chainId}</>
         ) : (
