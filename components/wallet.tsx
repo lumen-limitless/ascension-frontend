@@ -3,7 +3,7 @@ import React from "react";
 import Pill from "./base/pill";
 
 export default function Wallet() {
-  const { account, active, deactivate } = useWeb3React();
+  const { account, active } = useWeb3React();
   return (
     <>
       {active ? (

@@ -2,8 +2,9 @@ import IUniswapV2Router02 from "@uniswap/v2-periphery/build/IUniswapV2Router02.j
 import IERC20 from "@openzeppelin/contracts/build/contracts/IERC20.json";
 import { ethers } from "ethers";
 
-export interface chainData {
+export interface ChainData {
   [key: number]: {
+    rpc: string;
     name: string;
     symbol: string;
     color: string;
@@ -13,8 +14,23 @@ export interface chainData {
   };
 }
 
-export const chainData: chainData = {
+export const chainData: ChainData = {
+  31337: {
+    rpc: "http://localhost:8545",
+    name: "Local",
+    symbol: "x",
+    color: "bg-black",
+    weth: new ethers.Contract("0xc778417e063141139fce010982780140aa0cd5ab", IERC20.abi),
+    factory: new ethers.Contract("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", [
+      "event PairCreated(address indexed token0, address indexed token1, address pair, uint)",
+    ]),
+    router: new ethers.Contract(
+      "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+      IUniswapV2Router02.abi
+    ),
+  },
   4: {
+    rpc: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     name: "Rinkeby",
     symbol: "rETH",
     color: "bg-red-600",
@@ -29,6 +45,7 @@ export const chainData: chainData = {
   },
 
   1: {
+    rpc: "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     name: "Ethereum",
     symbol: "ETH",
     color: "bg-blue-600",
@@ -43,7 +60,8 @@ export const chainData: chainData = {
   },
 
   421611: {
-    name: "Arbitrum Rinkeby",
+    rpc: "https://rinkeby.arbitrum.io/rpc",
+    name: "arbtest",
     symbol: "rAETH",
     color: "bg-indigo-600",
     weth: new ethers.Contract("0x82af49447d8a07e3bd95bd0d56f35241523fbab1", IERC20.abi),
@@ -57,6 +75,7 @@ export const chainData: chainData = {
   },
 
   42161: {
+    rpc: "https://arb1.arbitrum.io/rpc",
     name: "Arbitrum",
     symbol: "AETH",
     color: "bg-green-600",
@@ -71,6 +90,7 @@ export const chainData: chainData = {
   },
 
   137: {
+    rpc: "https://rpc-mainnet.maticvigil.com/",
     name: "Polygon",
     symbol: "MATIC",
     color: "bg-purple-600",
@@ -85,6 +105,7 @@ export const chainData: chainData = {
   },
 
   56: {
+    rpc: "",
     name: "BSC",
     symbol: "BNB",
     color: "bg-yellow-600",

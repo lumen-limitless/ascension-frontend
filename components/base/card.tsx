@@ -1,16 +1,14 @@
 import React from "react";
 
 interface AppProps {
-  children: any;
-  w: string;
-  h: string;
-  color: string;
+  children?: any;
+  className?: string;
 }
 
-export default function Card({ children, w, h, color }: AppProps): JSX.Element {
+export default function Card({ children, className }: AppProps): JSX.Element {
   return (
     <div
-      className={`${color} rounded p-4 h-${h} w-${w} max-w-xl shadow-xl flex flex-col  items-center`}
+      className={` rounded p-4 w-full max-w-xl shadow-xl flex flex-col items-center ${className}`}
     >
       {children}
     </div>
