@@ -3,51 +3,70 @@ import React, { useState, useEffect } from "react";
 import { useEagerConnect, useInactiveListener } from "../hooks/web3hooks";
 import { injected } from "../utils/connectors";
 import chainData from "../utils/chainData";
-import Pill from "./base/pill";
-import Wallet from "./wallet";
+import Pill from "./base/buttons/pill";
+import Modal from "./base/modal";
+import Account from "./account";
+import { shorter } from "../utils/helpers";
 
 export function ConnectButton(): JSX.Element {
-  const { activate } = useWeb3React();
-  return (
-    <Pill className="bg-blue-600" onClick={() => activate(injected)}>
-      Connect
-    </Pill>
-  );
+    const { activate } = useWeb3React();
+    return (
+        <Pill className="bg-blue-600" onClick={() => activate(injected)}>
+            Connect
+        </Pill>
+    );
 }
+
+const colorsByChain: { [key: number]: string } = {
+    1: "bg-blue-500",
+    4: "bg-yellow-500",
+    56: "bg-[#A6810C]",
+    421611: "bg-[#28A0F0]",
+    42161: "bg-[#28A0F0]",
+    31337: "bg-black",
+    137: "bg-[#915DE8]",
+    43114: "bg-[#E84142]",
+};
+
 export default function Connection() {
-  const { active, deactivate, connector, chainId } = useWeb3React();
-  const [activatingConnector, setActivatingConnector] = useState();
-  const triedEager = useEagerConnect();
-  useEffect(() => {
-    if (activatingConnector && activatingConnector === connector) {
-      setActivatingConnector(undefined);
-    }
-  }, [activatingConnector, connector]);
+    const { active, account, connector, chainId } = useWeb3React();
+    const [viewingAccount, setViewingAccount] = useState(false);
+    const [activatingConnector, setActivatingConnector] = useState();
+    const triedEager = useEagerConnect();
 
-  useInactiveListener(!triedEager || !activatingConnector);
+    useEffect(() => {
+        if (activatingConnector && activatingConnector === connector) {
+            setActivatingConnector(undefined);
+        }
+    }, [activatingConnector, connector]);
 
-  return (
-    <>
-      {!active ? (
-        <ConnectButton />
-      ) : (
+    useInactiveListener(!triedEager || !activatingConnector);
+
+    return (
         <>
-          <Pill className={`${chainId ? chainData[chainId].color : "bg-gray-600"}`}>
-            {chainId ? chainData[chainId].name : "NA"}
-          </Pill>
-          <Wallet />
-          <button onClick={deactivate} className="px-2" title="log out">
-            <svg
-              viewBox="0 0 24 24"
-              className="fill-current text-red-800 hover:text-red-600"
-              width="20px"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M16.3 8.09014C15.91 8.48014 15.91 9.10014 16.3 9.49014L18.2 11.3901H9C8.45 11.3901 8 11.8401 8 12.3901C8 12.9401 8.45 13.3901 9 13.3901H18.2L16.3 15.2901C15.91 15.6801 15.91 16.3001 16.3 16.6901C16.69 17.0801 17.31 17.0801 17.7 16.6901L21.29 13.1001C21.68 12.7101 21.68 12.0801 21.29 11.6901L17.7 8.09014C17.31 7.70014 16.69 7.70014 16.3 8.09014ZM4 19.3901H11C11.55 19.3901 12 19.8401 12 20.3901C12 20.9401 11.55 21.3901 11 21.3901H4C2.9 21.3901 2 20.4901 2 19.3901V5.39014C2 4.29014 2.9 3.39014 4 3.39014H11C11.55 3.39014 12 3.84014 12 4.39014C12 4.94014 11.55 5.39014 11 5.39014H4V19.3901Z"></path>
-            </svg>
-          </button>
+            {!active ? (
+                <ConnectButton />
+            ) : (
+                <>
+                    <Pill className={colorsByChain[chainId ?? 1]}>
+                        {chainId ? chainData[chainId].name : "NA"}
+                    </Pill>
+                    <Pill
+                        onClick={() => setViewingAccount(true)}
+                        className="bg-gradient-to-r from-indigo-700  to-purple-700 flex"
+                    >
+                        {account ? shorter(account) : ""}
+                    </Pill>
+                    {viewingAccount ? (
+                        <Modal
+                            onExit={() => setViewingAccount(false)}
+                            className="bg-transparent"
+                        >
+                            <Account />
+                        </Modal>
+                    ) : null}
+                </>
+            )}
         </>
-      )}
-    </>
-  );
+    );
 }

@@ -2,12 +2,12 @@ import React from "react";
 import Header from "./header";
 
 export default function Layout({ children }: any) {
-  return (
-    <div className="flex h-screen w-screen bg-gray-900 text-white">
-      <main className="flex flex-col h-screen w-screen">
-        <Header />
-        <div className="h-full overflow-x-auto">{children}</div>
-      </main>
-    </div>
-  );
+    return (
+        <main
+            className={`dark:bg-gray-800 dark:text-white text-black bg-gray-200 flex flex-col h-screen w-screen `}
+        >
+            <Header />
+            <div className="h-full overflow-x-auto">{children}</div>
+        </main>
+    );
 }
