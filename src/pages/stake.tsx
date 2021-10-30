@@ -4,7 +4,7 @@ import useStaking from "../hooks/useStaking";
 import useAscend from "../hooks/useAscend";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { ConnectButton } from "../components/connection";
+import { ConnectButton } from "../components/Connection";
 import Input from "../components/Input";
 import contractsInfo from "../constants/contractsInfo.json";
 import { useBalanceOf } from "ether-swr";

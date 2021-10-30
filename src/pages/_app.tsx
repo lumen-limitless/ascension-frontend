@@ -7,7 +7,7 @@ import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
 import contractsInfo from "../constants/contractsInfo.json";
 import { EtherSWRConfig } from "ether-swr";
 import { NextComponentType, NextPageContext } from "next";
-import { ConnectButton } from "../components/connection";
+import { ConnectButton } from "../components/Connection";
 import { ToastProvider } from "../context/ToastContext";
 import ToastContainer from "../components/Toast/toastContainer";
 import { ThemeProvider } from "next-themes";

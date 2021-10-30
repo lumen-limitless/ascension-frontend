@@ -1,14 +1,14 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useState, useEffect } from "react";
-import { useEagerConnect, useInactiveListener } from "../hooks/web3hooks";
-import { injected } from "../constants/connectors";
-import chainData from "../constants/chainData";
-import Pill from "./Button/pill";
-import Account from "./AccountInfo";
+import { useEagerConnect, useInactiveListener } from "../../hooks/web3hooks";
+import { injected } from "../../constants/connectors";
+import chainData from "../../constants/chainData";
+import Pill from "../Button/pill";
+import Account from "../AccountInfo";
 import { LinkIcon, UserIcon } from "@heroicons/react/outline";
-import Modal from "./Modal";
-import Button from "./Button";
-import { shortenAddress } from "../functions";
+import Modal from "../Modal";
+import Button from "../Button";
+import { shortenAddress } from "../../functions";
 import { useToggle } from "react-use";
 
 export function ConnectButton(): JSX.Element {

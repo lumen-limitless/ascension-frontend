@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "./Card";
-import { ConnectButton } from "./connection";
+import Card from "../Card";
+import { ConnectButton } from "../Connection";
 import { useWeb3React } from "@web3-react/core";
-import contractsInfo from "../constants/contractsInfo.json";
-import { useDistributor } from "../hooks/useDistributor";
-import Skeleton from "../Skeleton";
-import Button from "./Button";
+import contractsInfo from "../../constants/contractsInfo.json";
+import { useDistributor } from "../../hooks/useDistributor";
+import Skeleton from "../../Skeleton";
+import Button from "../Button";
 
 export default function Distributor(): JSX.Element {
     const { account, active, chainId } = useWeb3React();

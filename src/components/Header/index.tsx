@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import Connection from "../connection";
-import Nav from "../nav";
+import Connection from "../Connection";
+import Nav from "../Nav";
 import Logo from "../logo";
 import { useToggle } from "react-use";
 import useAddTokenToMetaMask from "../../hooks/useAddTokenToMetamask";

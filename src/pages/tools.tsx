@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import LiquiditySniper from "../components/liquiditySniper";
 import Card from "../components/Card";
-import Pill from "../components/Button/pill";
-import Distributor from "../components/distributor";
+import Distributor from "../components/Distributor/distributor";
 import { BackspaceIcon } from "@heroicons/react/outline";
 import Container from "../components/Container";
 import Button from "../components/Button";

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import { useWeb3React } from "@web3-react/core";
-import contractsInfo from "../constants/contractsInfo.json";
+import contractsInfo from "../../constants/contractsInfo.json";
 
 interface NavProps {
     isMobile?: boolean;

@@ -2,7 +2,7 @@ import React from "react";
 import Pill from "./Button/pill";
 import Card from "./Card";
 import chainData from "../constants/chainData";
-import { ConnectButton } from "./connection";
+import { ConnectButton } from "./Connection";
 import { useWeb3React } from "@web3-react/core";
 import useLiquiditySniper from "../hooks/useLiquiditySniper";
 import { useBalance } from "ether-swr";
