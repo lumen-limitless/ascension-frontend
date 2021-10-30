@@ -1,18 +1,18 @@
 import React from "react";
-import Card from "../components/Card";
-import useStaking from "../hooks/useStaking";
-import useAscend from "../hooks/useAscend";
+import Card from "../../components/Card";
+import useStaking from "../../hooks/useStaking";
+import useAscend from "../../hooks/useAscend";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { ConnectButton } from "../components/Connection";
-import Input from "../components/Input";
-import contractsInfo from "../constants/contractsInfo.json";
+import { ConnectButton } from "../../components/Connection";
+import Input from "../../components/Input";
+import contractsInfo from "../../constants/contractsInfo.json";
 import { useBalanceOf } from "ether-swr";
-import { SwitchNetworkButton } from "../components/Button/switchNetworkButton";
-import Container from "../components/Container";
-import Stat from "../components/Stat";
-import Skeleton from "../Skeleton";
-import Button from "../components/Button";
+import { SwitchNetworkButton } from "../../components/Button/switchNetworkButton";
+import Container from "../../components/Container";
+import Stat from "../../components/Stat";
+import Skeleton from "../../Skeleton";
+import Button from "../../components/Button";
 
 export default function Stake() {
     const { account, active, chainId } = useWeb3React();
