@@ -40,7 +40,7 @@ export default function Toast({ type, message, id }: ToastProps) {
                                 </div>
                                 <div className="ml-3 w-0 flex-1 pt-0.5">
                                     <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-                                        {type}
+                                        Success
                                     </p>
                                     <p className="mt-1 text-sm text-gray-400 ">
                                         {message}
@@ -90,7 +90,7 @@ export default function Toast({ type, message, id }: ToastProps) {
                                 </div>
                                 <div className="ml-3 w-0 flex-1 pt-0.5">
                                     <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-                                        {type}
+                                        Info
                                     </p>
                                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
                                         {message}
@@ -140,7 +140,7 @@ export default function Toast({ type, message, id }: ToastProps) {
                                 </div>
                                 <div className="ml-3 w-0 flex-1 pt-0.5">
                                     <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-                                        {type}
+                                        Error
                                     </p>
                                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
                                         {message}

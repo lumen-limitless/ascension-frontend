@@ -23,8 +23,8 @@ export default function Home() {
                         commify: true,
                     },
                     {
-                        name: "Circulating Supply",
-                        stat: "14,370,000",
+                        name: "Total Supply",
+                        stat: "14,400,000",
                         after: " ASCEND",
                     },
                 ]}

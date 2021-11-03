@@ -5,15 +5,12 @@ import chainData from "../constants/chainData";
 import { ConnectButton } from "./Connection";
 import { useWeb3React } from "@web3-react/core";
 import useLiquiditySniper from "../hooks/useLiquiditySniper";
-import { useBalance } from "ether-swr";
 import { ethers } from "ethers";
-import contractsInfo from "../constants/contractsInfo.json";
 import useAscend from "../hooks/useAscend";
 import Loader from "./Loader";
 import Button from "./Button";
-import AddressInput from "./Input/Address";
-import { useClickAway } from "react-use";
 import Input from "./Input";
+import useBalance from "../hooks/useBalance";
 
 export default function LiquiditySniper(): JSX.Element {
     const { account, active, chainId } = useWeb3React();
@@ -35,8 +32,8 @@ export default function LiquiditySniper(): JSX.Element {
         settingTarget,
         setSettingTarget,
     } = useLiquiditySniper();
-    const { ascendBalance } = useAscend();
-    const { data: eth } = useBalance(account as string);
+    const { totalBalance } = useAscend();
+    const { balance } = useBalance();
 
     const STATUS: { [key: number]: string } = {
         0: "Paused",
@@ -52,11 +49,11 @@ export default function LiquiditySniper(): JSX.Element {
                         <h1>Connect wallet</h1>
                         <ConnectButton />
                     </>
-                ) : !ascendBalance ? (
+                ) : !totalBalance ? (
                     <>
                         <Loader />
                     </>
-                ) : parseFloat(ascendBalance) < 1 ? (
+                ) : totalBalance < 1 ? (
                     <>You must have 1 ASCEND to use this tool!</>
                 ) : !SUPPORTED_CHAINS.includes(chainId as number) ? (
                     <>Chain not supported: {chainId}</>
@@ -150,9 +147,7 @@ export default function LiquiditySniper(): JSX.Element {
                                     <input
                                         type="range"
                                         min={0}
-                                        max={parseFloat(
-                                            ethers.utils.formatEther(eth ?? "1")
-                                        )}
+                                        max={balance ?? 0}
                                         step={0.000001}
                                         value={amount}
                                         title="Enter buy amount"

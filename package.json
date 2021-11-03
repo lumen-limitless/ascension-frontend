@@ -29,9 +29,9 @@
         "@web3-react/injected-connector": "^6.0.7",
         "autoprefixer": "^10.3.7",
         "dom-helpers": "^5.2.1",
-        "ether-swr": "^1.0.0",
         "ethereum-multicall": "^2.9.0",
         "ethers": "^5.4.6",
+        "fs": "^0.0.1-security",
         "next": "^12.0.1",
         "next-themes": "^0.0.15",
         "postcss": "^8.3.11",
@@ -39,11 +39,13 @@
         "rc-slider": "^9.7.4",
         "react": "17.0.2",
         "react-dom": "17.0.2",
+        "react-ga": "^3.3.0",
         "react-use": "^17.3.1",
         "react-virtualized": "^9.22.3",
         "recharts": "^2.1.4",
         "swr": "^1.0.1",
-        "tailwindcss": "^2.2.17"
+        "tailwindcss": "^2.2.17",
+        "webpack": "^5.61.0"
     },
     "devDependencies": {
         "@storybook/addon-actions": "^6.3.12",

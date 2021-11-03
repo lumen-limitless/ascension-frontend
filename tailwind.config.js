@@ -83,8 +83,6 @@ module.exports = {
                 DEFAULT: "0.625rem",
             },
             boxShadow: {
-                swap: "0px 50px 250px -47px rgba(39, 176, 230, 0.29)",
-                liquidity: "0px 50px 250px -47px rgba(123, 97, 255, 0.23)",
                 "pink-glow": "0px 57px 90px -47px rgba(250, 82, 160, 0.15)",
                 "blue-glow": "0px 57px 90px -47px rgba(39, 176, 230, 0.17)",
                 "pink-glow-hovered":

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/Card";
 import useStaking from "../../hooks/useStaking";
 import useAscend from "../../hooks/useAscend";
@@ -7,7 +7,6 @@ import { useWeb3React } from "@web3-react/core";
 import { ConnectButton } from "../../components/Connection";
 import Input from "../../components/Input";
 import contractsInfo from "../../constants/contractsInfo.json";
-import { useBalanceOf } from "ether-swr";
 import { SwitchNetworkButton } from "../../components/Button/switchNetworkButton";
 import Container from "../../components/Container";
 import Stat from "../../components/Stat";
@@ -16,22 +15,16 @@ import Button from "../../components/Button";
 
 export default function Stake() {
     const { account, active, chainId } = useWeb3React();
-    const { approve } = useAscend();
-    const { data: balance } = useBalanceOf(
-        contractsInfo.contracts.AscensionToken.address,
-        account as string
-    );
+    const [amount, setAmount] = useState<string>("");
+    const { approve, tokenBalance } = useAscend();
 
     const {
         staking,
         totalStaked,
-        ROI,
+        apy,
         userStake,
-        isEnabled,
         earnings,
         rewardsEndAt,
-        amount,
-        setAmount,
         stake,
         withdraw,
         exit,
@@ -43,7 +36,7 @@ export default function Stake() {
             <Stat
                 title=""
                 stats={[
-                    { name: "APY", stat: ROI, commify: true, after: "%" },
+                    { name: "APY", stat: apy, after: "%" },
                     {
                         name: "Total Staked",
                         stat: totalStaked,
@@ -56,14 +49,9 @@ export default function Stake() {
                 ]}
             ></Stat>
 
-            <Card
-                className=""
-                title="Staking"
-                description="Stake your ASCEND for rewards"
-            >
+            <Card className="" title="Stake ASCEND">
                 {!active ? (
                     <>
-                        <h1>Connect wallet to stake</h1>
                         <ConnectButton />
                     </>
                 ) : chainId !== parseInt(contractsInfo.chainId) ? (
@@ -73,7 +61,7 @@ export default function Stake() {
                 ) : (
                     <>
                         <div>
-                            {!isEnabled ? (
+                            {false ? (
                                 <Button
                                     color="green"
                                     onClick={() => {
@@ -86,44 +74,37 @@ export default function Stake() {
                                     Enable Staking Pool
                                 </Button>
                             ) : (
-                                <>
+                                <div className="flex items-center justify-center">
                                     <Input.Numeric
                                         value={amount}
                                         onUserInput={setAmount}
                                     />
-                                    <div className="flex items-center justify-center">
-                                        <Button
-                                            color="blue"
-                                            onClick={() => {
-                                                stake(amount ?? "0");
-                                            }}
-                                        >
-                                            {" "}
-                                            Stake{" "}
-                                        </Button>
-                                        <Button
-                                            color="blue"
-                                            onClick={() =>
-                                                withdraw(amount ?? "0")
-                                            }
-                                        >
-                                            Withdraw
-                                        </Button>
-                                    </div>
-                                </>
+                                    <Button
+                                        size="sm"
+                                        onClick={() => {
+                                            stake(amount ?? "0");
+                                        }}
+                                    >
+                                        Stake
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        onClick={() => withdraw(amount ?? "0")}
+                                    >
+                                        Withdraw
+                                    </Button>
+                                </div>
                             )}
                         </div>
-                        {isEnabled ? (
+                        {true ? (
                             <>
                                 <ul className="w-full text-left my-4 p-2    rounded-xl">
                                     <li className="w-full flex">
                                         Balance:{" "}
-                                        {balance ? (
+                                        {tokenBalance ? (
                                             ethers.utils.commify(
                                                 parseFloat(
-                                                    ethers.utils.formatUnits(
-                                                        balance
-                                                    )
+                                                    tokenBalance
                                                 ).toFixed(2)
                                             ) + " ASCEND"
                                         ) : (
@@ -134,11 +115,7 @@ export default function Stake() {
                                         Stake:{" "}
                                         {userStake ? (
                                             ethers.utils.commify(
-                                                parseFloat(
-                                                    ethers.utils.formatUnits(
-                                                        userStake
-                                                    )
-                                                ).toFixed(2)
+                                                parseFloat(userStake).toFixed(2)
                                             ) + " ASCEND"
                                         ) : (
                                             <Skeleton />
@@ -148,11 +125,7 @@ export default function Stake() {
                                         Earnings:{" "}
                                         {earnings ? (
                                             ethers.utils.commify(
-                                                parseFloat(
-                                                    ethers.utils.formatUnits(
-                                                        earnings
-                                                    )
-                                                ).toFixed(2)
+                                                parseFloat(earnings).toFixed(2)
                                             ) + " ASCEND"
                                         ) : (
                                             <Skeleton />
@@ -180,6 +153,7 @@ export default function Stake() {
                     </>
                 )}
             </Card>
+            <div className="h-40 w-full"></div>
         </Container>
     );
 }

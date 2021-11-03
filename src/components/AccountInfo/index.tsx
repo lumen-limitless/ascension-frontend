@@ -5,10 +5,11 @@ import useAscend from "../../hooks/useAscend";
 import Skeleton from "../../Skeleton";
 import { commify } from "@ethersproject/units";
 import { shortenAddress } from "../../functions";
+import useBalance from "../../hooks/useBalance";
 
 export default function AccountInfo() {
     const { account } = useWeb3React();
-    const { ascendBalance } = useAscend();
+    const { tokenBalance, stakedTokenBalance } = useAscend();
     return (
         <>
             <DisconnectButton className="absolute top-2 right-2" />
@@ -18,8 +19,17 @@ export default function AccountInfo() {
             </div>
             <div className="w-full flex items-center">
                 Balance:{" "}
-                {ascendBalance ? (
-                    commify(parseFloat(ascendBalance).toFixed(2))
+                {tokenBalance ? (
+                    commify(parseFloat(tokenBalance).toFixed(2))
+                ) : (
+                    <Skeleton />
+                )}{" "}
+                ASCEND
+            </div>
+            <div className="w-full flex items-center">
+                Staked:{" "}
+                {stakedTokenBalance ? (
+                    commify(parseFloat(stakedTokenBalance).toFixed(2))
                 ) : (
                     <Skeleton />
                 )}{" "}

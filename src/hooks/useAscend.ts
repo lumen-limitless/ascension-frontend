@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import contractsInfo from "../constants/contractsInfo.json";
@@ -6,7 +6,7 @@ import { useContract, useTokenContract } from "./useContract";
 import { formatUnits } from "@ethersproject/units";
 import { useToast } from "./useToast";
 import { usePromise } from "react-use";
-import { ChainId, RPC_URL } from "../constants";
+import { ASCENSION, ChainId, RPC_URL, ZERO_ADDRESS } from "../constants";
 
 import {
     JsonRpcSigner,
@@ -14,43 +14,75 @@ import {
     JsonRpcProvider,
 } from "@ethersproject/providers";
 import useMulticall from "./useMulticall";
-import { CallContext } from "ethereum-multicall/dist/esm/models";
+import { ContractCallContext } from "ethereum-multicall";
 
 export default function useAscend() {
     const { account, active, chainId, library } = useWeb3React<Web3Provider>();
     const mounted = usePromise();
     const toast = useToast(4000);
-    const [ascendBalance, setAscendBalance] = useState<string>();
+
     const ascend = useContract(
         contractsInfo.contracts.AscensionToken.address,
-        contractsInfo.contracts.AscensionToken.abi,
-        new JsonRpcProvider(RPC_URL[parseInt(contractsInfo.chainId)])
+        contractsInfo.contracts.AscensionToken.abi
     );
 
-    const sAscend = useContract(
-        contractsInfo.contracts.AscensionStakedToken.address,
-        contractsInfo.contracts.AscensionStakedToken.abi,
-        new JsonRpcProvider(RPC_URL[parseInt(contractsInfo.chainId)])
-    );
-    useEffect(() => {
-        const get = async () => {
-            if (active) {
-                try {
-                    const tBal: ethers.BigNumber = await mounted(
-                        ascend.balanceOf(account)
-                    );
-                    const sBal: ethers.BigNumber = await mounted(
-                        sAscend.balanceOf(account)
-                    );
-                    setAscendBalance(formatUnits(tBal.add(sBal)));
-                } catch (err) {
-                    console.error(err);
-                }
-            }
-        };
+    const tokenCalls: ContractCallContext[] = useMemo(() => {
+        return [
+            {
+                reference: "AscensionToken",
+                contractAddress: ASCENSION.AscensionToken.address,
+                abi: ASCENSION.AscensionToken.abi,
+                calls: [
+                    {
+                        reference: "",
+                        methodName: "balanceOf",
+                        methodParameters: [account ?? ZERO_ADDRESS],
+                    },
+                ],
+            },
+        ];
+    }, [account]);
+    const stakedTokenCalls: ContractCallContext[] = useMemo(() => {
+        return [
+            {
+                reference: "AscensionStakedToken",
+                contractAddress: ASCENSION.AscensionStakedToken.address,
+                abi: ASCENSION.AscensionStakedToken.abi,
+                calls: [
+                    {
+                        reference: "",
+                        methodName: "balanceOf",
+                        methodParameters: [account ?? ZERO_ADDRESS],
+                    },
+                ],
+            },
+        ];
+    }, [account]);
 
-        get();
-    });
+    const { result: tokenResults } = useMulticall(tokenCalls);
+    const { result: stakedTokenResults } = useMulticall(stakedTokenCalls);
+
+    const tokenBalance = useMemo(() => {
+        if (!tokenResults) return null;
+        return formatUnits(
+            tokenResults.results["AscensionToken"].callsReturnContext[0]
+                .returnValues[0]
+        );
+    }, [tokenResults]);
+
+    const stakedTokenBalance = useMemo(() => {
+        if (!stakedTokenResults) return null;
+        return formatUnits(
+            stakedTokenResults.results["AscensionStakedToken"]
+                .callsReturnContext[0].returnValues[0]
+        );
+    }, [stakedTokenResults]);
+
+    const totalBalance = useMemo(() => {
+        return tokenBalance && stakedTokenBalance
+            ? parseFloat(tokenBalance) + parseFloat(stakedTokenBalance)
+            : 0;
+    }, [tokenBalance, stakedTokenBalance]);
 
     async function approve(address: string, amount: ethers.BigNumberish) {
         if (!active || chainId != parseInt(contractsInfo.chainId)) {
@@ -72,5 +104,5 @@ export default function useAscend() {
         }
     }
 
-    return { ascend, ascendBalance, approve };
+    return { ascend, tokenBalance, stakedTokenBalance, totalBalance, approve };
 }

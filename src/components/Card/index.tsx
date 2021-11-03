@@ -33,7 +33,7 @@ function Card({
 }: CardProps) {
     return (
         <div
-            className={`relative ${className} bg-gray-100 text-black dark:bg-dark-800 dark:text-white `}
+            className={`relative ${className} bg-gray-100 text-black dark:bg-dark-800 dark:text-white shadow-lg dark:shadow-pink-glow`}
             style={{
                 borderRadius: "10px",
                 backgroundImage: `url(${backgroundImage})`,

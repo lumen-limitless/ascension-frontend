@@ -2,62 +2,15 @@ import React from "react";
 import "../styles/index.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-import Layout from "../layout";
-import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
-import contractsInfo from "../constants/contractsInfo.json";
-import { EtherSWRConfig } from "ether-swr";
-import { NextComponentType, NextPageContext } from "next";
-import { ConnectButton } from "../components/Connection";
+import { Web3ReactProvider } from "@web3-react/core";
+
 import { ToastProvider } from "../context/ToastContext";
 import ToastContainer from "../components/Toast/toastContainer";
 import { ThemeProvider } from "next-themes";
-import Container from "../components/Container";
+
 import getLibrary from "../functions/getLibrary";
+import Layout from "../layout";
 
-const ABIs: any = [
-    [
-        contractsInfo.contracts.AscensionToken.address,
-        contractsInfo.contracts.AscensionToken.abi,
-    ],
-    [
-        contractsInfo.contracts.AscensionStaking.address,
-        contractsInfo.contracts.AscensionStaking.abi,
-    ],
-    [
-        contractsInfo.contracts.AscensionDiamond.address,
-        contractsInfo.contracts.ERC20DistributorFacet.abi,
-    ],
-];
-
-function App({
-    Component,
-    pageProps,
-}: {
-    Component: NextComponentType<NextPageContext, any, {}>;
-    pageProps: any;
-}) {
-    const { library, active } = useWeb3React();
-
-    return (
-        <Layout>
-            {!active ? (
-                <Container>
-                    <ConnectButton />
-                </Container>
-            ) : (
-                <EtherSWRConfig
-                    value={{
-                        web3Provider: library,
-                        ABIs: new Map(ABIs),
-                        refreshInterval: 3000,
-                    }}
-                >
-                    <Component {...pageProps} />
-                </EtherSWRConfig>
-            )}
-        </Layout>
-    );
-}
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
@@ -145,8 +98,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <Web3ReactProvider getLibrary={getLibrary}>
                 <ThemeProvider attribute="class">
                     <ToastProvider>
-                        <App Component={Component} pageProps={pageProps} />
-                        <ToastContainer />
+                        <Layout>
+                            <Component {...pageProps} />
+                            <ToastContainer />
+                        </Layout>
                     </ToastProvider>
                 </ThemeProvider>
             </Web3ReactProvider>

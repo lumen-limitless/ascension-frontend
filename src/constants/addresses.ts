@@ -1,8 +1,25 @@
 import { ChainId } from ".";
 import { AddressMap } from "../types";
-
+import contractsInfo from "../constants/contractsInfo.json";
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
+
+export const ASCENSION: {
+    [key: string]: { address: string; abi: any };
+} = {
+    AscensionToken: {
+        address: contractsInfo.contracts.AscensionToken.address,
+        abi: contractsInfo.contracts.AscensionToken.abi,
+    },
+    AscensionStakedToken: {
+        address: contractsInfo.contracts.AscensionStakedToken.address,
+        abi: contractsInfo.contracts.AscensionStakedToken.abi,
+    },
+    AscensionStaking: {
+        address: contractsInfo.contracts.AscensionStaking.address,
+        abi: contractsInfo.contracts.AscensionStaking.abi,
+    },
+};
 
 export const WETH9_ADDRESS: AddressMap = {
     [ChainId.MAINNET]: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -20,6 +37,60 @@ export const WETH9_ADDRESS: AddressMap = {
     [ChainId.HARMONY]: "0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
     [ChainId.XDAI]: "0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1",
     [ChainId.AVALANCHE]: "0xf20d962a6c8f70c731bd838a3a388D7d48fA6e15",
+};
+
+export const WNATIVE_ADDRESS: AddressMap = {
+    [ChainId.MAINNET]: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    [ChainId.ROPSTEN]: "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+    [ChainId.RINKEBY]: "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+    [ChainId.GÖRLI]: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+    [ChainId.KOVAN]: "0xd0A1E359811322d97991E03f863a0C30C2cF029C",
+    [ChainId.ARBITRUM]: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+    [ChainId.ARBITRUM_TESTNET]: "0xf8456e5e6A225C2C1D74D8C9a4cB2B1d5dc1153b",
+    [ChainId.BSC]: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+    [ChainId.FANTOM]: "",
+    [ChainId.MATIC]: "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+    [ChainId.OKEX]: "",
+    [ChainId.HECO]: "",
+    [ChainId.HARMONY]: "",
+    [ChainId.XDAI]: "",
+    [ChainId.AVALANCHE]: "",
+};
+
+export const ROUTERV2_ADDRESS: AddressMap = {
+    [ChainId.MAINNET]: "",
+    [ChainId.ROPSTEN]: "",
+    [ChainId.RINKEBY]: "",
+    [ChainId.GÖRLI]: "",
+    [ChainId.KOVAN]: "",
+    [ChainId.ARBITRUM]: "",
+    [ChainId.ARBITRUM_TESTNET]: "",
+    [ChainId.BSC]: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+    [ChainId.FANTOM]: "",
+    [ChainId.MATIC]: "",
+    [ChainId.OKEX]: "",
+    [ChainId.HECO]: "",
+    [ChainId.HARMONY]: "",
+    [ChainId.XDAI]: "",
+    [ChainId.AVALANCHE]: "",
+};
+
+export const FACTORY_ADDRESS: AddressMap = {
+    [ChainId.MAINNET]: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    [ChainId.ROPSTEN]: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    [ChainId.RINKEBY]: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    [ChainId.GÖRLI]: "",
+    [ChainId.KOVAN]: "",
+    [ChainId.ARBITRUM]: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
+    [ChainId.ARBITRUM_TESTNET]: "",
+    [ChainId.BSC]: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+    [ChainId.FANTOM]: "",
+    [ChainId.MATIC]: "",
+    [ChainId.OKEX]: "",
+    [ChainId.HECO]: "",
+    [ChainId.HARMONY]: "",
+    [ChainId.XDAI]: "",
+    [ChainId.AVALANCHE]: "",
 };
 
 export const ENS_REGISTRAR_ADDRESS: AddressMap = {

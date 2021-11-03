@@ -10,7 +10,6 @@ export default function Tools() {
     const [option, setOption] = useState<number>();
     const TOOLS: { [key: number]: JSX.Element } = {
         1: <LiquiditySniper />,
-        2: <Distributor />,
     };
 
     return (
@@ -35,14 +34,6 @@ export default function Tools() {
                             onClick={() => setOption(1)}
                         >
                             Liquidity Sniper
-                        </Button>
-                        <Button
-                            color="blue"
-                            size="lg"
-                            className="my-2"
-                            onClick={() => setOption(2)}
-                        >
-                            Token Distributor
                         </Button>
                     </Card>
                 </>
