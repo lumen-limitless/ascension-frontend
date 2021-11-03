@@ -10,16 +10,17 @@ export default function useBalance(address?: string) {
 
     const balanceFetcher = useCallback(
         async (address) => {
+            if (!active) return null;
             const balance = await library.getBalance(
                 address ?? account ?? ZERO_ADDRESS
             );
             return parseFloat(formatEther(balance));
         },
-        [account, library]
+        [account, library, active]
     );
 
     const { data, error } = useSWR(account, balanceFetcher);
-    if (!active) return null;
+
     if (error) return null;
     return { balance: data };
 }
