@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../Card";
-import { ConnectButton } from "../Connection";
+import { Connect } from "../Connection";
 import { useWeb3React } from "@web3-react/core";
 import contractsInfo from "../../constants/contractsInfo.json";
 import Button from "../Button";
@@ -13,7 +13,7 @@ export default function Distributor(): JSX.Element {
             <Card className=" ">
                 {!active ? (
                     <>
-                        <ConnectButton />
+                        <Connect />
                     </>
                 ) : chainId?.toString() !== contractsInfo.chainId ? (
                     <>Chain not supported: {chainId}</>
