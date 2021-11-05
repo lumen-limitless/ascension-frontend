@@ -6,7 +6,7 @@ export default function Layout({ children }: any) {
         <>
             <Header />
             <main
-                className={`flex flex-col items-center justify-start flex-grow w-full h-full`}
+                className="flex flex-col items-center justify-start flex-grow w-full h-full"
                 style={{ height: "max-content" }}
             >
                 {children}

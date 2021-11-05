@@ -1,7 +1,5 @@
 import { classNames, escapeRegExp } from "../../../functions";
-
 import React from "react";
-import { useDebounce } from "react-use";
 
 const inputRegex = RegExp(`^\\d*$`); // match escaped "." characters via in a non-capturing group
 
@@ -30,12 +28,12 @@ export const Input = React.memo(
                     }}
                     // universal input options
                     inputMode="text"
-                    title="Wallet Address or ENS name"
+                    title="Address"
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="off"
                     spellCheck="false"
-                    placeholder="Wallet Address or ENS name"
+                    placeholder="Address"
                     pattern="^(0x[a-fA-F0-9]{40})$"
                     // text-specific options
                     type="text"

@@ -8,7 +8,6 @@ import useCoingecko, {
 
 export default function Home() {
     const { price, marketCap } = useCoingeckoAscensionStats();
-    console.log(price);
 
     return (
         <Container maxWidth="5xl">

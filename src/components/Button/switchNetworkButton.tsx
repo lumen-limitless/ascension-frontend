@@ -1,8 +1,8 @@
 import React from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
-import chainData from "../../constants/chainData";
 import Pill from "./pill";
 import Button from ".";
+import { RPC_URL } from "../../constants";
 
 export function SwitchNetworkButton({ className, chainId, children }: any) {
     const switchNetwork = async (chainId: string) => {
@@ -22,9 +22,7 @@ export function SwitchNetworkButton({ className, chainId, children }: any) {
                             params: [
                                 {
                                     chainId: chainId,
-                                    rpcUrl:
-                                        chainData[parseInt(chainId)]
-                                            .rpc /* ... */,
+                                    rpcUrl: RPC_URL[chainId],
                                 },
                             ],
                         });

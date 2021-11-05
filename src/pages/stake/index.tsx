@@ -1,22 +1,38 @@
 import React, { useState } from "react";
 import Card from "../../components/Card";
 import useStaking from "../../hooks/useStaking";
-import useAscend from "../../hooks/useAscend";
+import { useAscendBalance } from "../../hooks/useAscend";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { ConnectButton } from "../../components/Connection";
+import { Connect } from "../../components/Connection";
 import Input from "../../components/Input";
 import contractsInfo from "../../constants/contractsInfo.json";
 import { SwitchNetworkButton } from "../../components/Button/switchNetworkButton";
 import Container from "../../components/Container";
 import Stat from "../../components/Stat";
-import Skeleton from "../../Skeleton";
+import Skeleton from "../../components/Skeleton";
 import Button from "../../components/Button";
+import { ASCENSION } from "../../constants";
+import useContractCall from "../../hooks/useContractCall";
+import { useContract } from "../../hooks/useContract";
+import { formatUnits } from "@ethersproject/units";
+import Loader from "../../components/Loader";
 
 export default function Stake() {
     const { account, active, chainId } = useWeb3React();
     const [amount, setAmount] = useState<string>("");
-    const { approve, tokenBalance } = useAscend();
+    const { approve, tokenBalance } = useAscendBalance();
+    const ascend = useContract(
+        ASCENSION.AscensionToken.address,
+        ASCENSION.AscensionToken.abi,
+        parseInt(contractsInfo.chainId)
+    );
+    const { data: allowance } = useContractCall([
+        ascend,
+        "allowance",
+        account,
+        ASCENSION.AscensionStaking.address,
+    ]);
 
     const {
         staking,
@@ -52,18 +68,20 @@ export default function Stake() {
             <Card className="" title="Stake ASCEND">
                 {!active ? (
                     <>
-                        <ConnectButton />
+                        <Connect />
                     </>
                 ) : chainId !== parseInt(contractsInfo.chainId) ? (
                     <SwitchNetworkButton chainId="0x66EEB">
                         Switch to Arbitrum
                     </SwitchNetworkButton>
+                ) : !allowance ? (
+                    <Loader />
                 ) : (
                     <>
                         <div>
-                            {false ? (
+                            {parseFloat(formatUnits(allowance)) === 0 ? (
                                 <Button
-                                    color="green"
+                                    color="gradient"
                                     onClick={() => {
                                         approve(
                                             staking.address,
@@ -96,7 +114,7 @@ export default function Stake() {
                                 </div>
                             )}
                         </div>
-                        {true ? (
+                        {parseFloat(formatUnits(allowance)) > 0 && (
                             <>
                                 <ul className="w-full text-left my-4 p-2    rounded-xl">
                                     <li className="w-full flex">
@@ -149,7 +167,7 @@ export default function Stake() {
                                     </Button>
                                 </div>
                             </>
-                        ) : null}
+                        )}
                     </>
                 )}
             </Card>

@@ -3,13 +3,12 @@ import "../styles/index.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { Web3ReactProvider } from "@web3-react/core";
-
 import { ToastProvider } from "../context/ToastContext";
 import ToastContainer from "../components/Toast/toastContainer";
 import { ThemeProvider } from "next-themes";
-
 import getLibrary from "../functions/getLibrary";
 import Layout from "../layout";
+import { useRouter } from "next/dist/client/router";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (

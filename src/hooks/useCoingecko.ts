@@ -8,7 +8,8 @@ export default function useCoingecko(url: string) {
     );
 
     const { data, error } = useSWR(url, fetcher);
-    console.log(data);
+
+    if (error) console.error(error);
     return { data, error };
 }
 

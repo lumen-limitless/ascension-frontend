@@ -23,7 +23,7 @@ export function getProviderOrSigner(
     return account ? getSigner(library, account) : library;
 }
 
-// account is optional
+// signerOrProvider is optional
 export function getContract(
     address: string,
     ABI: any,

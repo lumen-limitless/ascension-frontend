@@ -46,6 +46,8 @@ body {
     @apply min-h-full;
     @apply dark:bg-dark-1000 bg-gray-300;
     @apply text-black dark:text-white;
+    @apply overflow-x-hidden
+  
 }
 
 a {

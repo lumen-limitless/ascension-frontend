@@ -1,92 +1,56 @@
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import contractsInfo from "../constants/contractsInfo.json";
-import { useContract, useTokenContract } from "./useContract";
+import { useAscensionStakedToken, useAscensionToken } from "./useContract";
 import { formatUnits } from "@ethersproject/units";
 import { useToast } from "./useToast";
-import { usePromise } from "react-use";
-import { ASCENSION, ChainId, RPC_URL, ZERO_ADDRESS } from "../constants";
 
-import {
-    JsonRpcSigner,
-    Web3Provider,
-    JsonRpcProvider,
-} from "@ethersproject/providers";
-import useMulticall from "./useMulticall";
-import { ContractCallContext } from "ethereum-multicall";
+import { Web3Provider } from "@ethersproject/providers";
+import useContractCall from "./useContractCall";
 
-export default function useAscend() {
-    const { account, active, chainId, library } = useWeb3React<Web3Provider>();
-    const mounted = usePromise();
+export function useAscendBalance() {
+    const {
+        account,
+        active,
+        chainId,
+        library,
+        error,
+    } = useWeb3React<Web3Provider>();
     const toast = useToast(4000);
 
-    const ascend = useContract(
-        contractsInfo.contracts.AscensionToken.address,
-        contractsInfo.contracts.AscensionToken.abi
-    );
+    const ascend = useAscensionToken();
 
-    const tokenCalls: ContractCallContext[] = useMemo(() => {
-        return [
-            {
-                reference: "AscensionToken",
-                contractAddress: ASCENSION.AscensionToken.address,
-                abi: ASCENSION.AscensionToken.abi,
-                calls: [
-                    {
-                        reference: "",
-                        methodName: "balanceOf",
-                        methodParameters: [account ?? ZERO_ADDRESS],
-                    },
-                ],
-            },
-        ];
-    }, [account]);
-    const stakedTokenCalls: ContractCallContext[] = useMemo(() => {
-        return [
-            {
-                reference: "AscensionStakedToken",
-                contractAddress: ASCENSION.AscensionStakedToken.address,
-                abi: ASCENSION.AscensionStakedToken.abi,
-                calls: [
-                    {
-                        reference: "",
-                        methodName: "balanceOf",
-                        methodParameters: [account ?? ZERO_ADDRESS],
-                    },
-                ],
-            },
-        ];
-    }, [account]);
+    const sAscend = useAscensionStakedToken();
 
-    const { result: tokenResults } = useMulticall(tokenCalls);
-    const { result: stakedTokenResults } = useMulticall(stakedTokenCalls);
-
+    const { data: ascendBalance } = useContractCall([
+        ascend,
+        "balanceOf",
+        account,
+    ]);
+    const { data: sAscendBalance } = useContractCall([
+        sAscend,
+        "balanceOf",
+        account,
+    ]);
     const tokenBalance = useMemo(() => {
-        if (!tokenResults) return null;
-        return formatUnits(
-            tokenResults.results["AscensionToken"].callsReturnContext[0]
-                .returnValues[0]
-        );
-    }, [tokenResults]);
+        if (!ascendBalance) return null;
+        return formatUnits(ascendBalance);
+    }, [ascendBalance]);
 
-    const stakedTokenBalance = useMemo(() => {
-        if (!stakedTokenResults) return null;
-        return formatUnits(
-            stakedTokenResults.results["AscensionStakedToken"]
-                .callsReturnContext[0].returnValues[0]
-        );
-    }, [stakedTokenResults]);
+    const stakedBalance = useMemo(() => {
+        if (!sAscendBalance) return null;
+        return formatUnits(sAscendBalance);
+    }, [sAscendBalance]);
 
     const totalBalance = useMemo(() => {
-        return tokenBalance && stakedTokenBalance
-            ? parseFloat(tokenBalance) + parseFloat(stakedTokenBalance)
-            : 0;
-    }, [tokenBalance, stakedTokenBalance]);
+        if (!tokenBalance || !stakedBalance) return null;
+        return parseFloat(tokenBalance) + parseFloat(stakedBalance);
+    }, [tokenBalance, stakedBalance]);
 
     async function approve(address: string, amount: ethers.BigNumberish) {
         if (!active || chainId != parseInt(contractsInfo.chainId)) {
-            console.error("NETWORK ERROR");
+            console.error("NETWORK ERROR", error);
             return;
         }
         try {
@@ -100,9 +64,9 @@ export default function useAscend() {
             }
         } catch (err: any) {
             console.error(err);
-            toast("error", `Error during approval`);
+            toast("error", `${err.data.message}`);
         }
     }
 
-    return { ascend, tokenBalance, stakedTokenBalance, totalBalance, approve };
+    return { tokenBalance, stakedBalance, totalBalance, approve };
 }

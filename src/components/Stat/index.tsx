@@ -1,6 +1,6 @@
 import { commify } from "@ethersproject/units";
 import React from "react";
-import Skeleton from "../../Skeleton";
+import Skeleton from "../Skeleton";
 import Card from "../Card";
 
 type Stat = {

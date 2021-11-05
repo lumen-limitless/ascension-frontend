@@ -1,39 +1,66 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import chainData from "../constants/chainData";
+import IUniswapV2Router02 from "@uniswap/v2-periphery/build/IUniswapV2Router02.json";
 import { TransactionReceipt } from "@ethersproject/abstract-provider";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { useToast } from "./useToast";
+import { Web3Provider } from "@ethersproject/providers";
+import { FACTORY_ADDRESS, ROUTER_ADDRESS, WNATIVE_ADDRESS } from "../constants";
+import { useContract } from "./useContract";
 
-const SUPPORTED_CHAINS = [1, 4, 56, 137, 42161];
 export default function useLiquiditySniper() {
-    const { library, account, active, chainId } = useWeb3React();
+    const {
+        library,
+        account,
+        active,
+        chainId,
+        error,
+    } = useWeb3React<Web3Provider>();
     const toast = useToast(4000);
     const [targetInput, setTargetInput] = useState<string>("");
     const [target, setTarget] = useState<string>("");
     const [amount, setAmount] = useState<string>(".00001");
     const [gas, setGas] = useState<string>("5");
     const [slippage, setSlippage] = useState<number>(50);
-    const [status, setStatus] = useState<number>(0);
+    const [status, setStatus] = useState<"buying" | "searching" | "paused">(
+        "paused"
+    );
     const [settingTarget, setSettingTarget] = useState(false);
 
+    const factory = useContract(
+        FACTORY_ADDRESS[chainId],
+        [
+            "event PairCreated(address indexed token0, address indexed token1, address pair, uint)",
+        ],
+        chainId
+    );
+
+    const router = useContract(
+        ROUTER_ADDRESS[chainId],
+        IUniswapV2Router02.abi,
+        chainId
+    );
+
     useEffect(() => {
-        if (!active || !SUPPORTED_CHAINS.includes(chainId as number)) {
+        if (!active) {
+            toast("error", `${error}`);
             return;
         }
 
-        const weth = ethers.utils.getAddress(
-            chainData[chainId as number].weth.address
-        );
-        const factory: ethers.Contract = chainData[
-            chainId as number
-        ].factory.connect(library.getSigner());
-        const router: ethers.Contract = chainData[
-            chainId as number
-        ].router.connect(library.getSigner());
+        if (!factory) {
+            console.error("Factory is null");
+            setStatus("paused");
+            return;
+        }
+        if (!router) {
+            console.error("router is null");
+            setStatus("paused");
+            return;
+        }
+        const weth = WNATIVE_ADDRESS[chainId];
 
-        if (status === 1) {
+        if (status === "searching") {
             console.log(`Searching for target(s)
           targets: ${target}
           `);
@@ -93,7 +120,7 @@ export default function useLiquiditySniper() {
                             "info",
                             `Liquidity detected for target ${target}, sniping...`
                         );
-                        setStatus(2);
+                        setStatus("buying");
                     });
                 } else {
                     setTarget(ethers.utils.getAddress(sellToken as string));
@@ -101,10 +128,10 @@ export default function useLiquiditySniper() {
                         "info",
                         `Liquidity detected for target ${target}, sniping...`
                     );
-                    setStatus(2);
+                    setStatus("buying");
                 }
             });
-        } else if (status === 2) {
+        } else if (status === "buying") {
             factory.removeAllListeners();
             const swap = async () => {
                 const amountIn = parseUnits(amount);
@@ -129,6 +156,7 @@ export default function useLiquiditySniper() {
                     gasPrice: ethers.utils.parseUnits(gas, "gwei"),
                     value: ethers.utils.parseUnits(amount, "ether"),
                 };
+                router.connect(library.getSigner());
                 let tx = await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
                     amountOutMin,
                     [weth, target],
@@ -150,7 +178,7 @@ export default function useLiquiditySniper() {
                   Gas used: ${receipt.gasUsed}
                   `
                     );
-                    setStatus(0);
+                    setStatus("paused");
                     return;
                 } else {
                     toast(
@@ -158,18 +186,18 @@ export default function useLiquiditySniper() {
                         `Token swap unsuccessful!
                    `
                     );
-                    setStatus(0);
+                    setStatus("paused");
                     return;
                 }
             };
 
             swap().catch((err) => {
-                console.error(err);
-                setStatus(0);
+                console.error("error while swapping tokens", err);
+                setStatus("paused");
             });
         } else {
             factory.removeAllListeners();
-            console.log("paused");
+            console.log(status);
         }
         return function cleanup() {
             factory.removeAllListeners();
@@ -193,15 +221,14 @@ export default function useLiquiditySniper() {
         setSettingTarget(false);
     };
     const toggleStatus = () => {
-        if (status === 0) {
-            setStatus(1);
+        if (status === "paused") {
+            setStatus("searching");
         } else {
-            setStatus(0);
+            setStatus("paused");
         }
     };
 
     return {
-        SUPPORTED_CHAINS,
         targetInput,
         setTargetInput,
         target,

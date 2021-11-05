@@ -1,21 +1,21 @@
 import React from "react";
 import Pill from "./Button/pill";
 import Card from "./Card";
-import chainData from "../constants/chainData";
-import { ConnectButton } from "./Connection";
+import { Connect } from "./Connection";
 import { useWeb3React } from "@web3-react/core";
 import useLiquiditySniper from "../hooks/useLiquiditySniper";
-import { ethers } from "ethers";
-import useAscend from "../hooks/useAscend";
+import { useAscendBalance } from "../hooks/useAscend";
 import Loader from "./Loader";
 import Button from "./Button";
 import Input from "./Input";
 import useBalance from "../hooks/useBalance";
+import BuyAscend from "./BuyAscend";
+import { capitalize } from "../functions";
+import { CHAIN_SYMBOL } from "../constants";
 
 export default function LiquiditySniper(): JSX.Element {
-    const { account, active, chainId } = useWeb3React();
+    const { active, chainId } = useWeb3React();
     const {
-        SUPPORTED_CHAINS,
         targetInput,
         setTargetInput,
         target,
@@ -32,14 +32,8 @@ export default function LiquiditySniper(): JSX.Element {
         settingTarget,
         setSettingTarget,
     } = useLiquiditySniper();
-    const { totalBalance } = useAscend();
+    const { totalBalance } = useAscendBalance();
     const { balance } = useBalance();
-
-    const STATUS: { [key: number]: string } = {
-        0: "Paused",
-        1: "Searching",
-        2: "Buying",
-    };
 
     return (
         <>
@@ -47,16 +41,16 @@ export default function LiquiditySniper(): JSX.Element {
                 {!active ? (
                     <>
                         <h1>Connect wallet</h1>
-                        <ConnectButton />
+                        <Connect />
                     </>
-                ) : !totalBalance ? (
+                ) : !totalBalance && typeof totalBalance !== "number" ? (
                     <>
                         <Loader />
                     </>
                 ) : totalBalance < 1 ? (
-                    <>You must have 1 ASCEND to use this tool!</>
-                ) : !SUPPORTED_CHAINS.includes(chainId as number) ? (
-                    <>Chain not supported: {chainId}</>
+                    <>
+                        <BuyAscend />
+                    </>
                 ) : (
                     <div className="flex flex-col h-full w-full">
                         <div className="flex flex-col items-center justify-center w-full p-4">
@@ -65,9 +59,9 @@ export default function LiquiditySniper(): JSX.Element {
                                 height="128"
                                 viewBox="0 0 238 238"
                                 className={`fill-current opacity-100 ${
-                                    status == 0
+                                    status == "paused"
                                         ? "text-red"
-                                        : status == 1
+                                        : status == "searching"
                                         ? "text-yellow animate-pulse"
                                         : "text-green animate-bounce"
                                 }`}
@@ -95,13 +89,15 @@ export default function LiquiditySniper(): JSX.Element {
                                 />
                                 <rect x="111" y="200" width="9" height="38" />
                             </svg>
-                            <h1>{STATUS[status]}</h1>
+                            <h1>{capitalize(status)}</h1>
                             <Button
-                                color={status === 0 ? "green" : "red"}
+                                color={status === "paused" ? "green" : "red"}
                                 className={`w-2/3`}
                                 onClick={() => toggleStatus()}
                             >
-                                {status !== 0 ? "Stop Sniper" : "Start Sniper"}
+                                {status !== "paused"
+                                    ? "Stop Sniper"
+                                    : "Start Sniper"}
                             </Button>
                         </div>
                         <div className="flex flex-col justify-center m-2 p-2  rounded-xl">
@@ -156,7 +152,7 @@ export default function LiquiditySniper(): JSX.Element {
                                         }}
                                     ></input>
                                     {`${amount}
-                  ${chainData[chainId ? chainId : 1].symbol}`}
+                  ${chainId && CHAIN_SYMBOL[chainId]}`}
                                 </li>
                                 <li className="flex items-center">
                                     Gas:{" "}

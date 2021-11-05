@@ -1,95 +1,44 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import { useContract } from "./useContract";
+import { useAscensionStaking, useContract } from "./useContract";
 import contractsInfo from "../constants/contractsInfo.json";
 import { useToast } from "./useToast";
-import { commify, formatUnits, parseUnits } from "@ethersproject/units";
-import useMulticall from "./useMulticall";
-import { ContractCallContext } from "ethereum-multicall";
-import { ASCENSION, RPC_URL, ZERO_ADDRESS } from "../constants";
+import { formatUnits, parseUnits } from "@ethersproject/units";
+import { ASCENSION, ChainId } from "../constants";
+import useContractCall from "./useContractCall";
 
 export default function useStaking() {
     const { account, active, chainId, library } = useWeb3React();
     const toast = useToast(4000);
 
-    const staking = useContract(
-        ASCENSION.AscensionStaking.address,
-        ASCENSION.AscensionStaking.abi
-    );
+    const staking = useAscensionStaking();
 
-    const calls: ContractCallContext[] = useMemo(() => {
-        return [
-            {
-                reference: "AscensionStaking",
-                contractAddress: ASCENSION.AscensionStaking.address,
-                abi: ASCENSION.AscensionStaking.abi,
-                calls: [
-                    {
-                        reference: "",
-                        methodName: "totalStaked",
-                        methodParameters: [],
-                    },
-                    {
-                        reference: "",
-                        methodName: "periodFinish",
-                        methodParameters: [],
-                    },
-                    {
-                        reference: "",
-                        methodName: "balanceOf",
-                        methodParameters: [account ?? ZERO_ADDRESS],
-                    },
-                    {
-                        reference: "",
-                        methodName: "earned",
-                        methodParameters: [account ?? ZERO_ADDRESS],
-                    },
-                    {
-                        reference: "",
-                        methodName: "rewardRate",
-                        methodParameters: [],
-                    },
-                ],
-            },
-        ];
-    }, [account]);
+    const { data: userStake } = useContractCall([
+        staking,
+        "balanceOf",
+        account,
+    ]);
 
-    const { result } = useMulticall(calls);
+    const { data: totalStaked } = useContractCall([staking, "totalStaked"]);
+    const { data: periodFinish } = useContractCall([staking, "periodFinish"]);
+    const { data: rewardRate } = useContractCall([staking, "rewardRate"]);
+    const { data: earnings } = useContractCall([staking, "earned", account]);
 
     const rewardsEndAt = useMemo(() => {
-        return result
-            ? ethers.BigNumber.from(
-                  result.results["AscensionStaking"].callsReturnContext[1]
-                      .returnValues[0]
-              ).toNumber()
-            : undefined;
-    }, [result]);
+        if (!periodFinish) return null;
+        const timestamp = ethers.BigNumber.from(periodFinish).toNumber();
+        return new Date(timestamp * 1000).toLocaleDateString();
+    }, [periodFinish]);
 
     const apy = useMemo(() => {
-        if (!result) return null;
+        if (!rewardRate || !totalStaked) return null;
 
-        const rewardRate = parseFloat(
-            formatUnits(
-                result.results["AscensionStaking"].callsReturnContext[4]
-                    .returnValues[0].hex,
-                "18"
-            )
-        );
-
-        const totalStaked = parseFloat(
-            formatUnits(
-                result.results["AscensionStaking"].callsReturnContext[0]
-                    .returnValues[0]
-            )
-        );
-
-        const i = (rewardRate * 31557600) / totalStaked;
-
-        return ((Math.pow(1 + i / 31557600, 31557600) - 1) * 100).toPrecision(
-            4
-        );
-    }, [result]);
+        const r = parseFloat(formatUnits(rewardRate));
+        const t = parseFloat(formatUnits(totalStaked));
+        const i = (r * 31557600) / t;
+        return ((Math.pow(1 + i / 365, 365) - 1) * 100).toPrecision(4);
+    }, [rewardRate, totalStaked]);
 
     async function stake(amount: string) {
         if (!active || chainId != parseInt(contractsInfo.chainId)) {
@@ -164,32 +113,15 @@ export default function useStaking() {
     return {
         staking,
 
-        totalStaked: result
-            ? formatUnits(
-                  result.results["AscensionStaking"].callsReturnContext[0]
-                      .returnValues[0]
-              )
-            : undefined,
+        totalStaked: totalStaked ? formatUnits(totalStaked) : undefined,
 
-        rewardsEndAt: result
-            ? new Date(rewardsEndAt * 1000).toLocaleDateString()
-            : undefined,
+        rewardsEndAt: rewardsEndAt,
 
         apy: apy,
 
-        userStake: result
-            ? formatUnits(
-                  result.results["AscensionStaking"].callsReturnContext[2]
-                      .returnValues[0]
-              )
-            : undefined,
+        userStake: userStake ? formatUnits(userStake) : undefined,
 
-        earnings: result
-            ? formatUnits(
-                  result.results["AscensionStaking"].callsReturnContext[3]
-                      .returnValues[0]
-              )
-            : undefined,
+        earnings: earnings ? formatUnits(earnings) : undefined,
 
         stake,
         withdraw,
