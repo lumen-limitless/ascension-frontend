@@ -17,6 +17,15 @@ const Footer = () => {
                         {`Matic Bridge`}
                     </ExternalLink>
                 )}
+                {chainId && chainId === ChainId.ARBITRUM && (
+                    <ExternalLink
+                        id={`arbitrum-bridge-link`}
+                        href="https://bridge.arbitrum.io/"
+                        className="text-low-emphesis"
+                    >
+                        {`Arbitrum Bridge`}
+                    </ExternalLink>
+                )}
                 {chainId && chainId === ChainId.HARMONY && (
                     <ExternalLink
                         id={`harmony-bridge-link`}
@@ -47,7 +56,7 @@ const Footer = () => {
                 )}
             </div>
 
-            <div className="flex left-1">v0.1.0 (BETA)</div>
+            <div className="flex left-1">BETA</div>
         </footer>
     );
 };

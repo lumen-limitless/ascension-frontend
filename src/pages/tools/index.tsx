@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import LiquiditySniper from "../../components/liquiditySniper";
+import LiquiditySniper from "../../components/LiquiditySniper";
 import Card from "../../components/Card";
-import Distributor from "../../components/Distributor/distributor";
 import { BackspaceIcon } from "@heroicons/react/outline";
 import Container from "../../components/Container";
 import Button from "../../components/Button";

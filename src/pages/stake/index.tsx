@@ -6,26 +6,26 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Connect } from "../../components/Connection";
 import Input from "../../components/Input";
-import contractsInfo from "../../constants/contractsInfo.json";
 import { SwitchNetworkButton } from "../../components/Button/switchNetworkButton";
 import Container from "../../components/Container";
 import Stat from "../../components/Stat";
 import Skeleton from "../../components/Skeleton";
 import Button from "../../components/Button";
-import { ASCENSION } from "../../constants";
+import { ASCENSION, HOME_CHAINID } from "../../constants";
 import useContractCall from "../../hooks/useContractCall";
 import { useContract } from "../../hooks/useContract";
-import { formatUnits } from "@ethersproject/units";
+import { formatUnits, parseUnits } from "@ethersproject/units";
 import Loader from "../../components/Loader";
+import { formatBalance } from "../../functions";
 
 export default function Stake() {
     const { account, active, chainId } = useWeb3React();
     const [amount, setAmount] = useState<string>("");
-    const { approve, tokenBalance } = useAscendBalance();
+    const { approve, ascendBalance } = useAscendBalance();
     const ascend = useContract(
         ASCENSION.AscensionToken.address,
         ASCENSION.AscensionToken.abi,
-        parseInt(contractsInfo.chainId)
+        HOME_CHAINID
     );
     const { data: allowance } = useContractCall([
         ascend,
@@ -41,6 +41,7 @@ export default function Stake() {
         userStake,
         earnings,
         rewardsEndAt,
+        paused,
         stake,
         withdraw,
         exit,
@@ -52,11 +53,11 @@ export default function Stake() {
             <Stat
                 title=""
                 stats={[
-                    { name: "APY", stat: apy, after: "%" },
+                    { name: "APY", stat: apy, isPercent: true },
                     {
                         name: "Total Staked",
                         stat: totalStaked,
-                        commify: true,
+                        isBalance: true,
                     },
                     {
                         name: "Rewards End",
@@ -70,11 +71,11 @@ export default function Stake() {
                     <>
                         <Connect />
                     </>
-                ) : chainId !== parseInt(contractsInfo.chainId) ? (
-                    <SwitchNetworkButton chainId="0x66EEB">
+                ) : chainId != HOME_CHAINID ? (
+                    <SwitchNetworkButton chainId={HOME_CHAINID}>
                         Switch to Arbitrum
                     </SwitchNetworkButton>
-                ) : !allowance ? (
+                ) : !allowance || paused ? (
                     <Loader />
                 ) : (
                     <>
@@ -85,7 +86,7 @@ export default function Stake() {
                                     onClick={() => {
                                         approve(
                                             staking.address,
-                                            ethers.utils.parseUnits("14400000")
+                                            parseUnits("14400000")
                                         );
                                     }}
                                 >
@@ -119,12 +120,9 @@ export default function Stake() {
                                 <ul className="w-full text-left my-4 p-2    rounded-xl">
                                     <li className="w-full flex">
                                         Balance:{" "}
-                                        {tokenBalance ? (
-                                            ethers.utils.commify(
-                                                parseFloat(
-                                                    tokenBalance
-                                                ).toFixed(2)
-                                            ) + " ASCEND"
+                                        {ascendBalance ? (
+                                            formatBalance(ascendBalance) +
+                                            " ASCEND"
                                         ) : (
                                             <Skeleton />
                                         )}{" "}
@@ -132,9 +130,7 @@ export default function Stake() {
                                     <li className="w-full flex">
                                         Stake:{" "}
                                         {userStake ? (
-                                            ethers.utils.commify(
-                                                parseFloat(userStake).toFixed(2)
-                                            ) + " ASCEND"
+                                            formatBalance(userStake) + " ASCEND"
                                         ) : (
                                             <Skeleton />
                                         )}
@@ -142,9 +138,7 @@ export default function Stake() {
                                     <li className="w-full flex">
                                         Earnings:{" "}
                                         {earnings ? (
-                                            ethers.utils.commify(
-                                                parseFloat(earnings).toFixed(2)
-                                            ) + " ASCEND"
+                                            formatBalance(earnings) + " ASCEND"
                                         ) : (
                                             <Skeleton />
                                         )}

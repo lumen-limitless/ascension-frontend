@@ -13,8 +13,7 @@ export default function Logo() {
             <defs>
                 <style
                     dangerouslySetInnerHTML={{
-                        __html:
-                            ".cls-1{fill:url(#Nepojmenovaný_přechod_43);}.cls-2{fill:url(#Nepojmenovaný_přechod_19);}.cls-3{fill:url(#Nepojmenovaný_přechod_148);}.cls-4{fill:url(#Nepojmenovaný_přechod_23);}.cls-5{fill:url(#Nepojmenovaný_přechod_72);}.cls-6{fill:url(#Nepojmenovaný_přechod_60);}",
+                        __html: ".cls-1{fill:url(#Nepojmenovaný_přechod_43);}.cls-2{fill:url(#Nepojmenovaný_přechod_19);}.cls-3{fill:url(#Nepojmenovaný_přechod_148);}.cls-4{fill:url(#Nepojmenovaný_přechod_23);}.cls-5{fill:url(#Nepojmenovaný_přechod_72);}.cls-6{fill:url(#Nepojmenovaný_přechod_60);}",
                     }}
                 />
                 <linearGradient

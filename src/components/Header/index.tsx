@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Connection from "../Connection";
 import Nav from "../Nav";
-import Logo from "../logo";
+import Logo from "../Logo";
 import { useClickAway, useToggle } from "react-use";
 import useAddTokenToMetaMask from "../../hooks/useAddTokenToMetamask";
 import DarkModeButton from "../Button/themeButton";
@@ -20,13 +20,13 @@ export default function Header() {
         <>
             <header
                 ref={ref}
-                className="flex flex-col w-full px-4 py-1 justify-between items-center md:text-xl border-b border-gray-400 dark:border-dark-600"
+                className="flex flex-col w-full px-4 py-1 justify-between items-center  border-b border-gray-400 dark:border-dark-600"
             >
                 <div className="w-full h-full flex  items-center">
                     <button onClick={addToken}>
                         <Logo />
                     </button>
-                    <Nav />
+                    <Nav className="hidden md:flex" />
                     <div className="flex ml-auto ">
                         <Connection />
                     </div>
@@ -51,7 +51,7 @@ export default function Header() {
                     <>
                         <Popover show={viewing} content>
                             <div className="h-2/3 w-full flex">
-                                <Nav isMobile={true} />
+                                <Nav />
                             </div>
                         </Popover>
                     </>

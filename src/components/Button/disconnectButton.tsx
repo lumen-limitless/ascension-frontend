@@ -7,7 +7,9 @@ export default function DisconnectButton({ className }: any) {
         <button
             onClick={deactivate}
             className={`px-2 ${className}`}
-            title="log out"
+            title="disconnect"
+            about="disconnect"
+            id="disconnect"
         >
             <svg
                 viewBox="0 0 24 24"

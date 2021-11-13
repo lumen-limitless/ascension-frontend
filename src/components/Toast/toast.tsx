@@ -15,7 +15,7 @@ export interface ToastProps {
 }
 export default function Toast({ type, message, id }: ToastProps) {
     const dispatch: Dispatch<any> = useToastDispatchContext();
-    type === "error" ? console.error(message) : console.log(message);
+
     return (
         <>
             {type == "success" && (

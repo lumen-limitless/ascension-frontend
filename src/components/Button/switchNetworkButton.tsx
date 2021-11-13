@@ -1,17 +1,17 @@
 import React from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
-import Pill from "./pill";
 import Button from ".";
 import { RPC } from "../../constants";
 
 export function SwitchNetworkButton({ className, chainId, children }: any) {
-    const switchNetwork = async (chainId: string) => {
+    const switchNetwork = async (chainId: number) => {
+        const _chainId = `0x${chainId.toString(16)}`;
         const ethereum: any = await detectEthereumProvider();
         if (ethereum) {
             try {
                 await ethereum.request({
                     method: "wallet_switchEthereumChain",
-                    params: [{ chainId: chainId }],
+                    params: [{ chainId: _chainId }],
                 });
             } catch (switchError: any) {
                 // This error code indicates that the chain has not been added to MetaMask.

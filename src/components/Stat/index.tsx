@@ -1,18 +1,19 @@
-import { commify } from "@ethersproject/units";
 import React from "react";
 import Skeleton from "../Skeleton";
 import Card from "../Card";
+import { formatBalance, formatPercent } from "../../functions";
 
 type Stat = {
     name?: string;
     stat?: string | number;
     before?: string;
     after?: string;
-    commify?: boolean;
+    isBalance?: boolean;
+    isPercent?: boolean;
 };
 export interface StatProps {
-    title: string;
-    stats: Stat[];
+    title?: string;
+    stats?: Stat[];
 }
 export default function Stat({ title, stats }: StatProps) {
     return (
@@ -25,13 +26,17 @@ export default function Stat({ title, stats }: StatProps) {
                         <dt className="text-sm font-medium truncate opacity-60">
                             {item.name ?? <Skeleton />}
                         </dt>
-                        <dd className="mt-1 text-2xl font-semibold ">
+                        <dd className="mt-1 text-2xl font-semibold flex items-center">
                             {item.stat ? (
-                                `${item.before ?? ""}${
-                                    item.commify
-                                        ? commify(item.stat)
-                                        : item.stat
-                                }${item.after ?? ""}`
+                                <>
+                                    {item.before && item.before}
+                                    {item.isBalance
+                                        ? formatBalance(item.stat)
+                                        : item.isPercent
+                                        ? formatPercent(item.stat)
+                                        : item.stat}
+                                    {item.after && item.after}
+                                </>
                             ) : (
                                 <Skeleton />
                             )}

@@ -4,28 +4,25 @@ import { useWeb3React } from "@web3-react/core";
 import IUniswapV2Router02 from "@uniswap/v2-periphery/build/IUniswapV2Router02.json";
 import { TransactionReceipt } from "@ethersproject/abstract-provider";
 import { formatUnits, parseUnits } from "@ethersproject/units";
+import { BigNumber } from "@ethersproject/bignumber";
 import { useToast } from "./useToast";
 import { Web3Provider } from "@ethersproject/providers";
 import { FACTORY_ADDRESS, ROUTER_ADDRESS, WNATIVE_ADDRESS } from "../constants";
 import { useContract } from "./useContract";
+import { getContract } from "../functions";
+import { getAddress } from "@ethersproject/address";
 
 export default function useLiquiditySniper() {
-    const {
-        library,
-        account,
-        active,
-        chainId,
-        error,
-    } = useWeb3React<Web3Provider>();
+    const { library, account, active, chainId, error } =
+        useWeb3React<Web3Provider>();
     const toast = useToast(4000);
     const [targetInput, setTargetInput] = useState<string>("");
-    const [target, setTarget] = useState<string>("");
+    const [target, setTarget] = useState<string>();
     const [amount, setAmount] = useState<string>(".00001");
-    const [gas, setGas] = useState<string>("5");
     const [slippage, setSlippage] = useState<number>(50);
-    const [status, setStatus] = useState<"buying" | "searching" | "paused">(
-        "paused"
-    );
+    const [status, setStatus] = useState<
+        "buying" | "searching" | "paused" | "error"
+    >("paused");
     const [settingTarget, setSettingTarget] = useState(false);
 
     const factory = useContract(
@@ -45,19 +42,21 @@ export default function useLiquiditySniper() {
     useEffect(() => {
         if (!active) {
             toast("error", `${error}`);
+            setStatus("error");
             return;
         }
 
         if (!factory) {
             console.error("Factory is null");
-            setStatus("paused");
+            setStatus("error");
             return;
         }
         if (!router) {
             console.error("router is null");
-            setStatus("paused");
+            setStatus("error");
             return;
         }
+
         const weth = WNATIVE_ADDRESS[chainId];
 
         if (status === "searching") {
@@ -89,11 +88,11 @@ export default function useLiquiditySniper() {
                     return;
                 }
 
-                if (target != "" && sellToken != target) {
+                if (target && sellToken != target) {
                     return;
                 }
 
-                const pool = new ethers.Contract(
+                const pool = getContract(
                     pair,
                     [
                         "function totalSupply() external view returns (uint256)",
@@ -101,21 +100,26 @@ export default function useLiquiditySniper() {
                     ],
                     library
                 );
-                const totalSupply = await pool.totalSupply().catch(() => {
-                    toast("error", "Error fetching liquidity info!");
-                });
 
-                if (!totalSupply) {
-                    toast(
-                        "error",
-                        "Error fetching LP totalSupply... Aborting..."
-                    );
-                    return;
+                const totalSupply: BigNumber = await pool
+                    .totalSupply()
+                    .catch((err) => {
+                        toast("error", "Error fetching liquidity info!");
+                        console.error(err);
+                    });
+
+                if (totalSupply === undefined) {
+                    toast("error", "Could not fetch total supply...");
+                    if (!target) {
+                        return;
+                    }
+                    setStatus("paused");
                 }
-                if (parseFloat(formatUnits(totalSupply)) === 0) {
+
+                if (parseInt(formatUnits(totalSupply)) === 0) {
                     toast("info", "No liquidity found yet, waiting...");
                     pool.once("Mint", () => {
-                        setTarget(ethers.utils.getAddress(sellToken as string));
+                        setTarget(getAddress(sellToken));
                         toast(
                             "info",
                             `Liquidity detected for target ${target}, sniping...`
@@ -123,7 +127,7 @@ export default function useLiquiditySniper() {
                         setStatus("buying");
                     });
                 } else {
-                    setTarget(ethers.utils.getAddress(sellToken as string));
+                    setTarget(getAddress(sellToken));
                     toast(
                         "info",
                         `Liquidity detected for target ${target}, sniping...`
@@ -135,7 +139,7 @@ export default function useLiquiditySniper() {
             factory.removeAllListeners();
             const swap = async () => {
                 const amountIn = parseUnits(amount);
-                const amounts: ethers.BigNumber[] = await router.getAmountsOut(
+                const amounts: BigNumber[] = await router.getAmountsOut(
                     amountIn,
                     [weth, target]
                 );
@@ -153,17 +157,17 @@ export default function useLiquiditySniper() {
                 toast("info", "Attempting token swap");
 
                 const overrides = {
-                    gasPrice: ethers.utils.parseUnits(gas, "gwei"),
                     value: ethers.utils.parseUnits(amount, "ether"),
                 };
                 router.connect(library.getSigner());
-                let tx = await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
-                    amountOutMin,
-                    [weth, target],
-                    account,
-                    Date.now() + 1000 * 60 * 10,
-                    overrides
-                );
+                let tx =
+                    await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
+                        amountOutMin,
+                        [weth, target],
+                        account,
+                        Date.now() + 1000 * 60 * 10,
+                        overrides
+                    );
 
                 const receipt: TransactionReceipt = await tx.wait();
                 console.log(receipt);
@@ -173,8 +177,6 @@ export default function useLiquiditySniper() {
                         `Token swap successful! 
                   TX: ${receipt.transactionHash}
                   Block: ${receipt.blockNumber}
-                  Confirmations: ${receipt.confirmations}
-                  Index: ${receipt.transactionIndex}
                   Gas used: ${receipt.gasUsed}
                   `
                     );
@@ -192,34 +194,32 @@ export default function useLiquiditySniper() {
             };
 
             swap().catch((err) => {
-                console.error("error while swapping tokens", err);
+                toast("error", `Error during token swap`);
+                console.error(err);
                 setStatus("paused");
             });
-        } else {
+        } else if (status === "paused") {
             factory.removeAllListeners();
             console.log(status);
         }
         return function cleanup() {
             factory.removeAllListeners();
         };
-    });
+    }, [
+        factory,
+        router,
+        account,
+        active,
+        amount,
+        chainId,
+        error,
+        library,
+        slippage,
+        status,
+        target,
+        toast,
+    ]);
 
-    const updateTarget = () => {
-        if (targetInput === null) {
-            return;
-        }
-        if (!ethers.utils.isAddress(targetInput)) {
-            toast("error", "Invalid target address");
-            setTargetInput("");
-            return;
-        }
-        setTarget(ethers.utils.getAddress(targetInput));
-        setSettingTarget(false);
-    };
-    const resetTarget = () => {
-        setTarget("");
-        setSettingTarget(false);
-    };
     const toggleStatus = () => {
         if (status === "paused") {
             setStatus("searching");
@@ -233,12 +233,10 @@ export default function useLiquiditySniper() {
         setTargetInput,
         target,
         setTarget,
-        updateTarget,
-        resetTarget,
+
         amount,
         setAmount,
-        gas,
-        setGas,
+
         slippage,
         setSlippage,
 

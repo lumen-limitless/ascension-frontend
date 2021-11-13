@@ -5,7 +5,7 @@ import { useAscensionStaking, useContract } from "./useContract";
 import contractsInfo from "../constants/contractsInfo.json";
 import { useToast } from "./useToast";
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { ASCENSION, ChainId } from "../constants";
+import { HOME_CHAINID } from "../constants";
 import useContractCall from "./useContractCall";
 
 export default function useStaking() {
@@ -24,6 +24,7 @@ export default function useStaking() {
     const { data: periodFinish } = useContractCall([staking, "periodFinish"]);
     const { data: rewardRate } = useContractCall([staking, "rewardRate"]);
     const { data: earnings } = useContractCall([staking, "earned", account]);
+    const { data: paused } = useContractCall([staking, "paused"]);
 
     const rewardsEndAt = useMemo(() => {
         if (!periodFinish) return null;
@@ -36,12 +37,12 @@ export default function useStaking() {
 
         const r = parseFloat(formatUnits(rewardRate));
         const t = parseFloat(formatUnits(totalStaked));
-        const i = (r * 31557600) / t;
-        return ((Math.pow(1 + i / 365, 365) - 1) * 100).toPrecision(4);
+        const i = r * 31557600 * (1 / t);
+        return (Math.pow(1 + i / 365, 365) - 1) * 100;
     }, [rewardRate, totalStaked]);
 
     async function stake(amount: string) {
-        if (!active || chainId != parseInt(contractsInfo.chainId)) {
+        if (!active || chainId != HOME_CHAINID) {
             console.error("NETWORK ERROR");
             return;
         }
@@ -60,7 +61,7 @@ export default function useStaking() {
         }
     }
     async function withdraw(amount: string) {
-        if (!active || chainId != parseInt(contractsInfo.chainId)) {
+        if (!active || chainId != HOME_CHAINID) {
             console.error("NETWORK ERROR");
             return;
         }
@@ -79,7 +80,7 @@ export default function useStaking() {
         }
     }
     async function exit() {
-        if (!active || chainId != parseInt(contractsInfo.chainId)) {
+        if (!active || chainId != HOME_CHAINID) {
             console.error("NETWORK ERROR");
             return;
         }
@@ -95,7 +96,7 @@ export default function useStaking() {
     }
 
     async function getReward() {
-        if (!active || chainId != parseInt(contractsInfo.chainId)) {
+        if (!active || chainId != HOME_CHAINID) {
             console.error("NETWORK ERROR");
             return;
         }
@@ -113,15 +114,17 @@ export default function useStaking() {
     return {
         staking,
 
-        totalStaked: totalStaked ? formatUnits(totalStaked) : undefined,
+        totalStaked,
 
-        rewardsEndAt: rewardsEndAt,
+        rewardsEndAt,
 
         apy: apy,
 
-        userStake: userStake ? formatUnits(userStake) : undefined,
+        userStake: userStake,
 
-        earnings: earnings ? formatUnits(earnings) : undefined,
+        earnings: earnings,
+
+        paused,
 
         stake,
         withdraw,

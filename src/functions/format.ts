@@ -1,3 +1,5 @@
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { commify, formatUnits } from "@ethersproject/units";
 import { getAddress } from "ethers/lib/utils";
 
 export const capitalize = (s: string) => {
@@ -49,8 +51,10 @@ export function formatPercent(percentString: any) {
         return "0%";
     }
     if (Number(fixedPercent) > 0) {
-        if (Number(fixedPercent) > 100) {
-            return `${percent?.toFixed(0).toLocaleString()}%`;
+        if (Number(fixedPercent) > 100000) {
+            return `> 100,000%`;
+        } else if (Number(fixedPercent) > 100) {
+            return `${commify(percent?.toFixed(0).toLocaleString())}%`;
         } else {
             return `${fixedPercent}%`;
         }
@@ -58,3 +62,24 @@ export function formatPercent(percentString: any) {
         return `${fixedPercent}%`;
     }
 }
+
+export const formatBalance = (
+    value: BigNumberish,
+    decimals = 18,
+    maxFraction = 2
+) => {
+    const formatted: string =
+        typeof value === "string"
+            ? value
+            : typeof value === "number"
+            ? value.toString()
+            : formatUnits(value, decimals);
+
+    if (maxFraction > 0) {
+        const split = formatted.split(".");
+        if (split.length > 1) {
+            return commify(split[0] + "." + split[1].substr(0, maxFraction));
+        }
+    }
+    return commify(formatted);
+};

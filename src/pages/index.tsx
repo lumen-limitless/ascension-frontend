@@ -1,25 +1,20 @@
 import Container from "../components/Container";
-import Card from "../components/Card";
-import Chart from "../components/Charts";
 import Stat from "../components/Stat";
-import useCoingecko, {
-    useCoingeckoAscensionStats,
-} from "../hooks/useCoingecko";
+import { useCoingeckoAscensionStats } from "../hooks/useCoingecko";
 
 export default function Home() {
     const { price, marketCap } = useCoingeckoAscensionStats();
 
     return (
-        <Container maxWidth="5xl">
+        <Container maxWidth="3xl">
             <Stat
-                title="Token Stats"
                 stats={[
                     { name: "Price", stat: price, before: "$" },
                     {
                         name: "Market Cap",
                         stat: marketCap,
                         before: "$",
-                        commify: true,
+                        isBalance: true,
                     },
                     {
                         name: "Total Supply",

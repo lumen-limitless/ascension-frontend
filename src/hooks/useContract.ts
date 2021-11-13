@@ -12,6 +12,11 @@ import {
 } from "../constants";
 import ENS_PUBLIC_RESOLVER_ABI from "../constants/abis/ens-public-resolver.json";
 import ENS_ABI from "../constants/abis/ens-registrar.json";
+import {
+    AscensionStakedToken,
+    AscensionStaking,
+    AscensionToken,
+} from "../types";
 
 // returns null on errors
 export function useContract(
@@ -22,11 +27,7 @@ export function useContract(
     return useMemo(() => {
         if (!address || !ABI) return null;
         try {
-            return getContract(
-                address,
-                ABI,
-                chainId && new JsonRpcProvider(RPC[chainId])
-            );
+            return getContract(address, ABI, new JsonRpcProvider(RPC[chainId]));
         } catch (error) {
             console.error("Failed to get contract", error);
             return null;
@@ -41,26 +42,26 @@ export function useTokenContract(
     return useContract(tokenAddress, IERC20.abi, chainId);
 }
 
-export function useAscensionToken(): Contract | null {
+export function useAscensionToken(): AscensionToken | null {
     return useContract(
         ASCENSION.AscensionToken.address,
         ASCENSION.AscensionToken.abi,
         HOME_CHAINID
-    );
+    ) as AscensionToken;
 }
-export function useAscensionStakedToken(): Contract | null {
+export function useAscensionStakedToken(): AscensionStakedToken | null {
     return useContract(
         ASCENSION.AscensionStakedToken.address,
         ASCENSION.AscensionStakedToken.abi,
         HOME_CHAINID
-    );
+    ) as AscensionStakedToken;
 }
-export function useAscensionStaking(): Contract | null {
+export function useAscensionStaking(): AscensionStaking | null {
     return useContract(
         ASCENSION.AscensionStaking.address,
         ASCENSION.AscensionStaking.abi,
         HOME_CHAINID
-    );
+    ) as AscensionStaking;
 }
 
 export function useENSRegistrarContract(): Contract | null {
