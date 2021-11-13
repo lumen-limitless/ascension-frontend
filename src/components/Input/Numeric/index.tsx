@@ -1,15 +1,18 @@
 import { classNames, escapeRegExp } from "../../../functions";
 
 import React from "react";
+import Button from "../../Button";
 
 export const Input = React.memo(
     ({
+        max,
         value,
         onUserInput,
         placeholder,
         className,
         ...rest
     }: {
+        max?: string;
         value: string | number;
         onUserInput: (input: string) => void;
         error?: boolean;
@@ -23,34 +26,37 @@ export const Input = React.memo(
             }
         }
         return (
-            <input
-                {...rest}
-                value={value}
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                // universal input options
-                inputMode="numeric"
-                title="Token Amount"
-                autoComplete="off"
-                autoCorrect="off"
-                // text-specific options
-                pattern="[0,9]"
-                placeholder={placeholder || "0.0"}
-                min={0}
-                minLength={1}
-                maxLength={79}
-                spellCheck="false"
-                className={classNames(
-                    "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm  border-gray-300 dark:border-dark-800 dark:bg-dark-700 rounded-md relative",
-                    className
-                )}
-                type="text"
-                onPaste={(e) => {
-                    e.preventDefault();
-                    return false;
-                }}
-            />
+            <div className="flex border-gray-300 bg-white dark:border-dark-800 dark:bg-dark-700 rounded-md">
+                <input
+                    {...rest}
+                    value={value}
+                    onChange={(e) => {
+                        handleChange(e);
+                    }}
+                    // universal input options
+                    inputMode="numeric"
+                    title="Token Amount"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    // text-specific options
+                    pattern="[0,9]"
+                    placeholder={placeholder || "0.0"}
+                    min={0}
+                    minLength={1}
+                    maxLength={79}
+                    spellCheck="false"
+                    className={classNames(
+                        "shadow-sm border-none focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm  dark:bg-dark-700  rounded-md relative",
+                        className
+                    )}
+                    type="text"
+                    onPaste={(e) => {
+                        e.preventDefault();
+                        return false;
+                    }}
+                />
+                <Button onClick={() => onUserInput(max)}>MAX</Button>
+            </div>
         );
     }
 );

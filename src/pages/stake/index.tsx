@@ -97,7 +97,13 @@ export default function Stake() {
                                     <Input.Numeric
                                         value={amount}
                                         onUserInput={setAmount}
+                                        max={
+                                            ascendBalance
+                                                ? formatUnits(ascendBalance)
+                                                : "0"
+                                        }
                                     />
+
                                     <Button
                                         size="sm"
                                         onClick={() => {
