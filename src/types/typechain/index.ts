@@ -26,7 +26,6 @@ export type { ERC20DistributorFacet } from "./ERC20DistributorFacet";
 export type { ERC20DistributorStorage } from "./ERC20DistributorStorage";
 export type { TreasuryFacet } from "./TreasuryFacet";
 export type { IDiamondCut } from "./IDiamondCut";
-export type { ISnapshot } from "./ISnapshot";
 export type { IUniswapV2Router01 } from "./IUniswapV2Router01";
 export type { IUniswapV2Router02 } from "./IUniswapV2Router02";
 export type { LibDiamond } from "./LibDiamond";
@@ -61,7 +60,6 @@ export { ERC20DistributorFacet__factory } from "./factories/ERC20DistributorFace
 export { ERC20DistributorStorage__factory } from "./factories/ERC20DistributorStorage__factory";
 export { TreasuryFacet__factory } from "./factories/TreasuryFacet__factory";
 export { IDiamondCut__factory } from "./factories/IDiamondCut__factory";
-export { ISnapshot__factory } from "./factories/ISnapshot__factory";
 export { IUniswapV2Router01__factory } from "./factories/IUniswapV2Router01__factory";
 export { IUniswapV2Router02__factory } from "./factories/IUniswapV2Router02__factory";
 export { LibDiamond__factory } from "./factories/LibDiamond__factory";
