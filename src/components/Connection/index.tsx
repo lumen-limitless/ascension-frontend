@@ -11,7 +11,7 @@ import { useToggle } from "react-use";
 import Modal from "../Modal";
 import { useToast } from "../../hooks/useToast";
 
-export function Connect(): JSX.Element {
+export function Connect() {
     const { activate, error } = useWeb3React();
     const [viewing, toggle] = useToggle(false);
     const toast = useToast(4000);
@@ -31,7 +31,7 @@ export function Connect(): JSX.Element {
 
                 <div className="flex flex-col h-full">
                     <Button
-                        color="blue"
+                        color="gray"
                         onClick={() => onConnect(injected)}
                         className="my-2"
                     >
@@ -39,7 +39,7 @@ export function Connect(): JSX.Element {
                     </Button>
 
                     <Button
-                        color="blue"
+                        color="gray"
                         onClick={() => onConnect(walletconnect)}
                         className="my-2"
                     >
