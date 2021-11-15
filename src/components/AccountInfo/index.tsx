@@ -3,7 +3,6 @@ import DisconnectButton from "../Button/disconnectButton";
 import { useWeb3React } from "@web3-react/core";
 import { useAscendBalance, useAscendVoting } from "../../hooks/useAscend";
 import Skeleton from "../Skeleton";
-import { commify } from "@ethersproject/units";
 import { formatBalance, shortenAddress } from "../../functions";
 import Pill from "../Button/pill";
 import { useToggle } from "react-use";
@@ -11,7 +10,6 @@ import { FingerPrintIcon, UserIcon, XIcon } from "@heroicons/react/outline";
 import Modal from "../Modal";
 import { Web3Provider } from "@ethersproject/providers";
 import Avatar from "../Avatar";
-import Button from "../Button";
 
 export default function AccountInfo() {
     const { account } = useWeb3React<Web3Provider>();

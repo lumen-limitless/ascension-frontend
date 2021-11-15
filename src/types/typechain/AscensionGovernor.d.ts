@@ -39,6 +39,7 @@ interface AscensionGovernorInterface extends ethers.utils.Interface {
     "quorum(uint256)": FunctionFragment;
     "quorumDenominator()": FunctionFragment;
     "quorumNumerator()": FunctionFragment;
+    "sToken()": FunctionFragment;
     "state(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "token()": FunctionFragment;
@@ -113,6 +114,7 @@ interface AscensionGovernorInterface extends ethers.utils.Interface {
     functionFragment: "quorumNumerator",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "sToken", values?: undefined): string;
   encodeFunctionData(functionFragment: "state", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
@@ -180,6 +182,7 @@ interface AscensionGovernorInterface extends ethers.utils.Interface {
     functionFragment: "quorumNumerator",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "sToken", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "state", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
@@ -402,6 +405,8 @@ export class AscensionGovernor extends BaseContract {
 
     quorumNumerator(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    sToken(overrides?: CallOverrides): Promise<[string]>;
+
     state(
       proposalId: BigNumberish,
       overrides?: CallOverrides
@@ -520,6 +525,8 @@ export class AscensionGovernor extends BaseContract {
 
   quorumNumerator(overrides?: CallOverrides): Promise<BigNumber>;
 
+  sToken(overrides?: CallOverrides): Promise<string>;
+
   state(proposalId: BigNumberish, overrides?: CallOverrides): Promise<number>;
 
   supportsInterface(
@@ -634,6 +641,8 @@ export class AscensionGovernor extends BaseContract {
     quorumDenominator(overrides?: CallOverrides): Promise<BigNumber>;
 
     quorumNumerator(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sToken(overrides?: CallOverrides): Promise<string>;
 
     state(proposalId: BigNumberish, overrides?: CallOverrides): Promise<number>;
 
@@ -883,6 +892,8 @@ export class AscensionGovernor extends BaseContract {
 
     quorumNumerator(overrides?: CallOverrides): Promise<BigNumber>;
 
+    sToken(overrides?: CallOverrides): Promise<BigNumber>;
+
     state(
       proposalId: BigNumberish,
       overrides?: CallOverrides
@@ -995,6 +1006,8 @@ export class AscensionGovernor extends BaseContract {
     quorumDenominator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     quorumNumerator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    sToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     state(
       proposalId: BigNumberish,

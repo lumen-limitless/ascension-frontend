@@ -56,7 +56,7 @@ const Footer = () => {
                 )}
             </div>
 
-            <div className="flex left-1">BETA</div>
+            <div className="flex left-1">ALPHA PREVIEW</div>
         </footer>
     );
 };

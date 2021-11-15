@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import LiquiditySniper from "../../components/LiquiditySniper";
-import Card from "../../components/Card";
+import LiquiditySniper from "../../../components/LiquiditySniper";
+import Card from "../../../components/Card";
 import { BackspaceIcon } from "@heroicons/react/outline";
-import Container from "../../components/Container";
-import Button from "../../components/Button";
+import Container from "../../../components/Container";
+import Button from "../../../components/Button";
 
 export default function Tools() {
     const [option, setOption] = useState<number>();

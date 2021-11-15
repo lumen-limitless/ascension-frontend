@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import Card from "../../components/Card";
 import useStaking from "../../hooks/useStaking";
 import { useAscendBalance } from "../../hooks/useAscend";
-import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Connect } from "../../components/Connection";
 import Input from "../../components/Input";
@@ -49,7 +49,15 @@ export default function Stake() {
     } = useStaking();
 
     return (
-        <Container maxWidth="2xl">
+        <Container maxWidth="4xl">
+            <Head>
+                <title>Stake | Ascension Protocol</title>
+                <meta
+                    key="description"
+                    name="description"
+                    content="Ascension Protocol staking"
+                />
+            </Head>
             <Stat
                 title=""
                 stats={[
@@ -66,7 +74,7 @@ export default function Stake() {
                 ]}
             ></Stat>
 
-            <Card className="" title="Stake ASCEND">
+            <Card className="mb-20" title="Stake ASCEND">
                 {!active ? (
                     <>
                         <Connect />
@@ -171,7 +179,6 @@ export default function Stake() {
                     </>
                 )}
             </Card>
-            <div className="h-40 w-full"></div>
         </Container>
     );
 }

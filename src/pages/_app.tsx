@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title key="title">Ascension Protocol App</title>
+                <title key="title">Ascension Protocol</title>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 

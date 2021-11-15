@@ -1,9 +1,9 @@
 {
-  "name": "arbtest",
-  "chainId": "421611",
+  "name": "localhost",
+  "chainId": "31337",
   "contracts": {
     "AscensionDiamond": {
-      "address": "0x95B4c427dEFd0EA60eA5a303Ff95aE4ec65D3A80",
+      "address": "0xc14D994fe7C5858c93936cc3bD42bb9467d6fB2C",
       "abi": [
         {
           "inputs": [
@@ -465,7 +465,7 @@
       ]
     },
     "AscensionDiamond_DiamondProxy": {
-      "address": "0x95B4c427dEFd0EA60eA5a303Ff95aE4ec65D3A80",
+      "address": "0xc14D994fe7C5858c93936cc3bD42bb9467d6fB2C",
       "abi": [
         {
           "inputs": [
@@ -740,7 +740,7 @@
       ]
     },
     "AscensionStakedToken": {
-      "address": "0x2c7fDdbD5b9Dc9936014592E715E10FC16ff1796",
+      "address": "0xBfaD1c3Fc3c24FBBD14ED690a76d45bdaee133a1",
       "abi": [
         {
           "inputs": [],
@@ -1723,7 +1723,7 @@
       ]
     },
     "AscensionStaking": {
-      "address": "0x75Ca8b0418294998A24767df6DD781E5001F745D",
+      "address": "0x1800170c2e97e314Ba23147A7333C4DA3D5f2DC6",
       "abi": [
         {
           "inputs": [
@@ -2240,7 +2240,7 @@
       ]
     },
     "AscensionToken": {
-      "address": "0xB8Cf7a7Eab51EB2868Baf83523fCc9323f0E7cE8",
+      "address": "0x807817ac2E63D4874451780B6D0E605870432C7a",
       "abi": [
         {
           "inputs": [],
@@ -3223,7 +3223,7 @@
       ]
     },
     "BatchSender": {
-      "address": "0x28D85662C807bfcB753E585Da39f9fCAf6E02cA7",
+      "address": "0x0A4d16ba26da2BC6e9a699076699d2B5AD28291A",
       "abi": [
         {
           "inputs": [
@@ -3325,7 +3325,7 @@
       ]
     },
     "ERC20DistributorFacet": {
-      "address": "0xa6ddDD582d6c85104d8E0A6C507bbB3a542E00a3",
+      "address": "0x4215D984C7509D7EfBB6fee7Acd5eE5fFf63647f",
       "abi": [
         {
           "inputs": [],
@@ -3473,7 +3473,7 @@
       ]
     },
     "TreasuryFacet": {
-      "address": "0xd36f1aa9F71315C2ffAC952df2fE9c358F4A24C4",
+      "address": "0xBA96eB857d464e216086bbE64A0D19078086e83A",
       "abi": [
         {
           "inputs": [

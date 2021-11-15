@@ -10,6 +10,7 @@ import { CHAIN_NAME } from "../../constants";
 import { useToggle } from "react-use";
 import Modal from "../Modal";
 import { useToast } from "../../hooks/useToast";
+import { classNames } from "../../functions";
 
 export function Connect() {
     const { activate, error } = useWeb3React();
@@ -23,7 +24,7 @@ export function Connect() {
     return (
         <>
             <Button color="blue" onClick={() => toggle(true)}>
-                Connect to wallet
+                Connect Wallet
             </Button>
 
             <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
@@ -81,9 +82,11 @@ export default function Connection() {
                 <Connect />
             ) : (
                 <>
-                    <Pill className={colorsByChain[chainId ?? 1]}>
-                        <LinkIcon height="20px" />
-                        {chainId && CHAIN_NAME[chainId]}
+                    <Pill className={classNames(colorsByChain[chainId ?? 1])}>
+                        <div className="flex">
+                            <LinkIcon height="20px" />
+                            {chainId && CHAIN_NAME[chainId]}
+                        </div>
                     </Pill>
                     <AccountInfo />
                 </>
