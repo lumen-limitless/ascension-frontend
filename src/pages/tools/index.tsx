@@ -34,7 +34,7 @@ export default function Tools() {
                 />
             </Head>
             <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-12">
-                <ToolTile
+                {/* <ToolTile
                     path="tools/liquiditysniper"
                     name="Liquidity Sniper"
                 />
@@ -45,7 +45,7 @@ export default function Tools() {
                 <ToolTile
                     path="tools/universalswap"
                     name="Universal Swap Tool"
-                />
+                /> */}
             </div>
         </Container>
     );
