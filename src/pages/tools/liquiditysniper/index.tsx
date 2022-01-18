@@ -231,9 +231,7 @@ export default function LiquiditySniperPage() {
                     content="Ascension Protocol tools"
                 />
             </Head>
-            <Container maxWidth="2xl">
-                <LiquiditySniper />
-            </Container>
+            <Container maxWidth="2xl">{/* <LiquiditySniper /> */}</Container>
         </>
     );
 }

@@ -24,7 +24,7 @@ export default function UniversalSwapPage() {
             </Head>
 
             <Container maxWidth="5xl">
-                {!chainId ? <Loader /> : <UniversalSwap chainId={chainId} />}
+                {/* {!chainId ? <Loader /> : <UniversalSwap chainId={chainId} />} */}
             </Container>
         </>
     );
