@@ -26,7 +26,7 @@ export const Input = React.memo(
             }
         }
         return (
-            <div className="flex border-gray-300 bg-white dark:border-dark-800 dark:bg-dark-700 rounded-md">
+            <div className="relative flex justify-center items-center w-full">
                 <input
                     {...rest}
                     value={value}
@@ -46,7 +46,7 @@ export const Input = React.memo(
                     maxLength={79}
                     spellCheck="false"
                     className={classNames(
-                        "shadow-sm border-none focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm  dark:bg-dark-700  rounded-md relative",
+                        " bg-transparent shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm  border-gray-300 rounded-md relative",
                         className
                     )}
                     type="text"
@@ -55,7 +55,12 @@ export const Input = React.memo(
                         return false;
                     }}
                 />
-                <Button onClick={() => onUserInput(max)}>MAX</Button>
+                <Button
+                    className="absolute right-0"
+                    onClick={() => onUserInput(max)}
+                >
+                    MAX
+                </Button>
             </div>
         );
     }

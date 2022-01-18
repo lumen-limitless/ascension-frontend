@@ -29,7 +29,8 @@ interface AscensionTokenInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "balanceOfAt(address,uint256)": FunctionFragment;
-    "burn(address,uint256)": FunctionFragment;
+    "burn(uint256)": FunctionFragment;
+    "burnFrom(address,uint256)": FunctionFragment;
     "cap()": FunctionFragment;
     "checkpoints(address,uint32)": FunctionFragment;
     "decimals()": FunctionFragment;
@@ -91,8 +92,9 @@ interface AscensionTokenInterface extends ethers.utils.Interface {
     functionFragment: "balanceOfAt",
     values: [string, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "burn", values: [BigNumberish]): string;
   encodeFunctionData(
-    functionFragment: "burn",
+    functionFragment: "burnFrom",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "cap", values?: undefined): string;
@@ -228,6 +230,7 @@ interface AscensionTokenInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "burnFrom", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "cap", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "checkpoints",
@@ -444,6 +447,11 @@ export class AscensionToken extends BaseContract {
     ): Promise<[BigNumber]>;
 
     burn(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    burnFrom(
       account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -527,7 +535,7 @@ export class AscensionToken extends BaseContract {
     ): Promise<ContractTransaction>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -625,6 +633,11 @@ export class AscensionToken extends BaseContract {
   ): Promise<BigNumber>;
 
   burn(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  burnFrom(
     account: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -708,7 +721,7 @@ export class AscensionToken extends BaseContract {
   ): Promise<ContractTransaction>;
 
   mint(
-    to: string,
+    account: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -802,7 +815,9 @@ export class AscensionToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    burn(
+    burn(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    burnFrom(
       account: string,
       amount: BigNumberish,
       overrides?: CallOverrides
@@ -883,7 +898,7 @@ export class AscensionToken extends BaseContract {
     ): Promise<boolean>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1111,6 +1126,11 @@ export class AscensionToken extends BaseContract {
     ): Promise<BigNumber>;
 
     burn(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    burnFrom(
       account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1197,7 +1217,7 @@ export class AscensionToken extends BaseContract {
     ): Promise<BigNumber>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1301,6 +1321,11 @@ export class AscensionToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     burn(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    burnFrom(
       account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1393,7 +1418,7 @@ export class AscensionToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

@@ -7,7 +7,11 @@ import { formatUnits, parseUnits } from "@ethersproject/units";
 import { BigNumber } from "@ethersproject/bignumber";
 import { useToast } from "./useToast";
 import { Web3Provider } from "@ethersproject/providers";
-import { FACTORY_ADDRESS, ROUTER_ADDRESS, WNATIVE_ADDRESS } from "../constants";
+import {
+    SUSHI_FACTORY_ADDRESS,
+    SUSHI_ROUTER_ADDRESS,
+    WNATIVE_ADDRESS,
+} from "../constants";
 import { useContract } from "./useContract";
 import { getContract } from "../functions";
 import { getAddress } from "@ethersproject/address";
@@ -26,7 +30,7 @@ export default function useLiquiditySniper() {
     const [settingTarget, setSettingTarget] = useState(false);
 
     const factory = useContract(
-        FACTORY_ADDRESS[chainId],
+        SUSHI_FACTORY_ADDRESS[chainId],
         [
             "event PairCreated(address indexed token0, address indexed token1, address pair, uint)",
         ],
@@ -34,7 +38,7 @@ export default function useLiquiditySniper() {
     );
 
     const router = useContract(
-        ROUTER_ADDRESS[chainId],
+        SUSHI_ROUTER_ADDRESS[chainId],
         IUniswapV2Router02.abi,
         chainId
     );

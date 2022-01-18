@@ -14,9 +14,9 @@ import Button from "../../components/Button";
 import { ASCENSION, HOME_CHAINID } from "../../constants";
 import useContractCall from "../../hooks/useContractCall";
 import { useContract } from "../../hooks/useContract";
-import { formatUnits, parseUnits } from "@ethersproject/units";
+import { parseUnits } from "@ethersproject/units";
 import Loader from "../../components/Loader";
-import { formatBalance } from "../../functions";
+import { formatBalance, parseBalance } from "../../functions";
 
 export default function Stake() {
     const { account, active, chainId } = useWeb3React();
@@ -83,12 +83,16 @@ export default function Stake() {
                     <SwitchNetworkButton chainId={HOME_CHAINID}>
                         Switch to Arbitrum
                     </SwitchNetworkButton>
-                ) : !allowance || paused ? (
+                ) : !allowance || typeof paused == "undefined" ? (
                     <Loader />
+                ) : paused ? (
+                    <>
+                        <Loader message="Staking inactive, please check back later." />
+                    </>
                 ) : (
                     <>
                         <div>
-                            {parseFloat(formatUnits(allowance)) === 0 ? (
+                            {parseBalance(allowance) === 0 ? (
                                 <Button
                                     color="gradient"
                                     onClick={() => {
@@ -101,19 +105,21 @@ export default function Stake() {
                                     Enable Staking Pool
                                 </Button>
                             ) : (
-                                <div className="flex items-center justify-center">
+                                <div className="flex md:mr-32">
                                     <Input.Numeric
                                         value={amount}
                                         onUserInput={setAmount}
                                         max={
                                             ascendBalance
-                                                ? formatUnits(ascendBalance)
+                                                ? formatBalance(ascendBalance)
                                                 : "0"
                                         }
                                     />
 
                                     <Button
                                         size="sm"
+                                        color="default"
+                                        disabled={amount ? false : true}
                                         onClick={() => {
                                             stake(amount ?? "0");
                                         }}
@@ -122,6 +128,8 @@ export default function Stake() {
                                     </Button>
                                     <Button
                                         size="sm"
+                                        color="default"
+                                        disabled={amount ? false : true}
                                         onClick={() => withdraw(amount ?? "0")}
                                     >
                                         Withdraw
@@ -129,7 +137,7 @@ export default function Stake() {
                                 </div>
                             )}
                         </div>
-                        {parseFloat(formatUnits(allowance)) > 0 && (
+                        {parseBalance(allowance) > 0 && (
                             <>
                                 <ul className="w-full text-left my-4 p-2    rounded-xl">
                                     <li className="w-full flex">
@@ -162,6 +170,12 @@ export default function Stake() {
                                     <Button
                                         color="green"
                                         className=" w-11/12 my-2"
+                                        disabled={
+                                            userStake &&
+                                            parseBalance(userStake) > 0
+                                                ? false
+                                                : true
+                                        }
                                         onClick={() => getReward()}
                                     >
                                         Collect Earnings
@@ -169,6 +183,12 @@ export default function Stake() {
                                     <Button
                                         color="red"
                                         className="w-11/12 my-2 "
+                                        disabled={
+                                            userStake &&
+                                            parseBalance(userStake) > 0
+                                                ? false
+                                                : true
+                                        }
                                         onClick={() => exit()}
                                     >
                                         Exit Staking

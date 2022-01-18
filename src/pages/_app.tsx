@@ -8,7 +8,6 @@ import ToastContainer from "../components/Toast/toastContainer";
 import { ThemeProvider } from "next-themes";
 import getLibrary from "../functions/getLibrary";
 import Layout from "../layout";
-import { useRouter } from "next/dist/client/router";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (

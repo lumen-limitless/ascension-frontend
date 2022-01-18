@@ -3,14 +3,14 @@ import React from "react";
 export default function Loader({
     size = "32px",
     stroke = "#FFFFFF",
-    ...rest
+    message,
 }: {
     size?: string;
     stroke?: string;
-    [k: string]: any;
+    message?: string;
 }) {
     return (
-        <div className="w-full flex justify-center">
+        <div className="w-full  flex flex-col justify-center items-center text-center ">
             <svg
                 id="Vrstva_1"
                 className="animate-spin-slow"
@@ -25,8 +25,7 @@ export default function Loader({
                 <defs>
                     <style
                         dangerouslySetInnerHTML={{
-                            __html:
-                                ".cls-1{fill:url(#Nepojmenovaný_přechod_43);}.cls-2{fill:url(#Nepojmenovaný_přechod_19);}.cls-3{fill:url(#Nepojmenovaný_přechod_148);}.cls-4{fill:url(#Nepojmenovaný_přechod_23);}.cls-5{fill:url(#Nepojmenovaný_přechod_72);}.cls-6{fill:url(#Nepojmenovaný_přechod_60);}",
+                            __html: ".cls-1{fill:url(#Nepojmenovaný_přechod_43);}.cls-2{fill:url(#Nepojmenovaný_přechod_19);}.cls-3{fill:url(#Nepojmenovaný_přechod_148);}.cls-4{fill:url(#Nepojmenovaný_přechod_23);}.cls-5{fill:url(#Nepojmenovaný_přechod_72);}.cls-6{fill:url(#Nepojmenovaný_přechod_60);}",
                         }}
                     />
                     <linearGradient
@@ -134,6 +133,7 @@ export default function Loader({
                     points="754 591.6 377 754 377 399.68 593.71 340.17 754 591.6"
                 />
             </svg>
+            <h1>{message}</h1>
         </div>
     );
 }

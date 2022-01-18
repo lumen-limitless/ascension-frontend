@@ -23,7 +23,6 @@ interface AscensionStakingInterface extends ethers.utils.Interface {
   functions: {
     "balanceOf(address)": FunctionFragment;
     "earned(address)": FunctionFragment;
-    "emergencyRecover(uint256)": FunctionFragment;
     "exit()": FunctionFragment;
     "getReward()": FunctionFragment;
     "getRewardForDuration()": FunctionFragment;
@@ -53,10 +52,6 @@ interface AscensionStakingInterface extends ethers.utils.Interface {
 
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(functionFragment: "earned", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "emergencyRecover",
-    values: [BigNumberish]
-  ): string;
   encodeFunctionData(functionFragment: "exit", values?: undefined): string;
   encodeFunctionData(functionFragment: "getReward", values?: undefined): string;
   encodeFunctionData(
@@ -133,10 +128,6 @@ interface AscensionStakingInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "earned", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "emergencyRecover",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "exit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
   decodeFunctionResult(
@@ -295,11 +286,6 @@ export class AscensionStaking extends BaseContract {
 
     earned(_account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    emergencyRecover(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     exit(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -386,11 +372,6 @@ export class AscensionStaking extends BaseContract {
 
   earned(_account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  emergencyRecover(
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   exit(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -476,11 +457,6 @@ export class AscensionStaking extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     earned(_account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    emergencyRecover(
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     exit(overrides?: CallOverrides): Promise<void>;
 
@@ -649,11 +625,6 @@ export class AscensionStaking extends BaseContract {
 
     earned(_account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    emergencyRecover(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     exit(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -745,11 +716,6 @@ export class AscensionStaking extends BaseContract {
     earned(
       _account: string,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    emergencyRecover(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     exit(

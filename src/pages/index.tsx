@@ -1,6 +1,6 @@
 import Container from "../components/Container";
 import Stat from "../components/Stat";
-import { useCoingeckoAscensionStats } from "../hooks/useCoingecko";
+import { useCoingeckoAscensionStats } from "../hooks/useAPI";
 
 export default function Home() {
     const { price, marketCap } = useCoingeckoAscensionStats();

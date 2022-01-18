@@ -527,7 +527,7 @@ export class AscensionStakedToken extends BaseContract {
     ): Promise<ContractTransaction>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -708,7 +708,7 @@ export class AscensionStakedToken extends BaseContract {
   ): Promise<ContractTransaction>;
 
   mint(
-    to: string,
+    account: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -883,7 +883,7 @@ export class AscensionStakedToken extends BaseContract {
     ): Promise<boolean>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1197,7 +1197,7 @@ export class AscensionStakedToken extends BaseContract {
     ): Promise<BigNumber>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1393,7 +1393,7 @@ export class AscensionStakedToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     mint(
-      to: string,
+      account: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

@@ -83,3 +83,7 @@ export const formatBalance = (
     }
     return commify(formatted);
 };
+
+export const parseBalance = (value: BigNumberish, decimals = 18) => {
+    return parseFloat(formatUnits(value, decimals));
+};

@@ -28,12 +28,11 @@ export interface NavProps {
 }
 export default function Nav({ className }: NavProps) {
     return (
-        //DESKTOP NAV------------------------------------------------------------------------------------------------------------------
         <nav
             id="nav"
             className={classNames(
                 className,
-                "h-full items-center justify-center mx-8 z-50 "
+                "flex flex-col md:flex-row h-full items-center justify-center mx-8 z-50 "
             )}
         >
             <NavItem path="/" />

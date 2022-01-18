@@ -20,7 +20,7 @@ export default function Header() {
         <>
             <header
                 ref={ref}
-                className="flex flex-col w-full px-4 py-1 justify-between items-center  border-b border-gray-400 dark:border-dark-600"
+                className="flex flex-col w-full px-4 py-1 justify-between items-center  border-b border-gray-400 dark:border-dark-600   bg-white dark:bg-dark-1000"
             >
                 <div className="w-full h-full flex  items-center">
                     <button onClick={addToken}>

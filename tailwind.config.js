@@ -3,8 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-    mode: "jit",
-    purge: ["./src/**/*.{js,ts,jsx,tsx}"],
+    content: ["./src/**/*.{js,ts,jsx,tsx}"],
     darkMode: "class",
     theme: {
         extend: {
@@ -132,19 +131,7 @@ module.exports = {
             },
         },
     },
-    variants: {
-        linearBorderGradients: ["responsive", "hover", "dark"], // defaults to ['responsive']
-        extend: {
-            backgroundColor: ["checked", "disabled"],
-            backgroundImage: ["hover", "focus"],
-            borderColor: ["checked", "disabled"],
-            cursor: ["disabled"],
-            opacity: ["hover", "disabled"],
-            placeholderColor: ["hover", "active"],
-            ringWidth: ["disabled"],
-            ringColor: ["disabled"],
-        },
-    },
+
     plugins: [
         require("@tailwindcss/forms"),
         plugin(function ({ addUtilities }) {

@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
-import LiquiditySniper from "../../components/LiquiditySniper";
 import Card from "../../components/Card";
-import { BackspaceIcon } from "@heroicons/react/outline";
 import Container from "../../components/Container";
 import Button from "../../components/Button";
+import Link from "next/link";
+import Logo from "../../components/Logo";
+import { useWeb3React } from "@web3-react/core";
 
-export default function Tools() {
-    const [option, setOption] = useState<number>();
-    const TOOLS: { [key: number]: JSX.Element } = {
-        1: <LiquiditySniper />,
-    };
-
+const ToolTile = ({ path, name }: { path?: string; name?: string }) => {
     return (
-        <Container maxWidth="2xl">
+        <Card>
+            <div className="flex flex-col gap-4">
+                <Logo />
+                <Link href={path} passHref={true}>
+                    <a>
+                        <Button color="blue">{name}</Button>
+                    </a>
+                </Link>
+            </div>
+        </Card>
+    );
+};
+export default function Tools() {
+    return (
+        <Container maxWidth="4xl">
             <Head>
+                {" "}
                 <title>Tools | Ascension Protocol</title>
                 <meta
                     key="description"
@@ -22,32 +33,20 @@ export default function Tools() {
                     content="Ascension Protocol tools"
                 />
             </Head>
-            {!option ? null : (
-                <Button
-                    className="flex text-red-500"
-                    onClick={() => setOption(undefined)}
-                >
-                    <BackspaceIcon width="20px" fill="red" />
-                    Back
-                </Button>
-            )}
-
-            {!option ? (
-                <>
-                    <Card title="Tools">
-                        <Button
-                            color="blue"
-                            size="lg"
-                            className="my-2"
-                            onClick={() => setOption(1)}
-                        >
-                            Liquidity Sniper
-                        </Button>
-                    </Card>
-                </>
-            ) : (
-                TOOLS[option]
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-12">
+                <ToolTile
+                    path="tools/liquiditysniper"
+                    name="Liquidity Sniper"
+                />
+                <ToolTile
+                    path="tools/universalswap"
+                    name="Universal Swap Tool"
+                />
+                <ToolTile
+                    path="tools/universalswap"
+                    name="Universal Swap Tool"
+                />
+            </div>
         </Container>
     );
 }

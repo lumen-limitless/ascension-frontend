@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import { useAscensionStaking, useContract } from "./useContract";
-import contractsInfo from "../constants/contractsInfo.json";
 import { useToast } from "./useToast";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { HOME_CHAINID } from "../constants";
@@ -120,9 +119,9 @@ export default function useStaking() {
 
         apy: apy,
 
-        userStake: userStake,
+        userStake,
 
-        earnings: earnings,
+        earnings,
 
         paused,
 
