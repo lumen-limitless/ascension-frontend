@@ -2,7 +2,7 @@ import { useWeb3React } from "@web3-react/core";
 import React, { useState, useEffect } from "react";
 import { useEagerConnect, useInactiveListener } from "../../hooks/web3hooks";
 import { injected, walletconnect } from "../../constants/connectors";
-import Pill from "../Button/pill";
+
 import { LinkIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import AccountInfo from "../AccountInfo";
@@ -82,12 +82,15 @@ export default function Connection() {
                 <Connect />
             ) : (
                 <>
-                    <Pill className={classNames(colorsByChain[chainId ?? 1])}>
+                    <Button
+                        variant="outlined"
+                        className={classNames(colorsByChain[chainId ?? 1])}
+                    >
                         <div className="flex">
                             <LinkIcon height="20px" />
                             {chainId && CHAIN_NAME[chainId]}
                         </div>
-                    </Pill>
+                    </Button>
                     <AccountInfo />
                 </>
             )}

@@ -5,6 +5,7 @@ import Button from ".";
 
 export default function ThemeButton() {
     const { resolvedTheme, setTheme } = useTheme();
+
     const toggleTheme = useCallback(() => {
         if (resolvedTheme === "light") {
             setTheme("dark");

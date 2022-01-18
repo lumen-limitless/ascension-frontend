@@ -10,6 +10,7 @@ import { FingerPrintIcon, UserIcon, XIcon } from "@heroicons/react/outline";
 import Modal from "../Modal";
 import { Web3Provider } from "@ethersproject/providers";
 import Avatar from "../Avatar";
+import Button from "../Button";
 
 export default function AccountInfo() {
     const { account } = useWeb3React<Web3Provider>();
@@ -19,13 +20,14 @@ export default function AccountInfo() {
 
     return (
         <>
-            <Pill
+            <Button
+                color="gray"
+                variant="outlined"
                 onClick={() => toggle(true)}
-                className="bg-gradient-to-r from-ascend-purple  to-ascend-magenta flex"
             >
                 <UserIcon height="20px" />
                 {account ? shortenAddress(account) : ""}
-            </Pill>
+            </Button>
 
             {viewing && (
                 <Modal isOpen={viewing} onDismiss={() => toggle(false)}>

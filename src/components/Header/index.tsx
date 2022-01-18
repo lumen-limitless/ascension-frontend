@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Connection from "../Connection";
 import Nav from "../Nav";
 import Logo from "../Logo";
@@ -9,7 +9,14 @@ import contractsInfo from "../../constants/contractsInfo.json";
 import { MenuAlt2Icon, XIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import Popover from "../Popover";
+import { useTheme } from "next-themes";
 export default function Header() {
+    const { setTheme } = useTheme();
+
+    useEffect(() => {
+        setTheme("dark");
+    });
+
     const [viewing, toggleViewing] = useToggle(false);
     const ref = useRef(null);
     useClickAway(ref, () => toggleViewing(false));
@@ -30,8 +37,6 @@ export default function Header() {
                     <div className="flex ml-auto ">
                         <Connection />
                     </div>
-
-                    <DarkModeButton />
 
                     <Button
                         key="navbutton"

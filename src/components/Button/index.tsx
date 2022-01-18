@@ -33,7 +33,7 @@ const OUTLINED = {
 
 const EMPTY = {
     default:
-        "flex bg-transparent justify-center items-center disabled:opacity-50 disabled:cursor-auto bg-opacity-80 hover:bg-opacity-100",
+        " bg-transparent disabled:opacity-50 disabled:cursor-auto bg-opacity-80 hover:bg-opacity-100",
 };
 
 const LINK = {
@@ -84,7 +84,7 @@ function Button({
             className={classNames(
                 VARIANT[variant][color],
                 variant !== "empty" && SIZE[size],
-                "rounded disabled:cursor-not-allowed focus:outline-none disabled:opacity-40",
+                "flex justify-center items-center rounded disabled:cursor-not-allowed focus:outline-none disabled:opacity-40",
                 // 'rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed font-medium',
                 className
             )}
