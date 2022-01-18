@@ -1,5 +1,5 @@
 {
-  "name": "localhost",
+  "name": "arbitrum",
   "chainId": "42161",
   "contracts": {
     "AppDataFacet": {
