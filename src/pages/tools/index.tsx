@@ -42,10 +42,6 @@ export default function Tools() {
                     path="tools/universalswap"
                     name="Universal Swap Tool"
                 />
-                <ToolTile
-                    path="tools/universalswap"
-                    name="Universal Swap Tool"
-                />
             </div>
         </Container>
     );

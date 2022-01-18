@@ -12,6 +12,8 @@ import Loader from "../../../components/Loader";
 export default function UniversalSwapPage() {
     const { chainId } = useWeb3React();
 
+    if (!chainId) return <Loader />;
+
     return (
         <>
             <Head>
@@ -24,7 +26,7 @@ export default function UniversalSwapPage() {
             </Head>
 
             <Container maxWidth="5xl">
-                {/* {!chainId ? <Loader /> : <UniversalSwap chainId={chainId} />} */}
+                <UniversalSwap chainId={chainId} />
             </Container>
         </>
     );
