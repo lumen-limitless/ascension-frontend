@@ -24,7 +24,7 @@ import {
 import { Contract } from "ethers";
 
 export default function Stake() {
-    const { account, active, chainId } = useEthers();
+    const { account, chainId } = useEthers();
     const [amount, setAmount] = useState<string>("");
     const ascendBalance = useTokenBalance(
         ASCENSION.AscensionToken.address,
@@ -112,7 +112,7 @@ export default function Stake() {
             ></Stat>
 
             <Card className="mb-20" title="Stake ASCEND">
-                {!active ? (
+                {!account ? (
                     <>
                         <Connect />
                     </>
@@ -144,9 +144,11 @@ export default function Stake() {
                                             );
                                     }}
                                 >
-                                    {approve.state.status === "Mining"
-                                        ? "Confirming..."
-                                        : "Enable staking pool"}
+                                    {approve.state.status === "Mining" ? (
+                                        <Loader />
+                                    ) : (
+                                        "Enable staking pool"
+                                    )}
                                 </Button>
                             ) : (
                                 <div className="flex md:mr-32">

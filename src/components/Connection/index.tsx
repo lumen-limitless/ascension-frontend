@@ -9,10 +9,12 @@ import Modal from "../Modal";
 import { classNames } from "../../functions";
 import { useEthers } from "@usedapp/core";
 import useNotificationsToast from "../../hooks/useNotificationsToast";
+import { useToast } from "../../hooks/useToast";
 
 export function Connect() {
     const { activateBrowserWallet, activate } = useEthers();
     const [viewing, toggle] = useToggle(false);
+    const toast = useToast(4000);
 
     return (
         <>
@@ -34,7 +36,14 @@ export function Connect() {
 
                     <Button
                         color="gray"
-                        onClick={() => activate(walletconnect)}
+                        onClick={() =>
+                            activate(walletconnect).catch((err) => {
+                                console.error(
+                                    `error while attempting to connect: ${err}`
+                                );
+                                toast("error", "Unable to connect to wallet");
+                            })
+                        }
                         className="my-2"
                     >
                         WalletConnect
