@@ -3,12 +3,7 @@ import { useState } from "react";
 import Button from "../../../components/Button";
 import Card from "../../../components/Card";
 import Loader from "../../../components/Loader";
-import {
-    ASCENSION,
-    USD_ADDRESS,
-    WNATIVE_ADDRESS,
-    ZERO_ADDRESS,
-} from "../../../constants";
+import { ASCENSION, WNATIVE_ADDRESS } from "../../../constants";
 
 import TradingChart from "./TradingChart";
 

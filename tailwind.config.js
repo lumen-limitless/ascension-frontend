@@ -101,9 +101,7 @@ module.exports = {
                 cardContent: "230px",
                 fitContent: "fit-content",
             },
-            minHeight: {
-                5: "1.25rem",
-            },
+
             minWidth: {
                 5: "1.25rem",
             },

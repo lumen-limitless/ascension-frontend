@@ -163,8 +163,7 @@ export default function Stake() {
                                     />
 
                                     <Button
-                                        size="xs"
-                                        color="default"
+                                        size="sm"
                                         disabled={amount ? false : true}
                                         onClick={() => {
                                             stake
@@ -177,8 +176,7 @@ export default function Stake() {
                                         Stake
                                     </Button>
                                     <Button
-                                        size="xs"
-                                        color="default"
+                                        size="sm"
                                         disabled={amount ? false : true}
                                         onClick={() => {
                                             withdraw

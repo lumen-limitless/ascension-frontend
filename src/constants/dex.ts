@@ -11,17 +11,16 @@ export const SUSHI_INIT_HASH =
 
 export const UNI_INIT_HASH =
     "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f";
+export const PCS_INIT_HASH = "";
 
 export const DEX_BY_CHAIN = {
     [ChainId.Mainnet]: {
         sushiswap: {
-            name: "SushiSwap",
             initHash: SUSHI_INIT_HASH,
             router: SUSHI_ROUTER_ADDRESS[ChainId.Mainnet],
             factory: SUSHI_FACTORY_ADDRESS[ChainId.Mainnet],
         },
         uniswap: {
-            name: "UniSwap",
             initHash: UNI_INIT_HASH,
             router: UNI_ROUTER_ADDRESS[ChainId.Mainnet],
             factory: UNI_FACTORY_ADDRESS[ChainId.Mainnet],
@@ -29,13 +28,11 @@ export const DEX_BY_CHAIN = {
     },
     [ChainId.Arbitrum]: {
         sushiswap: {
-            name: "SushiSwap",
             initHash: SUSHI_INIT_HASH,
             router: SUSHI_ROUTER_ADDRESS[ChainId.Arbitrum],
             factory: SUSHI_FACTORY_ADDRESS[ChainId.Arbitrum],
         },
         uniswap: {
-            name: "UniSwap",
             initHash: UNI_INIT_HASH,
             router: SUSHI_ROUTER_ADDRESS[ChainId.Mainnet],
             factory: SUSHI_FACTORY_ADDRESS[ChainId.Mainnet],

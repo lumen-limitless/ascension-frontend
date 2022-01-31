@@ -1,13 +1,13 @@
 import { useEthers } from "@usedapp/core";
-import { useWeb3React } from "@web3-react/core";
+
 import React from "react";
 
-export default function DisconnectButton({ className }: any) {
+export default function DisconnectButton() {
     const { deactivate } = useEthers();
     return (
         <button
             onClick={deactivate}
-            className={`px-2 ${className}`}
+            className="px-2"
             title="disconnect"
             about="disconnect"
             id="disconnect"

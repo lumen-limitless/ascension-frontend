@@ -1,21 +1,7 @@
-import { ChainId, useEthers } from "@usedapp/core";
-import {
-    Area,
-    AreaChart,
-    CartesianGrid,
-    Legend,
-    Line,
-    LineChart,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from "recharts";
+import { useEthers } from "@usedapp/core";
+import { Area, AreaChart, Legend, Tooltip } from "recharts";
 import Card from "../../../components/Card";
 import Loader from "../../../components/Loader";
-import { DEX_BY_CHAIN, HOME_CHAINID } from "../../../constants";
-
-import useCREATE2PairAddress from "../../../hooks/useCREATE2Address";
 
 export interface TradingChartProps {
     dex: string;

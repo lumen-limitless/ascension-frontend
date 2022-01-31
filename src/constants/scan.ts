@@ -13,4 +13,8 @@ export const SCAN_INFO = {
         name: "bscscan",
         apiKey: "EJENUSIGFRF2HX5UQV4JNQUIFU2N2W2VFD",
     },
+    [ChainId.Polygon]: {
+        name: "polygonscan",
+        apiKey: "",
+    },
 };

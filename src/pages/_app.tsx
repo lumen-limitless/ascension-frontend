@@ -6,19 +6,20 @@ import { ToastProvider } from "../context/ToastContext";
 import ToastContainer from "../components/Toast/toastContainer";
 import { ThemeProvider } from "next-themes";
 import Layout from "../layout";
-import { ChainId, Config, DAppProvider } from "@usedapp/core";
-import { RPC } from "../constants";
+import { Config, DAppProvider } from "@usedapp/core";
+import { HOME_CHAINID, RPC } from "../constants";
 
 const config: Config = {
-    readOnlyChainId: ChainId.Arbitrum,
+    readOnlyChainId: HOME_CHAINID,
     readOnlyUrls: {
-        [ChainId.Arbitrum]: RPC[ChainId.Arbitrum],
+        [HOME_CHAINID]: RPC[HOME_CHAINID],
     },
     autoConnect: true,
     notifications: {
         checkInterval: 4000,
         expirationPeriod: 4000,
     },
+    pollingInterval: 1000,
 };
 
 export default function MyApp({ Component, pageProps }: AppProps) {
