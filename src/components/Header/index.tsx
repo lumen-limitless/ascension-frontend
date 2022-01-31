@@ -1,11 +1,8 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Connection from "../Connection";
 import Nav from "../Nav";
 import Logo from "../Logo";
-import { useClickAway, useToggle } from "react-use";
-import useAddTokenToMetaMask from "../../hooks/useAddTokenToMetamask";
-import DarkModeButton from "../Button/themeButton";
-import contractsInfo from "../../constants/contractsInfo.json";
+import { useClickAway, useEffectOnce, useToggle } from "react-use";
 import { MenuAlt2Icon, XIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import Popover from "../Popover";
@@ -13,16 +10,15 @@ import { useTheme } from "next-themes";
 export default function Header() {
     const { setTheme } = useTheme();
 
-    useEffect(() => {
+    //temporarily set theme dark until we sort out terrible looking light mode
+    useEffectOnce(() => {
         setTheme("dark");
     });
 
     const [viewing, toggleViewing] = useToggle(false);
     const ref = useRef(null);
     useClickAway(ref, () => toggleViewing(false));
-    const { addToken } = useAddTokenToMetaMask(
-        contractsInfo.contracts.AscensionToken.address
-    );
+
     return (
         <>
             <header
@@ -30,9 +26,8 @@ export default function Header() {
                 className="flex flex-col w-full px-4 py-1 justify-between items-center  border-b border-gray-400 dark:border-dark-600   bg-white dark:bg-dark-1000"
             >
                 <div className="w-full h-full flex  items-center">
-                    <button onClick={addToken}>
-                        <Logo />
-                    </button>
+                    <Logo />
+
                     <Nav className="hidden md:flex" />
                     <div className="flex ml-auto ">
                         <Connection />

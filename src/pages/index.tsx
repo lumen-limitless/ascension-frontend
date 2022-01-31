@@ -6,7 +6,7 @@ export default function Home() {
     const { price, marketCap } = useCoingeckoAscensionStats();
 
     return (
-        <Container maxWidth="3xl">
+        <Container maxWidth="5xl">
             <Stat
                 stats={[
                     { name: "Price", stat: price, before: "$" },
@@ -17,9 +17,9 @@ export default function Home() {
                         isBalance: true,
                     },
                     {
-                        name: "Total Supply",
-                        stat: "14,400,000",
-                        after: " ASCEND",
+                        name: "Treasury TVL",
+                        stat: "10,000",
+                        before: "$",
                     },
                 ]}
             />

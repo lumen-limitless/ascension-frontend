@@ -164,7 +164,7 @@ export default function useLiquiditySniper() {
                     value: ethers.utils.parseUnits(amount, "ether"),
                 };
                 router.connect(library.getSigner());
-                let tx =
+                const tx =
                     await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
                         amountOutMin,
                         [weth, target],
@@ -226,8 +226,10 @@ export default function useLiquiditySniper() {
 
     const toggleStatus = () => {
         if (status === "paused") {
+            toast("info", "Searching...");
             setStatus("searching");
         } else {
+            toast("info", "Paused...");
             setStatus("paused");
         }
     };

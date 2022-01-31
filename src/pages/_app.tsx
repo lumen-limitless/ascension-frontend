@@ -2,12 +2,24 @@ import React from "react";
 import "../styles/index.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-import { Web3ReactProvider } from "@web3-react/core";
 import { ToastProvider } from "../context/ToastContext";
 import ToastContainer from "../components/Toast/toastContainer";
 import { ThemeProvider } from "next-themes";
-import getLibrary from "../functions/getLibrary";
 import Layout from "../layout";
+import { ChainId, Config, DAppProvider } from "@usedapp/core";
+import { RPC } from "../constants";
+
+const config: Config = {
+    readOnlyChainId: ChainId.Arbitrum,
+    readOnlyUrls: {
+        [ChainId.Arbitrum]: RPC[ChainId.Arbitrum],
+    },
+    autoConnect: true,
+    notifications: {
+        checkInterval: 4000,
+        expirationPeriod: 4000,
+    },
+};
 
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -93,7 +105,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Web3ReactProvider getLibrary={getLibrary}>
+            <DAppProvider config={config}>
                 <ThemeProvider attribute="class">
                     <ToastProvider>
                         <Layout>
@@ -102,7 +114,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                         </Layout>
                     </ToastProvider>
                 </ThemeProvider>
-            </Web3ReactProvider>
+            </DAppProvider>
         </>
     );
 }

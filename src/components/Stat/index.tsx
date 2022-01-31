@@ -2,10 +2,11 @@ import React from "react";
 import Skeleton from "../Skeleton";
 import Card from "../Card";
 import { formatBalance, formatPercent } from "../../functions";
+import { BigNumberish } from "ethers";
 
 type Stat = {
     name?: string;
-    stat?: string | number;
+    stat?: string | number | BigNumberish;
     before?: string;
     after?: string;
     isBalance?: boolean;

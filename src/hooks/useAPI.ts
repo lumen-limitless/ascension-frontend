@@ -1,20 +1,13 @@
-import { useWeb3React } from "@web3-react/core";
+import { ChainId } from "@usedapp/core";
 import { getAddress } from "ethers/lib/utils";
-import { Web3Provider } from "ethers/node_modules/@ethersproject/providers";
-import { useCallback, useMemo } from "react";
 import useSWR from "swr";
-import { ChainId, HOME_CHAINID, SCAN_INFO } from "../constants";
-import { isAddress } from "../functions";
+import { SCAN_INFO } from "../constants";
 
 export default function useAPI(url: string) {
-    const fetcher = useCallback(
-        (url: string) => fetch(url).then((r) => r.json()),
-        []
-    );
+    const { data, error } = useSWR(url, async (url: string) => {
+        return await fetch(url).then((r) => r.json());
+    });
 
-    const { data, error } = useSWR(url, fetcher);
-
-    if (error) console.error(error);
     return { data, error };
 }
 
@@ -49,18 +42,16 @@ export function useTransferData(
 ) {
     const { data, error } = useAPI(
         `https://api.${
-            SCAN_INFO[chainId ?? HOME_CHAINID].name
+            SCAN_INFO[chainId].name
         }.io/api?module=account&action=tokentx&contractaddress=${getAddress(
             tokenContract
         )}&address=${getAddress(
             address
         )}&startblock=0&endblock=latest&page=1&offset=100&sort=asc&apikey=${
-            SCAN_INFO[chainId ?? HOME_CHAINID].apiKey
+            SCAN_INFO[chainId].apiKey
         }`
     );
 
-    return {
-        data,
-        error,
-    };
+    if (error) return error;
+    return data;
 }

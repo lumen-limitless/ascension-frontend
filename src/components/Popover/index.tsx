@@ -1,10 +1,10 @@
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState } from "react";
 
 import { Placement } from "@popperjs/core";
-import useInterval from "../../hooks/useInterval";
 import { usePopper } from "react-popper";
 import { classNames } from "../../functions";
 import { Popover as HeadlessuiPopover } from "@headlessui/react";
+import { useInterval } from "react-use";
 
 export interface PopoverProps {
     content: React.ReactNode;
@@ -19,10 +19,8 @@ export default function Popover({
     children,
     placement = "auto",
 }: PopoverProps) {
-    const [
-        referenceElement,
-        setReferenceElement,
-    ] = useState<HTMLDivElement | null>(null);
+    const [referenceElement, setReferenceElement] =
+        useState<HTMLDivElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
         null
     );

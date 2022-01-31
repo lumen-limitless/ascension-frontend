@@ -4,7 +4,7 @@ export function useToast(delay: number) {
     const dispatch = useToastDispatchContext();
 
     function toast(type: any, message: string) {
-        const id = Math.random().toString(36).substr(2, 9);
+        const id = Math.random().toString(36);
 
         dispatch({
             type: "ADD_TOAST",

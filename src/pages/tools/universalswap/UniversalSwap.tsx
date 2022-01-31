@@ -1,22 +1,26 @@
-import { useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
+import { useEthers } from "@usedapp/core";
 import { useState } from "react";
 import Button from "../../../components/Button";
 import Card from "../../../components/Card";
+import Loader from "../../../components/Loader";
 import {
     ASCENSION,
     USD_ADDRESS,
     WNATIVE_ADDRESS,
     ZERO_ADDRESS,
 } from "../../../constants";
-import { shortenAddress } from "../../../functions";
+
 import TradingChart from "./TradingChart";
 
-export default function UniversalSwap({ chainId }) {
+export default function UniversalSwap() {
+    const { chainId } = useEthers();
     const [tokens, setTokens] = useState<{
         buyToken: string;
         sellToken: string;
-    }>({ buyToken: WNATIVE_ADDRESS[chainId], sellToken: ZERO_ADDRESS });
+    }>({
+        buyToken: WNATIVE_ADDRESS[chainId],
+        sellToken: ASCENSION.AscensionToken.address,
+    });
     const [amount, setAmount] = useState();
 
     const [dex, setDex] = useState("sushiswap");
@@ -28,12 +32,16 @@ export default function UniversalSwap({ chainId }) {
         });
     };
 
+    if (!chainId) return <Loader />;
+
     return (
-        <div className="flex flex-col md:flex-row w-full h-full gap-10 ">
+        <div className="flex flex-col md:flex-row w-full gap-10 min-h-[500px] ">
             <Card className="flex-basis-16 flex-shrink-0 md:w-80">
                 <div className="flex flex-col h-full gap-1 justify-evenly items-center">
                     <div className="flex flex-col gap-1 w-full">
-                        <Button>ETH</Button>
+                        <Button variant="outlined" color="gray">
+                            ETH
+                        </Button>
                     </div>
 
                     <Button onClick={swapTokens}>
@@ -49,7 +57,9 @@ export default function UniversalSwap({ chainId }) {
                     </Button>
 
                     <div className="flex flex-col gap-1 w-full">
-                        <Button>USD</Button>
+                        <Button variant="outlined" color="gray">
+                            USD
+                        </Button>
                     </div>
 
                     <Button color="gradient">Swap</Button>
@@ -57,7 +67,6 @@ export default function UniversalSwap({ chainId }) {
             </Card>
             <TradingChart
                 dex={dex}
-                chainId={chainId}
                 buyToken={tokens.buyToken}
                 sellToken={tokens.sellToken}
             />

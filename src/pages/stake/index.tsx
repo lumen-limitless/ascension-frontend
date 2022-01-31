@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Card from "../../components/Card";
 import useStaking from "../../hooks/useStaking";
-import { useAscendBalance } from "../../hooks/useAscend";
-import { useWeb3React } from "@web3-react/core";
 import { Connect } from "../../components/Connection";
 import Input from "../../components/Input";
 import { SwitchNetworkButton } from "../../components/Button/switchNetworkButton";
@@ -12,41 +10,80 @@ import Stat from "../../components/Stat";
 import Skeleton from "../../components/Skeleton";
 import Button from "../../components/Button";
 import { ASCENSION, HOME_CHAINID } from "../../constants";
-import useContractCall from "../../hooks/useContractCall";
-import { useContract } from "../../hooks/useContract";
+
 import { parseUnits } from "@ethersproject/units";
 import Loader from "../../components/Loader";
 import { formatBalance, parseBalance } from "../../functions";
 
-export default function Stake() {
-    const { account, active, chainId } = useWeb3React();
-    const [amount, setAmount] = useState<string>("");
-    const { approve, ascendBalance } = useAscendBalance();
-    const ascend = useContract(
-        ASCENSION.AscensionToken.address,
-        ASCENSION.AscensionToken.abi,
-        HOME_CHAINID
-    );
-    const { data: allowance } = useContractCall([
-        ascend,
-        "allowance",
-        account,
-        ASCENSION.AscensionStaking.address,
-    ]);
+import {
+    useContractFunction,
+    useEthers,
+    useTokenAllowance,
+    useTokenBalance,
+} from "@usedapp/core";
+import { Contract } from "ethers";
 
-    const {
-        staking,
-        totalStaked,
-        apy,
-        userStake,
-        earnings,
-        rewardsEndAt,
-        paused,
-        stake,
-        withdraw,
-        exit,
-        getReward,
-    } = useStaking();
+export default function Stake() {
+    const { account, active, chainId } = useEthers();
+    const [amount, setAmount] = useState<string>("");
+    const ascendBalance = useTokenBalance(
+        ASCENSION.AscensionToken.address,
+        account
+    );
+
+    const allowance = useTokenAllowance(
+        ASCENSION.AscensionToken.address,
+        account,
+        ASCENSION.AscensionStaking.address
+    );
+
+    const approve = useContractFunction(
+        new Contract(
+            ASCENSION.AscensionToken.address,
+            ASCENSION.AscensionToken.abi
+        ),
+        "approve",
+        { transactionName: "Approve" }
+    );
+
+    const stake = useContractFunction(
+        new Contract(
+            ASCENSION.AscensionStaking.address,
+            ASCENSION.AscensionStaking.abi
+        ),
+        "stake",
+        { transactionName: "Stake" }
+    );
+
+    const withdraw = useContractFunction(
+        new Contract(
+            ASCENSION.AscensionStaking.address,
+            ASCENSION.AscensionStaking.abi
+        ),
+        "withdraw",
+        { transactionName: "Withdraw" }
+    );
+
+    const getReward = useContractFunction(
+        new Contract(
+            ASCENSION.AscensionStaking.address,
+            ASCENSION.AscensionStaking.abi
+        ),
+        "getReward",
+        { transactionName: "Get Reward" }
+    );
+
+    const exit = useContractFunction(
+        new Contract(
+            ASCENSION.AscensionStaking.address,
+            ASCENSION.AscensionStaking.abi
+        ),
+        "exit",
+        { transactionName: "Exit" }
+    );
+
+    const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } =
+        useStaking();
 
     return (
         <Container maxWidth="4xl">
@@ -96,13 +133,20 @@ export default function Stake() {
                                 <Button
                                     color="gradient"
                                     onClick={() => {
-                                        approve(
-                                            staking.address,
-                                            parseUnits("14400000")
-                                        );
+                                        approve
+                                            .send(
+                                                ASCENSION.AscensionStaking
+                                                    .address,
+                                                parseUnits("14400000")
+                                            )
+                                            .then(() =>
+                                                console.log(approve.state)
+                                            );
                                     }}
                                 >
-                                    Enable Staking Pool
+                                    {approve.state.status === "Mining"
+                                        ? "Confirming..."
+                                        : "Enable staking pool"}
                                 </Button>
                             ) : (
                                 <div className="flex md:mr-32">
@@ -117,20 +161,30 @@ export default function Stake() {
                                     />
 
                                     <Button
-                                        size="sm"
+                                        size="xs"
                                         color="default"
                                         disabled={amount ? false : true}
                                         onClick={() => {
-                                            stake(amount ?? "0");
+                                            stake
+                                                .send(parseUnits(amount))
+                                                .then(() =>
+                                                    console.log(stake.state)
+                                                );
                                         }}
                                     >
                                         Stake
                                     </Button>
                                     <Button
-                                        size="sm"
+                                        size="xs"
                                         color="default"
                                         disabled={amount ? false : true}
-                                        onClick={() => withdraw(amount ?? "0")}
+                                        onClick={() => {
+                                            withdraw
+                                                .send(parseUnits(amount))
+                                                .then(() =>
+                                                    console.log(withdraw.state)
+                                                );
+                                        }}
                                     >
                                         Withdraw
                                     </Button>
@@ -151,16 +205,16 @@ export default function Stake() {
                                     </li>
                                     <li className="w-full flex">
                                         Stake:{" "}
-                                        {userStake ? (
-                                            formatBalance(userStake) + " ASCEND"
+                                        {balanceOf ? (
+                                            formatBalance(balanceOf) + " ASCEND"
                                         ) : (
                                             <Skeleton />
                                         )}
                                     </li>
                                     <li className="w-full flex">
-                                        Earnings:{" "}
-                                        {earnings ? (
-                                            formatBalance(earnings) + " ASCEND"
+                                        earned:{" "}
+                                        {earned ? (
+                                            formatBalance(earned) + " ASCEND"
                                         ) : (
                                             <Skeleton />
                                         )}
@@ -171,27 +225,47 @@ export default function Stake() {
                                         color="green"
                                         className=" w-11/12 my-2"
                                         disabled={
-                                            userStake &&
-                                            parseBalance(userStake) > 0
+                                            balanceOf &&
+                                            parseBalance(balanceOf) > 0 &&
+                                            getReward.state.status !== "Mining"
                                                 ? false
                                                 : true
                                         }
-                                        onClick={() => getReward()}
+                                        onClick={() => {
+                                            getReward
+                                                .send()
+                                                .then(() =>
+                                                    console.log(getReward.state)
+                                                );
+                                        }}
                                     >
-                                        Collect Earnings
+                                        {getReward.state.status === "Mining" ? (
+                                            <Loader />
+                                        ) : (
+                                            "Collect Earned"
+                                        )}
                                     </Button>
                                     <Button
                                         color="red"
                                         className="w-11/12 my-2 "
                                         disabled={
-                                            userStake &&
-                                            parseBalance(userStake) > 0
+                                            balanceOf &&
+                                            parseBalance(balanceOf) > 0 &&
+                                            exit.state.status !== "Mining"
                                                 ? false
                                                 : true
                                         }
-                                        onClick={() => exit()}
+                                        onClick={() => {
+                                            exit.send().then(() =>
+                                                console.log(exit.state)
+                                            );
+                                        }}
                                     >
-                                        Exit Staking
+                                        {exit.state.status === "Mining" ? (
+                                            <Loader />
+                                        ) : (
+                                            "Exit Staking"
+                                        )}
                                     </Button>
                                 </div>
                             </>

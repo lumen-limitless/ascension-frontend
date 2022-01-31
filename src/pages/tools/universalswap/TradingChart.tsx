@@ -1,8 +1,4 @@
-import { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
-import { BigNumber } from "ethers";
-import { useMemo } from "react";
-
+import { ChainId, useEthers } from "@usedapp/core";
 import {
     Area,
     AreaChart,
@@ -15,62 +11,40 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
+import Card from "../../../components/Card";
 import Loader from "../../../components/Loader";
-import { ChainId, DEX_BY_CHAIN } from "../../../constants";
-import { parseBalance } from "../../../functions";
-import { useTransferData } from "../../../hooks/useAPI";
+import { DEX_BY_CHAIN, HOME_CHAINID } from "../../../constants";
+
 import useCREATE2PairAddress from "../../../hooks/useCREATE2Address";
-import useLoading from "../../../hooks/useLoading";
 
 export interface TradingChartProps {
     dex: string;
-    chainId: ChainId;
     buyToken: string;
     sellToken: string;
 }
-export default function TradingChart({ dex, chainId, buyToken, sellToken }) {
-    const pair = useCREATE2PairAddress(
-        DEX_BY_CHAIN[chainId][dex].factory,
-        DEX_BY_CHAIN[chainId][dex].initHash,
-        buyToken,
-        sellToken
-    );
+export default function TradingChart({ dex, buyToken, sellToken }) {
+    const { chainId } = useEthers();
 
-    const { data: buyTokenData } = useTransferData(buyToken, pair, chainId);
+    const swapData = [
+        { price: 1, time: "jan" },
+        { price: 2, time: "feb" },
+        { price: 1.5, time: "mar" },
+        { price: 2.7, time: "apr" },
+    ];
+    console.log(swapData);
 
-    const { data: sellTokenData } = useTransferData(sellToken, pair, chainId);
-    console.log(buyTokenData);
-    console.log(sellTokenData);
+    if (!chainId) return <Loader />;
+    if (!swapData) return <Loader message="Loading graph..." />;
 
-    const graphData = useMemo(() => {
-        let parsed: [{ time: string; price: number }?] | undefined;
-        if (buyTokenData && sellTokenData) {
-            parsed = [];
-            for (let i = 0; i < buyTokenData.result.length; i++) {
-                parsed.push({
-                    time: buyTokenData.result[i].timestamp,
-                    price: parseBalance(
-                        BigNumber.from(buyTokenData.result[i].value).div(
-                            BigNumber.from(sellTokenData.result[i].value)
-                        )
-                    ),
-                });
-            }
-        }
-        return parsed;
-    }, [buyTokenData, sellTokenData]);
-
-    if (!graphData) return <Loader message="Loading graph..." />;
-
-    if (graphData.length === 0)
+    if (swapData.length === 0)
         return <Loader message="No Data to show."></Loader>;
 
     return (
-        <div className="flex w-full h-full justify-center items-center">
+        <Card>
             <AreaChart
                 width={600}
                 height={500}
-                data={graphData}
+                data={swapData}
                 margin={{
                     top: 0,
                     right: 0,
@@ -104,10 +78,6 @@ export default function TradingChart({ dex, chainId, buyToken, sellToken }) {
                         />
                     </linearGradient>
                 </defs>
-                <CartesianGrid
-                    strokeDasharray="3 3"
-                    className="stroke-black dark:stroke-white"
-                />
 
                 <Tooltip />
                 <Legend />
@@ -119,6 +89,6 @@ export default function TradingChart({ dex, chainId, buyToken, sellToken }) {
                     fill="url(#colorUv)"
                 />
             </AreaChart>
-        </div>
+        </Card>
     );
 }

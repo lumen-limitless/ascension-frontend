@@ -5,14 +5,13 @@ import Container from "../../components/Container";
 import Button from "../../components/Button";
 import Link from "next/link";
 import Logo from "../../components/Logo";
-import { useWeb3React } from "@web3-react/core";
 
 const ToolTile = ({ path, name }: { path?: string; name?: string }) => {
     return (
         <Card>
             <div className="flex flex-col gap-4">
                 <Logo />
-                <Link href={path} passHref={true}>
+                <Link href={path} passHref={true} prefetch={false}>
                     <a>
                         <Button color="blue">{name}</Button>
                     </a>
@@ -33,15 +32,8 @@ export default function Tools() {
                     content="Ascension Protocol tools"
                 />
             </Head>
-            <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-12">
-                <ToolTile
-                    path="tools/liquiditysniper"
-                    name="Liquidity Sniper"
-                />
-                <ToolTile
-                    path="tools/universalswap"
-                    name="Universal Swap Tool"
-                />
+            <div className="grid grid-cols-1 justify-between gap-12">
+                <ToolTile path="tools/universalswap" name="Universal Swap" />
             </div>
         </Container>
     );

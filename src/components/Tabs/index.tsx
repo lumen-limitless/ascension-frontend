@@ -3,7 +3,7 @@ import { Tab } from "@headlessui/react";
 import { classNames } from "../../functions";
 
 export default function Example() {
-    let [categories] = useState({
+    const [categories] = useState({
         Recent: [
             {
                 id: 1,

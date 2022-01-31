@@ -12,7 +12,7 @@ const NavItem = ({ path }: NavItemProps) => {
         <div
             className={classNames(
                 "w-full h-full flex justify-center items-center  cursor-pointer p-2 md:p-0 mx-6  hover:opacity-80",
-                pathname === path ? " text-purple  " : null
+                pathname === path ? " text-ascend-yellow  " : null
             )}
         >
             <Link href={path} passHref={true}>

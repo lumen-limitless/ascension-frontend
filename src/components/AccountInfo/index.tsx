@@ -1,21 +1,32 @@
 import React from "react";
 import DisconnectButton from "../Button/disconnectButton";
-import { useWeb3React } from "@web3-react/core";
-import { useAscendBalance, useAscendVoting } from "../../hooks/useAscend";
 import Skeleton from "../Skeleton";
-import { formatBalance, shortenAddress } from "../../functions";
-import Pill from "../Button/pill";
+import { formatBalance } from "../../functions";
 import { useToggle } from "react-use";
-import { FingerPrintIcon, UserIcon, XIcon } from "@heroicons/react/outline";
+import { UserIcon } from "@heroicons/react/outline";
 import Modal from "../Modal";
-import { Web3Provider } from "@ethersproject/providers";
 import Avatar from "../Avatar";
 import Button from "../Button";
+import {
+    shortenIfAddress,
+    useEthers,
+    useLookupAddress,
+    useTokenBalance,
+} from "@usedapp/core";
+import { ASCENSION } from "../../constants";
 
 export default function AccountInfo() {
-    const { account } = useWeb3React<Web3Provider>();
-    const { ascendBalance, sAscendBalance } = useAscendBalance();
-    const { totalVotes } = useAscendVoting();
+    const { account } = useEthers();
+    const ens = useLookupAddress();
+    const ascendBalance = useTokenBalance(
+        ASCENSION.AscensionToken.address,
+        account
+    );
+    const sAscendBalance = useTokenBalance(
+        ASCENSION.AscensionStakedToken.address,
+        account
+    );
+
     const [viewing, toggle] = useToggle(false);
 
     return (
@@ -25,8 +36,8 @@ export default function AccountInfo() {
                 variant="outlined"
                 onClick={() => toggle(true)}
             >
-                <UserIcon height="20px" />
-                {account ? shortenAddress(account) : ""}
+                <UserIcon height="16px" />
+                {ens ?? shortenIfAddress(account)}
             </Button>
 
             {viewing && (
@@ -34,7 +45,7 @@ export default function AccountInfo() {
                     <div className="w-full flex flex-col items-center justify-center">
                         <Avatar />
                         <div className="rounded bg-gray-200 dark:bg-dark-800 m-2 p-2 flex">
-                            {shortenAddress(account as string)}
+                            {ens ?? shortenIfAddress(account)}
                             <DisconnectButton />
                         </div>
                     </div>
@@ -52,15 +63,6 @@ export default function AccountInfo() {
                         Staked:{" "}
                         {sAscendBalance ? (
                             formatBalance(sAscendBalance)
-                        ) : (
-                            <Skeleton />
-                        )}{" "}
-                        ASCEND
-                    </div>
-                    <div className="w-full flex items-center">
-                        Voting Power:{" "}
-                        {typeof totalVotes === "number" ? (
-                            formatBalance(totalVotes)
                         ) : (
                             <Skeleton />
                         )}{" "}

@@ -1,26 +1,19 @@
-import { useWeb3React } from "@web3-react/core";
-import React, { useState, useEffect } from "react";
-import { useEagerConnect, useInactiveListener } from "../../hooks/web3hooks";
-import { injected, walletconnect } from "../../constants/connectors";
-
+import React from "react";
+import { walletconnect } from "../../constants/connectors";
 import { LinkIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import AccountInfo from "../AccountInfo";
 import { CHAIN_NAME } from "../../constants";
 import { useToggle } from "react-use";
 import Modal from "../Modal";
-import { useToast } from "../../hooks/useToast";
 import { classNames } from "../../functions";
+import { useEthers } from "@usedapp/core";
+import useNotificationsToast from "../../hooks/useNotificationsToast";
 
 export function Connect() {
-    const { activate, error } = useWeb3React();
+    const { activateBrowserWallet, activate } = useEthers();
     const [viewing, toggle] = useToggle(false);
-    const toast = useToast(4000);
 
-    const onConnect = async (connector: any) => {
-        await activate(connector);
-        if (error) toast("error", `${error}`);
-    };
     return (
         <>
             <Button color="blue" onClick={() => toggle(true)}>
@@ -33,7 +26,7 @@ export function Connect() {
                 <div className="flex flex-col h-full">
                     <Button
                         color="gray"
-                        onClick={() => onConnect(injected)}
+                        onClick={() => activateBrowserWallet()}
                         className="my-2"
                     >
                         MetaMask
@@ -41,7 +34,7 @@ export function Connect() {
 
                     <Button
                         color="gray"
-                        onClick={() => onConnect(walletconnect)}
+                        onClick={() => activate(walletconnect)}
                         className="my-2"
                     >
                         WalletConnect
@@ -64,32 +57,21 @@ const colorsByChain: { [key: number]: string } = {
 };
 
 export default function Connection() {
-    const { active, account, connector, chainId } = useWeb3React();
-    const [activatingConnector, setActivatingConnector] = useState();
-    const triedEager = useEagerConnect();
-
-    useEffect(() => {
-        if (activatingConnector && activatingConnector === connector) {
-            setActivatingConnector(undefined);
-        }
-    }, [activatingConnector, connector]);
-
-    useInactiveListener(!triedEager || !activatingConnector);
+    const { account, chainId } = useEthers();
+    useNotificationsToast();
 
     return (
         <>
-            {!active ? (
+            {!account ? (
                 <Connect />
             ) : (
                 <>
                     <Button
                         variant="outlined"
-                        className={classNames(colorsByChain[chainId ?? 1])}
+                        className={classNames(colorsByChain[chainId as number])}
                     >
-                        <div className="flex">
-                            <LinkIcon height="20px" />
-                            {chainId && CHAIN_NAME[chainId]}
-                        </div>
+                        <LinkIcon height="16px" />
+                        {chainId && CHAIN_NAME[chainId]}
                     </Button>
                     <AccountInfo />
                 </>

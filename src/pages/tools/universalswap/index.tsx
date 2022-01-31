@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
-import { BackspaceIcon } from "@heroicons/react/outline";
 import Container from "../../../components/Container";
-import Button from "../../../components/Button";
-import TradingChart from "./TradingChart";
 import UniversalSwap from "./UniversalSwap";
-import { useWeb3React } from "@web3-react/core";
-import useLoading from "../../../hooks/useLoading";
 import Loader from "../../../components/Loader";
+import { useEthers } from "@usedapp/core";
 
 export default function UniversalSwapPage() {
-    const { chainId } = useWeb3React();
+    const { chainId, account } = useEthers();
+    const supportedChainId = [1, 42161];
 
-    if (!chainId) return <Loader />;
+    if (!chainId || !account) return <Loader />;
+
+    if (!supportedChainId.includes(chainId))
+        return <Loader message="Network not supported!" />;
 
     return (
         <>
@@ -26,7 +26,7 @@ export default function UniversalSwapPage() {
             </Head>
 
             <Container maxWidth="5xl">
-                <UniversalSwap chainId={chainId} />
+                <UniversalSwap />
             </Container>
         </>
     );

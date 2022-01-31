@@ -1,97 +1,67 @@
-import { ChainId } from "./enums";
+import { ChainId } from "@usedapp/core";
 
 export const RPC: { [chainId in ChainId]?: string } = {
-    [ChainId.HARDHAT]: "http://localhost:8545",
-    [ChainId.ARBITRUM_TESTNET]:
+    [ChainId.Hardhat]: "http://localhost:8545",
+    [ChainId.ArbitrumRinkeby]:
         "https://arb-rinkeby.g.alchemy.com/v2/fVMS0IOOy-uC_2w1sCooihRBSbxD57NN",
-    [ChainId.ARBITRUM]:
+    [ChainId.Arbitrum]:
         "https://arb-mainnet.g.alchemy.com/v2/RU9HDzHNgDzOZceQTwS_XqB75obxlrNf",
-    [ChainId.MAINNET]:
+    [ChainId.Mainnet]:
         "https://eth-mainnet.alchemyapi.io/v2/UdQPMrxaFxiuNVt1SgCtPiE5sopkDOnP",
-    [ChainId.ROPSTEN]:
+    [ChainId.Ropsten]:
         "https://eth-ropsten.alchemyapi.io/v2/cidKix2Xr-snU3f6f6Zjq_rYdalKKHmW",
-    [ChainId.RINKEBY]:
+    [ChainId.Rinkeby]:
         "https://eth-rinkeby.alchemyapi.io/v2/iF972RTEF1QUpvKqswWivu4DmvUVYNSr",
-    [ChainId.GÖRLI]:
+    [ChainId.Goerli]:
         "https://eth-goerli.alchemyapi.io/v2/Dkk5d02QjttYEoGmhZnJG37rKt8Yl3Im",
-    [ChainId.KOVAN]:
+    [ChainId.Kovan]:
         "https://eth-kovan.alchemyapi.io/v2/6OVAa_B_rypWWl9HqtiYK26IRxXiYqER",
-    [ChainId.FANTOM]: "https://rpcapi.fantom.network",
-    [ChainId.FANTOM_TESTNET]: "https://rpc.testnet.fantom.network",
-    [ChainId.MATIC]:
+    [ChainId.Fantom]: "https://rpcapi.fantom.network",
+    [ChainId.Polygon]:
         "https://polygon-mainnet.g.alchemy.com/v2/UYsLwfM1od6soaCTh28mO8PTg-pcKKSn",
-    [ChainId.MATIC_TESTNET]: "https://rpc-mumbai.matic.today",
-    [ChainId.XDAI]: "https://rpc.xdaichain.com",
+    [ChainId.xDai]: "https://rpc.xdaichain.com",
     [ChainId.BSC]: "https://bsc-dataseed.binance.org/",
-    [ChainId.BSC_TESTNET]: "https://data-seed-prebsc-2-s3.binance.org:8545",
-    [ChainId.MOONBEAM_TESTNET]: "https://rpc.testnet.moonbeam.network",
-    [ChainId.AVALANCHE]: "https://api.avax.network/ext/bc/C/rpc",
-    [ChainId.AVALANCHE_TESTNET]: "https://api.avax-test.network/ext/bc/C/rpc",
-    [ChainId.HECO]: "https://http-mainnet.hecochain.com",
-    [ChainId.HECO_TESTNET]: "https://http-testnet.hecochain.com",
-    [ChainId.HARMONY]: "https://api.harmony.one",
-    [ChainId.HARMONY_TESTNET]: "https://api.s0.b.hmny.io",
-    [ChainId.OKEX]: "https://exchainrpc.okex.org",
-    [ChainId.OKEX_TESTNET]: "https://exchaintestrpc.okex.org",
-    [ChainId.PALM]:
+    [ChainId.BSCTestnet]: "https://data-seed-prebsc-2-s3.binance.org:8545",
+    [ChainId.Avalanche]: "https://api.avax.network/ext/bc/C/rpc",
+    [ChainId.Harmony]: "https://api.harmony.one",
+    [ChainId.Palm]:
         "https://palm-mainnet.infura.io/v3/da5fbfafcca14b109e2665290681e267",
-    [ChainId.CELO]: "https://forno.celo.org",
 };
 
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
-    [ChainId.HARDHAT]: "Hardhat",
-    [ChainId.ARBITRUM_TESTNET]: "Arbtest",
-    [ChainId.ARBITRUM]: "Arbitrum",
-    [ChainId.MAINNET]: "Ethereum",
-    [ChainId.ROPSTEN]: "Ropsten",
-    [ChainId.RINKEBY]: "Rinkeby",
-    [ChainId.GÖRLI]: "Gorli",
-    [ChainId.KOVAN]: "Kovan",
-    [ChainId.FANTOM]: "Fantom",
-    [ChainId.FANTOM_TESTNET]: "Fantest",
-    [ChainId.MATIC]: "Polygon",
-    [ChainId.MATIC_TESTNET]: "Mumbai",
-    [ChainId.XDAI]: "XDAI",
+    [ChainId.Hardhat]: "Hardhat",
+    [ChainId.ArbitrumRinkeby]: "Arbtest",
+    [ChainId.Arbitrum]: "Arbitrum",
+    [ChainId.Mainnet]: "Ethereum",
+    [ChainId.Ropsten]: "Ropsten",
+    [ChainId.Rinkeby]: "Rinkeby",
+    [ChainId.Goerli]: "Gorli",
+    [ChainId.Kovan]: "Kovan",
+    [ChainId.Fantom]: "Fantom",
+    [ChainId.Polygon]: "Polygon",
+    [ChainId.xDai]: "XDAI",
     [ChainId.BSC]: "BSC",
-    [ChainId.BSC_TESTNET]: "BSCtest",
-    [ChainId.MOONBEAM_TESTNET]: "MOONtest",
-    [ChainId.AVALANCHE]: "Avalanche",
-    [ChainId.AVALANCHE_TESTNET]: "AVAXtest",
-    [ChainId.HECO]: "Heco",
-    [ChainId.HECO_TESTNET]: "Hecotest",
-    [ChainId.HARMONY]: "Harmony",
-    [ChainId.HARMONY_TESTNET]: "Harmonytest",
-    [ChainId.OKEX]: "OKEX",
-    [ChainId.OKEX_TESTNET]: "OKEXTEST",
-    [ChainId.PALM]: "PALM",
-    [ChainId.CELO]: "CELO",
+    [ChainId.BSCTestnet]: "BSCtest",
+    [ChainId.Avalanche]: "Avalanche",
+    [ChainId.Harmony]: "Harmony",
+    [ChainId.Palm]: "PALM",
 };
 
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
-    [ChainId.HARDHAT]: "ETH",
-    [ChainId.ARBITRUM_TESTNET]: "AETH",
-    [ChainId.ARBITRUM]: "AETH",
-    [ChainId.MAINNET]: "ETH",
-    [ChainId.ROPSTEN]: "rETH",
-    [ChainId.RINKEBY]: "rETH",
-    [ChainId.GÖRLI]: "gETH",
-    [ChainId.KOVAN]: "kETH",
-    [ChainId.FANTOM]: "Fantom",
-    [ChainId.FANTOM_TESTNET]: "Fantest",
-    [ChainId.MATIC]: "MATIC",
-    [ChainId.MATIC_TESTNET]: "ATIC",
-    [ChainId.XDAI]: "DAI",
-    [ChainId.BSC]: "BNB",
-    [ChainId.BSC_TESTNET]: "BNB",
-    [ChainId.MOONBEAM_TESTNET]: "MOON",
-    [ChainId.AVALANCHE]: "AVAX",
-    [ChainId.AVALANCHE_TESTNET]: "AVAX",
-    [ChainId.HECO]: "HECO",
-    [ChainId.HECO_TESTNET]: "HECO",
-    [ChainId.HARMONY]: "HARM",
-    [ChainId.HARMONY_TESTNET]: "HARM",
-    [ChainId.OKEX]: "OKEX",
-    [ChainId.OKEX_TESTNET]: "OKEX",
-    [ChainId.PALM]: "PALM",
-    [ChainId.CELO]: "CELO",
+    [ChainId.Hardhat]: "ETH",
+    [ChainId.ArbitrumRinkeby]: "aETH",
+    [ChainId.Arbitrum]: "aETH",
+    [ChainId.Mainnet]: "ETH",
+    [ChainId.Ropsten]: "rETH",
+    [ChainId.Rinkeby]: "rETH",
+    [ChainId.Goerli]: "rETH",
+    [ChainId.Kovan]: "ETH",
+    [ChainId.Fantom]: "FTM",
+    [ChainId.Polygon]: "MATIC",
+    [ChainId.xDai]: "XDAI",
+    [ChainId.BSC]: "BSC",
+    [ChainId.BSCTestnet]: "BSC",
+    [ChainId.Avalanche]: "AVAX",
+    [ChainId.Harmony]: "HARM",
+    [ChainId.Palm]: "PALM",
 };
