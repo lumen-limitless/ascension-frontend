@@ -32,6 +32,7 @@ export default function AccountInfo() {
     return (
         <>
             <Button
+                size="sm"
                 color="gray"
                 variant="outlined"
                 onClick={() => toggle(true)}

@@ -75,14 +75,19 @@ export default function Connection() {
                 <Connect />
             ) : (
                 <>
-                    <Button
-                        variant="outlined"
-                        className={classNames(colorsByChain[chainId as number])}
-                    >
-                        <LinkIcon height="16px" />
-                        {chainId && CHAIN_NAME[chainId]}
-                    </Button>
-                    <AccountInfo />
+                    <div className="flex gap-2">
+                        <Button
+                            size="sm"
+                            variant="outlined"
+                            className={classNames(
+                                colorsByChain[chainId as number]
+                            )}
+                        >
+                            <LinkIcon height="16px" />
+                            {chainId && CHAIN_NAME[chainId]}
+                        </Button>
+                        <AccountInfo />
+                    </div>
                 </>
             )}
         </>

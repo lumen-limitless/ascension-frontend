@@ -2,10 +2,10 @@ import React from "react";
 import { classNames } from "../../functions";
 
 const SIZE = {
-    xs: "px-2 py-1 text-xs",
-    sm: "px-4 py-2 text-base",
-    default: "px-4 py-3 text-base",
-    lg: "px-6 py-4 text-base",
+    xs: "p-1 text-xs",
+    sm: "p-2 text-base",
+    default: "p-3 text-base",
+    lg: "p-6 text-base",
     none: "p-0 text-base",
 };
 
