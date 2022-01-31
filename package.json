@@ -28,6 +28,7 @@
         "@web3-react/walletconnect-connector": "^6.2.8",
         "autoprefixer": "^10.4.0",
         "dom-helpers": "^5.2.1",
+        "ethereum-blockies-base64": "^1.0.2",
         "ethers": "^5.2.0",
         "fs": "^0.0.1-security",
         "lightweight-charts": "^3.7.0",

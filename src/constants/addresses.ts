@@ -4,7 +4,7 @@ import { ChainId } from "@usedapp/core";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
-
+export const DEAD_ADDRESS = "0x000000000000000000000000000000000000dEaD";
 export const ASCENSION: {
     [key: string]: { address: string; abi: any };
 } = {

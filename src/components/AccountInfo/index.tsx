@@ -36,7 +36,7 @@ export default function AccountInfo() {
                 variant="outlined"
                 onClick={() => toggle(true)}
             >
-                <UserIcon height="16px" />
+                <Avatar size={16} />
                 {ens ?? shortenIfAddress(account)}
             </Button>
 
