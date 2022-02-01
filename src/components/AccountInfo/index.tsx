@@ -3,7 +3,6 @@ import DisconnectButton from "../Button/disconnectButton";
 import Skeleton from "../Skeleton";
 import { formatBalance } from "../../functions";
 import { useToggle } from "react-use";
-import { UserIcon } from "@heroicons/react/outline";
 import Modal from "../Modal";
 import Avatar from "../Avatar";
 import Button from "../Button";

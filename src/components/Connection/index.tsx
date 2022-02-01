@@ -79,9 +79,7 @@ export default function Connection() {
                         <Button
                             size="sm"
                             variant="outlined"
-                            className={classNames(
-                                colorsByChain[chainId as number]
-                            )}
+                            className={classNames(colorsByChain[chainId ?? 1])}
                         >
                             <LinkIcon height="16px" />
                             {chainId && CHAIN_NAME[chainId]}
