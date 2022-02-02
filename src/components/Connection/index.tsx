@@ -3,14 +3,14 @@ import { walletconnect } from "../../constants/connectors";
 import { LinkIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import AccountInfo from "../AccountInfo";
-import { CHAIN_NAME } from "../../constants";
+import { CHAIN_IMG, CHAIN_NAME } from "../../constants";
 import { useToggle } from "react-use";
 import Modal from "../Modal";
 import { classNames } from "../../functions";
 import { useEthers } from "@usedapp/core";
 import useNotificationsToast from "../../hooks/useNotificationsToast";
 import { useToast } from "../../hooks/useToast";
-
+import Image from "next/image";
 export function Connect() {
     const { activateBrowserWallet, activate } = useEthers();
     const [viewing, toggle] = useToggle(false);
@@ -25,11 +25,10 @@ export function Connect() {
             <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
                 <h1>Select a Wallet</h1>
 
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col gap-3 my-3 h-full">
                     <Button
                         color="gray"
                         onClick={() => activateBrowserWallet()}
-                        className="my-2"
                     >
                         MetaMask
                     </Button>
@@ -44,7 +43,6 @@ export function Connect() {
                                 toast("error", "Unable to connect to wallet");
                             })
                         }
-                        className="my-2"
                     >
                         WalletConnect
                     </Button>
@@ -81,8 +79,15 @@ export default function Connection() {
                             variant="outlined"
                             className={classNames(colorsByChain[chainId ?? 1])}
                         >
-                            <LinkIcon height="16px" />
-                            {chainId && CHAIN_NAME[chainId]}
+                            {chainId && (
+                                <Image
+                                    placeholder="empty"
+                                    width={24}
+                                    height={24}
+                                    src={CHAIN_IMG[chainId ?? 1]}
+                                    alt={CHAIN_NAME[chainId ?? 1]}
+                                ></Image>
+                            )}
                         </Button>
                         <AccountInfo />
                     </div>

@@ -3,7 +3,7 @@
   "chainId": "421611",
   "contracts": {
     "AppDataFacet": {
-      "address": "0x9bd0AAF938213b0D31787733466A433C58441B43",
+      "address": "0x62037C69d093Cd03e572ebf72285bE889f701987",
       "abi": [
         {
           "inputs": [
@@ -52,7 +52,7 @@
       ]
     },
     "AscensionDiamond": {
-      "address": "0x2DE2403fab78f9B12ADB283c90e9e7B3EE51be5e",
+      "address": "0x90Be9324A900E595503cd4b5e27209Eb28eDb751",
       "abi": [
         {
           "inputs": [
@@ -371,7 +371,7 @@
       ]
     },
     "AscensionDiamond_DiamondProxy": {
-      "address": "0x2DE2403fab78f9B12ADB283c90e9e7B3EE51be5e",
+      "address": "0x90Be9324A900E595503cd4b5e27209Eb28eDb751",
       "abi": [
         {
           "inputs": [
@@ -646,7 +646,7 @@
       ]
     },
     "AscensionStakedToken": {
-      "address": "0x1e341007e9542b2EC6Efd5e824Fb9202390bf010",
+      "address": "0xE36026C5b317061e804cF3A27889aBF10218a404",
       "abi": [
         {
           "inputs": [],
@@ -1629,7 +1629,7 @@
       ]
     },
     "AscensionStaking": {
-      "address": "0xf19b770A2836a3BFe2100Da4F0ff2c6C6a44d18A",
+      "address": "0xB11300b6Ea708ed7112a82D5f40c1E92622F931d",
       "abi": [
         {
           "inputs": [
@@ -2133,7 +2133,7 @@
       ]
     },
     "AscensionToken": {
-      "address": "0x6d0F5DD2CF39432229A42Db412DFFBB5abbC69F5",
+      "address": "0x58404AEb77068E8C8055561d8E5B642735131e6a",
       "abi": [
         {
           "inputs": [],
@@ -3129,7 +3129,7 @@
       ]
     },
     "BatchSender": {
-      "address": "0x20Fd542A3ee91FF7571f1FBa209dbAD72b84bE84",
+      "address": "0x6f82e30D33309b39c19c53a0DBFA158Da03eD86D",
       "abi": [
         {
           "inputs": [
@@ -3226,154 +3226,6 @@
             }
           ],
           "stateMutability": "payable",
-          "type": "function"
-        }
-      ]
-    },
-    "ERC20DistributorFacet": {
-      "address": "0x1b96B3B8fcea6ea60354178032B42ee89cce9c4A",
-      "abi": [
-        {
-          "inputs": [],
-          "name": "POSITION",
-          "outputs": [
-            {
-              "internalType": "bytes32",
-              "name": "",
-              "type": "bytes32"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "distributionCount",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "_id",
-              "type": "uint256"
-            },
-            {
-              "internalType": "address",
-              "name": "_account",
-              "type": "address"
-            }
-          ],
-          "name": "getReward",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_account",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "_id",
-              "type": "uint256"
-            }
-          ],
-          "name": "hasWithdrawn",
-          "outputs": [
-            {
-              "internalType": "bool",
-              "name": "",
-              "type": "bool"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address[]",
-              "name": "newExcluded",
-              "type": "address[]"
-            }
-          ],
-          "name": "setExcluded",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_token",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "_amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "setTokenDistribution",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "_id",
-              "type": "uint256"
-            }
-          ],
-          "name": "withdraw",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "withdrawAll",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "_id",
-              "type": "uint256"
-            },
-            {
-              "internalType": "address",
-              "name": "_account",
-              "type": "address"
-            }
-          ],
-          "name": "withdrawFor",
-          "outputs": [],
-          "stateMutability": "nonpayable",
           "type": "function"
         }
       ]

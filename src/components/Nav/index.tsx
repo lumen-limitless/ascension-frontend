@@ -32,7 +32,7 @@ export default function Nav({ className }: NavProps) {
             id="nav"
             className={classNames(
                 className,
-                "flex flex-col md:flex-row h-full items-center justify-center mx-8 z-50 gap-8 "
+                "flex flex-col md:flex-row h-full items-center justify-center mx-8 py-8 md:p-0 z-50 gap-8"
             )}
         >
             <NavItem path="/" />

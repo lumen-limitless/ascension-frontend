@@ -6,25 +6,17 @@ import { useToggle } from "react-use";
 import Modal from "../Modal";
 import Avatar from "../Avatar";
 import Button from "../Button";
+import { shortenIfAddress, useEthers, useLookupAddress } from "@usedapp/core";
 import {
-    shortenIfAddress,
-    useEthers,
-    useLookupAddress,
-    useTokenBalance,
-} from "@usedapp/core";
-import { ASCENSION } from "../../constants";
+    useASCENDBalance,
+    useStakedASCENDBalance,
+} from "../../hooks/useASCEND";
 
 export default function AccountInfo() {
     const { account } = useEthers();
     const ens = useLookupAddress();
-    const ascendBalance = useTokenBalance(
-        ASCENSION.AscensionToken.address,
-        account
-    );
-    const sAscendBalance = useTokenBalance(
-        ASCENSION.AscensionStakedToken.address,
-        account
-    );
+    const ascendBalance = useASCENDBalance(account);
+    const sAscendBalance = useStakedASCENDBalance(account);
 
     const [viewing, toggle] = useToggle(false);
 

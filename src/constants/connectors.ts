@@ -12,7 +12,7 @@ const supportedChainIds = [
     //   4002, // fantom testnet
     137, // matic
     //   80001, // matic testnet
-    //   100, // xdai
+    100, // xdai
     56, // binance smart chain
     //  97, // binance smart chain testnet
     //   1287, // moonbase
