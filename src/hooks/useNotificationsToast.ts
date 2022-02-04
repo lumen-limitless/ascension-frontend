@@ -4,7 +4,7 @@ import { useToast } from "./useToast";
 
 export default function useNotificationsToast() {
     const { chainId } = useEthers();
-    const toast = useToast(4000);
+    const toast = useToast();
     const { notifications, removeNotification } = useNotifications();
     useEffect(() => {
         notifications.forEach((n) => {

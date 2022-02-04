@@ -2,7 +2,7 @@ import Container from "../components/Container";
 import Stat from "../components/Stat";
 import { useCoingeckoAscensionStats } from "../hooks/useAPI";
 
-export default function Home() {
+export default function HomePage() {
     const { price, marketCap } = useCoingeckoAscensionStats();
 
     return (
@@ -17,9 +17,9 @@ export default function Home() {
                         isBalance: true,
                     },
                     {
-                        name: "Treasury TVL",
-                        stat: "10,000",
-                        before: "$",
+                        name: "Liquidity Locked",
+                        stat: "100",
+                        after: "%",
                     },
                 ]}
             />

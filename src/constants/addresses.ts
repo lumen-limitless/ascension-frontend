@@ -5,6 +5,9 @@ import { ChainId } from "@usedapp/core";
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
 export const DEAD_ADDRESS = "0x000000000000000000000000000000000000dEaD";
+export const ASCENSION_LIQ_ADDRESS =
+    "0x10052e51797CC9a018d50D112547347E7951c198";
+
 export const ASCENSION: {
     [key: string]: { address: string; abi: any };
 } = {

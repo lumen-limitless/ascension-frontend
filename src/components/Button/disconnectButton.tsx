@@ -7,7 +7,7 @@ export default function DisconnectButton() {
     return (
         <button
             onClick={deactivate}
-            className="px-2"
+            className="px-1"
             title="disconnect"
             about="disconnect"
             id="disconnect"

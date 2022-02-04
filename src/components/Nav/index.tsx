@@ -11,7 +11,7 @@ const NavItem = ({ path }: NavItemProps) => {
     return (
         <div
             className={classNames(
-                "w-full h-full flex justify-center items-center  cursor-pointer p-2 md:p-0  hover:opacity-80",
+                "w-full h-full flex justify-center items-center  cursor-pointer hover:opacity-80",
                 pathname === path ? " text-ascend-yellow  " : null
             )}
         >
@@ -37,7 +37,7 @@ export default function Nav({ className }: NavProps) {
         >
             <NavItem path="/" />
             <NavItem path="/stake" />
-            {/* <NavItem path="/tools" /> */}
+            <NavItem path="/tools" />
         </nav>
     );
 }

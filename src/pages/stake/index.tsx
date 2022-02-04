@@ -19,17 +19,14 @@ import {
     useContractFunction,
     useEthers,
     useTokenAllowance,
-    useTokenBalance,
 } from "@usedapp/core";
 import { Contract } from "ethers";
+import { useASCENDBalance } from "../../hooks/useASCEND";
 
-export default function Stake() {
+export default function StakePage() {
     const { account, chainId } = useEthers();
     const [amount, setAmount] = useState<string>("");
-    const ascendBalance = useTokenBalance(
-        ASCENSION.AscensionToken.address,
-        account
-    );
+    const ascendBalance = useASCENDBalance(account);
 
     const allowance = useTokenAllowance(
         ASCENSION.AscensionToken.address,
@@ -133,15 +130,10 @@ export default function Stake() {
                                 <Button
                                     color="gradient"
                                     onClick={() => {
-                                        approve
-                                            .send(
-                                                ASCENSION.AscensionStaking
-                                                    .address,
-                                                parseUnits("14400000")
-                                            )
-                                            .then(() =>
-                                                console.log(approve.state)
-                                            );
+                                        approve.send(
+                                            ASCENSION.AscensionStaking.address,
+                                            parseUnits("14400000")
+                                        );
                                     }}
                                 >
                                     {approve.state.status === "Mining" ? (
@@ -166,11 +158,7 @@ export default function Stake() {
                                         size="sm"
                                         disabled={amount ? false : true}
                                         onClick={() => {
-                                            stake
-                                                .send(parseUnits(amount))
-                                                .then(() =>
-                                                    console.log(stake.state)
-                                                );
+                                            stake.send(parseUnits(amount));
                                         }}
                                     >
                                         Stake
@@ -179,11 +167,7 @@ export default function Stake() {
                                         size="sm"
                                         disabled={amount ? false : true}
                                         onClick={() => {
-                                            withdraw
-                                                .send(parseUnits(amount))
-                                                .then(() =>
-                                                    console.log(withdraw.state)
-                                                );
+                                            withdraw.send(parseUnits(amount));
                                         }}
                                     >
                                         Withdraw
@@ -232,11 +216,7 @@ export default function Stake() {
                                                 : true
                                         }
                                         onClick={() => {
-                                            getReward
-                                                .send()
-                                                .then(() =>
-                                                    console.log(getReward.state)
-                                                );
+                                            getReward.send();
                                         }}
                                     >
                                         {getReward.state.status === "Mining" ? (
@@ -256,9 +236,7 @@ export default function Stake() {
                                                 : true
                                         }
                                         onClick={() => {
-                                            exit.send().then(() =>
-                                                console.log(exit.state)
-                                            );
+                                            exit.send();
                                         }}
                                     >
                                         {exit.state.status === "Mining" ? (

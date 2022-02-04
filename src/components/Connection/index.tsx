@@ -77,11 +77,12 @@ export default function Connection() {
                         <Button
                             size="sm"
                             variant="outlined"
-                            className={classNames(colorsByChain[chainId ?? 1])}
+                            color="gray"
+                            // className={classNames(colorsByChain[chainId ?? 1])}
                         >
                             {chainId && (
                                 <Image
-                                    placeholder="empty"
+                                    about={CHAIN_NAME[chainId ?? 1]}
                                     width={24}
                                     height={24}
                                     src={CHAIN_IMG[chainId ?? 1]}
