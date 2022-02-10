@@ -55,12 +55,14 @@ export const Input = React.memo(
                         return false;
                     }}
                 />
-                <Button
-                    className="absolute right-0"
-                    onClick={() => onUserInput(max)}
-                >
-                    MAX
-                </Button>
+                {max && (
+                    <Button
+                        className="absolute right-0"
+                        onClick={() => onUserInput(max)}
+                    >
+                        MAX
+                    </Button>
+                )}
             </div>
         );
     }

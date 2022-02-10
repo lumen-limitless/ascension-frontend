@@ -19,7 +19,7 @@ const config: Config = {
         checkInterval: 4000,
         expirationPeriod: 4000,
     },
-    pollingInterval: 1000,
+    pollingInterval: 3000,
 };
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -97,7 +97,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <meta
                     key="og:image"
                     property="og:image"
-                    content="https://app.ascensionprotocol.io/apple-touch-icon.png"
+                    content="https://www.ascensionprotocol.io/images/ezgif.com-gif-maker.gif"
                 />
                 <meta
                     key="og:description"

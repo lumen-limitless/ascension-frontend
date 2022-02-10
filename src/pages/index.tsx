@@ -18,8 +18,8 @@ export default function HomePage() {
                     },
                     {
                         name: "Liquidity Locked",
-                        stat: "100",
-                        after: "%",
+                        stat: "15,598",
+                        after: " SLP",
                     },
                 ]}
             />

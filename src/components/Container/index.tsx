@@ -25,7 +25,7 @@ const Container = ({
         className={classNames(
             className,
             MAX_WIDTH[maxWidth],
-            "w-full h-full p-2 md:p-4                                                                   "
+            "w-full h-full p-3 md:p-6                                                                   "
         )}
         {...rest}
     >

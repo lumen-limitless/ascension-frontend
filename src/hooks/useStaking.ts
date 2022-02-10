@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { formatUnits } from "@ethersproject/units";
 import { ASCENSION } from "../constants";
 import { useContractCalls, useEthers } from "@usedapp/core";
 import { Interface } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
+import { parseBalance } from "../functions";
 
 export default function useStaking() {
     const { account } = useEthers();
@@ -57,8 +57,8 @@ export default function useStaking() {
     const apy = useMemo(() => {
         if (!rewardRate || !totalStaked) return null;
 
-        const r = parseFloat(formatUnits(rewardRate[0]));
-        const t = parseFloat(formatUnits(totalStaked[0]));
+        const r = parseBalance(rewardRate[0]);
+        const t = parseBalance(totalStaked[0]);
         const i = r * 31557600 * (1 / t);
         return (Math.pow(1 + i / 365, 365) - 1) * 100;
     }, [rewardRate, totalStaked]);

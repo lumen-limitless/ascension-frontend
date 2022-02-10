@@ -1,5 +1,4 @@
 import { ChainId } from "@usedapp/core";
-import { BigNumber, ethers } from "@usedapp/core/node_modules/ethers";
 import { getAddress, parseUnits } from "ethers/lib/utils";
 import { useMemo } from "react";
 import useSWR from "swr";
@@ -55,6 +54,7 @@ export function useAPIASCENDBalance(account: string) {
 
     return balance;
 }
+
 export function useAPIStakedASCENDBalance(account: string) {
     const { data, error } = useAPI(
         `https://api.arbiscan.io/api?module=account&action=tokenbalance&contractaddress=0x40eafec3c261f7e706289d3b3afef812a6ca10cd&address=${account}&tag=latest&apikey=${

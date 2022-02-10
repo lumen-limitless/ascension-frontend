@@ -35,15 +35,15 @@ export function SwitchNetworkButton({ className, chainId, children }: any) {
                 // handle other "switch" errors
             }
         }
-
-        activateBrowserWallet();
     };
 
     return (
         <>
             <Button
                 color="blue"
-                onClick={() => switchNetwork(chainId)}
+                onClick={() =>
+                    switchNetwork(chainId).then(() => activateBrowserWallet())
+                }
                 className={className}
             >
                 {children}

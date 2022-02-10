@@ -21,7 +21,7 @@ const ToolTile = ({ path, name }: { path?: string; name?: string }) => {
         </Card>
     );
 };
-export default function Tools() {
+export default function ToolsPage() {
     return (
         <Container maxWidth="4xl">
             <Head>
