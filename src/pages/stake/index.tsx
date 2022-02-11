@@ -33,12 +33,6 @@ export default function StakePage() {
         ASCENSION.AscensionStaking.address
     );
 
-    const stakedAllowance = useTokenAllowance(
-        ASCENSION.AscensionStakedToken.address,
-        account,
-        ASCENSION.AscensionStaking.address
-    );
-
     const approve = useContractFunction(
         new Contract(
             ASCENSION.AscensionToken.address,
@@ -48,14 +42,6 @@ export default function StakePage() {
         { transactionName: "Approve Deposit" }
     );
 
-    const approveStaked = useContractFunction(
-        new Contract(
-            ASCENSION.AscensionStakedToken.address,
-            ASCENSION.AscensionToken.abi
-        ),
-        "approve",
-        { transactionName: "Approve Withdrawal" }
-    );
     const stake = useContractFunction(
         new Contract(
             ASCENSION.AscensionStaking.address,
@@ -130,7 +116,7 @@ export default function StakePage() {
                     <SwitchNetworkButton chainId={HOME_CHAINID}>
                         Switch to Arbitrum
                     </SwitchNetworkButton>
-                ) : !allowance || !stakedAllowance ? (
+                ) : !allowance ? (
                     <Loader />
                 ) : paused ? (
                     <>
@@ -140,47 +126,30 @@ export default function StakePage() {
                     <>
                         <div>
                             {parseBalance(allowance) === 0 ? (
-                                <Button
-                                    color="gradient"
-                                    disabled={
-                                        approve.state.status === "None"
-                                            ? false
-                                            : true
-                                    }
-                                    onClick={() => {
-                                        approve.send(
-                                            ASCENSION.AscensionStaking.address,
-                                            parseUnits("14400000")
-                                        );
-                                    }}
-                                >
-                                    {approve.state.status === "None" ? (
-                                        "Enable staking deposits"
-                                    ) : (
-                                        <Loader />
-                                    )}
-                                </Button>
-                            ) : parseBalance(stakedAllowance) === 0 ? (
-                                <Button
-                                    color="gradient"
-                                    disabled={
-                                        approveStaked.state.status === "None"
-                                            ? false
-                                            : true
-                                    }
-                                    onClick={() => {
-                                        approveStaked.send(
-                                            ASCENSION.AscensionStaking.address,
-                                            parseUnits("14400000")
-                                        );
-                                    }}
-                                >
-                                    {approveStaked.state.status === "None" ? (
-                                        "Enable staking withdrawals"
-                                    ) : (
-                                        <Loader />
-                                    )}
-                                </Button>
+                                <>
+                                    <h2>Step 1/2</h2>
+                                    <Button
+                                        color="gradient"
+                                        disabled={
+                                            approve.state.status === "None"
+                                                ? false
+                                                : true
+                                        }
+                                        onClick={() => {
+                                            approve.send(
+                                                ASCENSION.AscensionStaking
+                                                    .address,
+                                                parseUnits("14400000")
+                                            );
+                                        }}
+                                    >
+                                        {approve.state.status === "None" ? (
+                                            "Enable staking deposits"
+                                        ) : (
+                                            <Loader />
+                                        )}
+                                    </Button>
+                                </>
                             ) : (
                                 <div className="flex md:mr-32">
                                     <Input.Numeric
@@ -216,90 +185,85 @@ export default function StakePage() {
                                 </div>
                             )}
                         </div>
-                        {parseBalance(allowance) > 0 &&
-                            parseBalance(stakedAllowance) > 0 && (
-                                <>
-                                    <ul className="w-full text-left my-4 p-2    rounded-xl">
-                                        <li className="w-full flex">
-                                            Balance:{" "}
-                                            {ascendBalance ? (
-                                                formatBalance(ascendBalance) +
-                                                " ASCEND"
-                                            ) : (
-                                                <Skeleton />
-                                            )}{" "}
-                                        </li>
-                                        <li className="w-full flex">
-                                            Stake:{" "}
-                                            {balanceOf ? (
-                                                formatBalance(balanceOf) +
-                                                " ASCEND"
-                                            ) : (
-                                                <Skeleton />
-                                            )}
-                                        </li>
-                                        <li className="w-full flex">
-                                            earned:{" "}
-                                            {earned ? (
-                                                formatBalance(earned) +
-                                                " ASCEND"
-                                            ) : (
-                                                <Skeleton />
-                                            )}
-                                        </li>
-                                    </ul>
-                                    <div className="flex flex-col w-full justify-center items-center">
-                                        <Button
-                                            color="green"
-                                            className=" w-11/12 my-2"
-                                            disabled={
-                                                earned &&
-                                                parseBalance(earned) > 0 &&
-                                                getReward.state.status ===
-                                                    "None"
-                                                    ? false
-                                                    : true
-                                            }
-                                            onClick={() => {
-                                                getReward
-                                                    .send()
-                                                    .then(() =>
-                                                        getReward.resetState()
-                                                    );
-                                            }}
-                                        >
-                                            {getReward.state.status !==
-                                            "None" ? (
-                                                <Loader />
-                                            ) : (
-                                                "Collect Earned"
-                                            )}
-                                        </Button>
-                                        <Button
-                                            color="red"
-                                            className="w-11/12 my-2 "
-                                            disabled={
-                                                balanceOf &&
-                                                parseBalance(balanceOf) > 0 &&
-                                                exit.state.status === "None"
-                                                    ? false
-                                                    : true
-                                            }
-                                            onClick={() => {
-                                                exit.send().then(() =>
-                                                    exit.resetState()
+                        {parseBalance(allowance) > 0 && (
+                            <>
+                                <ul className="w-full text-left my-4 p-2    rounded-xl">
+                                    <li className="w-full flex">
+                                        Balance:{" "}
+                                        {ascendBalance ? (
+                                            formatBalance(ascendBalance) +
+                                            " ASCEND"
+                                        ) : (
+                                            <Skeleton />
+                                        )}{" "}
+                                    </li>
+                                    <li className="w-full flex">
+                                        Stake:{" "}
+                                        {balanceOf ? (
+                                            formatBalance(balanceOf) + " ASCEND"
+                                        ) : (
+                                            <Skeleton />
+                                        )}
+                                    </li>
+                                    <li className="w-full flex">
+                                        earned:{" "}
+                                        {earned ? (
+                                            formatBalance(earned) + " ASCEND"
+                                        ) : (
+                                            <Skeleton />
+                                        )}
+                                    </li>
+                                </ul>
+                                <div className="flex flex-col w-full justify-center items-center">
+                                    <Button
+                                        color="green"
+                                        className=" w-11/12 my-2"
+                                        disabled={
+                                            earned &&
+                                            parseBalance(earned) > 0 &&
+                                            getReward.state.status === "None"
+                                                ? false
+                                                : true
+                                        }
+                                        onClick={() => {
+                                            getReward
+                                                .send()
+                                                .then(() =>
+                                                    getReward.resetState()
                                                 );
-                                            }}
-                                        >
-                                            {exit.state.status != "None" ? (
-                                                <Loader />
-                                            ) : (
-                                                "Exit Staking"
-                                            )}
-                                        </Button>
-                                    </div>
-                                </>
-                            )}
+                                        }}
+                                    >
+                                        {getReward.state.status !== "None" ? (
+                                            <Loader />
+                                        ) : (
+                                            "Collect Earned"
+                                        )}
+                                    </Button>
+                                    <Button
+                                        color="red"
+                                        className="w-11/12 my-2 "
+                                        disabled={
+                                            balanceOf &&
+                                            parseBalance(balanceOf) > 0 &&
+                                            exit.state.status === "None"
+                                                ? false
+                                                : true
+                                        }
+                                        onClick={() => {
+                                            exit.send().then(() =>
+                                                exit.resetState()
+                                            );
+                                        }}
+                                    >
+                                        {exit.state.status != "None" ? (
+                                            <Loader />
+                                        ) : (
+                                            "Exit Staking"
+                                        )}
+                                    </Button>
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
             </Card>

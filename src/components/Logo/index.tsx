@@ -8,7 +8,7 @@ export default function Logo() {
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 754 754"
-            className="h-[24px] md:h-[32px]"
+            className="h-[24px]"
         >
             <defs>
                 <style

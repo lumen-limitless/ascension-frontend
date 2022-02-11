@@ -1,5 +1,5 @@
 import { AddressMap } from "../types";
-import contractsInfo from "../constants/contractsInfo.json";
+import abis from "../constants/abis/abis.json";
 import { ChainId } from "@usedapp/core";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -12,16 +12,16 @@ export const ASCENSION: {
     [key: string]: { address: string; abi: any };
 } = {
     AscensionToken: {
-        address: contractsInfo.contracts.AscensionToken.address,
-        abi: contractsInfo.contracts.AscensionToken.abi,
+        address: abis.contracts.AscensionToken.address,
+        abi: abis.contracts.AscensionToken.abi,
     },
     AscensionStakedToken: {
-        address: contractsInfo.contracts.AscensionStakedToken.address,
-        abi: contractsInfo.contracts.AscensionStakedToken.abi,
+        address: abis.contracts.AscensionStakedToken.address,
+        abi: abis.contracts.AscensionStakedToken.abi,
     },
     AscensionStaking: {
-        address: contractsInfo.contracts.AscensionStaking.address,
-        abi: contractsInfo.contracts.AscensionStaking.abi,
+        address: abis.contracts.AscensionStaking.address,
+        abi: abis.contracts.AscensionStaking.abi,
     },
 };
 
