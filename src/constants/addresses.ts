@@ -23,6 +23,10 @@ export const ASCENSION: {
         address: abis.contracts.AscensionStaking.address,
         abi: abis.contracts.AscensionStaking.abi,
     },
+    BatchSender: {
+        address: abis.contracts.BatchSender.address,
+        abi: abis.contracts.BatchSender.abi,
+    },
 };
 
 export const USDC_ADDRESS: AddressMap = {
