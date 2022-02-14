@@ -36,7 +36,7 @@ export function useEthUsdPrice() {
 export function useAPIASCENDBalance(account: string) {
   const { data, error } = useAPI(
     `https://api.arbiscan.io/api?module=account&action=tokenbalance&contractaddress=0x9e724698051DA34994F281bD81C3E7372d1960AE&address=${account}&tag=latest&apikey=${
-      SCAN_INFO[ChainId.Arbitrum].apiKey
+      SCAN_INFO[ChainId.Arbitrum]?.apiKey
     }`
   )
   const balance = useMemo(() => {
@@ -52,7 +52,7 @@ export function useAPIASCENDBalance(account: string) {
 export function useAPIStakedASCENDBalance(account: string) {
   const { data, error } = useAPI(
     `https://api.arbiscan.io/api?module=account&action=tokenbalance&contractaddress=0x40eafec3c261f7e706289d3b3afef812a6ca10cd&address=${account}&tag=latest&apikey=${
-      SCAN_INFO[ChainId.Arbitrum].apiKey
+      SCAN_INFO[ChainId.Arbitrum]?.apiKey
     }`
   )
   const balance = useMemo(() => {
