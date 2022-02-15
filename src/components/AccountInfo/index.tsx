@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import DisconnectButton from "../Button/disconnectButton";
-import { useWeb3React } from "@web3-react/core";
-import { useAscendBalance, useAscendVoting } from "../../hooks/useAscend";
-import Skeleton from "../Skeleton";
-import { formatBalance, shortenAddress } from "../../functions";
-import Pill from "../Button/pill";
-import { useToggle } from "react-use";
-import { FingerPrintIcon, UserIcon, XIcon } from "@heroicons/react/outline";
-import Modal from "../Modal";
-import { Web3Provider } from "@ethersproject/providers";
-import Avatar from "../Avatar";
-import Button from "../Button";
-=======
 import React from 'react'
 import DisconnectButton from '../DisconnectButton'
 import Skeleton from '../Skeleton'
@@ -25,7 +10,6 @@ import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import { useAPIASCENDBalance, useAPIStakedASCENDBalance } from '../../hooks/useAPI'
->>>>>>> canary
 
 export default function AccountInfo() {
   const { account } = useEthers()
@@ -35,25 +19,12 @@ export default function AccountInfo() {
 
   const [viewing, toggle] = useToggle(false)
 
-<<<<<<< HEAD
-    return (
-        <>
-            <Button
-                color="gray"
-                variant="outlined"
-                onClick={() => toggle(true)}
-            >
-                <UserIcon height="20px" />
-                {account ? shortenAddress(account) : ""}
-            </Button>
-=======
   return (
     <>
       <Button size="sm" color="gray" variant="outlined" onClick={() => toggle(true)}>
         <Avatar size={16} />
         {ens ?? shortenIfAddress(account)}
       </Button>
->>>>>>> canary
 
       {viewing && (
         <Modal isOpen={viewing} onDismiss={() => toggle(false)}>

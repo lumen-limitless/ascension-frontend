@@ -32,14 +32,8 @@ const OUTLINED = {
 }
 
 const EMPTY = {
-<<<<<<< HEAD
-    default:
-        " bg-transparent disabled:opacity-50 disabled:cursor-auto bg-opacity-80 hover:bg-opacity-100",
-};
-=======
   default: ' bg-transparent disabled:opacity-50 disabled:cursor-auto bg-opacity-80 hover:bg-opacity-100',
 }
->>>>>>> canary
 
 const LINK = {
   default: 'text-primary hover:text-high-emphesis focus:text-high-emphesis whitespace-nowrap focus:ring-0',
@@ -74,22 +68,6 @@ function Button({
   variant = 'filled',
   ...rest
 }: ButtonProps): JSX.Element {
-<<<<<<< HEAD
-    return (
-        <button
-            className={classNames(
-                VARIANT[variant][color],
-                variant !== "empty" && SIZE[size],
-                "flex justify-center items-center rounded disabled:cursor-not-allowed focus:outline-none disabled:opacity-40",
-                // 'rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed font-medium',
-                className
-            )}
-            {...rest}
-        >
-            {children}
-        </button>
-    );
-=======
   return (
     <button
       className={classNames(
@@ -104,7 +82,6 @@ function Button({
       {children}
     </button>
   )
->>>>>>> canary
 }
 
 export default Button

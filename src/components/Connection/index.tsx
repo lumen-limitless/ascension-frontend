@@ -1,28 +1,20 @@
-<<<<<<< HEAD
-import { useWeb3React } from "@web3-react/core";
-import React, { useState, useEffect } from "react";
-import { useEagerConnect, useInactiveListener } from "../../hooks/web3hooks";
-import { injected, walletconnect } from "../../constants/connectors";
-
-=======
-import React from "react";
-import { walletconnect } from "../../constants/connectors";
->>>>>>> canary
-import { LinkIcon } from "@heroicons/react/outline";
-import Button from "../Button";
-import AccountInfo from "../AccountInfo";
-import { CHAIN_IMG, CHAIN_NAME } from "../../constants";
-import { useToggle } from "react-use";
-import Modal from "../Modal";
-import { classNames } from "../../functions";
-import { useEthers } from "@usedapp/core";
-import useNotificationsToast from "../../hooks/useNotificationsToast";
-import { useToast } from "../../hooks/useToast";
-import Image from "next/image";
+import React from 'react'
+import { walletconnect } from '../../constants/connectors'
+import { LinkIcon } from '@heroicons/react/outline'
+import Button from '../Button'
+import AccountInfo from '../AccountInfo'
+import { CHAIN_IMG, CHAIN_NAME } from '../../constants'
+import { useToggle } from 'react-use'
+import Modal from '../Modal'
+import { classNames } from '../../functions'
+import { useEthers } from '@usedapp/core'
+import useNotificationsToast from '../../hooks/useNotificationsToast'
+import { useToast } from '../../hooks/useToast'
+import Image from 'next/image'
 export function Connect() {
-  const { activateBrowserWallet, activate } = useEthers();
-  const [viewing, toggle] = useToggle(false);
-  const toast = useToast(4000);
+  const { activateBrowserWallet, activate } = useEthers()
+  const [viewing, toggle] = useToggle(false)
+  const toast = useToast(4000)
 
   return (
     <>
@@ -42,8 +34,8 @@ export function Connect() {
             color="gray"
             onClick={() =>
               activate(walletconnect).catch((err) => {
-                console.error(`error while attempting to connect: ${err}`);
-                toast("error", "Unable to connect to wallet");
+                console.error(`error while attempting to connect: ${err}`)
+                toast('error', 'Unable to connect to wallet')
               })
             }
           >
@@ -52,23 +44,23 @@ export function Connect() {
         </div>
       </Modal>
     </>
-  );
+  )
 }
 
 const colorsByChain: { [key: number]: string } = {
-  1: "bg-blue",
-  4: "bg-yellow",
-  56: "bg-[#A6810C]",
-  421611: "bg-[#28A0F0]",
-  42161: "bg-[#28A0F0]",
-  31337: "bg-black",
-  137: "bg-[#915DE8]",
-  43114: "bg-[#E84142]",
-};
+  1: 'bg-blue',
+  4: 'bg-yellow',
+  56: 'bg-[#A6810C]',
+  421611: 'bg-[#28A0F0]',
+  42161: 'bg-[#28A0F0]',
+  31337: 'bg-black',
+  137: 'bg-[#915DE8]',
+  43114: 'bg-[#E84142]',
+}
 
 export default function Connection() {
-  const { account, chainId } = useEthers();
-  useNotificationsToast();
+  const { account, chainId } = useEthers()
+  useNotificationsToast()
 
   return (
     <>
@@ -76,24 +68,6 @@ export default function Connection() {
         <Connect />
       ) : (
         <>
-<<<<<<< HEAD
-            {!active ? (
-                <Connect />
-            ) : (
-                <>
-                    <Button
-                        variant="outlined"
-                        className={classNames(colorsByChain[chainId ?? 1])}
-                    >
-                        <div className="flex">
-                            <LinkIcon height="20px" />
-                            {chainId && CHAIN_NAME[chainId]}
-                        </div>
-                    </Button>
-                    <AccountInfo />
-                </>
-            )}
-=======
           <div className="flex gap-2">
             <Button
               size="sm"
@@ -113,9 +87,8 @@ export default function Connection() {
             </Button>
             <AccountInfo />
           </div>
->>>>>>> canary
         </>
       )}
     </>
-  );
+  )
 }
