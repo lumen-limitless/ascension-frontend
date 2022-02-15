@@ -10,6 +10,7 @@ import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import { useAPIASCENDBalance, useAPIStakedASCENDBalance } from '../../hooks/useAPI'
+import { SCAN_INFO } from '../../constants'
 
 export default function AccountInfo() {
   const { account } = useEthers()
@@ -37,7 +38,7 @@ export default function AccountInfo() {
                 className="px-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://etherscan.io/address/0x369d1C11b4E520223Eb8694961c9D11dC423Dd45"
+                href={`https://etherscan.io/address/${account}`}
               >
                 <ExternalLinkIcon width={20} className="stroke-current text-blue" />
               </a>
