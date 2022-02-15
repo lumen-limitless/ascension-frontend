@@ -1,9 +1,9 @@
-import contractsInfo from "./contractsInfo.json";
+import { ChainId } from "@usedapp/core";
+import abis from "./abis/abis.json";
 
-export * from "./enums";
 export * from "./addresses";
 export * from "./networks";
 export * from "./dex";
 export * from "./scan";
 
-export const HOME_CHAINID = parseInt(contractsInfo.chainId);
+export const HOME_CHAINID: ChainId = parseInt(abis.chainId);

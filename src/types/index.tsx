@@ -1,4 +1,3 @@
-export * from "./typechain";
 export type SVGProps = {
     className?: string;
 };

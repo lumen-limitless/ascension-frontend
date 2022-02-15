@@ -1,23 +1,10 @@
-import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { BigNumberish } from "@ethersproject/bignumber";
 import { commify, formatUnits } from "@ethersproject/units";
-import { getAddress } from "ethers/lib/utils";
 
 export const capitalize = (s: string) => {
     if (typeof s !== "string") return "";
     return s.charAt(0).toUpperCase() + s.slice(1);
 };
-
-// shorten the checksummed version of the input address to have 0x + 4 characters at start and end
-export function shortenAddress(address: string, chars = 4): string {
-    try {
-        const parsed = getAddress(address);
-        return `${parsed.substring(0, chars + 2)}...${parsed.substring(
-            42 - chars
-        )}`;
-    } catch (error) {
-        throw Error(`Invalid 'address' parameter '${address}'.`);
-    }
-}
 
 // shorten string to its maximum length using three dots
 export function shortenString(string: string, length: number): string {

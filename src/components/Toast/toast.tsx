@@ -8,11 +8,15 @@ import {
     ExclamationCircleIcon,
     XIcon,
 } from "@heroicons/react/outline";
+import { classNames } from "../../functions";
 export interface ToastProps {
-    type: string;
+    type: "success" | "info" | "error";
     message: string;
     id: string;
 }
+
+const className =
+    "max-w-sm w-full bg-gray-100 dark:bg-dark-700 dark:text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden";
 export default function Toast({ type, message, id }: ToastProps) {
     const dispatch: Dispatch<any> = useToastDispatchContext();
 
@@ -29,7 +33,12 @@ export default function Toast({ type, message, id }: ToastProps) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="max-w-sm w-full bg-gray-100 dark:bg-dark-700 dark:text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                    <div
+                        className={classNames(
+                            className,
+                            "border-l-4 border-green"
+                        )}
+                    >
                         <div className="p-4">
                             <div className="flex items-start">
                                 <div className="flex-shrink-0">
@@ -79,7 +88,12 @@ export default function Toast({ type, message, id }: ToastProps) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="max-w-sm w-full bg-gray-100 dark:bg-dark-700 dark:text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                    <div
+                        className={classNames(
+                            className,
+                            "border-l-4 border-blue"
+                        )}
+                    >
                         <div className="p-4">
                             <div className="flex items-start">
                                 <div className="flex-shrink-0">
@@ -129,7 +143,12 @@ export default function Toast({ type, message, id }: ToastProps) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="max-w-sm w-full bg-gray-100 dark:bg-dark-700 dark:text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                    <div
+                        className={classNames(
+                            className,
+                            "border-l-4 border-red"
+                        )}
+                    >
                         <div className="p-4">
                             <div className="flex items-start">
                                 <div className="flex-shrink-0">

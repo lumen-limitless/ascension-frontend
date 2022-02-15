@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Loader({
     size = "32px",
-    stroke = "#FFFFFF",
     message,
 }: {
     size?: string;
@@ -133,7 +132,7 @@ export default function Loader({
                     points="754 591.6 377 754 377 399.68 593.71 340.17 754 591.6"
                 />
             </svg>
-            <h1>{message}</h1>
+            {message && <h1>{message}</h1>}
         </div>
     );
 }

@@ -2,12 +2,12 @@ import React from "react";
 import Button from "../Button";
 import ExternalLink from "../ExternalLink";
 
-export default function BuyAscend() {
+export default function BuyAscend({ amount }) {
     return (
         <>
             <div className="flex flex-col justify-center items-center">
-                <h1>This tool requires 1 ASCEND</h1>
-                <ExternalLink href="">
+                <h1>This tool requires {amount} ASCEND</h1>
+                <ExternalLink href="https://app.sushi.com/swap?&outputCurrency=0x9e724698051da34994f281bd81c3e7372d1960ae">
                     <Button color="gradient">Buy Now</Button>
                 </ExternalLink>
             </div>

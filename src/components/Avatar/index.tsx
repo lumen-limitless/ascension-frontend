@@ -1,11 +1,18 @@
-import { useWeb3React } from "@web3-react/core";
-import { Web3Provider } from "ethers/node_modules/@ethersproject/providers";
 import React from "react";
-import Blockies from "react-blockies";
+import { useEthers } from "@usedapp/core";
+import makeBlockie from "ethereum-blockies-base64";
+import Image from "next/image";
+import { BURN_ADDRESS } from "../../constants";
+export default function Avatar({ size = 64 }) {
+    const { account } = useEthers();
 
-export default function Avatar() {
-    const { account } = useWeb3React<Web3Provider>();
     return (
-        <Blockies seed={account} size={20}  className="rounded-full" />
+        <Image
+            src={makeBlockie(account ?? BURN_ADDRESS)}
+            alt="Blockie"
+            width={size}
+            height={size}
+            className="rounded-full "
+        />
     );
 }

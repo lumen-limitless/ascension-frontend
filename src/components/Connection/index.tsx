@@ -1,83 +1,82 @@
+<<<<<<< HEAD
 import { useWeb3React } from "@web3-react/core";
 import React, { useState, useEffect } from "react";
 import { useEagerConnect, useInactiveListener } from "../../hooks/web3hooks";
 import { injected, walletconnect } from "../../constants/connectors";
 
+=======
+import React from "react";
+import { walletconnect } from "../../constants/connectors";
+>>>>>>> canary
 import { LinkIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import AccountInfo from "../AccountInfo";
-import { CHAIN_NAME } from "../../constants";
+import { CHAIN_IMG, CHAIN_NAME } from "../../constants";
 import { useToggle } from "react-use";
 import Modal from "../Modal";
-import { useToast } from "../../hooks/useToast";
 import { classNames } from "../../functions";
-
+import { useEthers } from "@usedapp/core";
+import useNotificationsToast from "../../hooks/useNotificationsToast";
+import { useToast } from "../../hooks/useToast";
+import Image from "next/image";
 export function Connect() {
-    const { activate, error } = useWeb3React();
-    const [viewing, toggle] = useToggle(false);
-    const toast = useToast(4000);
+  const { activateBrowserWallet, activate } = useEthers();
+  const [viewing, toggle] = useToggle(false);
+  const toast = useToast(4000);
 
-    const onConnect = async (connector: any) => {
-        await activate(connector);
-        if (error) toast("error", `${error}`);
-    };
-    return (
-        <>
-            <Button color="blue" onClick={() => toggle(true)}>
-                Connect Wallet
-            </Button>
+  return (
+    <>
+      <Button color="blue" onClick={() => toggle(true)}>
+        Connect Wallet
+      </Button>
 
-            <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
-                <h1>Select a Wallet</h1>
+      <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
+        <h1>Select a Wallet</h1>
 
-                <div className="flex flex-col h-full">
-                    <Button
-                        color="gray"
-                        onClick={() => onConnect(injected)}
-                        className="my-2"
-                    >
-                        MetaMask
-                    </Button>
+        <div className="my-3 flex h-full flex-col gap-3">
+          <Button color="gray" onClick={() => activateBrowserWallet()}>
+            MetaMask
+          </Button>
 
-                    <Button
-                        color="gray"
-                        onClick={() => onConnect(walletconnect)}
-                        className="my-2"
-                    >
-                        WalletConnect
-                    </Button>
-                </div>
-            </Modal>
-        </>
-    );
+          <Button
+            color="gray"
+            onClick={() =>
+              activate(walletconnect).catch((err) => {
+                console.error(`error while attempting to connect: ${err}`);
+                toast("error", "Unable to connect to wallet");
+              })
+            }
+          >
+            WalletConnect
+          </Button>
+        </div>
+      </Modal>
+    </>
+  );
 }
 
 const colorsByChain: { [key: number]: string } = {
-    1: "bg-blue",
-    4: "bg-yellow",
-    56: "bg-[#A6810C]",
-    421611: "bg-[#28A0F0]",
-    42161: "bg-[#28A0F0]",
-    31337: "bg-black",
-    137: "bg-[#915DE8]",
-    43114: "bg-[#E84142]",
+  1: "bg-blue",
+  4: "bg-yellow",
+  56: "bg-[#A6810C]",
+  421611: "bg-[#28A0F0]",
+  42161: "bg-[#28A0F0]",
+  31337: "bg-black",
+  137: "bg-[#915DE8]",
+  43114: "bg-[#E84142]",
 };
 
 export default function Connection() {
-    const { active, account, connector, chainId } = useWeb3React();
-    const [activatingConnector, setActivatingConnector] = useState();
-    const triedEager = useEagerConnect();
+  const { account, chainId } = useEthers();
+  useNotificationsToast();
 
-    useEffect(() => {
-        if (activatingConnector && activatingConnector === connector) {
-            setActivatingConnector(undefined);
-        }
-    }, [activatingConnector, connector]);
-
-    useInactiveListener(!triedEager || !activatingConnector);
-
-    return (
+  return (
+    <>
+      {!account ? (
+        <Connect />
+      ) : (
         <>
+<<<<<<< HEAD
             {!active ? (
                 <Connect />
             ) : (
@@ -94,6 +93,29 @@ export default function Connection() {
                     <AccountInfo />
                 </>
             )}
+=======
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outlined"
+              color="gray"
+              // className={classNames(colorsByChain[chainId ?? 1])}
+            >
+              {chainId && (
+                <Image
+                  about={CHAIN_NAME[chainId ?? 1]}
+                  width={24}
+                  height={24}
+                  src={CHAIN_IMG[chainId ?? 1]}
+                  alt={CHAIN_NAME[chainId ?? 1]}
+                ></Image>
+              )}
+            </Button>
+            <AccountInfo />
+          </div>
+>>>>>>> canary
         </>
-    );
+      )}
+    </>
+  );
 }
