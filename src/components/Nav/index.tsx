@@ -37,7 +37,7 @@ export default function Nav({ className }: NavProps) {
     >
       <NavItem path="/" />
       <NavItem path="/stake" />
-      {/* <NavItem path="/tools" /> */}
+      <NavItem path="/tools" />
     </nav>
   )
 }
