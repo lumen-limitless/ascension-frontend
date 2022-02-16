@@ -55,11 +55,9 @@ export default function useStaking() {
 
   const apy = useMemo(() => {
     if (!rewardRate || !totalStaked) return null
-
     const r = parseBalance(rewardRate[0])
     const t = parseBalance(totalStaked[0])
-    const i = r * 31557600 * (1 / t)
-    return (Math.pow(1 + i / 365, 365) - 1) * 100
+    return ((r * 31557600) / t) * 100
   }, [rewardRate, totalStaked])
 
   return {

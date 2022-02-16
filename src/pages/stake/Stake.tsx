@@ -108,7 +108,7 @@ export default function Stake() {
                   <Input.Numeric
                     value={amount}
                     onUserInput={setAmount}
-                    max={ascendBalance ? parseBalance(ascendBalance).toFixed(4).toString() : '0'}
+                    max={ascendBalance ? parseBalance(ascendBalance).toFixed(2).toString() : '0'}
                   />
                   <Button
                     size="sm"
