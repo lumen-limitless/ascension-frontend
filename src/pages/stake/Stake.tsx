@@ -62,7 +62,7 @@ export default function Stake() {
       <Stat
         title=""
         stats={[
-          { name: 'APY', stat: apy, isPercent: true },
+          { name: 'APR', stat: apy, isPercent: true },
           {
             name: 'Total Staked',
             stat: totalStaked,
