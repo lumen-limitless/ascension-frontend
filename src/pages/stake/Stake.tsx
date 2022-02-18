@@ -11,16 +11,13 @@ import { ASCENSION, HOME_CHAINID } from '../../constants'
 import { parseUnits } from '@ethersproject/units'
 import Loader from '../../components/Loader'
 import { formatBalance, parseBalance } from '../../functions'
-
 import { useContractFunction, useEthers, useTokenAllowance } from '@usedapp/core'
-import { Contract } from 'ethers'
+import { BigNumber, Contract, ethers } from 'ethers'
 import { useASCENDBalance } from '../../hooks/useASCEND'
-import { useToggle } from 'react-use'
 
 export default function Stake() {
   const { account, chainId } = useEthers()
   const [amount, setAmount] = useState<string>('')
-  const [isWithdrawing, toggleWithdrawing] = useToggle(false)
   const ascendBalance = useASCENDBalance(account)
 
   const allowance = useTokenAllowance(ASCENSION.AscensionToken.address, account, ASCENSION.AscensionStaking.address)
@@ -97,7 +94,7 @@ export default function Stake() {
                     color="gradient"
                     disabled={approve.state.status === 'None' ? false : true}
                     onClick={() => {
-                      approve.send(ASCENSION.AscensionStaking.address, parseUnits('14400000'))
+                      approve.send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256)
                     }}
                   >
                     {approve.state.status === 'None' ? 'Enable Deposits' : <Loader />}

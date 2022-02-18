@@ -26,7 +26,17 @@ export function Connect() {
         <h1>Select a Wallet</h1>
 
         <div className="my-3 flex h-full flex-col gap-3">
-          <Button color="gray" onClick={() => activateBrowserWallet()}>
+          <Button
+            color="gray"
+            onClick={() => {
+              try {
+                activateBrowserWallet()
+              } catch (err) {
+                console.error(`error while attempting to connect: ${err}`)
+                toast('error', 'Unable to connect to wallet')
+              }
+            }}
+          >
             MetaMask
           </Button>
 

@@ -27,15 +27,15 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
 }
 export default function ToolsPage() {
   return (
-    <Container maxWidth="4xl">
+    <Container maxWidth="2xl">
       <Head>
         <title>Tools | Ascension Protocol</title>
         <meta key="description" name="description" content="Ascension Protocol tools" />
       </Head>
-      <div className="grid grid-cols-1 justify-between gap-12">
+      <div className="grid grid-cols-1 justify-between gap-9 ">
         <ToolTile path="/tools/universalswap" name="Universal Swap" />
-        <ToolTile path="/tools/reactor" name="Ascension Reactor" />
-        <ToolTile path="/tools/batchsender" name="ERC20 Batch Sender" />
+        {/* <ToolTile path="/tools/reactor" name="Ascension Reactor" />
+        <ToolTile path="/tools/batchsender" name="ERC20 Batch Sender" /> */}
       </div>
     </Container>
   )

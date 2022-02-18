@@ -81,10 +81,8 @@ module.exports = {
         DEFAULT: '0.625rem',
       },
       boxShadow: {
-        'pink-glow': '0px 57px 90px -36px rgba(250, 82, 160, 0.15)',
-        'blue-glow': '0px 57px 90px -47px rgba(39, 176, 230, 0.17)',
-        'pink-glow-hovered': '0px 57px 90px -47px rgba(250, 82, 160, 0.30)',
-        'blue-glow-hovered': '0px 57px 90px -47px rgba(39, 176, 230, 0.34)',
+        'pink-glow': '0px 57px 90px -36px rgba(148, 50, 89, 0.15)',
+        'pink-glow-hovered': '0px 57px 90px -47px rgba(148, 50, 89, 0.3)',
       },
       ringWidth: {
         DEFAULT: '1px',

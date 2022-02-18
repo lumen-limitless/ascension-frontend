@@ -1,9 +1,7 @@
 import { ChainId } from '@usedapp/core'
-import { getAddress, parseUnits } from 'ethers/lib/utils'
 import { useMemo } from 'react'
 import useSWR from 'swr'
-import { ASCENSION, SCAN_INFO } from '../constants'
-import { formatBalance } from '../functions'
+import { CHAIN_SYMBOL, SCAN_INFO } from '../constants'
 
 export default function useAPI(url: string) {
   const { data, error } = useSWR(url, async (url: string) => {
@@ -32,50 +30,15 @@ export function useEthUsdPrice() {
     error,
   }
 }
-
-export function useAPIASCENDBalance(account: string) {
+export function useNativeUsdPrice(chainId: ChainId) {
   const { data, error } = useAPI(
-    `https://api.arbiscan.io/api?module=account&action=tokenbalance&contractaddress=0x9e724698051DA34994F281bD81C3E7372d1960AE&address=${account}&tag=latest&apikey=${
-      SCAN_INFO[ChainId.Arbitrum]?.apiKey
-    }`
+    `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=stats&action=${CHAIN_SYMBOL[
+      chainId
+    ]?.toLowerCase()}price&apikey=${SCAN_INFO[chainId]?.apiKey}`
   )
-  const balance = useMemo(() => {
-    if (!data || data.message != 'OK') return null
-    return parseUnits(data.result, 0)
-  }, [data])
 
   if (error) return null
-
-  return balance
-}
-
-export function useAPIStakedASCENDBalance(account: string) {
-  const { data, error } = useAPI(
-    `https://api.arbiscan.io/api?module=account&action=tokenbalance&contractaddress=0x40eafec3c261f7e706289d3b3afef812a6ca10cd&address=${account}&tag=latest&apikey=${
-      SCAN_INFO[ChainId.Arbitrum]?.apiKey
-    }`
-  )
-  const balance = useMemo(() => {
-    if (!data || data.message != 'OK') return null
-    return parseUnits(data.result, 0)
-  }, [data])
-
-  if (error) return null
-
-  return balance
-}
-
-export function useTransferData(tokenContract: string, address: string, chainId: ChainId) {
-  const { data, error } = useAPI(
-    `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=account&action=tokentx&contractaddress=${getAddress(
-      tokenContract
-    )}&address=${getAddress(address)}&startblock=0&endblock=latest&page=1&offset=100&sort=asc&apikey=${
-      SCAN_INFO[chainId]?.apiKey
-    }`
-  )
-
-  if (error) return error
-  return data
+  return data ? parseFloat(data.result[`${CHAIN_SYMBOL[chainId]?.toLowerCase()}usd`]) : null
 }
 
 export function useVerifiedContractABI(contract: string, chainId: ChainId): any[] {

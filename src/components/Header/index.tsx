@@ -23,7 +23,7 @@ export default function Header() {
     <>
       <header
         ref={ref}
-        className="flex w-full flex-col items-center justify-between border-b border-gray-400  bg-white px-4 py-1   dark:border-dark-600 dark:bg-dark-1000"
+        className="fixed z-20 flex min-h-[60px]  w-full flex-col items-center justify-center border-b  border-gray-400 bg-white px-3 py-1   dark:border-dark-600 dark:bg-dark-1000"
       >
         <div className="flex h-full w-full  items-center">
           <Logo />
@@ -34,9 +34,9 @@ export default function Header() {
           </div>
 
           <Button key="navbutton" id="navbutton" size="default" onClick={toggleViewing} className={`md:hidden`}>
-            {viewing ? <XIcon height="20px" /> : <MenuAlt2Icon height="20px" />}
+            {viewing ? <XIcon height="24px" /> : <MenuAlt2Icon height="24px" />}
           </Button>
-        </div>{' '}
+        </div>
         {viewing && (
           <>
             <Popover show={viewing} content>

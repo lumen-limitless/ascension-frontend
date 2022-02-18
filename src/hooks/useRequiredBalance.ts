@@ -1,18 +1,14 @@
-import { useMemo } from "react";
-import { parseBalance } from "../functions";
-import { useAPIASCENDBalance, useAPIStakedASCENDBalance } from "./useAPI";
+import { useMemo } from 'react'
+import { parseBalance } from '../functions'
+import { useASCENDTokenDataQuery } from './useASCEND'
 
-export default function useRequiredBalance(
-    account: string,
-    amountRequired: number
-) {
-    const ascendBalance = useAPIASCENDBalance(account);
-    const stakedBalance = useAPIStakedASCENDBalance(account);
+export default function useRequiredBalance(account: string, amountRequired: number) {
+  const tokenData = useASCENDTokenDataQuery(account)
 
-    const pass = useMemo(() => {
-        if (!ascendBalance || !stakedBalance) return null;
-        return parseBalance(ascendBalance.add(stakedBalance)) >= amountRequired;
-    }, [ascendBalance, stakedBalance, amountRequired]);
+  const pass = useMemo(() => {
+    if (!tokenData) return null
+    return parseFloat(tokenData.totalBalance) >= amountRequired
+  }, [tokenData, amountRequired])
 
-    return pass;
+  return pass
 }

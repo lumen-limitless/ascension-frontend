@@ -1,51 +1,55 @@
 import { useMemo } from 'react'
-import { ASCENSION } from '../constants'
+import { ASCENSION, HOME_CHAINID } from '../constants'
 import { useContractCalls, useEthers } from '@usedapp/core'
 import { Interface } from 'ethers/lib/utils'
 import { BigNumber } from 'ethers'
 import { parseBalance } from '../functions'
 
 export default function useStaking() {
-  const { account } = useEthers()
+  const { account, chainId } = useEthers()
 
-  const [balanceOf, totalStaked, rewardRate, periodFinish, earned, paused] = useContractCalls([
-    {
-      abi: new Interface(ASCENSION.AscensionStaking.abi),
-      address: ASCENSION.AscensionStaking.address,
-      method: 'balanceOf',
-      args: [account],
-    },
-    {
-      abi: new Interface(ASCENSION.AscensionStaking.abi),
-      address: ASCENSION.AscensionStaking.address,
-      method: 'totalStaked',
-      args: [],
-    },
-    {
-      abi: new Interface(ASCENSION.AscensionStaking.abi),
-      address: ASCENSION.AscensionStaking.address,
-      method: 'rewardRate',
-      args: [],
-    },
-    {
-      abi: new Interface(ASCENSION.AscensionStaking.abi),
-      address: ASCENSION.AscensionStaking.address,
-      method: 'periodFinish',
-      args: [],
-    },
-    {
-      abi: new Interface(ASCENSION.AscensionStaking.abi),
-      address: ASCENSION.AscensionStaking.address,
-      method: 'earned',
-      args: [account],
-    },
-    {
-      abi: new Interface(ASCENSION.AscensionStaking.abi),
-      address: ASCENSION.AscensionStaking.address,
-      method: 'paused',
-      args: [],
-    },
-  ])
+  const [balanceOf, totalStaked, rewardRate, periodFinish, earned, paused] = useContractCalls(
+    chainId == HOME_CHAINID
+      ? [
+          {
+            abi: new Interface(ASCENSION.AscensionStaking.abi),
+            address: ASCENSION.AscensionStaking.address,
+            method: 'balanceOf',
+            args: [account],
+          },
+          {
+            abi: new Interface(ASCENSION.AscensionStaking.abi),
+            address: ASCENSION.AscensionStaking.address,
+            method: 'totalStaked',
+            args: [],
+          },
+          {
+            abi: new Interface(ASCENSION.AscensionStaking.abi),
+            address: ASCENSION.AscensionStaking.address,
+            method: 'rewardRate',
+            args: [],
+          },
+          {
+            abi: new Interface(ASCENSION.AscensionStaking.abi),
+            address: ASCENSION.AscensionStaking.address,
+            method: 'periodFinish',
+            args: [],
+          },
+          {
+            abi: new Interface(ASCENSION.AscensionStaking.abi),
+            address: ASCENSION.AscensionStaking.address,
+            method: 'earned',
+            args: [account],
+          },
+          {
+            abi: new Interface(ASCENSION.AscensionStaking.abi),
+            address: ASCENSION.AscensionStaking.address,
+            method: 'paused',
+            args: [],
+          },
+        ]
+      : []
+  )
 
   const rewardsEndAt = useMemo(() => {
     if (!periodFinish) return null

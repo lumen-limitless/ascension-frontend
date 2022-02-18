@@ -9,15 +9,13 @@ import Button from '../Button'
 import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 
 import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { useAPIASCENDBalance, useAPIStakedASCENDBalance } from '../../hooks/useAPI'
-import { SCAN_INFO } from '../../constants'
+import { useASCENDTokenDataQuery } from '../../hooks/useASCEND'
+import { commify } from 'ethers/lib/utils'
 
 export default function AccountInfo() {
   const { account } = useEthers()
   const ens = useLookupAddress()
-  const ascendBalance = useAPIASCENDBalance(account)
-  const sAscendBalance = useAPIStakedASCENDBalance(account)
-
+  const tokenData = useASCENDTokenDataQuery(account)
   const [viewing, toggle] = useToggle(false)
 
   return (
@@ -47,10 +45,10 @@ export default function AccountInfo() {
           </div>
 
           <div className="flex w-full items-center">
-            Balance: {ascendBalance ? formatBalance(ascendBalance) : <Skeleton />} ASCEND
+            Balance: {tokenData ? formatBalance(tokenData.balance) : <Skeleton />} ASCEND
           </div>
           <div className="flex w-full items-center">
-            Staked: {sAscendBalance ? formatBalance(sAscendBalance) : <Skeleton />} ASCEND
+            Staked: {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />} ASCEND
           </div>
         </Modal>
       )}

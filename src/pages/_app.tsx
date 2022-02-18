@@ -8,6 +8,7 @@ import { ThemeProvider } from 'next-themes'
 import Layout from '../layout'
 import { Config, DAppProvider } from '@usedapp/core'
 import { HOME_CHAINID, RPC } from '../constants'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
@@ -65,6 +66,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta key="og:description" property="og:description" content="Web application for Ascension Protocol" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <DAppProvider config={config}>
         <ThemeProvider attribute="class">
           <ToastProvider>

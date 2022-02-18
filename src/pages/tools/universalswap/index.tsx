@@ -4,14 +4,29 @@ import Container from '../../../components/Container'
 import UniversalSwap from './UniversalSwap'
 import Loader from '../../../components/Loader'
 import { useEthers } from '@usedapp/core'
+import useRequiredBalance from '../../../hooks/useRequiredBalance'
+import BuyAscend from '../../../components/BuyAscend'
+import Connection from '../../../components/Connection'
 
 export default function UniversalSwapPage() {
-  const { chainId, account } = useEthers()
-  const supportedChainId = [1, 42161]
+  const { account, chainId } = useEthers()
+  const pass = useRequiredBalance(account, 100)
+  const supportedChainId = [1]
 
-  if (!chainId || !account) return <Loader />
+  if (!account)
+    return (
+      <Container>
+        <Connection />
+      </Container>
+    )
 
-  if (!supportedChainId.includes(chainId)) return <Loader message="Network not supported!" />
+  if (!chainId) return <Loader />
+  if (!supportedChainId.includes(chainId))
+    return (
+      <Container>
+        <Loader message="Network not supported!" />
+      </Container>
+    )
 
   return (
     <>
@@ -20,9 +35,7 @@ export default function UniversalSwapPage() {
         <meta key="description" name="description" content="Ascension Protocol tools" />
       </Head>
 
-      <Container maxWidth="5xl">
-        <UniversalSwap />
-      </Container>
+      <Container maxWidth="full">{!pass ? <BuyAscend amount={100} /> : <UniversalSwap />}</Container>
     </>
   )
 }
