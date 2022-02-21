@@ -12,6 +12,7 @@ import Skeleton from '../../../components/Skeleton'
 import { CogIcon } from '@heroicons/react/outline'
 import { getAddress } from 'ethers/lib/utils'
 import Tabs from '../../../components/Tabs'
+import Loader from '../../../components/Loader'
 
 export default function UniversalSwap() {
   const { chainId, account } = useEthers()
@@ -26,6 +27,7 @@ export default function UniversalSwap() {
   const tokenMetaData = useToken(isAddress(input) ? input : buyToken)
   const tokenList = useTokenList('https://zapper.fi/api/token-list')
 
+  if (!chainId) return <Loader />
   return (
     <>
       <div className="flex flex-col gap-3 md:flex-row ">
