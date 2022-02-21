@@ -3,12 +3,9 @@ import '../styles/index.css'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { ToastProvider } from '../context/ToastContext'
-import ToastContainer from '../components/Toast/toastContainer'
-import { ThemeProvider } from 'next-themes'
 import Layout from '../layout'
 import { Config, DAppProvider } from '@usedapp/core'
 import { HOME_CHAINID, RPC } from '../constants'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
@@ -68,14 +65,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <DAppProvider config={config}>
-        <ThemeProvider attribute="class">
-          <ToastProvider>
-            <Layout>
-              <Component {...pageProps} />
-              <ToastContainer />
-            </Layout>
-          </ToastProvider>
-        </ThemeProvider>
+        <ToastProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ToastProvider>
       </DAppProvider>
     </>
   )

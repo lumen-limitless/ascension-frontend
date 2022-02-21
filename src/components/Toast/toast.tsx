@@ -11,7 +11,7 @@ export interface ToastProps {
 }
 
 const className =
-  'max-w-sm w-full bg-gray-100 dark:bg-dark-700 dark:text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden'
+  'max-w-sm w-full bg-dark-700 text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden'
 export default function Toast({ type, message, id }: ToastProps) {
   const dispatch: Dispatch<any> = useToastDispatchContext()
 
@@ -35,12 +35,12 @@ export default function Toast({ type, message, id }: ToastProps) {
                   <CheckCircleIcon className="h-6 w-6 text-green" aria-hidden="true" />
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-50">Success</p>
-                  <p className="mt-1 text-sm text-gray-400 ">{message}</p>
+                  <p className="text-sm font-medium  text-gray-50">Success</p>
+                  <p className="mt-1 text-sm  ">{message}</p>
                 </div>
                 <div className="ml-4 flex flex-shrink-0">
                   <button
-                    className=" inline-flex rounded-md text-gray-400  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-300"
+                    className=" hover: inline-flex rounded-md text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={() => {
                       dispatch({
                         type: 'DELETE_TOAST',
@@ -75,12 +75,12 @@ export default function Toast({ type, message, id }: ToastProps) {
                   <ExclamationCircleIcon className="h-6 w-6 text-blue" aria-hidden="true" />
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-50">Info</p>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">{message}</p>
+                  <p className="text-sm font-medium  text-gray-50">Info</p>
+                  <p className="mt-1 text-sm  text-gray-300">{message}</p>
                 </div>
                 <div className="ml-4 flex flex-shrink-0">
                   <button
-                    className=" inline-flex rounded-md text-gray-400  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-300"
+                    className=" inline-flex rounded-md   text-gray-300  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={() => {
                       dispatch({
                         type: 'DELETE_TOAST',
@@ -115,12 +115,12 @@ export default function Toast({ type, message, id }: ToastProps) {
                   <BanIcon className="h-6 w-6 text-red" aria-hidden="true" />
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-50">Error</p>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">{message}</p>
+                  <p className="text-sm font-medium  text-gray-50">Error</p>
+                  <p className="mt-1 text-sm  text-gray-300">{message}</p>
                 </div>
                 <div className="ml-4 flex flex-shrink-0">
                   <button
-                    className="inline-flex rounded-md text-gray-400   hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-300"
+                    className="hover: inline-flex rounded-md text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={() => {
                       dispatch({
                         type: 'DELETE_TOAST',

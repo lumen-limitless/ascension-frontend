@@ -5,19 +5,21 @@ export const SUSHI_INIT_HASH = '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d
 export const UNI_INIT_HASH = '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f'
 export const PCS_INIT_HASH = ''
 
-export const DEX_BY_CHAIN = {
+export const DEX_BY_CHAIN: {
+  [key: number]: { [key: string]: { initHash: string; router: string; factory: string; subgraphUrl: string } }
+} = {
   [ChainId.Mainnet]: {
     sushiswap: {
       initHash: SUSHI_INIT_HASH,
       router: SUSHI_ROUTER_ADDRESS[ChainId.Mainnet],
       factory: SUSHI_FACTORY_ADDRESS[ChainId.Mainnet],
-      subgraphUrl: '',
+      subgraphUrl: 'https://api.thegraph.com/subgraphs/name/sushiswap/exchange',
     },
     uniswap: {
       initHash: UNI_INIT_HASH,
       router: UNI_ROUTER_ADDRESS[ChainId.Mainnet],
       factory: UNI_FACTORY_ADDRESS[ChainId.Mainnet],
-      subgraphUrl: '',
+      subgraphUrl: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2',
     },
     uniswapV3: {
       initHash: UNI_INIT_HASH,
@@ -31,11 +33,23 @@ export const DEX_BY_CHAIN = {
       initHash: SUSHI_INIT_HASH,
       router: SUSHI_ROUTER_ADDRESS[ChainId.Arbitrum],
       factory: SUSHI_FACTORY_ADDRESS[ChainId.Arbitrum],
+      subgraphUrl: 'https://thegraph.com/explorer/subgraph/sushiswap/arbitrum-exchange',
     },
-    uniswap: {
-      initHash: UNI_INIT_HASH,
-      router: SUSHI_ROUTER_ADDRESS[ChainId.Mainnet],
-      factory: SUSHI_FACTORY_ADDRESS[ChainId.Mainnet],
+  },
+  [ChainId.BSC]: {
+    sushiswap: {
+      initHash: SUSHI_INIT_HASH,
+      router: SUSHI_ROUTER_ADDRESS[ChainId.BSC],
+      factory: SUSHI_FACTORY_ADDRESS[ChainId.BSC],
+      subgraphUrl: 'https://thegraph.com/explorer/subgraph/sushiswap/bsc-exchange',
+    },
+  },
+  [ChainId.Polygon]: {
+    sushiswap: {
+      initHash: SUSHI_INIT_HASH,
+      router: SUSHI_ROUTER_ADDRESS[ChainId.Polygon],
+      factory: SUSHI_FACTORY_ADDRESS[ChainId.Polygon],
+      subgraphUrl: 'https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange',
     },
   },
 }

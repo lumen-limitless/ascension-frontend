@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import Container from '../../../components/Container'
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
-import { getAddress, isAddress } from '@usedapp/core/node_modules/ethers/lib/utils'
 import { useToast } from '../../../hooks/useToast'
 import { ChainId, useEthers } from '@usedapp/core'
 import Loader from '../../../components/Loader'
@@ -13,6 +12,8 @@ import Logo, { ReactorLogo } from '../../../components/Logo'
 import OptionSelector from './OptionSelector'
 import useRequiredBalance from '../../../hooks/useRequiredBalance'
 import Reactor from './Reactor'
+import { isAddress } from '../../../functions'
+import { getAddress } from 'ethers/lib/utils'
 
 export interface ReactorOptions {
   set: boolean

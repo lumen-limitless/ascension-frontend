@@ -23,7 +23,7 @@ export default function Header() {
     <>
       <header
         ref={ref}
-        className="fixed z-20 flex min-h-[60px]  w-full flex-col items-center justify-center border-b  border-gray-400 bg-white px-3 py-1   dark:border-dark-600 dark:bg-dark-1000"
+        className="fixed z-20 flex min-h-[60px]  w-full flex-col items-center justify-center border-b    border-dark-600 bg-dark-1000   px-3 py-1"
       >
         <div className="flex h-full w-full  items-center">
           <Logo />

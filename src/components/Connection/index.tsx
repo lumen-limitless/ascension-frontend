@@ -1,16 +1,14 @@
 import React from 'react'
-import { walletconnect } from '../../constants/connectors'
-import { LinkIcon } from '@heroicons/react/outline'
 import Button from '../Button'
 import AccountInfo from '../AccountInfo'
 import { CHAIN_IMG, CHAIN_NAME } from '../../constants'
 import { useToggle } from 'react-use'
 import Modal from '../Modal'
-import { classNames } from '../../functions'
 import { useEthers } from '@usedapp/core'
 import useNotificationsToast from '../../hooks/useNotificationsToast'
 import { useToast } from '../../hooks/useToast'
 import Image from 'next/image'
+
 export function Connect() {
   const { activateBrowserWallet, activate } = useEthers()
   const [viewing, toggle] = useToggle(false)
@@ -40,7 +38,7 @@ export function Connect() {
             MetaMask
           </Button>
 
-          <Button
+          {/* <Button
             color="gray"
             onClick={() =>
               activate(walletconnect).catch((err) => {
@@ -50,7 +48,7 @@ export function Connect() {
             }
           >
             WalletConnect
-          </Button>
+          </Button> */}
         </div>
       </Modal>
     </>
@@ -79,12 +77,7 @@ export default function Connection() {
       ) : (
         <>
           <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="outlined"
-              color="gray"
-              // className={classNames(colorsByChain[chainId ?? 1])}
-            >
+            <Button size="sm" variant="outlined" color="gray">
               {chainId && (
                 <Image
                   about={CHAIN_NAME[chainId ?? 1]}

@@ -5,7 +5,6 @@ import { RPC } from '../../constants'
 import { useEthers } from '@usedapp/core'
 
 export function SwitchNetworkButton({ className, chainId, children }: any) {
-  const { activateBrowserWallet } = useEthers()
   const switchNetwork = async (chainId: number) => {
     const _chainId = `0x${chainId.toString(16)}`
     const ethereum: any = await detectEthereumProvider()

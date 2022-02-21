@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
-import { parseBalance } from '../functions'
-import { useASCENDTokenDataQuery } from './useASCEND'
+import { useAscensionTokenSubgraph } from './useSubgraph'
 
 export default function useRequiredBalance(account: string, amountRequired: number) {
-  const tokenData = useASCENDTokenDataQuery(account)
+  const tokenData = useAscensionTokenSubgraph(account)
 
   const pass = useMemo(() => {
     if (!tokenData) return null

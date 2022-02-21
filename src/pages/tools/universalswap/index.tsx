@@ -10,8 +10,8 @@ import Connection from '../../../components/Connection'
 
 export default function UniversalSwapPage() {
   const { account, chainId } = useEthers()
-  const pass = useRequiredBalance(account, 100)
-  const supportedChainId = [1]
+  const pass = useRequiredBalance(account, 0)
+  const supportedChainId = [1, 137, 56, 42161]
 
   if (!account)
     return (

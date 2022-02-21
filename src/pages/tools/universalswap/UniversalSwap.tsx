@@ -1,9 +1,8 @@
-import { useDebounce, useEtherBalance, useEthers, useLocalStorage, useToken } from '@usedapp/core'
+import { useEtherBalance, useEthers, useLocalStorage, useToken, useTokenList } from '@usedapp/core'
 import { useState } from 'react'
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
-import Loader from '../../../components/Loader'
-import { CHAIN_IMG, CHAIN_NAME, CHAIN_SYMBOL, USD_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
+import { CHAIN_SYMBOL, DEX_BY_CHAIN, USD_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
 import TradingChart from './TradingChart'
 import Input from '../../../components/Input'
 import { isAddress } from '../../../functions'
@@ -12,7 +11,7 @@ import Modal from '../../../components/Modal'
 import Skeleton from '../../../components/Skeleton'
 import { CogIcon } from '@heroicons/react/outline'
 import { getAddress } from 'ethers/lib/utils'
-import Image from 'next/image'
+import Tabs from '../../../components/Tabs'
 
 export default function UniversalSwap() {
   const { chainId, account } = useEthers()
@@ -20,19 +19,24 @@ export default function UniversalSwap() {
   const [lastToken, setLastToken] = useLocalStorage('LastToken')
   const [sellToken, setSellToken] = useState(WNATIVE_ADDRESS[chainId])
   const [buyToken, setBuyToken] = useState(lastToken ?? USD_ADDRESS[chainId])
-
   const [buyAmount, setBuyAmount] = useState()
   const [sellAmount, setSellAmount] = useState()
   const [settingBuyToken, toggleSettingBuyToken] = useToggle(false)
   const [input, setInput] = useState('')
   const tokenMetaData = useToken(isAddress(input) ? input : buyToken)
+  const tokenList = useTokenList('https://zapper.fi/api/token-list')
 
   return (
     <>
       <div className="flex flex-col gap-3 md:flex-row ">
         <Card className="shrink-0" title="Swap">
           <Button className="absolute top-0 right-0">{<CogIcon width={24} />}</Button>
-
+          {/* <Tabs
+            onChange={(e) => {
+              console.log(e)
+            }}
+            options={[Object.keys(DEX_BY_CHAIN[chainId])]}
+          ></Tabs> */}
           <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6">
             <Button variant="outlined" color="gray" className="w-32">
               {CHAIN_SYMBOL[chainId]}

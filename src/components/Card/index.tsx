@@ -28,7 +28,7 @@ function Card({
     <div
       className={classNames(
         className,
-        'relative bg-gray-100 text-black shadow-lg transition-all dark:bg-dark-800 dark:text-white dark:shadow-pink-glow dark:hover:shadow-pink-glow-hovered'
+        'relative  bg-dark-800 text-white shadow-pink-glow transition-all hover:shadow-pink-glow-hovered'
       )}
       style={{
         borderRadius: '10px',

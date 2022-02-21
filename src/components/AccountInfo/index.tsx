@@ -7,15 +7,13 @@ import Modal from '../Modal'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
-
 import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { useASCENDTokenDataQuery } from '../../hooks/useASCEND'
-import { commify } from 'ethers/lib/utils'
+import { useAscensionTokenSubgraph } from '../../hooks/useSubgraph'
 
 export default function AccountInfo() {
   const { account } = useEthers()
   const ens = useLookupAddress()
-  const tokenData = useASCENDTokenDataQuery(account)
+  const tokenData = useAscensionTokenSubgraph(account)
   const [viewing, toggle] = useToggle(false)
 
   return (
@@ -29,7 +27,7 @@ export default function AccountInfo() {
         <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
           <div className="flex w-full flex-col items-center justify-center">
             <Avatar />
-            <div className="m-2 flex items-center justify-center gap-1 rounded bg-gray-200 p-2 dark:bg-dark-800">
+            <div className="m-2 flex items-center justify-center gap-1 rounded  bg-dark-800 p-2">
               {ens ?? shortenIfAddress(account)}{' '}
               <a
                 about="View on block explorer"

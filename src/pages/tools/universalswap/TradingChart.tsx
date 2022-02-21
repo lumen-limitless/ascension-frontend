@@ -1,78 +1,106 @@
-import { ApolloClient, gql, InMemoryCache, useApolloClient, useQuery } from '@apollo/client'
-import { addressEqual } from '@usedapp/core'
-import { useMemo } from 'react'
+import { ApolloClient, gql, InMemoryCache, QueryHookOptions, useQuery } from '@apollo/client'
+import { addressEqual, ChainId } from '@usedapp/core'
+import { useMemo, useState } from 'react'
 import { Area, AreaChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import Card from '../../../components/Card'
 import Loader from '../../../components/Loader'
 import Tabs from '../../../components/Tabs'
-import { WNATIVE_ADDRESS } from '../../../constants'
+import { DEX_BY_CHAIN, WNATIVE_ADDRESS } from '../../../constants'
 import useCREATE2PairAddress from '../../../hooks/useCREATE2Address'
 
 interface TradingChartProps {
-  dex: string
+  chainId: ChainId
   buyToken: string
-  sellToken: string
 }
 
-export default function TradingChart({ buyToken, chainId }) {
-  const pair = useCREATE2PairAddress('uniswap', chainId, buyToken, WNATIVE_ADDRESS[chainId])
+interface Swap {
+  timestamp: number
+  transaction: {
+    id: string
+    timestamp: number
+  }
+  pair: {
+    token0: {
+      id: string
+      symbol: string
+    }
+    token1: {
+      id: string
+      symbol: string
+    }
+  }
+  sender: string
+  to: string
+  amount0In: string
+  amount0Out: string
+  amount1In: string
+  amount1Out: string
+  amountUSD: string
+}
+interface SwapData {
+  swaps: Swap[]
+}
+
+const GET_SWAPS = gql(`
+query Swap( $timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
+  swaps(
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+    where: { pair: $pair, timestamp_gt: $timestamp }
+  ) {
+    transaction {
+      id
+      timestamp
+    }
+    pair {
+      token0 {
+        id
+        symbol
+      }
+      token1 {
+        id
+        symbol
+      }
+    }
+    sender
+    to
+    amount0In
+    amount0Out
+    amount1In
+    amount1Out
+    amountUSD
+  }
+}
+`)
+
+export default function TradingChart({ buyToken, chainId }: TradingChartProps) {
+  const pair = useCREATE2PairAddress('sushiswap', chainId, buyToken, WNATIVE_ADDRESS[chainId])
+  const [timeframe, setTimeframe] = useState<number>(86400 / 24)
+  const times = [86400 / 24, 86400, 86400 * 7]
 
   const afterTimestamp = useMemo(() => {
-    return parseInt((Date.now() / 1000).toFixed(0)) - 86400 * 365
-  }, [])
+    return parseInt((Date.now() / 1000).toFixed(0)) - timeframe
+  }, [timeframe])
 
   const client = useMemo(() => {
     return new ApolloClient({
-      uri: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2',
+      uri: DEX_BY_CHAIN[chainId]
+        ? DEX_BY_CHAIN[chainId]['sushiswap'].subgraphUrl
+        : DEX_BY_CHAIN[ChainId.Mainnet]['sushiswap'].subgraphUrl,
       cache: new InMemoryCache(),
     })
-  }, [])
+  }, [chainId])
 
-  const { data, loading, error } = useQuery(
-    gql(`
-      query Swap($first: Int, $timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
-        swaps(
-          first: $first
-          orderBy: $orderBy
-          orderDirection: $orderDirection
-          where: { pair: $pair, timestamp_gt: $timestamp }
-        ) {
-          transaction {
-            id
-            timestamp
-          }
-          pair {
-            token0 {
-              id
-              symbol
-            }
-            token1 {
-              id
-              symbol
-            }
-          }
-          sender
-          to
-          amount0In
-          amount0Out
-          amount1In
-          amount1Out
-          amountUSD
-        }
-      }
-    `),
-    {
-      variables: {
-        pair: pair?.toLowerCase(),
-        first: 1000,
-        timestamp: afterTimestamp,
-        orderBy: 'timestamp',
-        orderDirection: 'asc',
-      },
-      pollInterval: 5000,
-      client: client,
-    }
-  )
+  const { data, loading, error } = useQuery<SwapData>(GET_SWAPS, {
+    variables: {
+      pair: pair?.toLowerCase(),
+      timestamp: afterTimestamp,
+      orderBy: 'timestamp',
+      orderDirection: 'asc',
+    },
+    pollInterval: 5000,
+    client: client,
+  })
 
   const graphData = useMemo(() => {
     if (!buyToken || !data || loading || error) return null
@@ -114,7 +142,19 @@ export default function TradingChart({ buyToken, chainId }) {
   }, [data, loading, error, buyToken])
 
   return (
-    <Card className=" grow" header={<></>}>
+    <Card
+      className=" grow"
+      header={
+        <>
+          <Tabs
+            options={['1h', '1d', '7d']}
+            onChange={(e) => {
+              setTimeframe(times[e])
+            }}
+          />
+        </>
+      }
+    >
       {loading ? (
         <Loader message="Loading graph..." />
       ) : error ? (
@@ -122,36 +162,38 @@ export default function TradingChart({ buyToken, chainId }) {
       ) : graphData?.length == 0 ? (
         <Loader message="No Data to show." />
       ) : (
-        <ResponsiveContainer height="100%" minHeight={500} width="100%">
-          <AreaChart
-            data={graphData}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#943259" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.2} />
-              </linearGradient>
-            </defs>
+        <>
+          <ResponsiveContainer height={500} width="100%">
+            <AreaChart
+              data={graphData}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#943259" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.2} />
+                </linearGradient>
+              </defs>
 
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Area
-              type="monotone"
-              dataKey="priceUSD"
-              stroke="#943259"
-              strokeWidth={3}
-              fillOpacity={1}
-              fill="url(#colorUv)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Area
+                type="monotone"
+                dataKey="priceUSD"
+                stroke="#943259"
+                strokeWidth={3}
+                fillOpacity={1}
+                fill="url(#colorUv)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </>
       )}
     </Card>
   )

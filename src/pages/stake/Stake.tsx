@@ -3,7 +3,7 @@ import Card from '../../components/Card'
 import useStaking from '../../hooks/useStaking'
 import { Connect } from '../../components/Connection'
 import Input from '../../components/Input'
-import { SwitchNetworkButton } from '../../components/Button/switchNetworkButton'
+import { SwitchNetworkButton } from '../../components/Button/SwitchNetworkButton'
 import Stat from '../../components/Stat'
 import Skeleton from '../../components/Skeleton'
 import Button from '../../components/Button'
@@ -19,7 +19,6 @@ export default function Stake() {
   const { account, chainId } = useEthers()
   const [amount, setAmount] = useState<string>('')
   const ascendBalance = useASCENDBalance(account)
-
   const allowance = useTokenAllowance(ASCENSION.AscensionToken.address, account, ASCENSION.AscensionStaking.address)
 
   const approve = useContractFunction(
@@ -72,7 +71,7 @@ export default function Stake() {
         ]}
       ></Stat>
 
-      <Card className="mb-24" title="Stake ASCEND">
+      <Card title="Stake ASCEND">
         {!account ? (
           <>
             <Connect />
@@ -92,12 +91,14 @@ export default function Stake() {
                 <>
                   <Button
                     color="gradient"
-                    disabled={approve.state.status === 'None' ? false : true}
+                    disabled={approve?.state?.status == 'None' ? false : true}
                     onClick={() => {
-                      approve.send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256)
+                      approve.send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256).then(() => {
+                        if (approve?.state?.status == 'None') return approve.resetState()
+                      })
                     }}
                   >
-                    {approve.state.status === 'None' ? 'Enable Deposits' : <Loader />}
+                    {approve?.state?.status == 'None' ? 'Enable Deposits' : <Loader />}
                   </Button>
                 </>
               ) : (
