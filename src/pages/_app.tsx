@@ -14,13 +14,13 @@ const config: Config = {
   },
   autoConnect: true,
   notifications: {
-    checkInterval: 4000,
-    expirationPeriod: 4000,
+    checkInterval: 3999,
+    expirationPeriod: 3999,
   },
-  pollingInterval: 3000,
+  pollingInterval: 5000,
 }
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -74,3 +74,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </>
   )
 }
+
+export default MyApp

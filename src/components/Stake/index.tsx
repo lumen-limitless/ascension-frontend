@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import Card from '../../components/Card'
+import Card from '../Card'
 import useStaking from '../../hooks/useStaking'
-import { Connect } from '../../components/Connection'
-import Input from '../../components/Input'
-import { SwitchNetworkButton } from '../../components/Button/SwitchNetworkButton'
-import Stat from '../../components/Stat'
-import Skeleton from '../../components/Skeleton'
-import Button from '../../components/Button'
+import ConnectButton from '../Button/ConnectButton'
+import Input from '../Input'
+import SwitchNetworkButton from '../Button/SwitchNetworkButton'
+import Stat from '../Stat'
+import Skeleton from '../Skeleton'
+import Button from '../Button'
 import { ASCENSION, HOME_CHAINID } from '../../constants'
 import { parseUnits } from '@ethersproject/units'
-import Loader from '../../components/Loader'
+import Loader from '../Loader'
 import { formatBalance, parseBalance } from '../../functions'
 import { useContractFunction, useEthers, useTokenAllowance } from '@usedapp/core'
 import { BigNumber, Contract, ethers } from 'ethers'
@@ -74,7 +74,7 @@ export default function Stake() {
       <Card title="Stake ASCEND">
         {!account ? (
           <>
-            <Connect />
+            <ConnectButton />
           </>
         ) : chainId != HOME_CHAINID ? (
           <SwitchNetworkButton chainId={HOME_CHAINID}>Switch to Arbitrum</SwitchNetworkButton>

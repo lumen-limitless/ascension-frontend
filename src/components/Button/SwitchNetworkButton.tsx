@@ -2,9 +2,8 @@ import React from 'react'
 import detectEthereumProvider from '@metamask/detect-provider'
 import Button from '.'
 import { RPC } from '../../constants'
-import { useEthers } from '@usedapp/core'
 
-export function SwitchNetworkButton({ className, chainId, children }: any) {
+export default function SwitchNetworkButton({ className, chainId, children }: any) {
   const switchNetwork = async (chainId: number) => {
     const _chainId = `0x${chainId.toString(16)}`
     const ethereum: any = await detectEthereumProvider()

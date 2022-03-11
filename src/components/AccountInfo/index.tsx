@@ -1,5 +1,5 @@
 import React from 'react'
-import DisconnectButton from '../DisconnectButton'
+import DisconnectButton from '../Button/DisconnectButton'
 import Skeleton from '../Skeleton'
 import { formatBalance } from '../../functions'
 import { useToggle } from 'react-use'

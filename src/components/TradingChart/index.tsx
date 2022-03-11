@@ -1,16 +1,18 @@
 import { ApolloClient, gql, InMemoryCache, QueryHookOptions, useQuery } from '@apollo/client'
-import { addressEqual, ChainId } from '@usedapp/core'
+import { addressEqual, ChainId, useEthers } from '@usedapp/core'
 import { useMemo, useState } from 'react'
-import { Area, AreaChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import Card from '../../../components/Card'
-import Loader from '../../../components/Loader'
-import Tabs from '../../../components/Tabs'
-import { DEX_BY_CHAIN, WNATIVE_ADDRESS } from '../../../constants'
-import useCREATE2PairAddress from '../../../hooks/useCREATE2Address'
+import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, YAxis } from 'recharts'
+import Card from '../Card'
+import Loader from '../Loader'
+import Tabs from '../Tabs'
+import { DEX_BY_CHAIN, WNATIVE_ADDRESS } from '../../constants'
+import useCREATE2PairAddress from '../../hooks/useCREATE2Address'
+import Dropdown from '../Dropdown'
+import { Token } from '../../types'
 
 interface TradingChartProps {
-  chainId: ChainId
-  buyToken: string
+  buyToken: Token
+  dex: string
 }
 
 interface Swap {
@@ -37,20 +39,22 @@ interface Swap {
   amount1Out: string
   amountUSD: string
 }
+
 interface SwapData {
   swaps: Swap[]
 }
 
 const GET_SWAPS = gql(`
-query Swap( $timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
+query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
   swaps(
     orderBy: $orderBy
     orderDirection: $orderDirection
+    first: 1000
     where: { pair: $pair, timestamp_gt: $timestamp }
   ) {
+    timestamp
     transaction {
       id
-      timestamp
     }
     pair {
       token0 {
@@ -73,10 +77,12 @@ query Swap( $timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirecti
 }
 `)
 
-export default function TradingChart({ buyToken, chainId }: TradingChartProps) {
-  const pair = useCREATE2PairAddress('sushiswap', chainId, buyToken, WNATIVE_ADDRESS[chainId])
-  const [timeframe, setTimeframe] = useState<number>(86400 / 24)
-  const times = [86400 / 24, 86400, 86400 * 7]
+export default function TradingChart({ buyToken, dex }: TradingChartProps) {
+  const { chainId } = useEthers()
+
+  const pair = useCREATE2PairAddress(dex, chainId, buyToken.address, WNATIVE_ADDRESS[chainId])
+  const [timeframe, setTimeframe] = useState<number>(3600)
+  const times = [3600, 86400, 604800]
 
   const afterTimestamp = useMemo(() => {
     return parseInt((Date.now() / 1000).toFixed(0)) - timeframe
@@ -84,12 +90,10 @@ export default function TradingChart({ buyToken, chainId }: TradingChartProps) {
 
   const client = useMemo(() => {
     return new ApolloClient({
-      uri: DEX_BY_CHAIN[chainId]
-        ? DEX_BY_CHAIN[chainId]['sushiswap'].subgraphUrl
-        : DEX_BY_CHAIN[ChainId.Mainnet]['sushiswap'].subgraphUrl,
+      uri: DEX_BY_CHAIN[chainId][dex]?.subgraphUrl,
       cache: new InMemoryCache(),
     })
-  }, [chainId])
+  }, [chainId, dex])
 
   const { data, loading, error } = useQuery<SwapData>(GET_SWAPS, {
     variables: {
@@ -98,16 +102,16 @@ export default function TradingChart({ buyToken, chainId }: TradingChartProps) {
       orderBy: 'timestamp',
       orderDirection: 'asc',
     },
-    pollInterval: 5000,
+    pollInterval: 60000,
     client: client,
   })
-
+  console.log(data)
   const graphData = useMemo(() => {
-    if (!buyToken || !data || loading || error) return null
+    if (!data) return null
     let graphData = []
 
     for (let i = 0; i < data.swaps.length; i++) {
-      const buyAmountNum = addressEqual(data.swaps[i].pair.token0.id, buyToken) ? 'amount0' : 'amount1'
+      const buyAmountNum = addressEqual(data.swaps[i].pair.token0.id, buyToken.address) ? 'amount0' : 'amount1'
       const sellAmountNum = buyAmountNum === 'amount0' ? 'amount1' : 'amount0'
       if (parseFloat(data.swaps[i][`${buyAmountNum}In`]) > 0) {
         const amountUSD = parseFloat(data.swaps[i].amountUSD)
@@ -120,7 +124,7 @@ export default function TradingChart({ buyToken, chainId }: TradingChartProps) {
           amountUSD,
           amountETH,
           type: 'sell',
-          date: new Date(data.swaps[i].transaction.timestamp * 1000).toLocaleDateString(),
+          date: new Date(data.swaps[i].timestamp * 1000).toLocaleString(),
         })
       } else {
         const amountUSD = parseFloat(data.swaps[i].amountUSD)
@@ -133,26 +137,26 @@ export default function TradingChart({ buyToken, chainId }: TradingChartProps) {
           amountUSD,
           amountETH,
           type: 'buy',
-          date: new Date(data.swaps[i].transaction.timestamp * 1000).toLocaleTimeString(),
+          date: new Date(data.swaps[i].timestamp * 1000).toLocaleString(),
         })
       }
     }
 
     return graphData
-  }, [data, loading, error, buyToken])
+  }, [data, buyToken])
 
   return (
     <Card
       className=" grow"
       header={
-        <>
+        <div className="flex items-center justify-between p-3">
           <Tabs
-            options={['1h', '1d', '7d']}
-            onChange={(e) => {
+            options={['1 Hour', '1 Day', '1 Week']}
+            onTabChange={(e) => {
               setTimeframe(times[e])
             }}
           />
-        </>
+        </div>
       }
     >
       {loading ? (

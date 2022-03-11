@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import useSWR from 'swr'
 import { CHAIN_SYMBOL, SCAN_INFO } from '../constants'
 
-export default function useAPI(url: string) {
+export const useAPI = (url: string) => {
   const { data, error } = useSWR(url, async (url: string) => {
     return await fetch(url).then((r) => r.json())
   })
@@ -11,7 +11,7 @@ export default function useAPI(url: string) {
   return { data, error }
 }
 
-export function useCoingeckoAscensionStats() {
+export const useCoingeckoAscensionStats = () => {
   const { data, error } = useAPI('https://api.coingecko.com/api/v3/coins/ascension-protocol?localization=false')
 
   return {
@@ -20,7 +20,7 @@ export function useCoingeckoAscensionStats() {
     error: error,
   }
 }
-export function useEthUsdPrice() {
+export const useEthUsdPrice = () => {
   const { data, error } = useAPI(
     `https://api.etherscan.io/api?module=stats&action=ethprice&apikey=VN4KZ196ME3XE9WB1WZ25E8HCBKE3B2GZM`
   )
@@ -30,7 +30,7 @@ export function useEthUsdPrice() {
     error,
   }
 }
-export function useNativeUsdPrice(chainId: ChainId) {
+export const useNativeUsdPrice = (chainId: ChainId) => {
   const { data, error } = useAPI(
     `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=stats&action=${CHAIN_SYMBOL[
       chainId
@@ -41,7 +41,7 @@ export function useNativeUsdPrice(chainId: ChainId) {
   return data ? parseFloat(data.result[`${CHAIN_SYMBOL[chainId]?.toLowerCase()}usd`]) : null
 }
 
-export function useVerifiedContractABI(contract: string, chainId: ChainId): any[] {
+export const useVerifiedContractABI = (contract: string, chainId: ChainId): any[] => {
   const { data, error } = useAPI(
     `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=contract&action=getabi&address=${contract}&apikey=${SCAN_INFO[chainId]?.apiKey}`
   )

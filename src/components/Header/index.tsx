@@ -8,13 +8,6 @@ import Button from '../Button'
 import Popover from '../Popover'
 import { useTheme } from 'next-themes'
 export default function Header() {
-  const { setTheme } = useTheme()
-
-  //temporarily set theme dark until we sort out terrible looking light mode
-  useEffectOnce(() => {
-    setTheme('dark')
-  })
-
   const [viewing, toggleViewing] = useToggle(false)
   const ref = useRef(null)
   useClickAway(ref, () => toggleViewing(false))

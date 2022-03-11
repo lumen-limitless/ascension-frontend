@@ -1,8 +1,10 @@
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ToastContainer from '../components/Toast/toastContainer'
+import useNotificationsToast from '../hooks/useNotificationsToast'
 
 export default function Layout({ children }: any) {
+  useNotificationsToast()
   return (
     <>
       <Header />
@@ -10,6 +12,7 @@ export default function Layout({ children }: any) {
         <ToastContainer />
         {children}
       </main>
+      <Footer />
     </>
   )
 }
