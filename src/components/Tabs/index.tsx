@@ -13,7 +13,7 @@ export default function Tabs({
   return (
     <div className="max-w-xs flex-grow">
       <Tab.Group onChange={(e) => onTabChange && onTabChange(e)}>
-        <Tab.List className="flex space-x-1 rounded bg-dark-900 p-1">
+        <Tab.List className="flex space-x-1 rounded-sm bg-dark-1000  p-1">
           {options &&
             options.map((o) => (
               <Tab
@@ -21,7 +21,7 @@ export default function Tabs({
                 onChange={() => onTabSelect && onTabSelect(o)}
                 className={({ selected }) =>
                   classNames(
-                    'w-full rounded  text-sm font-medium leading-5',
+                    'w-full rounded-sm  text-sm font-medium leading-5',
                     '  focus:outline-none ',
                     selected ? 'bg-ascend-purple shadow' : ' opacity-80 hover:bg-ascend-purple'
                   )

@@ -80,6 +80,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
           <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} selected={dex} onSelect={setDex} />
           <Button className="">{<CogIcon width={24} />}</Button>
         </div>
+        <div className="flex text-sm text-low-emphesis">You Pay:</div>
         <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6">
           <div className="absolute top-3 right-3 text-xs">
             Balance: {sellTokenBalance ? formatBalance(sellTokenBalance) : balance ? formatBalance(balance) : '0.0'}
@@ -107,6 +108,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
             </svg>
           </Button>
         </div>
+        <div className="flex text-sm text-low-emphesis">You Receive:</div>
         <div className="relative flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6">
           <div className="absolute top-3 right-3 text-xs">
             Balance: {buyTokenBalance && formatUnits(buyTokenBalance)}

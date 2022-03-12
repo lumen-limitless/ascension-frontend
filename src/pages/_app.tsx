@@ -6,6 +6,7 @@ import { ToastProvider } from '../context/ToastContext'
 import Layout from '../layout'
 import { Config, DAppProvider } from '@usedapp/core'
 import { HOME_CHAINID, RPC } from '../constants'
+import useNotificationsToast from '../hooks/useNotificationsToast'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
@@ -21,6 +22,7 @@ const config: Config = {
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  useNotificationsToast()
   return (
     <>
       <Head>

@@ -1,7 +1,7 @@
 import { ApolloClient, gql, InMemoryCache, QueryHookOptions, useQuery } from '@apollo/client'
 import { addressEqual, ChainId, useEthers } from '@usedapp/core'
 import { useMemo, useState } from 'react'
-import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, YAxis } from 'recharts'
+import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import Card from '../Card'
 import Loader from '../Loader'
 import Tabs from '../Tabs'
@@ -76,13 +76,14 @@ query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirectio
   }
 }
 `)
+const times = [900, 3600, 21600, 86400, 604800]
 
 export default function TradingChart({ buyToken, dex }: TradingChartProps) {
   const { chainId } = useEthers()
 
   const pair = useCREATE2PairAddress(dex, chainId, buyToken.address, WNATIVE_ADDRESS[chainId])
-  const [timeframe, setTimeframe] = useState<number>(3600)
-  const times = [3600, 86400, 604800]
+
+  const [timeframe, setTimeframe] = useState<number>(times[0])
 
   const afterTimestamp = useMemo(() => {
     return parseInt((Date.now() / 1000).toFixed(0)) - timeframe
@@ -124,7 +125,8 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
           amountUSD,
           amountETH,
           type: 'sell',
-          date: new Date(data.swaps[i].timestamp * 1000).toLocaleString(),
+          time: new Date(data.swaps[i].timestamp * 1000).toLocaleTimeString(),
+          timestamp: data.swaps[i].timestamp,
         })
       } else {
         const amountUSD = parseFloat(data.swaps[i].amountUSD)
@@ -137,7 +139,8 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
           amountUSD,
           amountETH,
           type: 'buy',
-          date: new Date(data.swaps[i].timestamp * 1000).toLocaleString(),
+          time: new Date(data.swaps[i].timestamp * 1000).toLocaleTimeString(),
+          timestamp: data.swaps[i].timestamp,
         })
       }
     }
@@ -145,60 +148,63 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
     return graphData
   }, [data, buyToken])
 
+  console.table(graphData)
   return (
-    <Card
-      className=" grow"
-      header={
-        <div className="flex items-center justify-between p-3">
-          <Tabs
-            options={['1 Hour', '1 Day', '1 Week']}
-            onTabChange={(e) => {
-              setTimeframe(times[e])
-            }}
-          />
-        </div>
-      }
-    >
-      {loading ? (
-        <Loader message="Loading graph..." />
-      ) : error ? (
-        <Loader message={`Error loading graph`} />
-      ) : graphData?.length == 0 ? (
-        <Loader message="No Data to show." />
-      ) : (
-        <>
-          <ResponsiveContainer height={500} width="100%">
-            <AreaChart
-              data={graphData}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 0,
-                bottom: 0,
+    <>
+      <Card
+        className="grow"
+        header={
+          <div className="flex items-center justify-between p-3">
+            <Tabs
+              options={['15M', '1H', '6H', '1D', '1W']}
+              onTabChange={(e) => {
+                setTimeframe(times[e])
               }}
-            >
-              <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#943259" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.2} />
-                </linearGradient>
-              </defs>
-
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Area
-                type="monotone"
-                dataKey="priceUSD"
-                stroke="#943259"
-                strokeWidth={3}
-                fillOpacity={1}
-                fill="url(#colorUv)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </>
-      )}
-    </Card>
+            />
+          </div>
+        }
+      >
+        {loading ? (
+          <Loader message="Loading graph..." />
+        ) : error ? (
+          <Loader message={`Error loading graph`} />
+        ) : graphData?.length == 0 ? (
+          <Loader message="No Data to show." />
+        ) : (
+          <>
+            <ResponsiveContainer height={500} width="100%">
+              <AreaChart
+                data={graphData}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <defs>
+                  <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#943259" stopOpacity={0.66} />
+                    <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Area
+                  type="monotone"
+                  dataKey="priceUSD"
+                  stroke="#943259"
+                  strokeWidth={3}
+                  fillOpacity={1}
+                  fill="url(#colorUv)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </>
+        )}
+      </Card>
+    </>
   )
 }

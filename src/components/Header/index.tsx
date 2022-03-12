@@ -6,7 +6,7 @@ import { useClickAway, useEffectOnce, useToggle } from 'react-use'
 import { MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import Button from '../Button'
 import Popover from '../Popover'
-import { useTheme } from 'next-themes'
+
 export default function Header() {
   const [viewing, toggleViewing] = useToggle(false)
   const ref = useRef(null)
@@ -16,7 +16,7 @@ export default function Header() {
     <>
       <header
         ref={ref}
-        className="fixed z-20 flex min-h-[60px]  w-full flex-col items-center justify-center border-b    border-dark-600 bg-dark-1000   px-3 py-1"
+        className="z-20 flex min-h-[60px]  w-full flex-col items-center justify-center bg-transparent   px-9 py-6 md:px-24"
       >
         <div className="flex h-full w-full  items-center">
           <Logo />

@@ -7,10 +7,11 @@ import useRequiredBalance from '../../../hooks/useRequiredBalance'
 import BuyAscend from '../../../components/BuyAscend'
 import Connection from '../../../components/Connection'
 import { NextPage } from 'next'
-import { DEX_BY_CHAIN, HOME_CHAINID, USD_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
+import { DEX_BY_CHAIN, HOME_CHAINID, USDC_ADDRESS, USD_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
 import Swap from '../../../components/Swap'
 import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
+import { symlink } from 'fs'
 
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
 const REQUIRED_BALANCE = 100
@@ -26,10 +27,14 @@ const UniversalSwapPage: NextPage = () => {
   }, [chainId])
 
   const [lastSellToken] = useLocalStorage('LastSellToken')
-  const [sellToken, setSellToken] = useState<Token>(lastSellToken ?? WNATIVE_ADDRESS[chainId])
+  const [sellToken, setSellToken] = useState<Token>(
+    lastSellToken ?? { address: WNATIVE_ADDRESS[chainId], name: 'Wrapped Ether', symbol: 'WETH', decimals: 18 }
+  )
 
   const [lastBuyToken] = useLocalStorage('LastBuyToken')
-  const [buyToken, setBuyToken] = useState<Token>(lastBuyToken ?? USD_ADDRESS[chainId])
+  const [buyToken, setBuyToken] = useState<Token>(
+    lastBuyToken ?? { address: USDC_ADDRESS[chainId], name: 'USDC', symbol: 'USDC', decimals: 6 }
+  )
 
   if (!account)
     return (
@@ -38,7 +43,12 @@ const UniversalSwapPage: NextPage = () => {
       </Container>
     )
 
-  if (!chainId || pass === null) return <Loader message="Fetching data from the blockchain..." />
+  if (!chainId || pass === null)
+    return (
+      <Container>
+        <Loader message="Fetching data from the blockchain..." />
+      </Container>
+    )
   if (pass === false) return <BuyAscend amount={REQUIRED_BALANCE} />
   if (!SUPPORTED_CHAINID.includes(chainId))
     return (
@@ -58,6 +68,7 @@ const UniversalSwapPage: NextPage = () => {
         {pass && (
           <>
             <div className="flex flex-col gap-3 md:flex-row ">
+              <TradingChart buyToken={buyToken} dex={dex} />
               <Swap
                 sellToken={sellToken}
                 setSellToken={setSellToken}
@@ -66,7 +77,6 @@ const UniversalSwapPage: NextPage = () => {
                 setDex={setDex}
                 dex={dex}
               />
-              <TradingChart buyToken={buyToken} dex={dex} />
             </div>
           </>
         )}

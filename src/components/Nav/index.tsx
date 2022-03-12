@@ -16,7 +16,7 @@ const NavItem = ({ path }: NavItemProps) => {
       )}
     >
       <Link href={path} passHref={true}>
-        <div className="flex h-full w-full items-center justify-center text-xl">
+        <div className="flex h-full w-full items-center justify-center text-lg">
           {path === '/' ? 'Dashboard' : capitalize(path.substring(1))}
         </div>
       </Link>
@@ -32,7 +32,7 @@ export default function Nav({ className }: NavProps) {
       id="nav"
       className={classNames(
         className,
-        'z-50 mx-8 flex h-full flex-col items-center justify-center gap-8 py-8 md:flex-row md:p-0'
+        'z-50 mx-8 flex h-full flex-col items-center justify-center gap-12 py-8 md:flex-row md:p-0'
       )}
     >
       <NavItem path="/" />
