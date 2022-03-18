@@ -3,10 +3,10 @@ import { BigNumber, ethers } from 'ethers'
 import { useMemo } from 'react'
 import { ASCENSION } from '../constants'
 
-export function useASCENDBalance(address: string) {
+export const useASCENDBalance = (address: string) => {
   return useTokenBalance(ASCENSION.AscensionToken.address, address) ?? ethers.constants.Zero
 }
 
-export function useStakedASCENDBalance(address: string) {
+export const useStakedASCENDBalance = (address: string) => {
   return useTokenBalance(ASCENSION.AscensionStakedToken.address, address) ?? ethers.constants.Zero
 }

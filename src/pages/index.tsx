@@ -6,23 +6,26 @@ export default function HomePage() {
   const { price, marketCap } = useCoingeckoAscensionStats()
 
   return (
-    <Container maxWidth="5xl">
-      <Stat
-        stats={[
-          { name: 'Price', stat: price, before: '$' },
-          {
-            name: 'Market Cap',
-            stat: marketCap,
-            before: '$',
-            isBalance: true,
-          },
-          {
-            name: 'Liquidity Locked',
-            stat: '15,598',
-            after: ' SLP',
-          },
-        ]}
-      />
-    </Container>
+    <>
+      <Container maxWidth="full">
+        <div className="h-screen w-full bg-blue"></div>
+        <Stat
+          stats={[
+            { name: 'Price', stat: price, before: '$' },
+            {
+              name: 'Market Cap',
+              stat: marketCap,
+              before: '$',
+              isBalance: true,
+            },
+            {
+              name: 'Liquidity Locked',
+              stat: '15,598',
+              after: ' SLP',
+            },
+          ]}
+        />
+      </Container>
+    </>
   )
 }

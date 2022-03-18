@@ -16,7 +16,7 @@ export default function Header() {
     <>
       <header
         ref={ref}
-        className="z-20 flex min-h-[60px]  w-full flex-col items-center justify-center bg-transparent   px-9 py-6 md:px-24"
+        className=" z-20 flex min-h-[60px] w-full flex-col items-center justify-center bg-transparent px-9 py-6 "
       >
         <div className="flex h-full w-full  items-center">
           <Logo />

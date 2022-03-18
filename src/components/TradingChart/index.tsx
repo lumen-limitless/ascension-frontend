@@ -6,7 +6,7 @@ import Card from '../Card'
 import Loader from '../Loader'
 import Tabs from '../Tabs'
 import { DEX_BY_CHAIN, WNATIVE_ADDRESS } from '../../constants'
-import useCREATE2PairAddress from '../../hooks/useCREATE2Address'
+import { useCREATE2PairAddress } from '../../hooks/useCREATE2Address'
 import Dropdown from '../Dropdown'
 import { Token } from '../../types'
 

@@ -27,7 +27,7 @@ export default function AccountInfo() {
         <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
           <div className="flex w-full flex-col items-center justify-center">
             <Avatar />
-            <div className="m-2 flex items-center justify-center gap-1 rounded  bg-dark-800 p-2">
+            <div className="m-3 flex items-center justify-center gap-1 rounded  bg-dark-800 px-3">
               {ens ?? shortenIfAddress(account)}{' '}
               <a
                 about="View on block explorer"

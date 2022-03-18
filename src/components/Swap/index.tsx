@@ -1,6 +1,5 @@
 import { CogIcon } from '@heroicons/react/outline'
 import {
-  shortenIfAddress,
   useEtherBalance,
   useEthers,
   useLocalStorage,
@@ -9,23 +8,17 @@ import {
   useTokenBalance,
   useTokenList,
 } from '@usedapp/core'
-import { BigNumber, ethers } from 'ethers'
 import { formatUnits, getAddress } from 'ethers/lib/utils'
-import Image from 'next/image'
 import { SetStateAction, useState } from 'react'
 import { useToggle } from 'react-use'
-import { CHAIN_SYMBOL, DEX_BY_CHAIN, USD_ADDRESS, WNATIVE_ADDRESS } from '../../constants'
+import { DEX_BY_CHAIN } from '../../constants'
 import { formatBalance, isAddress } from '../../functions'
 import { Token } from '../../types'
 import Button from '../Button'
 import Card from '../Card'
 import Dropdown from '../Dropdown'
 import Input from '../Input'
-import Loader from '../Loader'
 import Modal from '../Modal'
-import Skeleton from '../Skeleton'
-import Tabs from '../Tabs'
-import TradingChart from '../TradingChart'
 
 interface SwapProps {
   sellToken: Token
@@ -77,7 +70,10 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
       <Card className="shrink-0" title="Swap">
         {' '}
         <div className="absolute top-1 right-1 flex items-center justify-center ">
-          <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} selected={dex} onSelect={setDex} />
+          <Button variant="outlined" size="none" color="gray">
+            <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} title={dex} onSelect={setDex} className="p-2" />
+          </Button>
+
           <Button className="">{<CogIcon width={24} />}</Button>
         </div>
         <div className="flex text-sm text-low-emphesis">You Pay:</div>
@@ -86,7 +82,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
             Balance: {sellTokenBalance ? formatBalance(sellTokenBalance) : balance ? formatBalance(balance) : '0.0'}
           </div>
           <Button variant="outlined" color="gray" className="w-32" onClick={toggleSettingSellToken}>
-            {sellToken?.symbol ?? CHAIN_SYMBOL[chainId]}
+            {sellToken?.symbol}
           </Button>
           <Input.Numeric
             value={sellAmount}

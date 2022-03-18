@@ -4,7 +4,7 @@ import { DEX_BY_CHAIN } from '../constants'
 import { isAddress } from '../functions'
 import { ChainId } from '@usedapp/core'
 
-export default function useCREATE2PairAddress(dexName: string, chainId: ChainId, token0: string, token1: string) {
+export const useCREATE2PairAddress = (dexName: string, chainId: ChainId, token0: string, token1: string) => {
   const pair = useMemo(() => {
     if (!isAddress(token0) || !isAddress(token1) || !chainId) return null
 

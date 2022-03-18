@@ -8,7 +8,7 @@ export default function Layout({ children }: any) {
     <>
       <Header />
       <ToastContainer />
-      <main className="flex  min-h-screen w-full flex-grow flex-col items-center justify-start px-3 pb-32 md:pb-0">
+      <main className="flex  min-h-screen w-full flex-grow flex-col items-center justify-start  pb-32 md:pb-0">
         {children}
       </main>
       <Footer />

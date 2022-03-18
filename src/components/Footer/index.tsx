@@ -1,12 +1,14 @@
 import Image from 'next/image'
+import Divider from '../Divider'
 
 /* This example requires Tailwind CSS v2.0+ */
 const navigation = {
   main: [
-    { name: 'About', href: '#' },
+    { name: 'Docs', href: 'https://ascension-group.gitbook.io/ascension-protocol/' },
     { name: 'Blog', href: '#' },
     { name: 'Partners', href: '#' },
     { name: 'Bridge', href: '#' },
+    { name: 'Legal', href: '#' },
   ],
   social: [
     {
@@ -76,12 +78,8 @@ const navigation = {
 export default function Footer() {
   return (
     <>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="m-auto w-[66%] rounded-full border-t border-dark-600" />
-        </div>
-      </div>
-      <footer className="bg-dark-1000">
+      <Divider />
+      <footer className="">
         {' '}
         <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
           <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
@@ -95,7 +93,13 @@ export default function Footer() {
           </nav>{' '}
           <div className="mt-8 flex justify-center space-x-6">
             {navigation.social.map((item) => (
-              <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-100">
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-400 hover:text-gray-100"
+              >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />
               </a>
