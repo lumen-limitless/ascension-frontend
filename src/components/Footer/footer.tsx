@@ -109,7 +109,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <span className="absolute bottom-1 right-1">DEVELOPMENT VERSION (ALPHA)</span>
+      <span className="absolute bottom-1 right-1">DEVELOPMENT BUILD (staging)</span>
     </footer>
   )
 }
