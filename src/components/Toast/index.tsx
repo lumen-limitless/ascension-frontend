@@ -1,2 +1,3 @@
-import "./toast";
-import "./toastContainer";
+import Toast from './toast'
+
+export default Toast

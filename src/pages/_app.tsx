@@ -2,11 +2,9 @@ import React from 'react'
 import '../styles/index.css'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
-import { ToastProvider } from '../context/ToastContext'
 import Layout from '../layout'
 import { Config, DAppProvider } from '@usedapp/core'
 import { HOME_CHAINID, RPC } from '../constants'
-import useNotificationsToast from '../hooks/useNotificationsToast'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
@@ -22,7 +20,6 @@ const config: Config = {
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  useNotificationsToast()
   return (
     <>
       <Head>
@@ -67,11 +64,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <DAppProvider config={config}>
-        <ToastProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ToastProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </DAppProvider>
     </>
   )

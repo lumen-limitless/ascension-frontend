@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import Container from '../../../components/Container'
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
-import { useToast } from '../../../hooks/useToast'
 import { ChainId, useEthers } from '@usedapp/core'
 import Loader from '../../../components/Loader'
 import BuyAscend from '../../../components/BuyAscend'
@@ -14,6 +13,7 @@ import useRequiredBalance from '../../../hooks/useRequiredBalance'
 import Reactor from './Reactor'
 import { isAddress } from '../../../functions'
 import { getAddress } from 'ethers/lib/utils'
+import toast from 'react-hot-toast'
 
 export interface ReactorOptions {
   set: boolean
@@ -37,7 +37,7 @@ export default function ReactorPage() {
     args: [],
   })
   const [input, setInput] = useState<string>('')
-  const toast = useToast()
+
   const pass = useRequiredBalance(account, REQUIRED_AMOUNT)
 
   if (!account || !chainId) return <Loader message="Loading chain data" />
@@ -71,7 +71,7 @@ export default function ReactorPage() {
                 disabled={isAddress(input) ? false : true}
                 onClick={() => {
                   if (!isAddress(input)) {
-                    toast('error', 'Input is not a valid address!')
+                    toast('Input is not a valid address!')
                     return
                   }
                   setAddress(getAddress(input))

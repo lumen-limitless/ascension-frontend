@@ -1,6 +1,5 @@
 {
   "name": "ascension-frontend",
-  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -35,6 +34,7 @@
     "eslint-plugin-react": "^7.28.0",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5.5.4",
+    "framer-motion": "^6.2.8",
     "fs": "^0.0.1-security",
     "graphql": "^16.3.0",
     "lightweight-charts": "^3.7.0",
@@ -48,6 +48,7 @@
     "react": "17.0.2",
     "react-blockies": "^1.4.1",
     "react-dom": "17.0.2",
+    "react-hot-toast": "^2.2.0",
     "react-popper": "^2.2.5",
     "react-use": "^17.3.1",
     "react-virtualized": "^9.22.3",

@@ -1,10 +1,7 @@
 import { ChainId, useContractFunction } from '@usedapp/core'
 import { useEffect } from 'react'
-import { useToggle } from 'react-use'
 import { ReactorOptions } from '.'
-import Button from '../../../components/Button'
 import { useContract } from '../../../hooks/useContract'
-import { useToast } from '../../../hooks/useToast'
 
 export default function Reactor({
   address,

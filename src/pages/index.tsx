@@ -1,31 +1,24 @@
+import { NextPage } from 'next'
+import Image from 'next/image'
+import FadeInWhenVisible from '../animation/fadeInWhenVisible'
 import Container from '../components/Container'
-import Stat from '../components/Stat'
-import { useCoingeckoAscensionStats } from '../hooks/useAPI'
 
-export default function HomePage() {
-  const { price, marketCap } = useCoingeckoAscensionStats()
-
+const HomePage: NextPage = () => {
   return (
     <>
-      <Container maxWidth="full">
-        <div className="h-screen w-full bg-blue"></div>
-        <Stat
-          stats={[
-            { name: 'Price', stat: price, before: '$' },
-            {
-              name: 'Market Cap',
-              stat: marketCap,
-              before: '$',
-              isBalance: true,
-            },
-            {
-              name: 'Liquidity Locked',
-              stat: '15,598',
-              after: ' SLP',
-            },
-          ]}
-        />
-      </Container>
+      <div className=" relative flex h-screen w-full items-center justify-center ">
+        <Image src="/images/bg.jpg" layout="fill" alt="" objectFit="fill" />
+        <Container maxWidth="7xl">
+          <div className="text-center">
+            <Image src="/images/ASCEND-rise-animation.gif" width="250px" height="250px" alt="" />
+            <FadeInWhenVisible>
+              <h1 className="text-7xl text-white drop-shadow-2xl">Prepare for Ascension</h1>
+            </FadeInWhenVisible>
+          </div>
+        </Container>
+      </div>
     </>
   )
 }
+
+export default HomePage

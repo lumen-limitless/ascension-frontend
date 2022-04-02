@@ -7,14 +7,14 @@ import useRequiredBalance from '../../../hooks/useRequiredBalance'
 import BuyAscend from '../../../components/BuyAscend'
 import Connection from '../../../components/Connection'
 import { NextPage } from 'next'
-import { DEX_BY_CHAIN, HOME_CHAINID, USDC_ADDRESS, USD_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
+import { DEX_BY_CHAIN, USDC_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
 import Swap from '../../../components/Swap'
 import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
-import { symlink } from 'fs'
 
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
-const REQUIRED_BALANCE = 100
+const REQUIRED_BALANCE = 0
+
 const UniversalSwapPage: NextPage = () => {
   const { account, chainId } = useEthers()
   const pass = useRequiredBalance(account, REQUIRED_BALANCE)

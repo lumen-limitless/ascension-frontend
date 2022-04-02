@@ -1,142 +1,44 @@
-import { Fragment } from 'react'
-import { Dispatch } from 'react'
-import { useToastDispatchContext } from '../../context/ToastContext'
 import { Transition } from '@headlessui/react'
-import { BanIcon, CheckCircleIcon, ExclamationCircleIcon, XIcon } from '@heroicons/react/outline'
-import { classNames } from '../../functions'
-export interface ToastProps {
-  type: 'success' | 'info' | 'error'
-  message: string
-  id: string
-}
+import { CheckCircleIcon, InformationCircleIcon, XIcon } from '@heroicons/react/outline'
+import { Fragment } from 'react'
+import toast, { ErrorIcon } from 'react-hot-toast'
 
-const className =
-  'max-w-sm w-full bg-dark-700 text-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden'
-export default function Toast({ type, message, id }: ToastProps) {
-  const dispatch: Dispatch<any> = useToastDispatchContext()
-
-  return (
-    <>
-      {type == 'success' && (
-        <Transition
-          show={true}
-          as={Fragment}
-          enter="transform ease-out duration-300 transition"
-          enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-          enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-          leave="transition ease-in duration-100"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className={classNames(className, 'border-l-4 border-green')}>
-            <div className="p-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <CheckCircleIcon className="h-6 w-6 text-green" aria-hidden="true" />
-                </div>
-                <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium  text-gray-50">Success</p>
-                  <p className="mt-1 text-sm  ">{message}</p>
-                </div>
-                <div className="ml-4 flex flex-shrink-0">
-                  <button
-                    className=" hover: inline-flex rounded-md text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => {
-                      dispatch({
-                        type: 'DELETE_TOAST',
-                        id,
-                      })
-                    }}
-                  >
-                    <span className="sr-only">Close</span>
-                    <XIcon className="h-5 w-5" aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
+export default function Toast(type: 'success' | 'error' | 'info', message: string) {
+  return toast.custom((t) => (
+    <Transition
+      show={t.visible}
+      as={Fragment}
+      enter="transform ease-out duration-300 transition"
+      enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+      enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+      leave="transition ease-in duration-100"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-dark-800 shadow-lg ring-1 ring-black ring-opacity-5">
+        <div className="p-4">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              {type === 'success' ? (
+                <CheckCircleIcon className="h-6 w-6 text-green" aria-hidden="true" />
+              ) : type === 'error' ? (
+                <ErrorIcon className="h-6 w-6 text-red" aria-hidden="true" />
+              ) : type === 'info' ? (
+                <InformationCircleIcon className="h-6 w-6 text-blue" aria-hidden="true" />
+              ) : null}
+            </div>
+            <div className="ml-3 w-0 flex-1 ">
+              <p className="text-sm text-white">{message}</p>
+            </div>
+            <div className="ml-4 flex flex-shrink-0">
+              <button className="inline-flex rounded-md text-gray-400 hover:text-gray-500 " onClick={() => {}}>
+                <span className="sr-only">Close</span>
+                <XIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
             </div>
           </div>
-        </Transition>
-      )}
-      {type == 'info' && (
-        <Transition
-          show={true}
-          as={Fragment}
-          enter="transform ease-out duration-300 transition"
-          enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-          enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-          leave="transition ease-in duration-100"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className={classNames(className, 'border-l-4 border-blue')}>
-            <div className="p-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <ExclamationCircleIcon className="h-6 w-6 text-blue" aria-hidden="true" />
-                </div>
-                <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium  text-gray-50">Info</p>
-                  <p className="mt-1 text-sm  text-gray-300">{message}</p>
-                </div>
-                <div className="ml-4 flex flex-shrink-0">
-                  <button
-                    className=" inline-flex rounded-md   text-gray-300  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => {
-                      dispatch({
-                        type: 'DELETE_TOAST',
-                        id,
-                      })
-                    }}
-                  >
-                    <span className="sr-only">Close</span>
-                    <XIcon className="h-5 w-5" aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Transition>
-      )}
-      {type == 'error' && (
-        <Transition
-          show={true}
-          as={Fragment}
-          enter="transform ease-out duration-300 transition"
-          enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-          enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-          leave="transition ease-in duration-100"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className={classNames(className, 'border-l-4 border-red')}>
-            <div className="p-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <BanIcon className="h-6 w-6 text-red" aria-hidden="true" />
-                </div>
-                <div className="ml-3 w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-medium  text-gray-50">Error</p>
-                  <p className="mt-1 text-sm  text-gray-300">{message}</p>
-                </div>
-                <div className="ml-4 flex flex-shrink-0">
-                  <button
-                    className="hover: inline-flex rounded-md text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => {
-                      dispatch({
-                        type: 'DELETE_TOAST',
-                        id,
-                      })
-                    }}
-                  >
-                    <span className="sr-only">Close</span>
-                    <XIcon className="h-5 w-5" aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Transition>
-      )}
-    </>
-  )
+        </div>
+      </div>
+    </Transition>
+  ))
 }

@@ -60,7 +60,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   ref?: React.Ref<HTMLButtonElement>
 }
 
-function Button({
+export default function Button({
   children,
   className = undefined,
   color = 'default',
@@ -83,5 +83,3 @@ function Button({
     </button>
   )
 }
-
-export default Button
