@@ -68,7 +68,7 @@ export default function Header() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 -ml-32 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6  px-5  sm:gap-8 lg:grid-cols-2">{''}</div>
                           <div className="bg-dark-800 p-5 sm:p-8">
