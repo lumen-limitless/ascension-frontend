@@ -68,11 +68,11 @@ export default function Header() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
+                      <Popover.Panel className="absolute z-10 -ml-32 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6  px-5  sm:gap-8 lg:grid-cols-2">{''}</div>
                           <div className="bg-dark-800 p-5 sm:p-8">
-                            <Link href={'/tools/universalswap'} as="universal-swap">
+                            <Link href={'/tools/universalswap'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
                                   <div className="text-base font-medium text-white">Universal Swap Tool</div>
@@ -82,7 +82,7 @@ export default function Header() {
                                 </p>
                               </a>
                             </Link>
-                            <Link href={'/tools/mempoolsniper'} as="mempool-sniper">
+                            <Link href={'/tools/mempoolsniper'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
                                   <div className="text-base font-medium text-white">Mempool Sniper</div>
@@ -90,6 +90,14 @@ export default function Header() {
                                 <p className="mt-1 text-sm text-gray-500">
                                   Snipe newly listed tokens on decentralized exchanges
                                 </p>
+                              </a>
+                            </Link>
+                            <Link href={'/tools'}>
+                              <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                                <div className="flex items-center">
+                                  <div className="text-base font-medium text-white">All Tools</div>
+                                </div>
+                                <p className="mt-1 text-sm text-gray-500">View all Ascension tools</p>
                               </a>
                             </Link>
                             {/* <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">

@@ -10,12 +10,12 @@ import { useCREATE2PairAddress } from '../../hooks/useCREATE2Address'
 import Dropdown from '../Dropdown'
 import { Token } from '../../types'
 
-interface TradingChartProps {
+export interface TradingChartProps {
   buyToken: Token
   dex: string
 }
 
-interface Swap {
+export interface Swap {
   timestamp: number
   transaction: {
     id: string
@@ -40,7 +40,7 @@ interface Swap {
   amountUSD: string
 }
 
-interface SwapData {
+export interface SwapData {
   swaps: Swap[]
 }
 
