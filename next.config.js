@@ -2,5 +2,5 @@
 module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
-  images: {},
+  images: { loader: 'akamai', path: '' },
 }

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import FadeInWhenVisible from '../animation/fadeInWhenVisible'
 import Card from '../components/Card'
 import Container from '../components/Container'
+import Loader from '../components/Loader'
 
 const HomePage: NextPage = () => {
   return (

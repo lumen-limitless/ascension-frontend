@@ -119,7 +119,7 @@ const DashboardPage: NextPage = () => {
 
   return (
     <Container maxWidth="7xl">
-      <div className="flex w-full flex-col gap-3 pb-24">
+      <div className="flex w-full flex-col pb-24">
         {' '}
         <Stat
           title="Token Stats"
@@ -133,7 +133,7 @@ const DashboardPage: NextPage = () => {
             { name: 'Total Supply', stat: '14,400,000' },
           ]}
         ></Stat>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <Card title="Total Staked">
             <>
               <ResponsiveContainer height={500} width="100%">
@@ -217,7 +217,7 @@ const DashboardPage: NextPage = () => {
           </Card>
         </div>
       </div>
-      <div className="flex w-full flex-col gap-3 pb-24" id="treasury">
+      <div className="flex w-full flex-col pb-24" id="treasury">
         {' '}
         <Stat
           title="Treasury Stats"
@@ -237,8 +237,11 @@ const DashboardPage: NextPage = () => {
             },
           ]}
         ></Stat>
-        <Card title="Portfolio"></Card>
-        <Card title="NFT Collection"></Card>
+        <div className="flex flex-col gap-3">
+          {' '}
+          <Card title="Portfolio"></Card>
+          <Card title="NFT Collection"></Card>
+        </div>
       </div>
     </Container>
   )
