@@ -24,7 +24,7 @@ const HomePage: NextPage = () => {
       </div>
 
       <div className="relative flex h-screen w-full flex-col items-center justify-start text-center" id="features">
-        <Container maxWidth="7xl">
+        <Container maxWidth="full">
           <div className="flex flex-col py-12">
             <h2 className="text-shadow text-6xl text-primary">Features</h2>
             <div className="flex w-full justify-center gap-9 py-12">
@@ -172,7 +172,7 @@ const HomePage: NextPage = () => {
         className="relative flex h-screen w-full flex-col items-center justify-center bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow text-center md:h-[80vh]"
         id="cta"
       >
-        <Container maxWidth="full">
+        <Container maxWidth="7xl">
           <Card>
             <h3 className=" mb-12 text-5xl text-primary">Join the Ascension</h3>
             <div className="grid grid-cols-1 gap-3  md:grid-cols-2">
