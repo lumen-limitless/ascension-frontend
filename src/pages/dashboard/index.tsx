@@ -12,6 +12,7 @@ import { ASCENSION, DEX_BY_CHAIN, HOME_CHAINID, WNATIVE_ADDRESS } from '../../co
 import { useCREATE2PairAddress } from '../../hooks/useCREATE2Address'
 import Loader from '../../components/Loader'
 import { SwapData } from '../../components/TradingChart'
+import { useZerionAssets, useZerionPortfolio } from '../../hooks/useZerion'
 
 const GET_SWAPS = gql(`
 query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
@@ -53,6 +54,8 @@ const client = new ApolloClient({
 
 const DashboardPage: NextPage = () => {
   const ascendPrice = useCoingeckoTokenPrice(ASCENSION.AscensionToken.address, 'usd', 'arbitrum-one')
+
+  const portfolio = useZerionPortfolio()
 
   const pair = useCREATE2PairAddress(
     'sushiswap',
@@ -224,23 +227,24 @@ const DashboardPage: NextPage = () => {
           stats={[
             {
               name: 'Total Value Locked(TVL)',
-              stat: ascendPrice && commify(parseFloat(ascendPrice).toFixed(3)),
+              stat: portfolio && commify(parseFloat(portfolio.total_value).toFixed(2)),
               before: '$',
             },
             {
-              name: 'NFT Count',
-              stat: '3',
+              name: 'Value change(24hr)',
+              stat: portfolio && portfolio?.absolute_change_24h === 0 ? '0.0' : portfolio?.absolute_change_24h,
+              after: '%',
             },
             {
               name: 'Other Stat',
-              stat: '69',
+              stat: '0',
             },
           ]}
         ></Stat>
         <div className="flex flex-col gap-3">
           {' '}
-          <Card title="Portfolio"></Card>
-          <Card title="NFT Collection"></Card>
+          {/* <Card title="Portfolio"></Card> */}
+          {/* <Card title="NFT Collection"></Card> */}
         </div>
       </div>
     </Container>

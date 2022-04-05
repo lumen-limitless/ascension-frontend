@@ -8,7 +8,6 @@ import { useASCENDBalance } from '../../hooks/useASCEND'
 import { NextPage } from 'next'
 import Stat from '../../components/Stat'
 import Card from '../../components/Card'
-import ConnectButton from '../../components/Button/ConnectButton'
 import SwitchNetworkButton from '../../components/Button/SwitchNetworkButton'
 import Loader from '../../components/Loader'
 import Button from '../../components/Button'
@@ -16,6 +15,7 @@ import Input from '../../components/Input'
 import Skeleton from '../../components/Skeleton'
 import useStaking from '../../hooks/useStaking'
 import Container from '../../components/Container'
+import Connection from '../../components/Connection'
 
 const StakePage: NextPage = () => {
   const { account, chainId } = useEthers()
@@ -76,7 +76,7 @@ const StakePage: NextPage = () => {
       <Card title="Stake ASCEND">
         {!account ? (
           <>
-            <ConnectButton />
+            <Connection />
           </>
         ) : chainId != HOME_CHAINID ? (
           <SwitchNetworkButton chainId={HOME_CHAINID}>Switch to Arbitrum</SwitchNetworkButton>

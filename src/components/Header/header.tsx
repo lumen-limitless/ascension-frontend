@@ -70,9 +70,8 @@ export default function Header() {
                     >
                       <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className="relative grid gap-6  px-5  sm:gap-8 lg:grid-cols-2">{''}</div>
-                          <div className="bg-dark-800 p-5 sm:p-8">
-                            <Link href={'/tools/universalswap'}>
+                          <div className="bg-dark-800 p-6 sm:p-9">
+                            {/* <Link href={'/tools/universalswap'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
                                   <div className="text-base font-medium text-white">Universal Swap Tool</div>
@@ -81,7 +80,7 @@ export default function Header() {
                                   Perform swaps on any chain at the best rates
                                 </p>
                               </a>
-                            </Link>
+                            </Link> */}
                             <Link href={'/tools/mempoolsniper'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">

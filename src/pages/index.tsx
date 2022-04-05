@@ -4,7 +4,6 @@ import Image from 'next/image'
 import FadeInWhenVisible from '../animation/fadeInWhenVisible'
 import Card from '../components/Card'
 import Container from '../components/Container'
-import Loader from '../components/Loader'
 
 const HomePage: NextPage = () => {
   return (
@@ -13,14 +12,20 @@ const HomePage: NextPage = () => {
         className=" relative flex h-screen w-full flex-col items-center justify-start text-center lg:h-[80vh]"
         id="hero"
       >
-        <Image src="/images/bg.jpg" layout="fill" alt="" />
+        <Image src="/images/bg.jpg" layout="fill" alt="" priority={true} />
         <Container maxWidth="7xl">
           <div className="flex flex-col items-center gap-24 pt-32 lg:flex-row">
             <div>
               <h1 className=" text-5xl text-white drop-shadow-2xl lg:text-7xl">Prepare for Ascension</h1>
             </div>
 
-            <Image src="/images/ASCEND-rise-animation.gif" width={300} height={300} alt="" />
+            <Image
+              src="/images/ASCEND-rise-animation.gif"
+              width={300}
+              height={300}
+              alt="Prepare for Ascension"
+              priority={true}
+            />
           </div>
         </Container>
       </div>
@@ -150,22 +155,22 @@ const HomePage: NextPage = () => {
         <Container maxWidth="7xl">
           <div className="w-full py-9 text-center">
             <h2 className="text-shadow text-6xl text-primary">Our Partners</h2>
-            <ul className="flex justify-between gap-3 px-3 pt-12">
+            <ul className="flex justify-evenly gap-1 px-3 pt-12">
               <li>
-                <Image src="/images/gmx.png" height={64} width={96} alt="GMX" />
+                <Image src="/images/gmx.png" height={64} width={112} alt="GMX" />
               </li>
               <li>
-                <Image src="/images/gmx.png" height={64} width={96} alt="GMX" />
+                <Image src="/images/frens-ventures-white.png" height={64} width={124} alt="Frens Ventures" />
               </li>
               <li>
-                <Image src="/images/gmx.png" height={64} width={96} alt="GMX" />
+                <Image src="/images/cryptojingles.png" height={64} width={124} alt="CryptoJingles" />
               </li>
             </ul>
           </div>
         </Container>
       </div>
       <div
-        className="relative flex h-screen w-full flex-col items-center justify-center bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow text-center md:h-[80vh]"
+        className="relative flex h-screen w-full flex-col items-center justify-center bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow text-center md:h-[60vh]"
         id="cta"
       >
         <Container maxWidth="7xl">

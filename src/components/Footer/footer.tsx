@@ -7,7 +7,7 @@ const navigation = {
     { name: 'Blog', href: 'https://ascensionprotocolofficial.medium.com/' },
     { name: 'Vote', href: 'https://vote.ascensionprotocol.io/#/' },
     { name: 'Bridge', href: 'https://bridge.arbitrum.io/' },
-    { name: 'Legal', href: '#' },
+    { name: 'Legal', href: 'https://ascensionprotocol.io/legal' },
   ],
   social: [
     {
