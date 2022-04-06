@@ -27,7 +27,7 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
 }
 
 const tools = [
-  { name: 'Universal Swap', path: '.tools/universalswap' },
+  { name: 'Universal Swap', path: '/tools/universalswap' },
   { name: 'Batch Sender', path: '/tools/batchsender' },
   { name: 'Mempool sniper', path: '/tools/mempoolsniper' },
 ]
