@@ -40,14 +40,22 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta key="twitter:card" name="twitter:card" content="app" />
         <meta key="twitter:title" name="twitter:title" content="Ascension App" />
         <meta key="twitter:url" name="twitter:url" content="https://app.ascensionprotocol.io" />
-        <meta key="twitter:description" name="twitter:description" content="Web application for Ascension Protocol" />
+        <meta
+          key="twitter:description"
+          name="twitter:description"
+          content="Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to providing DeFi tools and opportunities for its constituents."
+        />
         <meta key="twitter:image" name="twitter:image" content="" />
         <meta key="twitter:creator" name="twitter:creator" content="@AscendProtocol" />
         <meta key="og:type" property="og:type" content="website" />
-        <meta key="og:site_name" property="og:site_name" content="Ascension Protocol web application" />
+        <meta key="og:site_name" property="og:site_name" content="Ascension Protocol" />
         <meta key="og:url" property="og:url" content="https://app.ascensionprotocol.io" />
         <meta key="og:image" property="og:image" content="/images/OG_IMAGE.jpg" />
-        <meta key="og:description" property="og:description" content="Web application for Ascension Protocol" />
+        <meta
+          key="og:description"
+          property="og:description"
+          content="Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to providing DeFi tools and opportunities for its constituents."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
