@@ -1,25 +1,25 @@
-import { classNames } from "../../../functions";
-import React from "react";
+import { classNames } from '../../../functions'
+import React from 'react'
 
 export const Input = React.memo(
   ({
     value,
     onUserInput,
-    placeholder = "Address",
+    placeholder = 'Address',
     className,
     ...rest
   }: {
-    value: string;
-    onUserInput: (input: string) => void;
-    error?: boolean;
-    fontSize?: string;
-  } & Omit<React.HTMLProps<HTMLInputElement>, "ref" | "onChange" | "as">) => {
+    value: string
+    onUserInput: (input: string) => void
+    error?: boolean
+    fontSize?: string
+  } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) => {
     return (
       <>
         <input
           value={value}
           onChange={(event) => {
-            onUserInput(event.target.value);
+            onUserInput(event.target.value)
           }}
           // universal input options
           inputMode="text"
@@ -33,16 +33,16 @@ export const Input = React.memo(
           // text-specific options
           type="text"
           className={classNames(
-            "relative block w-full rounded-md border-gray-300 bg-transparent shadow-sm  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+            'relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-ascend-purple focus:ring-ascend-purple sm:text-sm',
             className
           )}
           {...rest}
         />
       </>
-    );
+    )
   }
-);
+)
 
-Input.displayName = "Address";
+Input.displayName = 'Address'
 
-export default Input;
+export default Input

@@ -26,8 +26,8 @@ export default function Stat({ title, stats, maxCols }: StatProps) {
         {stats &&
           stats.map((item, i) => (
             <Card key={i}>
-              <dt className="truncate text-sm font-medium opacity-60">{item.name ?? <Skeleton />}</dt>
-              <dd className="mt-1 flex items-center text-2xl font-semibold">
+              <dt className="truncate text-sm font-medium text-secondary">{item.name ?? <Skeleton />}</dt>
+              <dd className="mt-1 flex items-center text-2xl font-semibold text-primary">
                 {item.stat ? (
                   <>
                     {item.before && item.before}

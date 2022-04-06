@@ -25,6 +25,12 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
     </Card>
   )
 }
+
+const tools = [
+  { name: 'Universal Swap', path: '.tools/universalswap' },
+  { name: 'Batch Sender', path: '/tools/batchsender' },
+  { name: 'Mempool sniper', path: '/tools/mempoolsniper' },
+]
 export default function ToolsPage() {
   return (
     <Container maxWidth="2xl">
@@ -33,9 +39,9 @@ export default function ToolsPage() {
         <meta key="description" name="description" content="Ascension Protocol tools" />
       </Head>
       <div className="grid grid-cols-1 justify-between gap-9 ">
-        {/* <ToolTile path="/tools/universalswap" name="Universal Swap" /> */}
-        {/* <ToolTile path="/tools/reactor" name="Ascension Reactor" />
-        <ToolTile path="/tools/batchsender" name="ERC20 Batch Sender" /> */}
+        {tools.map((t, i) => {
+          return <ToolTile key={i} name={t.name} path={t.path} />
+        })}
       </div>
     </Container>
   )

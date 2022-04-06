@@ -157,13 +157,19 @@ const HomePage: NextPage = () => {
             <h2 className="text-shadow text-6xl text-primary">Partners & Investments</h2>
             <ul className="flex justify-evenly gap-1 px-3 pt-12">
               <li>
-                <Image src="/images/gmx.png" height={64} width={112} alt="GMX" />
+                <a href="https://gmx.io/" target={'_blank'} rel="noreferrer">
+                  <Image src="/images/gmx.png" height={64} width={112} alt="GMX" />
+                </a>
               </li>
               <li>
-                <Image src="/images/frens-ventures-white.png" height={64} width={124} alt="Frens Ventures" />
+                <a href="https://frens.ventures/" target={'_blank'} rel="noreferrer">
+                  <Image src="/images/frens-ventures-white.png" height={64} width={124} alt="Frens Ventures" />
+                </a>
               </li>
               <li>
-                <Image src="/images/cryptojingles.png" height={64} width={124} alt="CryptoJingles" />
+                <a href="https://cryptojingles.app/" target={'_blank'} rel="noreferrer">
+                  <Image src="/images/cryptojingles.png" height={64} width={124} alt="CryptoJingles" />
+                </a>
               </li>
             </ul>
           </div>

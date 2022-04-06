@@ -46,7 +46,7 @@ export const Input = React.memo(
           maxLength={79}
           spellCheck="false"
           className={classNames(
-            ' relative block w-full rounded-md border-gray-300 bg-transparent shadow-sm  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
+            ' relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-ascend-purple focus:ring-ascend-purple sm:text-sm',
             className
           )}
           type="text"
