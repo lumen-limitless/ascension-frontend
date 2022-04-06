@@ -46,7 +46,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta key="og:type" property="og:type" content="website" />
         <meta key="og:site_name" property="og:site_name" content="Ascension Protocol web application" />
         <meta key="og:url" property="og:url" content="https://app.ascensionprotocol.io" />
-        <meta key="og:image" property="og:image" content="/images/ASCEND-logo-vertical.svg" />
+        <meta key="og:image" property="og:image" content="/images/bg-p-800.jpeg" />
         <meta key="og:description" property="og:description" content="Web application for Ascension Protocol" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
