@@ -36,7 +36,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="theme-color" content="#F338C3" />
+        <meta name="theme-color" content="#2D1A62" />
         <meta key="twitter:card" name="twitter:card" content="app" />
         <meta key="twitter:title" name="twitter:title" content="Ascension App" />
         <meta key="twitter:url" name="twitter:url" content="https://app.ascensionprotocol.io" />
@@ -46,7 +46,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta key="og:type" property="og:type" content="website" />
         <meta key="og:site_name" property="og:site_name" content="Ascension Protocol web application" />
         <meta key="og:url" property="og:url" content="https://app.ascensionprotocol.io" />
-        <meta key="og:image" property="og:image" content="/images/bg-p-800.jpeg" />
+        <meta key="og:image" property="og:image" content="/images/OG_IMAGE.jpg" />
         <meta key="og:description" property="og:description" content="Web application for Ascension Protocol" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
