@@ -49,7 +49,7 @@ export const useZerionPortfolio = () => {
     get(addressSocket, {
       scope: ['portfolio'],
       payload: {
-        address: '0xaF1513c82c95736Fb2aF91Afd535c998100339Dc',
+        addresses: ['0xaF1513c82c95736Fb2aF91Afd535c998100339Dc', '0xf170F8cF57D00b60331c33Dc73103415bfb9980d'],
         currency: 'usd',
         portfolio_fields: 'all',
       },
@@ -98,9 +98,8 @@ export const useZerionAssets = () => {
     get(addressSocket, {
       scope: ['assets'],
       payload: {
-        address: '0xaF1513c82c95736Fb2aF91Afd535c998100339Dc',
+        addresses: ['0xaF1513c82c95736Fb2aF91Afd535c998100339Dc', '0xf170F8cF57D00b60331c33Dc73103415bfb9980d'],
         currency: 'usd',
-        portfolio_fields: 'all',
       },
     }).catch((err) => {
       console.error(err)

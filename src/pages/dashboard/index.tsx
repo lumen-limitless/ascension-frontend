@@ -4,7 +4,7 @@ import Container from '../../components/Container'
 import Stat from '../../components/Stat'
 import { useCoingeckoTokenPrice } from '@usedapp/coingecko'
 import { commify } from 'ethers/lib/utils'
-import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Area, AreaChart, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { ApolloClient, gql, InMemoryCache, useQuery } from '@apollo/client'
 import { addressEqual } from '@usedapp/core'
 import { useMemo } from 'react'
@@ -14,13 +14,35 @@ import Loader from '../../components/Loader'
 import { SwapData } from '../../components/TradingChart'
 import { useZerionAssets, useZerionPortfolio } from '../../hooks/useZerion'
 
+const pieData = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+]
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
+
+const RADIAN = Math.PI / 180
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+  const x = cx + radius * Math.cos(-midAngle * RADIAN)
+  const y = cy + radius * Math.sin(-midAngle * RADIAN)
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  )
+}
+
 const GET_SWAPS = gql(`
-query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
+query Swap($pair: String!, $orderBy: BigInt, $orderDirection: String) {
   swaps(
     orderBy: $orderBy
     orderDirection: $orderDirection
     first: 1000
-    where: { pair: $pair, timestamp_gt: $timestamp }
+    where: { pair: $pair}
   ) {
     timestamp
     transaction {
@@ -56,7 +78,8 @@ const DashboardPage: NextPage = () => {
   const ascendPrice = useCoingeckoTokenPrice(ASCENSION.AscensionToken.address, 'usd', 'arbitrum-one')
 
   const portfolio = useZerionPortfolio()
-
+  const assets = useZerionAssets()
+  console.log(assets)
   const pair = useCREATE2PairAddress(
     'sushiswap',
     HOME_CHAINID,
@@ -67,7 +90,6 @@ const DashboardPage: NextPage = () => {
   const { data, loading, error } = useQuery<SwapData>(GET_SWAPS, {
     variables: {
       pair: pair.toLowerCase(),
-      timestamp: parseInt((Date.now() / 1000).toFixed(0)) - 86400,
       orderBy: 'timestamp',
       orderDirection: 'asc',
     },
@@ -97,7 +119,7 @@ const DashboardPage: NextPage = () => {
           amountUSD,
           amountETH,
           type: 'sell',
-          time: new Date(data.swaps[i].timestamp * 1000).toLocaleTimeString(),
+          time: new Date(data.swaps[i].timestamp * 1000).toLocaleDateString(),
           timestamp: data.swaps[i].timestamp,
         })
       } else {
@@ -111,7 +133,7 @@ const DashboardPage: NextPage = () => {
           amountUSD,
           amountETH,
           type: 'buy',
-          time: new Date(data.swaps[i].timestamp * 1000).toLocaleTimeString(),
+          time: new Date(data.swaps[i].timestamp * 1000).toLocaleDateString(),
           timestamp: data.swaps[i].timestamp,
         })
       }
@@ -138,43 +160,41 @@ const DashboardPage: NextPage = () => {
         ></Stat>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <Card title="Total Staked">
-            <>
-              <ResponsiveContainer height={500} width="100%">
-                <AreaChart
-                  data={[
-                    { x: 1, y: 5 },
-                    { x: 1, y: 4.5 },
-                    { x: 1, y: 7 },
-                    { x: 1, y: 9 },
-                  ]}
-                  margin={{
-                    top: 20,
-                    right: 30,
-                    left: 0,
-                    bottom: 0,
-                  }}
-                >
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#943259" stopOpacity={0.66} />
-                      <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="time" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="y"
-                    stroke="#943259"
-                    strokeWidth={3}
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </>
+            <ResponsiveContainer height={500} width="100%">
+              <AreaChart
+                data={[
+                  { x: 1, y: 5 },
+                  { x: 1, y: 4.5 },
+                  { x: 1, y: 7 },
+                  { x: 1, y: 9 },
+                ]}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <defs>
+                  <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#943259" stopOpacity={0.66} />
+                    <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Area
+                  type="monotone"
+                  dataKey="y"
+                  stroke="#943259"
+                  strokeWidth={3}
+                  fillOpacity={1}
+                  fill="url(#colorUv)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </Card>
           <Card title="ASCEND Price">
             {loading ? (
@@ -232,8 +252,9 @@ const DashboardPage: NextPage = () => {
             },
             {
               name: 'Value change(24hr)',
-              stat: portfolio && portfolio?.absolute_change_24h === 0 ? '0.0' : portfolio?.absolute_change_24h,
-              after: '%',
+              stat:
+                portfolio && portfolio?.absolute_change_24h === 0 ? '0.0' : portfolio?.absolute_change_24h.toFixed(2),
+              before: '$',
             },
             {
               name: 'Other Stat',
@@ -242,9 +263,27 @@ const DashboardPage: NextPage = () => {
           ]}
         ></Stat>
         <div className="flex flex-col gap-3">
-          {' '}
-          {/* <Card title="Portfolio"></Card> */}
-          {/* <Card title="NFT Collection"></Card> */}
+          <Card title="Portfolio">
+            <ResponsiveContainer width="100%" height={500}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={renderCustomizedLabel}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </Card>
+          <Card title="NFT Collection"></Card>
         </div>
       </div>
     </Container>

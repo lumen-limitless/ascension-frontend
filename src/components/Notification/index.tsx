@@ -2,10 +2,9 @@ import { Transition } from '@headlessui/react'
 import { CheckCircleIcon, InformationCircleIcon, XIcon } from '@heroicons/react/outline'
 import { Fragment } from 'react'
 import toast, { ErrorIcon } from 'react-hot-toast'
-import { useToggle } from 'react-use'
 import { classNames } from '../../functions'
 
-export default function Toast(type: 'success' | 'error' | 'info', message: string) {
+const notification = (type: 'success' | 'error' | 'info', message: string) => {
   return toast.custom((t) => (
     <Transition
       show={t.visible}
@@ -38,7 +37,10 @@ export default function Toast(type: 'success' | 'error' | 'info', message: strin
               <p className="text-sm text-white">{message}</p>
             </div>
             <div className="ml-4 flex flex-shrink-0">
-              <button className="inline-flex rounded-md text-gray-400 hover:text-gray-500 ">
+              <button
+                className="inline-flex rounded-md text-gray-400 hover:text-gray-500 "
+                onClick={() => toast.dismiss(t.id)}
+              >
                 <span className="sr-only">Close</span>
                 <XIcon className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -49,3 +51,4 @@ export default function Toast(type: 'success' | 'error' | 'info', message: strin
     </Transition>
   ))
 }
+export default notification

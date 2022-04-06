@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import Connection from '../Connection'
 import Logo from '../Logo'
-import { ChevronDownIcon, XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon } from '@heroicons/react/solid'
 import { classNames } from '../../functions'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Divider from '../Divider'
 
 export default function Header() {
   const { pathname } = useRouter()
@@ -24,7 +24,7 @@ export default function Header() {
             <Connection />
             <Popover.Button className="inline-flex items-center justify-center rounded-md  p-2 text-gray-100 transition hover:text-gray-500">
               <span className="sr-only">Open menu</span>
-              <MenuIcon className="h-6 w-6" aria-hidden="true" />
+              <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
           <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
@@ -71,7 +71,7 @@ export default function Header() {
                       <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="bg-dark-800 p-6 sm:p-9">
-                            {/* <Link href={'/tools/universalswap'}>
+                            <Link href={'/tools/universalswap'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
                                   <div className="text-base font-medium text-white">Universal Swap Tool</div>
@@ -80,7 +80,15 @@ export default function Header() {
                                   Perform swaps on any chain at the best rates
                                 </p>
                               </a>
-                            </Link> */}
+                            </Link>
+                            <Link href={'/tools/batchsender'}>
+                              <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                                <div className="flex items-center">
+                                  <div className="text-base font-medium text-white">Batch Sender</div>
+                                </div>
+                                <p className="mt-1 text-sm text-gray-500">Easily create & send bulk ERC-20 transfers</p>
+                              </a>
+                            </Link>
                             <Link href={'/tools/mempoolsniper'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
@@ -131,16 +139,16 @@ export default function Header() {
 
         <Transition
           as={Fragment}
-          enter="duration-200 ease-out"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="duration-100 ease-in"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
+          enter="duration-200 ease-out transition"
+          enterFrom="opacity-0 translate-x-full"
+          enterTo="opacity-100 translate-x-0"
+          leave="duration-200 ease-in transition"
+          leaveFrom="opacity-100  translate-x-0"
+          leaveTo="opacity-0  translate-x-full"
         >
           <Popover.Panel
             focus
-            className="absolute inset-x-0 top-0 origin-top-right transform bg-dark-1000 p-2 transition md:hidden"
+            className="fixed inset-x-0 top-0 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
           >
             <div className="divide-y-2 divide-dark-600 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="px-5 pt-5 pb-6">
@@ -153,25 +161,38 @@ export default function Header() {
                       <span className="sr-only">Close menu</span>
                       <XIcon className="h-6 w-6" aria-hidden="true" />
                     </Popover.Button>
-                  </div>{' '}
-                </div>{' '}
+                  </div>
+                </div>
               </div>
               <div className="py-6 px-5">
                 <div className="flex flex-col gap-6 text-center">
                   <Link href="/">
-                    <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500">Home</a>
+                    <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500 ">
+                      <Popover.Button className={'w-full'}>Home</Popover.Button>
+                    </a>
                   </Link>
+
+                  <Divider />
+
                   <Link href="/dashboard">
-                    <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500">Dashboard</a>
+                    <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500">
+                      <Popover.Button className={'w-full'}>Dashboard</Popover.Button>
+                    </a>
                   </Link>
 
+                  <Divider />
                   <Link href="/stake">
-                    <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">Stake</a>
+                    <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
+                      <Popover.Button className={'w-full'}>Stake</Popover.Button>
+                    </a>
                   </Link>
-
+                  <Divider />
                   <Link href="/tools">
-                    <a className="text-base font-medium text-gray-100 transition hover:text-gray-500"> Tools</a>
+                    <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
+                      <Popover.Button className={'w-full'}>Tools</Popover.Button>
+                    </a>
                   </Link>
+                  <Divider />
                 </div>
               </div>
             </div>

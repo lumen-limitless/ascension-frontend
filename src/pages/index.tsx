@@ -154,7 +154,7 @@ const HomePage: NextPage = () => {
       >
         <Container maxWidth="7xl">
           <div className="w-full py-9 text-center">
-            <h2 className="text-shadow text-6xl text-primary">Our Partners</h2>
+            <h2 className="text-shadow text-6xl text-primary">Partners & Investments</h2>
             <ul className="flex justify-evenly gap-1 px-3 pt-12">
               <li>
                 <Image src="/images/gmx.png" height={64} width={112} alt="GMX" />
