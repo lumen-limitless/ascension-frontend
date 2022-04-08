@@ -30,7 +30,7 @@ export default function BatchSender() {
               setAddressInput(input)
             }}
           ></Input.Address>
-          <TextArea heading="Enter comma-seperated address list:" />
+          <TextArea heading="Enter address list:" />
           <h2>Enter Amount to send per address:</h2>
           <Input.Numeric
             value={valueInput}
