@@ -148,7 +148,7 @@ const StakePage: NextPage = () => {
                     Stake: {balanceOf ? formatBalance(balanceOf) + ' ASCEND' : <Skeleton />}
                   </li>
 
-                  <li className="flex w-full">earned: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}</li>
+                  <li className="flex w-full">Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}</li>
                 </ul>
                 <div className="flex w-full flex-col items-center justify-center">
                   <Button
