@@ -11,7 +11,8 @@ const HomePage: NextPage = () => {
   return (
     <>
       <div
-        className="')] relative flex h-screen w-full flex-col justify-start bg-[url('/images/bg-p-1080.jpeg')] bg-cover bg-center bg-no-repeat sm:bg-[url('/images/bg-p-1600.jpeg')] md:bg-[url('/images/bg-p-2600.jpeg')] lg:bg-[url('/images/bg-p-3200.jpeg')]"
+        className="')] relative flex h-screen w-full flex-col justify-start bg-cover bg-center  bg-no-repeat"
+        style={{ backgroundImage: "url('/images/bg.jpg')" }}
         id="hero"
       >
         <Container maxWidth="7xl">
