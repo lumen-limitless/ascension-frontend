@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { ASCENSION, HOME_CHAINID } from '../../constants'
 import { parseUnits } from '@ethersproject/units'
 import { formatBalance, parseBalance } from '../../functions'
-import { useContractFunction, useEthers, useTokenAllowance } from '@usedapp/core'
+import { Arbitrum, useContractFunction, useEthers, useTokenAllowance } from '@usedapp/core'
 import { Contract, ethers } from 'ethers'
 import { useASCENDBalance } from '../../hooks/useASCEND'
 import { NextPage } from 'next'
 import Stat from '../../components/Stat'
 import Card from '../../components/Card'
-import SwitchNetworkButton from '../../components/Button/SwitchNetworkButton'
 import Loader from '../../components/Loader'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
@@ -16,8 +15,10 @@ import Skeleton from '../../components/Skeleton'
 import useStaking from '../../hooks/useStaking'
 import Container from '../../components/Container'
 import Connection from '../../components/Connection'
+import { useSwitchNetwork } from '../../hooks/useSwitchNetwork'
 
 const StakePage: NextPage = () => {
+  const switchNetwork = useSwitchNetwork()
   const { account, chainId } = useEthers()
   const [amount, setAmount] = useState<string>('')
   const ascendBalance = useASCENDBalance(account)
@@ -79,7 +80,9 @@ const StakePage: NextPage = () => {
             <Connection />
           </>
         ) : chainId != HOME_CHAINID ? (
-          <SwitchNetworkButton chainId={HOME_CHAINID}>Switch to Arbitrum</SwitchNetworkButton>
+          <Button color="blue" onClick={() => switchNetwork(Arbitrum.chainId)}>
+            Switch to Arbitrum
+          </Button>
         ) : !allowance ? (
           <Loader />
         ) : paused ? (

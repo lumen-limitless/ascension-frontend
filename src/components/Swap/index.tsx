@@ -70,9 +70,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
       <Card className="shrink-0" title="Swap">
         {' '}
         <div className="absolute top-1 right-1 flex items-center justify-center ">
-          <Button variant="outlined" size="none" color="gray">
-            {/* <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} title={dex} onSelect={setDex} className="p-2" /> */}
-          </Button>
+          <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} title={dex} onSelect={setDex} />
 
           <Button className="">{<CogIcon width={24} />}</Button>
         </div>

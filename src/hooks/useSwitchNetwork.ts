@@ -1,10 +1,9 @@
-import React from 'react'
 import detectEthereumProvider from '@metamask/detect-provider'
-import Button from '.'
-import { RPC } from '../../constants'
+import { ChainId } from '@usedapp/core'
+import { RPC } from '../constants'
 
-export default function SwitchNetworkButton({ className, chainId, children }: any) {
-  const switchNetwork = async (chainId: number) => {
+export const useSwitchNetwork = () => {
+  return async (chainId: ChainId) => {
     const _chainId = `0x${chainId.toString(16)}`
     const ethereum: any = await detectEthereumProvider()
     if (ethereum) {
@@ -34,12 +33,4 @@ export default function SwitchNetworkButton({ className, chainId, children }: an
       }
     }
   }
-
-  return (
-    <>
-      <Button color="blue" onClick={() => switchNetwork(chainId)} className={className}>
-        {children}
-      </Button>
-    </>
-  )
 }
