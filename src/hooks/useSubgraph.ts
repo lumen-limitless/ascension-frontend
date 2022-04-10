@@ -1,7 +1,15 @@
 import { ApolloClient, gql, InMemoryCache, useQuery } from '@apollo/client'
-import { useMemo } from 'react'
 
-export function useAscensionTokenSubgraph(account: string) {
+const client = new ApolloClient({
+  uri: 'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
+  cache: new InMemoryCache(),
+})
+
+export function useAscensionTokenSubgraph(account: string): {
+  totalBalance: number | null
+  balance: number | null
+  stakedBalance: number | null
+} {
   const GET_TOKEN_DATA = gql`
     query User($id: ID!) {
       users(where: { id: $id }) {
@@ -12,25 +20,17 @@ export function useAscensionTokenSubgraph(account: string) {
     }
   `
 
-  const client = useMemo(() => {
-    return new ApolloClient({
-      uri: 'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
-      cache: new InMemoryCache(),
-    })
-  }, [])
-
   const { data, loading, error } = useQuery(GET_TOKEN_DATA, {
     variables: { id: account?.toLowerCase() },
     client: client,
   })
 
-  if (loading) return null
-  else if (error) return null
-  else if (data.users.length === 0)
+  if (loading || error) return { totalBalance: null, balance: null, stakedBalance: null }
+  if (data.users.length === 0)
     return {
-      totalBalance: '0',
-      balance: '0',
-      stakedBalance: '0',
+      totalBalance: 0,
+      balance: 0,
+      stakedBalance: 0,
     }
-  else return data.users[0]
+  return data.users[0]
 }

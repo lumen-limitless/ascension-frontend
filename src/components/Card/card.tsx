@@ -41,8 +41,8 @@ function Card({
       {header && <>{header}</>}
 
       <div className="h-full px-2 py-4 sm:p-8">
-        {title && <div className="text-lg font-medium leading-6 text-secondary">{title}</div>}
-        {description && <div className="text-base text-primary">{description}</div>}
+        {title && <div className="pb-3 text-lg font-medium leading-6 text-primary">{title}</div>}
+        {description && <div className="text-base text-white">{description}</div>}
         {children}
       </div>
 

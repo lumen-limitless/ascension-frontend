@@ -159,7 +159,7 @@ const StakePage: NextPage = () => {
                       getReward.send().then(() => getReward.resetState())
                     }}
                   >
-                    {getReward.state.status !== 'None' ? <Loader /> : 'Collect Earned'}
+                    {getReward.state.status !== 'None' ? <Loader /> : 'Collect Earnings'}
                   </Button>
                   <Button
                     color="red"

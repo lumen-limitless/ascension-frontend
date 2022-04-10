@@ -1,12 +1,11 @@
-import { useContractCalls, useTokenBalance } from '@usedapp/core'
-import { BigNumber, ethers } from 'ethers'
-import { useMemo } from 'react'
+import { useTokenBalance } from '@usedapp/core'
+
 import { ASCENSION } from '../constants'
 
 export const useASCENDBalance = (address: string) => {
-  return useTokenBalance(ASCENSION.AscensionToken.address, address) ?? ethers.constants.Zero
+  return useTokenBalance(ASCENSION.AscensionToken.address, address)
 }
 
 export const useStakedASCENDBalance = (address: string) => {
-  return useTokenBalance(ASCENSION.AscensionStakedToken.address, address) ?? ethers.constants.Zero
+  return useTokenBalance(ASCENSION.AscensionStakedToken.address, address)
 }

@@ -31,7 +31,7 @@ export default function BatchSender() {
             }}
           ></Input.Address>
           <TextArea heading="Enter address list:" />
-          <h2>Enter Amount to send per address:</h2>
+          <h2>Enter amount to send per address:</h2>
           <Input.Numeric
             value={valueInput}
             onUserInput={(input) => {

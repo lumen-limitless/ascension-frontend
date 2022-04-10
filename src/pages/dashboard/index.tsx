@@ -13,6 +13,7 @@ import { useCREATE2PairAddress } from '../../hooks/useCREATE2Address'
 import Loader from '../../components/Loader'
 import { SwapData } from '../../components/TradingChart'
 import { useZerionAssets, useZerionPortfolio } from '../../hooks/useZerion'
+import { useAscensionTokenSubgraph } from '../../hooks/useSubgraph'
 
 const pieData = [
   { name: 'Group A', value: 400 },
@@ -79,6 +80,7 @@ const DashboardPage: NextPage = () => {
 
   const portfolio = useZerionPortfolio()
   const assets = useZerionAssets()
+  const stakingData = useAscensionTokenSubgraph(ASCENSION.AscensionStaking.address)
   console.log(assets)
   const pair = useCREATE2PairAddress(
     'sushiswap',
@@ -155,7 +157,11 @@ const DashboardPage: NextPage = () => {
               stat: ascendPrice && commify((parseFloat(ascendPrice) * 14400000).toFixed(3)),
               before: '$',
             },
-            { name: 'Total Supply', stat: '14,400,000' },
+            {
+              name: 'ASCEND Staked',
+              stat: stakingData && ((stakingData.balance / 14400000) * 100).toFixed(0),
+              after: '%',
+            },
           ]}
         ></Stat>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -251,7 +257,7 @@ const DashboardPage: NextPage = () => {
               before: '$',
             },
             {
-              name: 'Value change(24hr)',
+              name: 'Value Change(24h)',
               stat:
                 portfolio && portfolio?.absolute_change_24h === 0 ? '0.0' : portfolio?.absolute_change_24h.toFixed(2),
               before: '$',
@@ -267,7 +273,7 @@ const DashboardPage: NextPage = () => {
             <ResponsiveContainer width="100%" height={500}>
               <PieChart>
                 <Pie
-                  data={pieData}
+                  data={assets}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
@@ -276,9 +282,10 @@ const DashboardPage: NextPage = () => {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
+                  {assets &&
+                    Object.keys(assets).map((asset, i) => {
+                      return <Cell key={asset} />
+                    })}
                 </Pie>
               </PieChart>
             </ResponsiveContainer>

@@ -33,7 +33,7 @@ export default function Connection() {
       {!account ? (
         <>
           <Button size="sm" color="blue" onClick={toggle}>
-            Connect wallet
+            Connect Wallet
           </Button>
         </>
       ) : (
@@ -53,7 +53,7 @@ export default function Connection() {
         </div>
       )}
 
-      <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
+      <Modal isOpen={viewing && !account} onDismiss={() => toggle(false)}>
         <h1>Select a Wallet</h1>
 
         <div className="my-3 flex h-full flex-col gap-3">
