@@ -246,7 +246,7 @@ const DashboardPage: NextPage = () => {
           </Card>
         </div>
       </div>
-      <div className="flex w-full flex-col pb-24" id="treasury">
+      <div className="flex hidden w-full flex-col pb-24" id="treasury">
         {' '}
         <Stat
           title="Treasury Stats"

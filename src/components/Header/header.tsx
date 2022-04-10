@@ -12,7 +12,7 @@ export default function Header() {
   const { pathname } = useRouter()
   return (
     <>
-      <Popover className={classNames(pathname === '/' ? 'absolute' : 'sticky', 'z-20 w-full')}>
+      <Popover className={classNames(pathname === '/' ? 'absolute' : 'sticky', 'z-20 w-full')} as="nav">
         <div className="flex h-24 items-center justify-between px-6 py-6 sm:px-12 md:justify-start md:space-x-10">
           <div>
             <a href="#" className="flex">

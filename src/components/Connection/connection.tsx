@@ -8,11 +8,13 @@ import { useToggle } from 'react-use'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 
 import Modal from '../Modal'
-import toast from 'react-hot-toast'
+import useToast from '../../hooks/useToast'
+
 export default function Connection() {
   const { account, chainId } = useEthers()
   const { activateBrowserWallet, activate } = useEthers()
   const [viewing, toggle] = useToggle(false)
+  const t = useToast()
 
   const onWalletConnect = async () => {
     try {
@@ -24,7 +26,7 @@ export default function Connection() {
       await activate(provider as any)
       toggle()
     } catch (err) {
-      toast(err?.message)
+      t('error', err?.message)
     }
   }
 

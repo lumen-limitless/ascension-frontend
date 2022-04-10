@@ -11,15 +11,6 @@ export const useAPI = (url: string) => {
   return { data, error }
 }
 
-export const useCoingeckoAscensionStats = () => {
-  const { data, error } = useAPI('https://api.coingecko.com/api/v3/coins/ascension-protocol?localization=false')
-
-  return {
-    price: data ? parseFloat(data.market_data.current_price.usd).toPrecision(2) : undefined,
-    marketCap: data ? parseFloat(data.market_data.current_price.usd) * 14400000 : undefined,
-    error: error,
-  }
-}
 export const useEthUsdPrice = () => {
   const { data, error } = useAPI(
     `https://api.etherscan.io/api?module=stats&action=ethprice&apikey=VN4KZ196ME3XE9WB1WZ25E8HCBKE3B2GZM`
