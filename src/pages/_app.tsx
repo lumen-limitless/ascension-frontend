@@ -14,7 +14,7 @@ const config: Config = {
   autoConnect: true,
   notifications: {
     checkInterval: 3999,
-    expirationPeriod: 3999,
+    expirationPeriod: 0,
   },
   pollingInterval: 5000,
 }

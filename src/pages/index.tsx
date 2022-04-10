@@ -11,7 +11,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <div
-        className="')] relative flex h-screen w-full flex-col justify-start bg-cover bg-center  bg-no-repeat"
+        className="')] relative flex h-full min-h-screen w-full flex-col justify-start bg-cover bg-center  bg-no-repeat"
         style={{ backgroundImage: "url('/images/bg-p-2600.jpeg')" }}
         id="hero"
       >

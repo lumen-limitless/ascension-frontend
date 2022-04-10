@@ -12,11 +12,11 @@ import { formatUnits, getAddress } from 'ethers/lib/utils'
 import { SetStateAction, useState } from 'react'
 import { useToggle } from 'react-use'
 import { DEX_BY_CHAIN } from '../../constants'
+import Dropdown from '../../Dropdown'
 import { formatBalance, isAddress } from '../../functions'
 import { Token } from '../../types'
 import Button from '../Button'
 import Card from '../Card'
-import Dropdown from '../Dropdown'
 import Input from '../Input'
 import Modal from '../Modal'
 
@@ -71,7 +71,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
         {' '}
         <div className="absolute top-1 right-1 flex items-center justify-center ">
           <Button variant="outlined" size="none" color="gray">
-            <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} title={dex} onSelect={setDex} className="p-2" />
+            {/* <Dropdown options={Object.keys(DEX_BY_CHAIN[chainId])} title={dex} onSelect={setDex} className="p-2" /> */}
           </Button>
 
           <Button className="">{<CogIcon width={24} />}</Button>
