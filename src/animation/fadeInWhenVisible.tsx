@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { FC } from 'react'
 
 export default function FadeInWhenVisible({ children, delay = 0.33 }) {
   return (

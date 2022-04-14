@@ -49,7 +49,7 @@ export default function Modal({
                         maxHeight: `${maxHeight}vh`,
                       }}
                     >
-                      <div className="absolute top-1 right-1">
+                      <div className="absolute top-3 right-3">
                         <Button size="none" onClick={onDismiss}>
                           <XIcon height="20px" />
                         </Button>

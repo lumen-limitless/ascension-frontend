@@ -16,7 +16,7 @@ const config: Config = {
     checkInterval: 3999,
     expirationPeriod: 0,
   },
-  pollingInterval: 5000,
+  pollingInterval: 10000,
 }
 
 const APP_NAME = 'Ascension Protocol'

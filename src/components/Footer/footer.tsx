@@ -151,7 +151,7 @@ export default function Footer() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-base text-gray-500 hover:text-gray-200"
+                className="text-base text-gray-500 transition hover:text-white"
               >
                 {item.name}
               </a>
@@ -165,7 +165,7 @@ export default function Footer() {
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="text-gray-400 hover:text-gray-100"
+              className="text-gray-400 transition hover:text-white"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />

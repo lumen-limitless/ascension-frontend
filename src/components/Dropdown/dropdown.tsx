@@ -2,8 +2,8 @@
 import React, { Dispatch, Fragment, SetStateAction } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { classNames } from '../functions'
-import Button from '../components/Button'
+import { classNames } from '../../functions'
+import Button from '../Button'
 
 export interface DropdownProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   options: string[]

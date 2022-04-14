@@ -13,7 +13,7 @@ import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
 
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
-const REQUIRED_BALANCE = 0
+const REQUIRED_BALANCE = 1
 
 const UniversalSwapPage: NextPage = () => {
   const { account, chainId } = useEthers()

@@ -30,14 +30,14 @@ export default function Header() {
           <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
             <Popover.Group as="nav" className="flex space-x-10">
               <Link href="/">
-                <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500">Home</a>
+                <a className=" text-base font-medium text-gray-400 transition hover:text-white">Home</a>
               </Link>
               <Link href="/dashboard">
-                <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">Dashboard</a>
+                <a className="text-base font-medium text-gray-400 transition hover:text-white">Dashboard</a>
               </Link>
 
               <Link href="/stake">
-                <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">Stake</a>
+                <a className="text-base font-medium text-gray-400 transition hover:text-white">Stake</a>
               </Link>
 
               <Popover className="relative">
@@ -45,15 +45,15 @@ export default function Header() {
                   <>
                     <Popover.Button
                       className={classNames(
-                        open ? 'text-gray-500' : 'text-gray-100',
-                        'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-gray-500'
+                        open ? 'text-white' : 'text-gray-400',
+                        'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-white'
                       )}
                     >
                       <span>Tools</span>
                       <ChevronDownIcon
                         className={classNames(
-                          open ? 'text-gray-600' : 'text-gray-400',
-                          'ml-2 h-5 w-5 group-hover:text-gray-500'
+                          open ? 'text-white' : 'text-gray-400',
+                          ' ml-2 h-5 w-5 group-hover:text-white'
                         )}
                         aria-hidden="true"
                       />
@@ -68,7 +68,7 @@ export default function Header() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform lg:max-w-3xl">
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform rounded border border-dark-600 lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="bg-dark-800 p-6 sm:p-9">
                             <Link href={'/tools/universalswap'}>

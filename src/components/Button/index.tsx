@@ -25,24 +25,16 @@ const OUTLINED = {
   blue: 'bg-blue bg-opacity-20 outline-blue rounded text-blue hover:bg-opacity-40 disabled:bg-opacity-20',
   gray: 'bg-dark-700 bg-opacity-20 outline-gray rounded text-gray hover:bg-opacity-40 disabled:bg-opacity-20',
   green: 'bg-green bg-opacity-20 rounded text-green hover:bg-opacity-40 disabled:bg-opacity-20',
-  gradient:
-    'border border-transparent border-gradient-r-blue-pink-dark-900 opacity-80 hover:opacity-100 disabled:bg-opacity-20',
 }
 
 const EMPTY = {
   default: ' bg-transparent disabled:opacity-50 disabled:cursor-auto bg-opacity-80 hover:bg-opacity-100',
 }
 
-const LINK = {
-  default: 'text-primary hover:text-high-emphesis focus:text-high-emphesis whitespace-nowrap focus:ring-0',
-  blue: 'text-blue text-opacity-80 hover:text-opacity-100 focus:text-opacity-100 whitespace-nowrap focus:ring-0',
-}
-
 const VARIANT = {
   outlined: OUTLINED,
   filled: FILLED,
   empty: EMPTY,
-  link: LINK,
 }
 
 export type ButtonColor = 'blue' | 'pink' | 'gradient' | 'gray' | 'default' | 'red' | 'green' | 'yellow'

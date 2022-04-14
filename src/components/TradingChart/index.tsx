@@ -44,10 +44,10 @@ export interface SwapData {
 }
 
 const GET_SWAPS = gql(`
-query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt, $orderDirection: String) {
+query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt!) {
   swaps(
     orderBy: $orderBy
-    orderDirection: $orderDirection
+    orderDirection: asc
     first: 1000
     where: { pair: $pair, timestamp_gt: $timestamp }
   ) {
@@ -100,12 +100,11 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
       pair: pair?.toLowerCase(),
       timestamp: afterTimestamp,
       orderBy: 'timestamp',
-      orderDirection: 'asc',
     },
     pollInterval: 60000,
     client: client,
   })
-  console.log(data)
+
   const graphData = useMemo(() => {
     if (!data) return null
     let graphData = []
@@ -147,7 +146,6 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
     return graphData
   }, [data, buyToken])
 
-  console.table(graphData)
   return (
     <>
       <Card

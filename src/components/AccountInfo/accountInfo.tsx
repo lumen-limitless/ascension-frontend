@@ -7,13 +7,13 @@ import Avatar from '../Avatar'
 import Button from '../Button'
 import { Mainnet, shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 import { ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
-import { useAscensionTokenSubgraph } from '../../hooks/useSubgraph'
+import { useAscendSubgraph } from '../../hooks/useSubgraph'
 import { HOME_CHAINID, SCAN_INFO } from '../../constants'
 
 export default function AccountInfo() {
-  const { account, deactivate, chainId } = useEthers()
+  const { account, deactivate } = useEthers()
   const ens = useLookupAddress()
-  const tokenData = useAscensionTokenSubgraph(account)
+  const tokenData = useAscendSubgraph(account)
   const [viewing, toggle] = useToggle(false)
 
   return (
@@ -34,7 +34,7 @@ export default function AccountInfo() {
                 className="px-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://${SCAN_INFO[chainId ?? Mainnet.chainId].name}.io/address/${account}`}
+                href={`https://${SCAN_INFO[HOME_CHAINID]}.io/address/${account}`}
               >
                 <Button size="none">
                   <ExternalLinkIcon width={20} className="stroke-current text-blue" />
