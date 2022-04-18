@@ -1,17 +1,9 @@
 import { CogIcon } from '@heroicons/react/outline'
-import {
-  useEtherBalance,
-  useEthers,
-  useLocalStorage,
-  useToken,
-  useTokenAllowance,
-  useTokenBalance,
-  useTokenList,
-} from '@usedapp/core'
+import { useEtherBalance, useEthers, useToken, useTokenAllowance, useTokenBalance, useTokenList } from '@usedapp/core'
 import { formatUnits, getAddress } from 'ethers/lib/utils'
 import { SetStateAction, useState } from 'react'
-import { useToggle } from 'react-use'
-import { DEX_BY_CHAIN } from '../../constants'
+import { useLocalStorage, useToggle } from 'react-use'
+import { ASCENSION, DEX_BY_CHAIN } from '../../constants'
 import Dropdown from '../Dropdown'
 import { formatBalance, isAddress } from '../../functions'
 import { Token } from '../../types'
@@ -42,7 +34,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
   const [settingBuyToken, toggleSettingBuyToken] = useToggle(false)
   const [settingSellToken, toggleSettingSellToken] = useToggle(false)
   const [input, setInput] = useState('')
-  const inputMeta = useToken(isAddress(input) ? getAddress(input) : null)
+  const inputMeta = useToken(ASCENSION.AscensionToken.address)
   const tokenList = useTokenList('https://gateway.ipfs.io/ipns/tokens.uniswap.org')
 
   const switchTokens = () => {

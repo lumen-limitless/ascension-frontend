@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Container from '../../../components/Container'
 import Loader from '../../../components/Loader'
-import { useEthers, useLocalStorage } from '@usedapp/core'
+import { useEthers } from '@usedapp/core'
 import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 import BuyAscend from '../../../components/BuyAscend'
 import Connection from '../../../components/Connection'
@@ -11,6 +11,7 @@ import { DEX_BY_CHAIN, USDC_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
 import Swap from '../../../components/Swap'
 import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
+import { useLocalStorage } from 'react-use'
 
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
 const REQUIRED_BALANCE = 1
@@ -26,14 +27,14 @@ const UniversalSwapPage: NextPage = () => {
     }
   }, [chainId])
 
-  const [lastSellToken] = useLocalStorage('LastSellToken')
+  const [lastSellToken] = useLocalStorage<Token>('LastSellToken')
   const [sellToken, setSellToken] = useState<Token>(
-    lastSellToken ?? { address: WNATIVE_ADDRESS[chainId], name: 'Wrapped Ether', symbol: 'WETH', decimals: 18 }
+    lastSellToken ?? { address: WNATIVE_ADDRESS[chainId], name: 'Wrapped Ether', symbol: 'WETH', decimals: 18, chainId }
   )
 
-  const [lastBuyToken] = useLocalStorage('LastBuyToken')
+  const [lastBuyToken] = useLocalStorage<Token>('LastBuyToken')
   const [buyToken, setBuyToken] = useState<Token>(
-    lastBuyToken ?? { address: USDC_ADDRESS[chainId], name: 'USDC', symbol: 'USDC', decimals: 6 }
+    lastBuyToken ?? { address: USDC_ADDRESS[chainId], name: 'USDC', symbol: 'USDC', decimals: 6, chainId }
   )
 
   if (!account)

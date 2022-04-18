@@ -1,3 +1,46 @@
-import Stat from './stat'
+import React from 'react'
+import Skeleton from '../Skeleton'
+import Card from '../Card'
+import { formatBalance, formatPercent } from '../../functions'
+import { BigNumberish } from 'ethers'
 
-export default Stat
+type Stat = {
+  name?: string
+  stat?: string | number | BigNumberish
+  before?: string | JSX.Element
+  after?: string | JSX.Element
+  isBalance?: boolean
+  isPercent?: boolean
+}
+export interface StatProps {
+  title?: string
+  maxCols?: number
+  stats?: Stat[]
+}
+export default function Stat({ title, stats, maxCols }: StatProps) {
+  return (
+    <div className="my-2 md:my-4">
+      <h3 className="text-lg font-medium leading-6 ">{title}</h3>
+
+      <dl className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3 ">
+        {stats &&
+          stats.map((item, i) => (
+            <Card key={i}>
+              <dt className="truncate text-sm font-medium text-primary">{item.name ?? <Skeleton />}</dt>
+              <dd className="mt-1 flex items-center text-2xl font-semibold text-white">
+                {item.stat ? (
+                  <>
+                    {item.before && item.before}
+                    {item.isBalance ? formatBalance(item.stat) : item.isPercent ? formatPercent(item.stat) : item.stat}
+                    {item.after && item.after}
+                  </>
+                ) : (
+                  <Skeleton />
+                )}
+              </dd>
+            </Card>
+          ))}
+      </dl>
+    </div>
+  )
+}

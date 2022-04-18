@@ -113,7 +113,6 @@ const DashboardPage: NextPage = () => {
     return graphData
   }, [priceData])
 
-  console.log(stakingData.data)
   return (
     <Container maxWidth="7xl">
       <div className="flex w-full flex-col pb-24">
@@ -147,11 +146,11 @@ const DashboardPage: NextPage = () => {
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <Card title="Total Staked">
             {stakingData?.loading ? (
-              <Loader message="Loading graph..." />
+              <Loader />
             ) : stakingData?.error ? (
-              <Loader message="Error..." />
+              <Loader message="Error" />
             ) : stakingData.data.stakingMetrics.length === 0 ? (
-              <Loader message="No data..." />
+              <Loader message="No data available" />
             ) : (
               <ResponsiveContainer height={500} width="100%">
                 <AreaChart
@@ -187,11 +186,11 @@ const DashboardPage: NextPage = () => {
           </Card>
           <Card title="ASCEND Price">
             {priceData?.loading ? (
-              <Loader message="Loading graph..." />
+              <Loader />
             ) : priceData?.error ? (
-              <Loader message={`Error loading graph`} />
+              <Loader message="Error" />
             ) : graphData?.length == 0 ? (
-              <Loader message="No Data to show." />
+              <Loader message="No Data available" />
             ) : (
               <>
                 <ResponsiveContainer height={500} width="100%">
@@ -235,7 +234,7 @@ const DashboardPage: NextPage = () => {
           title="Treasury Stats"
           stats={[
             {
-              name: 'Total Value Locked(TVL)',
+              name: 'Treasury Balance',
               stat: portfolio && commify(parseFloat(portfolio.total_value).toFixed(2)),
               before: '$',
             },

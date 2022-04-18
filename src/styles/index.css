@@ -15,7 +15,7 @@
 }
 
 :root {
-    --primary: #0d0415;
+    --primary: #0D0415;
     --text-primary: #bfbfbf;
     --font-sans: "DM Sans", -apple-system, system-ui, BlinkMacSystemFont,
         "Helvetica Neue", "Helvetica", sans-serif;
@@ -23,31 +23,28 @@
 }
 
 html {
-    height: 100%;
-    box-sizing: border-box;
     touch-action: manipulation;
     font-feature-settings: "case" 1, "rlig" 1, "calt" 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-y: auto;
-    overflow-x: hidden;
+    font-family: var(--font-sans);
 }
 
 html,
 body {
-    font-family: var(--font-sans);
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--primary);
-    color: var(--text-primary);
+    @apply bg-dark-1000;
+    @apply text-primary;
+    @apply h-full;
+    @apply box-border;
+    @apply overflow-x-hidden;
+    @apply overflow-y-auto;
 }
 
 body {
-    position: relative;
-    margin: 0;
-    min-height: 100%;
+    @apply relative;
+    @apply m-0;
+    @apply min-h-full;
 }
 
 a {

@@ -1,48 +1,21 @@
-import React, { FC, HTMLProps, useCallback } from "react";
-import { classNames } from "../../functions";
+import { HTMLProps } from 'react'
 
-const COLOR = {
-    default: "text-primary hover:text-high-emphesis focus:text-high-emphesis",
-    blue: "text-blue opacity-80 hover:opacity-100 focus:opacity-100",
-};
-
-interface ExternalLinkProps
-    extends Omit<HTMLProps<HTMLAnchorElement>, "as" | "ref" | "onClick"> {
-    href: string;
-    startIcon?: JSX.Element;
-    endIcon?: JSX.Element;
+interface ExternalLinkProps extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> {
+  href: string
 }
 
-const ExternalLink: FC<ExternalLinkProps> = ({
-    target = "_blank",
-    href,
-    children,
-    rel = "noopener noreferrer",
-    className = "",
-    color = "default",
-    startIcon = undefined,
-    endIcon = undefined,
-    ...rest
-}) => {
-    return (
-        <a
-            target={target}
-            rel={rel}
-            href={href}
-            className={classNames(
-                "text-baseline whitespace-nowrap",
-                COLOR[color],
-                (startIcon || endIcon) &&
-                    "space-x-1 flex items-center justify-center",
-                className
-            )}
-            {...rest}
-        >
-            {startIcon && startIcon}
-            {children}
-            {endIcon && endIcon}
-        </a>
-    );
-};
+export default function ExternalLink({
+  children,
+  href,
 
-export default ExternalLink;
+  target = '_blank',
+  rel = 'noopener noreferrer',
+  className = 'text-gray-400 transition hover:text-white',
+  ...rest
+}: ExternalLinkProps) {
+  return (
+    <a href={href} target={target} rel={rel} className={className} {...rest}>
+      {children}
+    </a>
+  )
+}

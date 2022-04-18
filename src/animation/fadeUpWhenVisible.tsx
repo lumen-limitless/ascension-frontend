@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-export default function FadeInWhenVisible({ children, delay = 0, duration = 0.66 }) {
+export default function FadeUpWhenVisible({ children, delay = 0, duration = 0.66 }) {
   return (
     <motion.div
       initial="hidden"
@@ -8,8 +8,8 @@ export default function FadeInWhenVisible({ children, delay = 0, duration = 0.66
       viewport={{ once: true }}
       transition={{ ease: 'easeInOut', delay: delay, duration: duration }}
       variants={{
-        visible: { opacity: 1, scale: 1 },
-        hidden: { opacity: 0, scale: 0 },
+        visible: { opacity: 1, translateY: 0 },
+        hidden: { opacity: 0, translateY: '100%' },
       }}
     >
       {children}

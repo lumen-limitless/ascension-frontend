@@ -1,18 +1,16 @@
 import React from 'react'
 
-export default function Loader({ size = '32px', message }: { size?: string; stroke?: string; message?: string }) {
+export default function Loader({ size = 32, message }: { size?: string | number; stroke?: string; message?: string }) {
   return (
-    <div className="flex h-full  w-full flex-col items-center justify-center text-center ">
+    <div className="flex h-full w-full flex-col items-center justify-center text-center">
       <svg
-        id="Vrstva_1"
         className="animate-spin-slow"
-        style={{ height: size, width: size }}
         data-name="Vrstva 1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 754 754"
-        height="32px"
-        width="32px"
+        height={size}
+        width={size}
       >
         <defs>
           <style

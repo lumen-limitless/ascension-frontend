@@ -4,14 +4,16 @@ import Image from 'next/image'
 import FadeInWhenVisible from '../animation/fadeInWhenVisible'
 import Card from '../components/Card'
 import Container from '../components/Container'
-import { motion } from 'framer-motion'
-
 import Link from 'next/link'
+import FadeUpWhenVisible from '../animation/fadeUpWhenVisible'
+import FadeUp from '../animation/fadeUp'
+import FadeIn from '../animation/fadeIn'
+
 const HomePage: NextPage = () => {
   return (
     <>
       <div
-        className="')] relative flex h-full min-h-screen w-full flex-col justify-start bg-cover bg-center bg-no-repeat"
+        className="relative flex h-full min-h-screen w-full flex-col justify-start bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/bg-p-2600.jpeg')" }}
         id="hero"
       >
@@ -27,7 +29,7 @@ const HomePage: NextPage = () => {
                 priority={true}
               />
             </div>
-            <motion.div className="" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <FadeUp>
               <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                 Prepare for{' '}
                 <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent">
@@ -37,26 +39,23 @@ const HomePage: NextPage = () => {
               <p className="mx-auto text-xl leading-7 text-gray-100 drop-shadow-2xl md:px-12 md:text-2xl">
                 Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to providing DeFi tools
                 and opportunities for its constituents.
-              </p>
-            </motion.div>
-            <motion.div
-              className="flex w-full flex-col place-content-center gap-3 px-6 py-6 md:flex-row md:px-32"
-              initial={{ opacity: 0 }}
-              transition={{ ease: 'easeIn', delay: 0.99 }}
-              animate={{ opacity: 1 }}
-            >
-              <Link href="/dashboard">
-                <a className="flex flex-grow justify-center gap-1 rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta py-3 text-center transition hover:opacity-80">
-                  Dashboard
-                </a>
-              </Link>
-              <a
-                className="flex flex-grow justify-center gap-1 rounded bg-blue py-3 text-center transition hover:opacity-80"
-                href="#features"
-              >
-                Learn More
-              </a>
-            </motion.div>
+              </p>{' '}
+              <FadeIn delay={0.66}>
+                <div className="flex w-full flex-col place-content-center gap-3 px-6 py-6 md:flex-row md:px-32">
+                  <Link href="/dashboard">
+                    <a className="flex flex-grow justify-center gap-1 rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta py-3 text-center transition hover:opacity-80">
+                      Dashboard
+                    </a>
+                  </Link>
+                  <a
+                    className="flex flex-grow justify-center gap-1 rounded bg-blue py-3 text-center transition hover:opacity-80"
+                    href="#features"
+                  >
+                    Learn More
+                  </a>
+                </div>
+              </FadeIn>
+            </FadeUp>
           </div>
         </Container>
       </div>
@@ -68,8 +67,8 @@ const HomePage: NextPage = () => {
         <Container maxWidth="full">
           <div className="flex flex-col py-12">
             <h2 className="text-shadow text-6xl text-primary">Features</h2>
-            <div className="flex w-full flex-col items-center justify-center gap-9 py-12 lg:flex-row  xl:gap-12">
-              <FadeInWhenVisible delay={0.11 * 1}>
+            <div className="flex w-full flex-col items-center justify-center gap-9 py-12 lg:flex-row  xl:gap-12 xl:px-12">
+              <FadeInWhenVisible delay={0.09 * 1}>
                 <Card className="h-[36rem] w-full max-w-[80rem]">
                   <div className="flex w-full flex-col items-center justify-center gap-3">
                     <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +102,7 @@ const HomePage: NextPage = () => {
                   </div>
                 </Card>
               </FadeInWhenVisible>
-              <FadeInWhenVisible delay={0.11 * 2}>
+              <FadeInWhenVisible delay={0.09 * 2}>
                 <Card className="h-[36rem] w-full max-w-[80rem]">
                   <div className="flex w-full flex-col items-center justify-center gap-3 ">
                     <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +144,7 @@ const HomePage: NextPage = () => {
                   </div>
                 </Card>
               </FadeInWhenVisible>
-              <FadeInWhenVisible delay={0.11 * 3}>
+              <FadeInWhenVisible delay={0.09 * 3}>
                 <Card className="  h-[36rem] w-full max-w-[80rem]">
                   <div className="flex w-full flex-col items-center justify-center gap-3">
                     <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -190,20 +189,20 @@ const HomePage: NextPage = () => {
           <FadeInWhenVisible>
             <div className="w-full py-9 text-center">
               <h2 className="text-shadow text-6xl text-primary">Partners & Investments</h2>
-              <ul className="flex justify-evenly gap-1 px-3 pt-12">
+              <ul className="flex justify-evenly gap-1 pt-12">
                 <li>
                   <a href="https://gmx.io/" target={'_blank'} rel="noreferrer">
-                    <Image src="/images/gmx.png" height={64} width={112} alt="GMX" />
+                    <Image src="/images/gmx.png" height={64} width={96} alt="GMX" />
                   </a>
                 </li>
                 <li>
                   <a href="https://frens.ventures/" target={'_blank'} rel="noreferrer">
-                    <Image src="/images/frens-ventures-white.png" height={64} width={124} alt="Frens Ventures" />
+                    <Image src="/images/frens-ventures-white.png" height={64} width={112} alt="Frens Ventures" />
                   </a>
                 </li>
                 <li>
                   <a href="https://cryptojingles.app/" target={'_blank'} rel="noreferrer">
-                    <Image src="/images/cryptojingles.png" height={64} width={124} alt="CryptoJingles" />
+                    <Image src="/images/cryptojingles.png" height={64} width={112} alt="CryptoJingles" />
                   </a>
                 </li>
               </ul>
@@ -216,7 +215,7 @@ const HomePage: NextPage = () => {
         id="cta"
       >
         <Container maxWidth="7xl">
-          <FadeInWhenVisible>
+          <FadeUpWhenVisible>
             <Card>
               <div className="md:pb-12">
                 <h3 className=" mb-12 text-5xl text-primary">Join the Ascension</h3>
@@ -272,7 +271,7 @@ const HomePage: NextPage = () => {
                 </div>
               </div>
             </Card>
-          </FadeInWhenVisible>
+          </FadeUpWhenVisible>
         </Container>
       </div>
     </>

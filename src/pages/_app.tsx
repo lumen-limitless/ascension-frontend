@@ -3,7 +3,7 @@ import '../styles/index.css'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import Layout from '../layout'
-import { Config, DAppProvider } from '@usedapp/core'
+import { Arbitrum, Config, DAppProvider } from '@usedapp/core'
 import { HOME_CHAINID, RPC } from '../constants'
 
 const config: Config = {
@@ -13,10 +13,11 @@ const config: Config = {
   },
   autoConnect: true,
   notifications: {
-    checkInterval: 3999,
+    checkInterval: 3000,
     expirationPeriod: 0,
   },
   pollingInterval: 10000,
+  networks: [Arbitrum],
 }
 
 const APP_NAME = 'Ascension Protocol'
