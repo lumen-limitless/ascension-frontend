@@ -48,7 +48,7 @@ module.exports = {
         'dark-500': '#223D5E',
 
         'low-emphesis': '#575757',
-        primary: '#BFBFBF',
+        primary: '#F9F9F9',
         secondary: '#7F7F7F',
         'high-emphesis': '#E3E3E3',
       },

@@ -1,8 +1,6 @@
 @tailwind base;
 
 @import "@fontsource/dm-sans/index.css";
-@import "react-virtualized/styles.css";
-@import "rc-slider/assets/index.css";
 
 @tailwind components;
 
@@ -15,11 +13,7 @@
 }
 
 :root {
-    --primary: #0D0415;
-    --text-primary: #bfbfbf;
-    --font-sans: "DM Sans", -apple-system, system-ui, BlinkMacSystemFont,
-        "Helvetica Neue", "Helvetica", sans-serif;
-    --scrollbar-width: 14px;
+--font-sans: "DM Sans", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
 }
 
 html {

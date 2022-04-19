@@ -66,10 +66,9 @@ const HomePage: NextPage = () => {
       >
         <Container maxWidth="full">
           <div className="flex flex-col py-12">
-            <h2 className="text-shadow text-6xl text-primary">Features</h2>
             <div className="flex w-full flex-col items-center justify-center gap-9 py-12 lg:flex-row  xl:gap-12 xl:px-12">
               <FadeInWhenVisible delay={0.09 * 1}>
-                <Card className="h-[36rem] w-full max-w-[80rem]">
+                <Card className="h-[36rem] w-full max-w-[80rem] text-left">
                   <div className="flex w-full flex-col items-center justify-center gap-3">
                     <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_28)" />
@@ -93,7 +92,7 @@ const HomePage: NextPage = () => {
                         </linearGradient>
                       </defs>
                     </svg>
-                    <h3 className="text-4xl text-primary">Tools</h3>
+                    <h3 className="text-5xl text-primary">Tools</h3>
                     <p className="text-lg text-secondary">
                       Our ecosystem incorporates a variety of bots, tools, and automated processes to take advantage of
                       market opportunities. These tools can be delegated to trustless protocols to eliminate risk of
