@@ -102,7 +102,7 @@ const HomePage: NextPage = () => {
                 </Card>
               </FadeInWhenVisible>
               <FadeInWhenVisible delay={0.09 * 2}>
-                <Card className="h-[36rem] w-full max-w-[80rem]">
+                <Card className="h-[36rem] w-full max-w-[80rem] text-left">
                   <div className="flex w-full flex-col items-center justify-center gap-3 ">
                     <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_6)" />
@@ -144,7 +144,7 @@ const HomePage: NextPage = () => {
                 </Card>
               </FadeInWhenVisible>
               <FadeInWhenVisible delay={0.09 * 3}>
-                <Card className="  h-[36rem] w-full max-w-[80rem]">
+                <Card className="  h-[36rem] w-full max-w-[80rem] text-left">
                   <div className="flex w-full flex-col items-center justify-center gap-3">
                     <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_46)" />
