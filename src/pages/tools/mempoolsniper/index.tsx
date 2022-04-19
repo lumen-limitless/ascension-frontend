@@ -8,9 +8,6 @@ import Container from '../../../components/Container'
 import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 
 const MempoolSniperPage: NextPage = () => {
-  const { account } = useEthers()
-  const pass = useRequiredBalance(account, 80000)
-  if (!pass) return <BuyAscend amount={80000} />
   return (
     <Container maxWidth="xl">
       <Card>
