@@ -173,7 +173,6 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <span className="absolute bottom-1 right-1">DEVELOPMENT BUILD</span>
     </footer>
   )
 }

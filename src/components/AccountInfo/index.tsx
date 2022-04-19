@@ -43,18 +43,18 @@ export default function AccountInfo() {
               />
             </div>
           </div>
-          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-1">
-            <Image src="/images/circle-coin.png" height={64} width={64} alt="" />
-            <div className="flex w-full flex-col items-center text-left">
-              <span className="text-xs">ASCEND Balance: </span>
+          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 md:px-9 md:py-9">
+            <Image src="/images/circle-coin.png" height={100} width={100} alt="" />
+            <div className="flex w-full flex-col items-center">
+              <span className="text-xs md:text-sm">ASCEND Balance</span>
               <span>{tokenData ? formatBalance(tokenData.balance) : <Skeleton />}</span>
             </div>{' '}
             <div className="flex w-full flex-col items-center">
-              <span className="text-xs">ASCEND Staked:</span>
+              <span className="text-xs md:text-sm">ASCEND Staked</span>
               {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
             </div>{' '}
           </div>
-          <div className="flex justify-evenly">
+          <div className="flex justify-evenly gap-1">
             {' '}
             <a
               about="View on block explorer"

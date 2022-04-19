@@ -63,7 +63,7 @@ export default function Button({
       className={classNames(
         VARIANT[variant][color],
         variant !== 'empty' && SIZE[size],
-        'inline-flex items-center justify-center rounded focus:outline-none disabled:cursor-not-allowed disabled:opacity-40',
+        'inline-flex items-center justify-center gap-1 rounded focus:outline-none disabled:cursor-not-allowed disabled:opacity-40',
         // 'rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed font-medium',
         className
       )}

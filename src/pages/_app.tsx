@@ -17,7 +17,6 @@ const config: Config = {
     expirationPeriod: 0,
   },
   pollingInterval: 10000,
-  networks: [Arbitrum],
 }
 
 const APP_NAME = 'Ascension Protocol'

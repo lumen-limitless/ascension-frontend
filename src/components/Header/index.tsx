@@ -164,7 +164,7 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-              <div className="py-6 px-5">
+              <div className="py-6">
                 <div className="flex flex-col gap-6 text-center">
                   <Link href="/">
                     <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500 ">

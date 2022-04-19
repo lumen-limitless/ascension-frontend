@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import React, { Fragment } from 'react'
+import { classNames } from '../../functions'
 import Button from '../Button'
 
 interface ModalProps {
@@ -15,20 +16,11 @@ interface ModalProps {
   className?: string
 }
 
-export default function Modal({
-  isOpen,
-  onDismiss,
-  minHeight = 0,
-  maxHeight = 90,
-  initialFocusRef,
-  children,
-  padding = 5,
-  maxWidth = 420,
-}: ModalProps) {
+export default function Modal({ isOpen, onDismiss, children }: ModalProps) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" onClose={onDismiss} className="fixed inset-0 z-10 overflow-y-hidden backdrop-blur-md">
+        <Dialog as="div" onClose={onDismiss} className="fixed inset-0 z-20 overflow-y-hidden backdrop-blur-md">
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 backdrop-blur-md" />
           <div className="flex h-screen items-center justify-center px-4">
             <Transition.Child
@@ -40,22 +32,15 @@ export default function Modal({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="w-full max-w-md transform transition-all">
+              <div className={classNames('w-[99vw] transform transition-all md:w-[66vw] lg:w-[33vw]')}>
                 <div className="w-full rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta p-px">
                   <div className="flex h-full w-full flex-col overflow-y-hidden rounded bg-dark-900  p-6 text-white">
-                    <div
-                      style={{
-                        minHeight: `${minHeight}vh`,
-                        maxHeight: `${maxHeight}vh`,
-                      }}
-                    >
-                      <div className="absolute top-3 right-3">
-                        <Button size="none" onClick={onDismiss}>
-                          <XIcon height="20px" />
-                        </Button>
-                      </div>
-                      {children}
+                    <div className="absolute top-3 right-3">
+                      <Button size="none" onClick={onDismiss}>
+                        <XIcon height="20px" />
+                      </Button>
                     </div>
+                    {children}
                   </div>
                 </div>
               </div>
