@@ -1,10 +1,16 @@
 import { DownloadIcon } from '@heroicons/react/outline'
+import { useEthers } from '@usedapp/core'
 import { NextPage } from 'next'
 import Button from '../../../components/Button'
+import BuyAscend from '../../../components/BuyAscend'
 import Card from '../../../components/Card'
 import Container from '../../../components/Container'
+import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 
 const MempoolSniperPage: NextPage = () => {
+  const { account } = useEthers()
+  const pass = useRequiredBalance(account, 80000)
+  if (!pass) return <BuyAscend amount={80000} />
   return (
     <Container maxWidth="xl">
       <Card>
