@@ -21,10 +21,10 @@ const FILLED = {
 
 const OUTLINED = {
   default: 'bg-opacity-20 hover:bg-opacity-40',
-  red: 'bg-red bg-opacity-20 rounded text-red hover:bg-opacity-40',
-  blue: 'bg-blue bg-opacity-20 rounded text-blue  hover:bg-opacity-40',
-  gray: 'bg-dark-700  bg-opacity-20  outline-gray rounded hover:bg-opacity-40',
-  green: 'bg-green bg-opacity-20 rounded text-green hover:bg-opacity-40',
+  red: 'bg-red bg-opacity-20 rounded text-red hover:bg-opacity-40 shadow-md hover:shadow-red/20',
+  blue: 'bg-blue bg-opacity-20 rounded text-blue  hover:bg-opacity-40 shadow-md hover:shadow-blue/20',
+  gray: 'bg-dark-700  bg-opacity-20  outline-gray rounded hover:bg-opacity-40 shadow-md',
+  green: 'bg-green bg-opacity-20 rounded text-green hover:bg-opacity-40 shadow-md hover:shadow-green/20',
 }
 
 const EMPTY = {

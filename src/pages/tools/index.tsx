@@ -9,20 +9,21 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (
     <Card
       header={
-        <div className="flex place-content-center p-3">
+        <div className="flex place-content-center pt-3">
           <Logo />
         </div>
       }
     >
-      <div className="flex flex-col gap-4 ">
+      <div className="flex flex-col  gap-3">
         <h1 className="text-center text-xl">{name}</h1>
-        <Link href={path} passHref={true}>
-          <a className="w-full ">
+        <div className="flex place-content-center">
+          {' '}
+          <Link href={path} passHref={true}>
             <Button color="blue" variant="outlined">
               Launch
             </Button>
-          </a>
-        </Link>
+          </Link>
+        </div>
       </div>
     </Card>
   )
