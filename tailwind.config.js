@@ -38,14 +38,7 @@ module.exports = {
         'ascend-magenta': '#943259',
         'ascend-orange': '#ef5030',
         'ascend-yellow': '#fcb503',
-
-        'dark-1000': '#0D0415',
-        'dark-900': '#161522',
-        'dark-850': '#1d1e2c',
-        'dark-800': '#202231',
-        'dark-700': '#2E3348',
-        'dark-600': '#1C2D49',
-        'dark-500': '#223D5E',
+        dark: { 1000: '#0B0514', 900: '#161522', 800: '#202231', 700: '#2E3348', 600: '#1C2D49' },
 
         'low-emphesis': '#575757',
         primary: '#F9F9F9',

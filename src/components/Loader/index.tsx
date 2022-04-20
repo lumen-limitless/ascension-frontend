@@ -1,11 +1,10 @@
 import React from 'react'
 
-export default function Loader({ size = 32, message }: { size?: string | number; stroke?: string; message?: string }) {
+export default function Loader({ size = 24, message }: { size?: string | number; message?: string }) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center text-center">
       <svg
         className="animate-spin-slow"
-        data-name="Vrstva 1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 754 754"

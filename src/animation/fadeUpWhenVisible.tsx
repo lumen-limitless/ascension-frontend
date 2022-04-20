@@ -9,7 +9,7 @@ export default function FadeUpWhenVisible({ children, delay = 0, duration = 0.66
       transition={{ ease: 'easeInOut', delay: delay, duration: duration }}
       variants={{
         visible: { opacity: 1, translateY: 0 },
-        hidden: { opacity: 0, translateY: '100%' },
+        hidden: { opacity: 0, translateY: '33%' },
       }}
     >
       {children}

@@ -2,33 +2,33 @@ import React from 'react'
 import { classNames } from '../../functions'
 
 const SIZE = {
-  xs: 'p-1 text-xs',
-  sm: 'p-2 text-sm',
-  default: 'p-3 text-base',
-  lg: 'p-6 text-base',
-  none: 'p-0 text-base',
+  xs: 'p-1 text-xs max-w-xs w-full',
+  sm: 'p-2 text-sm max-w-sm w-full',
+  default: 'p-3 text-base max-w-md w-full',
+  lg: 'p-6 text-base w-full max-w-lg',
+  none: 'p-1 text-base',
 }
 
 const FILLED = {
-  default: 'bg-transparent opacity-80 hover:opacity-100',
-  red: 'bg-red bg-opacity-80 w-full rounded text-high-emphesis hover:bg-opacity-100 disabled:bg-opacity-80',
-  blue: 'bg-blue bg-opacity-80 w-full rounded text-high-emphesis hover:bg-opacity-100 disabled:bg-opacity-80',
-  gray: 'border rounded shadow-sm focus:ring-2 focus:ring-offset-2 bg-dark-700 bg-opacity-80 w-full text-primary border-dark-800 hover:bg-opacity-100 focus:ring-offset-dark-700 focus:ring-dark-800 disabled:bg-opacity-80',
-  green: 'bg-green bg-opacity-80 w-full rounded text-high-emphesis hover:bg-opacity-100 disabled:bg-opacity-80',
+  default: 'rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100',
+  gray: 'bg-gray-500 rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100',
+  red: 'bg-red  rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100',
+  blue: 'bg-blue  rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100',
+  green: 'bg-green rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100',
   gradient:
-    'w-full text-high-emphesis bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange opacity-80 hover:opacity-100 disabled:bg-opacity-80',
+    'bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange text-high-emphesis opacity-90 hover:opacity-100',
 }
 
 const OUTLINED = {
-  default: 'bg-transparent opacity-80 hover:opacity-100',
-  red: 'bg-red bg-opacity-20 outline-red rounded text-red hover:bg-opacity-40 disabled:bg-opacity-20',
-  blue: 'bg-blue bg-opacity-20 outline-blue rounded text-blue hover:bg-opacity-40 disabled:bg-opacity-20',
-  gray: 'bg-dark-700 bg-opacity-20 outline-gray rounded text-gray hover:bg-opacity-40 disabled:bg-opacity-20',
-  green: 'bg-green bg-opacity-20 rounded text-green hover:bg-opacity-40 disabled:bg-opacity-20',
+  default: 'bg-opacity-20 hover:bg-opacity-40',
+  red: 'bg-red bg-opacity-20 rounded text-red hover:bg-opacity-40',
+  blue: 'bg-blue bg-opacity-20 rounded text-blue  hover:bg-opacity-40',
+  gray: 'bg-dark-700  bg-opacity-20  outline-gray rounded hover:bg-opacity-40',
+  green: 'bg-green bg-opacity-20 rounded text-green hover:bg-opacity-40',
 }
 
 const EMPTY = {
-  default: ' bg-transparent disabled:opacity-50 disabled:cursor-auto bg-opacity-80 hover:bg-opacity-100',
+  default: 'bg-transparent ',
 }
 
 const VARIANT = {
@@ -37,7 +37,7 @@ const VARIANT = {
   empty: EMPTY,
 }
 
-export type ButtonColor = 'blue' | 'pink' | 'gradient' | 'gray' | 'default' | 'red' | 'green' | 'yellow'
+export type ButtonColor = 'blue' | 'pink' | 'gray' | 'gradient' | 'default' | 'red' | 'green' | 'yellow'
 
 export type ButtonSize = 'xs' | 'sm' | 'lg' | 'default' | 'none'
 
@@ -63,8 +63,7 @@ export default function Button({
       className={classNames(
         VARIANT[variant][color],
         variant !== 'empty' && SIZE[size],
-        'inline-flex items-center justify-center gap-1 rounded focus:outline-none disabled:cursor-not-allowed disabled:opacity-40',
-        // 'rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed font-medium',
+        'inline-flex flex-grow items-center justify-center gap-1 rounded transition focus:outline-none disabled:cursor-not-allowed disabled:opacity-20 disabled:hover:bg-opacity-20',
         className
       )}
       {...rest}

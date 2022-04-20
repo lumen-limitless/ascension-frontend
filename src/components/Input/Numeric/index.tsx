@@ -56,9 +56,9 @@ export const Input = React.memo(
           }}
         />
         {max && (
-          <Button className="absolute right-0" onClick={() => onUserInput(max)}>
+          <button className="absolute right-3" onClick={() => onUserInput(max)}>
             MAX
-          </Button>
+          </button>
         )}
       </div>
     )

@@ -27,6 +27,7 @@ html {
 
 html,
 body {
+    @apply scroll-smooth;
     @apply bg-dark-1000;
     @apply text-primary;
     @apply h-full;

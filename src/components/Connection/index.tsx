@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../Button'
 import AccountInfo from '../AccountInfo'
-import { CHAIN_IMG, CHAIN_NAME, HOME_CHAINID } from '../../constants'
+import { CHAIN_IMG, CHAIN_NAME, HOME_CHAINID, RPC } from '../../constants'
 import { useEthers } from '@usedapp/core'
 import Image from 'next/image'
 import { useToggle } from 'react-use'
@@ -19,7 +19,7 @@ export default function Connection() {
     try {
       const provider = new WalletConnectProvider({
         chainId: HOME_CHAINID,
-        rpc: { 42161: 'https://arb1.arbitrum.io/rpc' },
+        rpc: RPC,
       })
       await provider.enable()
       await activate(provider as any)
@@ -47,7 +47,7 @@ export default function Connection() {
                 height={24}
                 src={CHAIN_IMG[chainId ?? HOME_CHAINID]}
                 alt={CHAIN_NAME[chainId ?? HOME_CHAINID]}
-              ></Image>
+              />
             )}
           </Button>
           <AccountInfo />
@@ -57,8 +57,9 @@ export default function Connection() {
       <Modal isOpen={viewing && !account} onDismiss={() => toggle(false)}>
         <h1>Select a Wallet</h1>
 
-        <div className="my-3 flex h-full flex-col gap-3">
+        <div className="my-3 flex flex-col items-center gap-3">
           <Button
+            variant="outlined"
             color="gray"
             onClick={() => {
               activateBrowserWallet()
@@ -147,7 +148,7 @@ export default function Connection() {
             MetaMask
           </Button>
 
-          <Button color="gray" onClick={() => onWalletConnect()}>
+          <Button variant="outlined" color="gray" onClick={() => onWalletConnect()}>
             <svg width="32px" height="24px" viewBox="0 0 300 185" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="walletconnect-logo-alt" fill="#3B99FC" fillRule="nonzero">

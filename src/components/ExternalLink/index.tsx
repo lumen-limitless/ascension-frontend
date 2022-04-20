@@ -7,7 +7,6 @@ interface ExternalLinkProps extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'r
 export default function ExternalLink({
   children,
   href,
-
   target = '_blank',
   rel = 'noopener noreferrer',
   className = 'text-gray-400 transition hover:text-white',

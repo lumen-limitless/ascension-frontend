@@ -171,7 +171,6 @@ const DashboardPage: NextPage = () => {
                   <XAxis dataKey="id" />
                   <YAxis />
                   <Tooltip />
-                  <Legend />
                   <Area
                     type="monotone"
                     dataKey="totalStaked"
@@ -212,7 +211,6 @@ const DashboardPage: NextPage = () => {
                     <XAxis dataKey="time" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
                     <Area
                       type="monotone"
                       dataKey="priceUSD"

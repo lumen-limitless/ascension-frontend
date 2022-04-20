@@ -77,12 +77,16 @@ const StakePage: NextPage = () => {
       <Card title="Stake ASCEND">
         {!account ? (
           <>
-            <Connection />
+            <div className="flex place-content-center">
+              <Connection />
+            </div>
           </>
         ) : chainId != HOME_CHAINID ? (
-          <Button color="blue" onClick={() => switchNetwork(Arbitrum.chainId)}>
-            Switch to Arbitrum
-          </Button>
+          <div className="flex place-content-center">
+            <Button color="blue" onClick={() => switchNetwork(Arbitrum.chainId)}>
+              Switch to Arbitrum
+            </Button>
+          </div>
         ) : !allowance ? (
           <Loader />
         ) : paused ? (
@@ -108,13 +112,17 @@ const StakePage: NextPage = () => {
                 </>
               ) : (
                 <div className="mr-3 flex gap-3 md:mr-9">
-                  <Input.Numeric
-                    value={amount}
-                    onUserInput={setAmount}
-                    max={ascendBalance ? parseBalance(ascendBalance).toFixed(2).toString() : '0'}
-                  />
+                  <div className="w-full ">
+                    {' '}
+                    <Input.Numeric
+                      value={amount}
+                      onUserInput={setAmount}
+                      max={ascendBalance ? parseBalance(ascendBalance).toFixed(2).toString() : '0'}
+                    />
+                  </div>
+
                   <Button
-                    size="sm"
+                    size="none"
                     variant="outlined"
                     color="blue"
                     disabled={amount && parseFloat(amount) <= parseBalance(ascendBalance) ? false : true}
@@ -126,7 +134,7 @@ const StakePage: NextPage = () => {
                     Stake
                   </Button>
                   <Button
-                    size="sm"
+                    size="none"
                     variant="outlined"
                     color="red"
                     disabled={amount && parseFloat(amount) <= parseBalance(balanceOf) ? false : true}
@@ -153,26 +161,26 @@ const StakePage: NextPage = () => {
 
                   <li className="flex w-full">Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}</li>
                 </ul>
-                <div className="flex w-full flex-col items-center justify-center">
+                <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
                   <Button
                     color="green"
-                    className=" my-2 w-11/12"
+                    variant="outlined"
                     disabled={earned && parseBalance(earned) > 0 && getReward.state.status === 'None' ? false : true}
                     onClick={() => {
                       getReward.send().then(() => getReward.resetState())
                     }}
                   >
-                    {getReward.state.status !== 'None' ? <Loader /> : 'Collect Earnings'}
+                    {getReward.state.status !== 'None' ? <Loader /> : 'Collect earnings'}
                   </Button>
                   <Button
                     color="red"
-                    className="my-2 w-11/12 "
+                    variant="outlined"
                     disabled={balanceOf && parseBalance(balanceOf) > 0 && exit.state.status === 'None' ? false : true}
                     onClick={() => {
                       exit.send().then(() => exit.resetState())
                     }}
                   >
-                    {exit.state.status != 'None' ? <Loader /> : 'Exit Staking'}
+                    {exit.state.status != 'None' ? <Loader /> : 'Exit staking'}
                   </Button>
                 </div>
               </>

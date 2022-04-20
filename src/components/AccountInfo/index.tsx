@@ -17,13 +17,13 @@ export default function AccountInfo() {
   const ens = useLookupAddress()
   const tokenData = useAscendSubgraph(account)
   const [viewing, toggle] = useToggle(false)
-  const [copy, setCopy] = useCopyToClipboard()
+  const [, setCopy] = useCopyToClipboard()
   const t = useToast()
   return (
     <>
-      <Button size="sm" color="gray" variant="outlined" onClick={() => toggle(true)}>
+      <Button size="sm" variant="outlined" color="gray" onClick={() => toggle(true)}>
         <Avatar size={16} />
-        {ens ?? shortenIfAddress(account)}
+        {shortenIfAddress(account)}
       </Button>
 
       {viewing && (
@@ -57,17 +57,18 @@ export default function AccountInfo() {
           <div className="flex justify-evenly gap-1">
             {' '}
             <a
+              className="w-full"
               about="View on block explorer"
               target="_blank"
               rel="noopener noreferrer"
               href={`https://arbiscan.io/address/${account}`}
             >
               <Button size="sm" variant="outlined" color="blue">
-                <ExternalLinkIcon width={20} className="stroke-current" /> Block Explorer
+                <ExternalLinkIcon width={16} height={16} className="stroke-current" /> Block Explorer
               </Button>
             </a>
             <Button size="sm" variant="outlined" color="red" onClick={deactivate}>
-              <LogoutIcon className="stroke-current" width={20} /> Disconnect
+              <LogoutIcon className="stroke-current" width={16} height={16} /> Disconnect
             </Button>
           </div>
         </Modal>

@@ -27,8 +27,8 @@ function Card({
   return (
     <div
       className={classNames(
-        className,
-        'relative bg-dark-900 text-white shadow-pink-glow transition-all hover:shadow-pink-glow-hovered'
+        'relative flex-1 flex-grow border border-dark-900 shadow-pink-glow transition-all ',
+        className
       )}
       style={{
         borderRadius: '10px',
@@ -42,7 +42,7 @@ function Card({
 
       <div className="h-full px-2 py-4 sm:p-8">
         {title && <div className="pb-3 text-lg font-medium leading-6 text-primary">{title}</div>}
-        {description && <div className="text-base text-white">{description}</div>}
+        {description && <div className="text-base text-secondary">{description}</div>}
         {children}
       </div>
 

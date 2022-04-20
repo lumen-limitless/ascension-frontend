@@ -14,11 +14,13 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
         </div>
       }
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 ">
         <h1 className="text-center text-xl">{name}</h1>
         <Link href={path} passHref={true}>
-          <a>
-            <Button color="blue">Launch</Button>
+          <a className="w-full ">
+            <Button color="blue" variant="outlined">
+              Launch
+            </Button>
           </a>
         </Link>
       </div>

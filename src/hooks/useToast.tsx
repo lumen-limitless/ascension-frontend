@@ -19,7 +19,7 @@ export const useToast = () => {
       >
         <div
           className={classNames(
-            'pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg  border-l  bg-dark-800 shadow-lg ring-1 ring-black ring-opacity-5',
+            'pointer-events-auto w-full max-w-xs overflow-hidden rounded-lg  border-l  bg-dark-800 shadow-lg ring-1 ring-black ring-opacity-5',
             type === 'success'
               ? 'border-green'
               : type === 'info'
