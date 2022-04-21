@@ -10,12 +10,17 @@ export interface DropdownProps extends React.ButtonHTMLAttributes<HTMLButtonElem
   onSelect: Dispatch<SetStateAction<any>>
 }
 
-export default function Dropdown({ options, title, onSelect, ...rest }: DropdownProps): JSX.Element {
+export default function Dropdown({
+  options,
+  title,
+  onSelect,
+  ...rest
+}: DropdownProps): JSX.Element {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button as={Fragment}>
-          <Button variant="outlined" color="gray" size="sm">
+          <Button color="gray" size="sm">
             {title}
             <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
           </Button>
@@ -38,7 +43,9 @@ export default function Dropdown({ options, title, onSelect, ...rest }: Dropdown
                 {({ active }) => (
                   <a
                     className={classNames(
-                      active ? 'bg-dark-700 bg-opacity-40 text-gray-100' : 'bg-opacity-20 text-gray-300',
+                      active
+                        ? 'bg-dark-700 bg-opacity-40 text-gray-100'
+                        : 'bg-opacity-20 text-gray-300',
                       'block cursor-pointer rounded-md px-6 py-3 text-sm'
                     )}
                   >

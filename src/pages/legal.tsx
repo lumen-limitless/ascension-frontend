@@ -16,7 +16,7 @@ const LegalPage: NextPage = () => {
       >
         The information provided on this website does not constitute investment advice, financial
         advice, trading advice, or any other sort of advice and you should not treat any of the
-        website's content as such.
+        website&apos;s content as such.
         <br></br>
         <br></br>
         Trading cryptocurrencies carries a high level of risk, and may not be suitable for all

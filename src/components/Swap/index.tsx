@@ -1,5 +1,12 @@
 import { CogIcon } from '@heroicons/react/outline'
-import { useEtherBalance, useEthers, useToken, useTokenAllowance, useTokenBalance, useTokenList } from '@usedapp/core'
+import {
+  useEtherBalance,
+  useEthers,
+  useToken,
+  useTokenAllowance,
+  useTokenBalance,
+  useTokenList,
+} from '@usedapp/core'
 import { formatUnits, getAddress } from 'ethers/lib/utils'
 import { SetStateAction, useState } from 'react'
 import { useLocalStorage, useToggle } from 'react-use'
@@ -20,7 +27,14 @@ interface SwapProps {
   dex: string
   setDex: React.Dispatch<SetStateAction<string>>
 }
-export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, dex, setDex }: SwapProps) {
+export default function Swap({
+  sellToken,
+  setSellToken,
+  buyToken,
+  setBuyToken,
+  dex,
+  setDex,
+}: SwapProps) {
   const { chainId, account } = useEthers()
   const balance = useEtherBalance(account)
   const [, setLastSellToken] = useLocalStorage('LastSellToken')
@@ -69,9 +83,14 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
         <div className="flex text-sm text-low-emphesis">You Pay:</div>
         <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6">
           <div className="absolute top-3 right-3 text-xs">
-            Balance: {sellTokenBalance ? formatBalance(sellTokenBalance) : balance ? formatBalance(balance) : '0.0'}
+            Balance:{' '}
+            {sellTokenBalance
+              ? formatBalance(sellTokenBalance)
+              : balance
+              ? formatBalance(balance)
+              : '0.0'}
           </div>
-          <Button variant="outlined" color="gray" className="w-32" onClick={toggleSettingSellToken}>
+          <Button color="gray" className="w-32" onClick={toggleSettingSellToken}>
             {sellToken?.symbol}
           </Button>
           <Input.Numeric
@@ -99,7 +118,7 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
           <div className="absolute top-3 right-3 text-xs">
             Balance: {buyTokenBalance && formatUnits(buyTokenBalance)}
           </div>
-          <Button variant="outlined" color="gray" className="w-32" onClick={toggleSettingBuyToken}>
+          <Button color="gray" className="w-32" onClick={toggleSettingBuyToken}>
             {buyToken?.symbol}
           </Button>
           <Input.Numeric
@@ -141,7 +160,6 @@ export default function Swap({ sellToken, setSellToken, buyToken, setBuyToken, d
               <Button
                 disabled={isAddress(input) ? false : true}
                 color="gray"
-                variant="outlined"
                 onClick={() =>
                   handleTokenInput({
                     address: input,
