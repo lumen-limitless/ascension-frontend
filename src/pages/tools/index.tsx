@@ -19,9 +19,7 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
         <div className="flex place-content-center">
           {' '}
           <Link href={path} passHref={true}>
-            <Button color="blue" variant="outlined">
-              Launch
-            </Button>
+            <Button color="blue">Launch</Button>
           </Link>
         </div>
       </div>

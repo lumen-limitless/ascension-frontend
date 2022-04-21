@@ -31,7 +31,7 @@ const MempoolSniperPage: NextPage = () => {
           </svg>
 
           <a href="/files/archive.zip" download>
-            <Button variant="outlined" color="green">
+            <Button color="green">
               <DownloadIcon height={32} width={32} />
               Download mempool sniper
             </Button>

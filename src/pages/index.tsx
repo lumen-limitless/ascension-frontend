@@ -18,7 +18,7 @@ const HomePage: NextPage = () => {
         id="hero"
       >
         <Container maxWidth="7xl">
-          <div className="flex w-full flex-col place-content-center pt-24 text-center md:pt-32 lg:pt-48 ">
+          <div className="flex w-full flex-col place-content-center pt-24 text-center md:pt-32 lg:pt-48">
             {' '}
             <div className="">
               <Image
@@ -37,8 +37,8 @@ const HomePage: NextPage = () => {
                 </span>
               </h1>
               <p className="mx-auto text-xl leading-7 text-gray-100 drop-shadow-2xl md:px-12 md:text-2xl">
-                Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to providing DeFi tools
-                and opportunities for its constituents.
+                Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
+                providing DeFi tools and opportunities for its constituents.
               </p>{' '}
               <FadeIn delay={0.66}>
                 <div className="flex w-full flex-col items-center gap-3 px-6 py-6 lg:flex-row">
@@ -48,7 +48,7 @@ const HomePage: NextPage = () => {
                     </a>
                   </Link>
                   <a className="w-full" href="#features">
-                    <Button color="blue">Learn more</Button>
+                    <Button color="blue">Learn More</Button>
                   </a>
                 </div>
               </FadeIn>
@@ -57,7 +57,10 @@ const HomePage: NextPage = () => {
         </Container>
       </section>
 
-      <section className="relative flex h-full w-full flex-col items-center justify-start" id="features">
+      <section
+        className="relative flex h-full w-full flex-col items-center justify-start"
+        id="features"
+      >
         <Container maxWidth="full">
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
@@ -66,7 +69,13 @@ const HomePage: NextPage = () => {
                   <div className="flex w-full flex-col justify-center gap-3 p-3">
                     <div className="flex items-center gap-3 ">
                       {' '}
-                      <svg width="64" height="64" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg
+                        width="64"
+                        height="64"
+                        viewBox="0 0 200 200"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_28)" />
                         <path
                           fillRule="evenodd"
@@ -92,9 +101,9 @@ const HomePage: NextPage = () => {
                     </div>
 
                     <p className="text-secondary">
-                      Our ecosystem incorporates a variety of bots, tools, and automated processes to take advantage of
-                      market opportunities. These tools can be delegated to trustless protocols to eliminate risk of
-                      downtime and centralization.
+                      Our ecosystem incorporates a variety of bots, tools, and automated processes
+                      to take advantage of market opportunities. These tools can be executed using
+                      trustless protocols to eliminate the risk of downtime and centralization.
                     </p>
                   </div>
                 </Card>
@@ -103,7 +112,13 @@ const HomePage: NextPage = () => {
                 <Card className="xl:h-[25rem] xl:text-lg">
                   <div className="flex w-full flex-col justify-center gap-3 p-3">
                     <div className="flex items-center gap-3 ">
-                      <svg width="64" height="64" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg
+                        width="64"
+                        height="64"
+                        viewBox="0 0 200 200"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_6)" />
                         <path d="M38.25 83H161.75V91.5121H38.25V83Z" fill="white" />
                         <path d="M39.3333 93.6376H49.0833V126.794H39.3333V93.6376Z" fill="white" />
@@ -136,9 +151,10 @@ const HomePage: NextPage = () => {
                       <h3 className="text-left text-4xl text-primary">Governance</h3>
                     </div>
                     <p className="text-secondary lg:text-lg">
-                      Token holders can interact with the protocol directly via snapshot governance system. Specially
-                      crafted smart contracts allow for restricted access to treasury funds to be used with these
-                      governance strategies, preventing bad actors from abusing the system.
+                      Token holders can interact with the protocol directly via snapshot governance
+                      system. A modular smart contract system allows for restricted access to the
+                      treasury funds used with these governance strategies, preventing bad actors
+                      from abusing the system.
                     </p>
                   </div>
                 </Card>
@@ -147,7 +163,13 @@ const HomePage: NextPage = () => {
                 <Card className="xl:h-[25rem] xl:text-lg">
                   <div className="flex w-full flex-col justify-center gap-3 p-3">
                     <div className="flex items-center gap-3">
-                      <svg width="64" height="64" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg
+                        width="64"
+                        height="64"
+                        viewBox="0 0 200 200"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_46)" />
                         <path
                           d="M146.939 70.4145H133.512C135.651 67.189 136.271 63.2736 135.205 59.5516C135.148 59.3526 134.885 58.5681 134.809 58.37C133.32 54.5122 130.169 51.6496 126.163 50.5161C122.071 49.3577 117.784 50.1702 114.401 52.7453L100 63.71L85.5986 52.7453C82.2165 50.1704 77.9298 49.3575 73.8365 50.5161C69.8312 51.6498 66.68 54.5122 65.1914 58.3694C65.1176 58.5606 64.852 59.352 64.7955 59.55C63.7296 63.2734 64.3488 67.1888 66.4882 70.4145H53.0612C51.3706 70.4145 50 71.7849 50 73.4755V97.9633C50 99.6539 51.3706 101.024 53.0612 101.024H56.1224V146.939C56.1224 148.63 57.4931 150 59.1837 150H140.816C142.507 150 143.878 148.63 143.878 146.939V101.024H146.939C148.629 101.024 150 99.6539 150 97.9633V73.4753C150 71.7849 148.629 70.4145 146.939 70.4145ZM103.061 69.0741L118.11 57.6161C119.946 56.2185 122.273 55.7773 124.496 56.4067C126.631 57.011 128.308 58.53 129.096 60.5716C129.138 60.6798 129.287 61.1232 129.319 61.2349C129.926 63.3545 129.501 65.5996 128.153 67.3941C126.761 69.2486 124.645 70.3175 122.35 70.3263C122.102 70.3273 120.408 70.4145 120.408 70.4145H103.061V69.0741H103.061ZM103.061 83.1196L111.379 94.9022H103.061V83.1196ZM70.6812 61.2351C70.7131 61.1239 70.861 60.6824 70.9029 60.5743C71.6918 58.53 73.369 57.011 75.5039 56.4067C77.7263 55.7775 80.0537 56.2185 81.8894 57.6161L96.9388 69.0741V70.4145H79.5918C79.5918 70.4145 77.8984 70.3273 77.6502 70.3263C75.3547 70.3173 73.2396 69.2486 71.8469 67.3941C70.4994 65.5994 70.0745 63.3545 70.6812 61.2351ZM56.1224 94.9022V76.5363H96.9388V94.9022H56.1224ZM137.755 143.878H62.2449V101.024H96.9388V122.451C96.9388 124.142 98.3094 125.512 100 125.512C101.691 125.512 103.061 124.142 103.061 122.451V101.024H115.701L121.989 109.932C122.964 111.313 124.875 111.642 126.255 110.667C127.637 109.692 127.966 107.782 126.991 106.401L123.195 101.024H137.755V143.878ZM143.878 94.9022H118.873L105.908 76.5363H143.878V94.9022Z"
@@ -170,9 +192,10 @@ const HomePage: NextPage = () => {
                       <h3 className="text-4xl text-primary">Rewards</h3>
                     </div>
                     <p className="text-secondary lg:text-lg">
-                      Ascension Protocol offers multiple private DAO tiers that unlock access to a variety of perks and
-                      benefits, including access to whitelisted presales, private allocations, and much more. Members of
-                      our highest tier unlock early access to new features and enhancements.
+                      The Ascension DAO offers multiple private tiers that unlock access to a
+                      variety of perks and benefits, including access to whitelisted presales,
+                      private allocations, and much more. Members of our highest tier unlock early
+                      access to new features and enhancements.
                     </p>
                   </div>
                 </Card>
@@ -190,23 +213,41 @@ const HomePage: NextPage = () => {
           <FadeUpWhenVisible>
             <div className="w-full py-9 text-center">
               <h2 className="text-shadow text-6xl text-primary">Partners & Investments</h2>
-              <ul className="flex justify-evenly gap-1 pt-12">
-                <li>
+              <div className="my-6 grid grid-cols-3 gap-1 md:px-3">
+                <div>
                   <a href="https://gmx.io/" target={'_blank'} rel="noreferrer">
-                    <Image src="/images/gmx.png" height={64} width={96} alt="GMX" />
+                    <Image
+                      src="/images/gmx.png"
+                      height={64}
+                      layout="intrinsic"
+                      width="100%"
+                      alt="GMX"
+                    />
                   </a>
-                </li>
-                <li>
+                </div>
+                <div>
                   <a href="https://frens.ventures/" target={'_blank'} rel="noreferrer">
-                    <Image src="/images/frens-ventures-white.png" height={64} width={112} alt="Frens Ventures" />
+                    <Image
+                      src="/images/frens-ventures-white.png"
+                      layout="intrinsic"
+                      height={64}
+                      width="100%"
+                      alt="Frens Ventures"
+                    />
                   </a>
-                </li>
-                <li>
+                </div>
+                <div>
                   <a href="https://cryptojingles.app/" target={'_blank'} rel="noreferrer">
-                    <Image src="/images/cryptojingles.png" height={64} width={112} alt="CryptoJingles" />
+                    <Image
+                      src="/images/cryptojingles.png"
+                      layout="intrinsic"
+                      height={64}
+                      width="100%"
+                      alt="CryptoJingles"
+                    />
                   </a>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
           </FadeUpWhenVisible>
         </Container>
@@ -259,7 +300,11 @@ const HomePage: NextPage = () => {
                       Buy on SushiSwap
                     </Button>
                   </a>
-                  <a href="https://ascension-group.gitbook.io/ascension-protocol/" target={'_blank'} rel="noreferrer">
+                  <a
+                    href="https://ascension-group.gitbook.io/ascension-protocol/"
+                    target={'_blank'}
+                    rel="noreferrer"
+                  >
                     <Button className="bg-ascend-purple">
                       {' '}
                       <DocumentTextIcon height={24} />

@@ -27,7 +27,7 @@ function Card({
   return (
     <div
       className={classNames(
-        'relative flex-1 flex-grow border border-dark-900 shadow-pink-glow transition-all ',
+        'relative flex-1 flex-grow border border-dark-900 shadow-pink-glow transition-all hover:shadow-pink-glow-hovered',
         className
       )}
       style={{

@@ -29,7 +29,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <title key="title">{APP_NAME}</title>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5"
+        />
         <meta key="description" name="description" content={APP_DESCRIPTION} />
         <meta name="application-name" content={APP_NAME} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -39,7 +42,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="theme-color" content="#2D1A62" />
+        <meta name="theme-color" content="#0B0514" />
         <meta key="twitter:card" name="twitter:card" content="app" />
         <meta key="twitter:title" name="twitter:title" content={APP_NAME} />
         <meta key="twitter:url" name="twitter:url" content={APP_NAME} />

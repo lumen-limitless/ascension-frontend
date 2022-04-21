@@ -7,7 +7,7 @@ const navigation = {
     { name: 'Blog', href: 'https://ascensionprotocolofficial.medium.com/' },
     { name: 'Vote', href: 'https://vote.ascensionprotocol.io/#/' },
     { name: 'Bridge', href: 'https://bridge.arbitrum.io/' },
-    { name: 'Legal', href: 'https://ascensionprotocol.io/legal' },
+    { name: 'Legal', href: '/legal' },
   ],
   social: [
     {
@@ -143,7 +143,12 @@ export default function Footer() {
     <footer className=" relative text-center">
       <Divider />
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-        <Image src="/images/mono-logotype-white-p-1080.png" height="80" width="80" alt="ascension protocol" />
+        <Image
+          src="/images/mono-logotype-white-p-1080.png"
+          height="80"
+          width="80"
+          alt="ascension protocol"
+        />
         <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           {navigation.main.map((item) => (
             <div key={item.name} className="px-3 py-3 md:px-6">
@@ -158,7 +163,7 @@ export default function Footer() {
             </div>
           ))}
         </nav>{' '}
-        <div className="mt-8 flex justify-center space-x-6">
+        <div className="mt-6 flex justify-center space-x-6">
           {navigation.social.map((item) => (
             <a
               key={item.name}

@@ -97,9 +97,10 @@ const StakePage: NextPage = () => {
           <>
             <div>
               {parseBalance(allowance) === 0 ? (
-                <>
+                <div className="flex place-content-center">
+                  {' '}
                   <Button
-                    color="gradient"
+                    color="green"
                     disabled={approve?.state?.status == 'None' ? false : true}
                     onClick={() => {
                       approve.send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256).then(() => {
@@ -109,7 +110,7 @@ const StakePage: NextPage = () => {
                   >
                     {approve?.state?.status == 'None' ? 'Enable Deposits' : <Loader />}
                   </Button>
-                </>
+                </div>
               ) : (
                 <div className="mr-3 flex gap-3 md:mr-9">
                   <div className="w-full ">
@@ -123,7 +124,7 @@ const StakePage: NextPage = () => {
 
                   <Button
                     size="none"
-                    variant="outlined"
+                    className="p-1 text-sm"
                     color="blue"
                     disabled={amount && parseFloat(amount) <= parseBalance(ascendBalance) ? false : true}
                     onClick={() => {
@@ -135,7 +136,7 @@ const StakePage: NextPage = () => {
                   </Button>
                   <Button
                     size="none"
-                    variant="outlined"
+                    className="p-1 text-sm"
                     color="red"
                     disabled={amount && parseFloat(amount) <= parseBalance(balanceOf) ? false : true}
                     onClick={() => {
@@ -164,7 +165,6 @@ const StakePage: NextPage = () => {
                 <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
                   <Button
                     color="green"
-                    variant="outlined"
                     disabled={earned && parseBalance(earned) > 0 && getReward.state.status === 'None' ? false : true}
                     onClick={() => {
                       getReward.send().then(() => getReward.resetState())
@@ -174,7 +174,6 @@ const StakePage: NextPage = () => {
                   </Button>
                   <Button
                     color="red"
-                    variant="outlined"
                     disabled={balanceOf && parseBalance(balanceOf) > 0 && exit.state.status === 'None' ? false : true}
                     onClick={() => {
                       exit.send().then(() => exit.resetState())

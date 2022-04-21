@@ -21,7 +21,7 @@ export default function AccountInfo() {
   const t = useToast()
   return (
     <>
-      <Button size="sm" variant="outlined" color="gray" onClick={() => toggle(true)}>
+      <Button size="sm" color="gray" onClick={() => toggle(true)}>
         <Avatar size={16} />
         {shortenIfAddress(account)}
       </Button>
@@ -43,7 +43,7 @@ export default function AccountInfo() {
               />
             </div>
           </div>
-          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 md:px-9 md:py-9">
+          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md md:px-9 md:py-9">
             <Image src="/images/circle-coin.png" height={100} width={100} alt="" />
             <div className="flex w-full flex-col items-center">
               <span className="text-xs md:text-sm">ASCEND Balance</span>
@@ -54,7 +54,7 @@ export default function AccountInfo() {
               {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
             </div>{' '}
           </div>
-          <div className="flex justify-evenly gap-1">
+          <div className="flex  gap-1">
             {' '}
             <a
               className="w-full"
@@ -63,11 +63,12 @@ export default function AccountInfo() {
               rel="noopener noreferrer"
               href={`https://arbiscan.io/address/${account}`}
             >
-              <Button size="sm" variant="outlined" color="blue">
-                <ExternalLinkIcon width={16} height={16} className="stroke-current" /> Block Explorer
+              <Button size="sm" color="blue">
+                <ExternalLinkIcon width={16} height={16} className="stroke-current" /> Block
+                Explorer
               </Button>
             </a>
-            <Button size="sm" variant="outlined" color="red" onClick={deactivate}>
+            <Button size="sm" color="red" onClick={deactivate}>
               <LogoutIcon className="stroke-current" width={16} height={16} /> Disconnect
             </Button>
           </div>
