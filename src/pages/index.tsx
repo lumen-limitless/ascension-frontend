@@ -28,7 +28,8 @@ const HomePage: NextPage = () => {
             <div className="mx-auto w-56 md:w-64 lg:w-72 ">
               <Image
                 src={ascensionRise}
-                layout="intrinsic"
+                layout="responsive"
+                sizes="50vw"
                 alt="Rise of Ascension"
                 priority={true}
               />

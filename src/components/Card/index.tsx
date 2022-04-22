@@ -3,7 +3,9 @@ import { classNames } from '../../functions'
 
 function Header({ className, children }) {
   return (
-    <div className={classNames('flex items-center rounded-t px-4 py-4 sm:px-8 sm:py-6', className)}>{children}</div>
+    <div className={classNames('flex items-center rounded-t px-4 py-4 sm:px-8 sm:py-6', className)}>
+      {children}
+    </div>
   )
 }
 
@@ -27,7 +29,7 @@ function Card({
   return (
     <div
       className={classNames(
-        'relative flex-1 flex-grow border border-dark-900 shadow-pink-glow transition-all hover:shadow-pink-glow-hovered',
+        'relative flex-1 flex-grow border border-dark-900  shadow-pink-glow transition-all hover:shadow-pink-glow-hovered',
         className
       )}
       style={{
