@@ -20,20 +20,14 @@ const HomePage: NextPage = () => {
     <>
       <section
         className="relative flex h-full min-h-screen w-full flex-col justify-start bg-[#050310] bg-cover bg-center bg-no-repeat "
-        style={{ backgroundImage: "url('/images/bg-p-2600.jpeg')" }}
+        style={{ backgroundImage: "url('/images/bg-p-1600.jpeg')" }}
         id="hero"
       >
         <Container maxWidth="7xl">
           <div className="flex w-full flex-col place-content-center pt-24 text-center md:pt-32 lg:pt-48">
             {' '}
             <div className="mx-auto w-56 md:w-64 lg:w-80">
-              <Image
-                src={ascensionRise}
-                alt="Rise of Ascension"
-                layout="responsive"
-                sizes="50vw"
-                priority={true}
-              />
+              <Image src={ascensionRise} alt="Rise of Ascension" priority={true} />
             </div>
             <FadeUp>
               <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
@@ -158,9 +152,9 @@ const HomePage: NextPage = () => {
                     </div>
                     <p className="text-secondary lg:text-lg">
                       Token holders can interact with the protocol directly via our snapshot
-                      governance platform. A modular smart contract system allows for restricted
-                      access to the treasury funds used with these governance strategies, preventing
-                      bad actors from abusing the system.
+                      governance platform. A modular smart contract system allows for safe and
+                      restricted access to treasury funds, preventing bad actors from abusing the
+                      system.
                     </p>
                   </div>
                 </Card>
