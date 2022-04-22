@@ -1,6 +1,6 @@
 @tailwind base;
 
-@import "@fontsource/dm-sans/index.css";
+@import "@fontsource/jura/index.css";
 
 @tailwind components;
 
@@ -13,7 +13,7 @@
 }
 
 :root {
---font-sans: "DM Sans", -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
+--font-sans: "jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
 }
 
 html {

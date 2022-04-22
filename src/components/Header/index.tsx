@@ -48,7 +48,7 @@ export default function Header() {
                 </a>
               </Link>
 
-              <Popover className="relative">
+              {/* <Popover className="relative">
                 {({ open }) => (
                   <>
                     <Popover.Button
@@ -76,27 +76,33 @@ export default function Header() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform rounded border border-dark-800 lg:max-w-3xl">
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform rounded border border-dark-900 lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="bg-dark-800 p-6 sm:p-9">
-                            {/* <Link href={'/tools/universalswap'}>
+                            <Link href={'/tools/universalswap'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
-                                  <div className="text-base font-medium text-white">Universal Swap Tool</div>
+                                  <div className="text-base font-medium text-white">
+                                    Universal Swap Tool
+                                  </div>
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
                                   Perform swaps on any chain at the best rates
                                 </p>
                               </a>
-                            </Link> */}
-                            {/* <Link href={'/tools/batchsender'}>
+                            </Link>
+                            <Link href={'/tools/batchsender'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
-                                  <div className="text-base font-medium text-white">Batch Sender</div>
+                                  <div className="text-base font-medium text-white">
+                                    Batch Sender
+                                  </div>
                                 </div>
-                                <p className="mt-1 text-sm text-gray-500">Easily create & send bulk ERC-20 transfers</p>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  Easily create & send bulk ERC-20 transfers
+                                </p>
                               </a>
-                            </Link> */}
+                            </Link>
                             <Link href={'/tools/mempoolsniper'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
@@ -120,29 +126,36 @@ export default function Header() {
                                 </p>
                               </a>
                             </Link>
-                            {/* <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                            <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                               <div className="flex items-center">
-                                <div className="text-base font-medium text-white">Event Reactor</div>
+                                <div className="text-base font-medium text-white">
+                                  Event Reactor
+                                </div>
                               </div>
-                              <p className="mt-1 text-sm text-gray-500">Automate contract interactions</p>
-                            </a> */}
-                            {/* <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                              <p className="mt-1 text-sm text-gray-500">
+                                Automate contract interactions
+                              </p>
+                            </a>
+                            <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                               <div className="flex items-center">
-                                <div className="text-base font-medium text-white">Uni-V3 LP Manager</div>
+                                <div className="text-base font-medium text-white">
+                                  Uni-V3 LP Manager
+                                </div>
                                 <Badge text="New" />
                               </div>
 
                               <p className="mt-1 text-sm text-gray-500">
-                                Set-and-forget pool for maximizing yield on Uniswap-V3 liquidity positions
+                                Set-and-forget pool for maximizing yield on Uniswap-V3 liquidity
+                                positions
                               </p>
-                            </a> */}
+                            </a>
                           </div>
                         </div>
                       </Popover.Panel>
                     </Transition>
                   </>
                 )}
-              </Popover>
+              </Popover> */}
             </Popover.Group>
             <div className="flex items-center md:ml-12">
               <Connection />

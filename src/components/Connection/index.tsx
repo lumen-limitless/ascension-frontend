@@ -34,12 +34,12 @@ export default function Connection() {
       {!account ? (
         <>
           <Button size="sm" color="blue" onClick={toggle}>
-            Connect Wallet
+            Connect
           </Button>
         </>
       ) : (
         <div className="flex gap-2">
-          <Button size="sm" className="border border-dark-800 hover:bg-white/10">
+          <Button size="sm" className="border border-dark-900 hover:bg-white/10">
             {chainId && (
               <Image
                 about={CHAIN_NAME[chainId ?? HOME_CHAINID]}

@@ -22,7 +22,7 @@ export default function AccountInfo() {
     <>
       <Button
         size="sm"
-        className="border border-dark-800 hover:bg-white/10"
+        className="border border-dark-900 hover:bg-white/10"
         onClick={() => toggle(true)}
       >
         <Avatar size={16} />

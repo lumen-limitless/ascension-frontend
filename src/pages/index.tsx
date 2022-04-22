@@ -24,34 +24,36 @@ const HomePage: NextPage = () => {
         id="hero"
       >
         <Container maxWidth="7xl">
-          <div className="flex w-full flex-col place-content-center pt-24 text-center md:pt-32 lg:pt-48">
+          <div className="flex w-full flex-col place-content-center pt-12 text-center md:pt-36">
             {' '}
-            <div className="mx-auto w-56 md:w-64 lg:w-80">
+            <div className="mx-auto w-48 md:w-64 lg:w-80">
               <Image src={ascensionRise} alt="Rise of Ascension" priority={true} />
             </div>
             <FadeUp>
-              <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
-                Prepare for{' '}
-                <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent">
-                  Ascension
-                </span>
-              </h1>
-              <p className="mx-auto text-xl leading-7 text-gray-100 drop-shadow-2xl md:px-12 md:text-2xl">
-                Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
-                providing DeFi tools and opportunities for its constituents.
-              </p>{' '}
-              <FadeIn delay={0.66}>
-                <div className="flex w-full flex-col items-center gap-3 px-6 py-6 lg:flex-row">
-                  <Link href="/dashboard">
-                    <a className="w-full">
-                      <Button color="gradient">Dashboard</Button>
+              <div className="flex flex-col rounded bg-dark-1000/30 p-3 backdrop-blur-sm">
+                <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
+                  Prepare for{' '}
+                  <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">
+                    Ascension
+                  </span>
+                </h1>{' '}
+                <p className="mx-auto py-3 text-xl  leading-7 text-gray-100 drop-shadow-2xl md:px-12 md:text-2xl">
+                  Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
+                  providing DeFi tools and opportunities for its constituents.
+                </p>{' '}
+                <FadeIn delay={0.66}>
+                  <div className="flex w-full flex-col items-center gap-3 px-6 py-6 lg:flex-row">
+                    <Link href="/dashboard">
+                      <a className="w-full">
+                        <Button color="gradient">Dashboard</Button>
+                      </a>
+                    </Link>
+                    <a className="w-full" href="#features">
+                      <Button color="blue">Learn more</Button>
                     </a>
-                  </Link>
-                  <a className="w-full" href="#features">
-                    <Button color="blue">Learn more</Button>
-                  </a>
-                </div>
-              </FadeIn>
+                  </div>
+                </FadeIn>
+              </div>
             </FadeUp>
           </div>
         </Container>
@@ -240,7 +242,7 @@ const HomePage: NextPage = () => {
       >
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
-            <Card className="bg-dark-1000">
+            <Card className="border-0">
               <div className="md:pb-12">
                 <h4 className=" mb-12 text-4xl text-primary lg:text-5xl">Join the Ascension</h4>
                 <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">
