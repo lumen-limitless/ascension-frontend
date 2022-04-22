@@ -55,9 +55,8 @@ export default function Connection() {
       )}
 
       <Modal isOpen={viewing && !account} onDismiss={() => toggle(false)}>
-        <h1>Select a Wallet</h1>
-
         <div className="my-3 flex flex-col items-center gap-3">
+          <span className="mb-3 text-xl">Select a Wallet</span>
           <Button
             color="gray"
             onClick={() => {
