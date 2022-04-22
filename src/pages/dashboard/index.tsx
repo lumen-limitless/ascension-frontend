@@ -4,15 +4,34 @@ import Container from '../../components/Container'
 import Stat from '../../components/Stat'
 import { useCoingeckoTokenPrice } from '@usedapp/coingecko'
 import { commify } from 'ethers/lib/utils'
-import { Area, AreaChart, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import {
+  Area,
+  AreaChart,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
 import { ApolloClient, gql, InMemoryCache, useQuery } from '@apollo/client'
-import { addressEqual } from '@usedapp/core'
+import { addressEqual, useEthers } from '@usedapp/core'
 import { useMemo } from 'react'
-import { ASCENSION, ASCENSION_LIQ_ADDRESS, DEX_BY_CHAIN, HOME_CHAINID, WNATIVE_ADDRESS } from '../../constants'
+import {
+  ASCENSION,
+  ASCENSION_LIQ_ADDRESS,
+  ASCENSION_TREASURY_MAINNET,
+  DEX_BY_CHAIN,
+  HOME_CHAINID,
+  WNATIVE_ADDRESS,
+} from '../../constants'
 import Loader from '../../components/Loader'
 import { SwapData } from '../../components/TradingChart'
 import { useZerionAssets, useZerionPortfolio } from '../../hooks/useZerion'
 import { useAscendSubgraph, useStakingSubgraph } from '../../hooks/useSubgraph'
+import { useOpenseaAssets } from '../../hooks/useAPI'
 
 const GET_SWAPS = gql(`
 query Swap($pair: String!, $orderBy: BigInt!) {
@@ -53,10 +72,15 @@ const client = new ApolloClient({
 })
 
 const DashboardPage: NextPage = () => {
-  const ascendPrice = useCoingeckoTokenPrice(ASCENSION.AscensionToken.address, 'usd', 'arbitrum-one')
+  const ascendPrice = useCoingeckoTokenPrice(
+    ASCENSION.AscensionToken.address,
+    'usd',
+    'arbitrum-one'
+  )
 
-  const portfolio = useZerionPortfolio()
-  const assets = useZerionAssets()
+  // const portfolio = useZerionPortfolio()
+  // const assets = useZerionAssets()
+  // const nftAssets = useOpenseaAssets(ASCENSION_TREASURY_MAINNET)
 
   const stakingData = useStakingSubgraph()
   const priceData = useQuery<SwapData>(GET_SWAPS, {
@@ -75,7 +99,10 @@ const DashboardPage: NextPage = () => {
     let graphData = []
 
     for (let i = 0; i < priceData.data.swaps.length; i++) {
-      const buyAmountNum = addressEqual(priceData.data.swaps[i].pair.token0.id, ASCENSION.AscensionToken.address)
+      const buyAmountNum = addressEqual(
+        priceData.data.swaps[i].pair.token0.id,
+        ASCENSION.AscensionToken.address
+      )
         ? 'amount0'
         : 'amount1'
       const sellAmountNum = buyAmountNum === 'amount0' ? 'amount1' : 'amount0'
@@ -115,7 +142,56 @@ const DashboardPage: NextPage = () => {
 
   return (
     <Container maxWidth="7xl">
-      <div className="flex w-full flex-col pb-24">
+      {/* <section className="flex h-full w-full flex-col py-12" id="treasury">
+        {' '}
+        <Stat
+          title="Treasury Stats"
+          stats={[
+            {
+              name: 'Treasury Balance',
+              stat: portfolio && commify(parseFloat(portfolio.total_value).toFixed(2)),
+              before: '$',
+            },
+            {
+              name: 'Value Change(24h)',
+              stat:
+                portfolio && portfolio?.absolute_change_24h === 0
+                  ? '0.0'
+                  : portfolio?.absolute_change_24h.toFixed(2),
+              before: '$',
+            },
+            {
+              name: 'NFT Count',
+              stat: nftAssets?.length,
+            },
+          ]}
+        ></Stat>
+        <div className="flex flex-col gap-3">
+          <Card title="Portfolio">
+            <ResponsiveContainer width="100%" height={500}>
+              <PieChart>
+                <Pie
+                  data={assets}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {assets &&
+                    Object.keys(assets).map((asset, i) => {
+                      return <Cell key={asset} />
+                    })}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </Card>
+          <Card title="NFT Collection"></Card>
+        </div>
+      </section> */}
+
+      <section className="flex h-full w-full flex-col pb-12">
         {' '}
         <Stat
           title="Token Stats"
@@ -135,7 +211,8 @@ const DashboardPage: NextPage = () => {
               stat:
                 stakingData?.data &&
                 (
-                  (stakingData.data.stakingMetrics[stakingData.data.stakingMetrics.length - 1]?.totalStaked /
+                  (stakingData.data.stakingMetrics[stakingData.data.stakingMetrics.length - 1]
+                    ?.totalStaked /
                     14400000) *
                   100
                 ).toFixed(0),
@@ -225,45 +302,7 @@ const DashboardPage: NextPage = () => {
             )}
           </Card>
         </div>
-      </div>
-      <div className="hidden w-full flex-col pb-24" id="treasury">
-        {' '}
-        <Stat
-          title="Treasury Stats"
-          stats={[
-            {
-              name: 'Treasury Balance',
-              stat: portfolio && commify(parseFloat(portfolio.total_value).toFixed(2)),
-              before: '$',
-            },
-            {
-              name: 'Value Change(24h)',
-              stat:
-                portfolio && portfolio?.absolute_change_24h === 0 ? '0.0' : portfolio?.absolute_change_24h.toFixed(2),
-              before: '$',
-            },
-            {
-              name: 'Other Stat',
-              stat: '0',
-            },
-          ]}
-        ></Stat>
-        <div className="flex flex-col gap-3">
-          <Card title="Portfolio">
-            <ResponsiveContainer width="100%" height={500}>
-              <PieChart>
-                <Pie data={assets} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
-                  {assets &&
-                    Object.keys(assets).map((asset, i) => {
-                      return <Cell key={asset} />
-                    })}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </Card>
-          <Card title="NFT Collection"></Card>
-        </div>
-      </div>
+      </section>
     </Container>
   )
 }

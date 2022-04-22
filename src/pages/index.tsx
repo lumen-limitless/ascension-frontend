@@ -20,7 +20,7 @@ const HomePage: NextPage = () => {
     <>
       <section
         className="relative flex h-full min-h-screen w-full flex-col justify-start bg-[#050310] bg-cover bg-center bg-no-repeat "
-        style={{ backgroundImage: "url('/images/bg-p-1600.jpeg')" }}
+        style={{ backgroundImage: "url('/images/bg-p-2600.jpeg')" }}
         id="hero"
       >
         <Container maxWidth="7xl">
@@ -48,7 +48,7 @@ const HomePage: NextPage = () => {
                     </a>
                   </Link>
                   <a className="w-full" href="#features">
-                    <Button color="blue">Learn More</Button>
+                    <Button color="blue">Learn more</Button>
                   </a>
                 </div>
               </FadeIn>

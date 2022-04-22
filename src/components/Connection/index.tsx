@@ -39,7 +39,7 @@ export default function Connection() {
         </>
       ) : (
         <div className="flex gap-2">
-          <Button size="sm" color="gray">
+          <Button size="sm" className="border border-dark-800 hover:bg-white/10">
             {chainId && (
               <Image
                 about={CHAIN_NAME[chainId ?? HOME_CHAINID]}

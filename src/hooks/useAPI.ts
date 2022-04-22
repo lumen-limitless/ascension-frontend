@@ -1,14 +1,12 @@
 import { ChainId } from '@usedapp/core'
 import { useMemo } from 'react'
-import useSWR from 'swr'
+import useSWR, { SWRResponse } from 'swr'
 import { CHAIN_SYMBOL, SCAN_INFO } from '../constants'
 
-export const useAPI = (url: string) => {
-  const { data, error } = useSWR(url, async (url: string) => {
-    return await fetch(url).then((r) => r.json())
+export const useAPI = (url: string, options?: any) => {
+  return useSWR(url, async (url: string) => {
+    return await fetch(url, options).then((r) => r.json())
   })
-
-  return { data, error }
 }
 
 export const useEthUsdPrice = () => {
@@ -50,4 +48,17 @@ export const useVerifiedContractABI = (contract: string, chainId: ChainId): any[
   if (error) return null
 
   return contractABI
+}
+
+export const useOpenseaAssets = (account: string) => {
+  const { data, error } = useAPI(
+    `https://api.opensea.io/api/v1/assets?owner=${account}&order_direction=desc&limit=20&include_orders=false`,
+    {
+      method: 'GET',
+      headers: { Accept: 'application/json', 'X-API-KEY': process.env.OPENSEA_API_KEY },
+    }
+  )
+
+  if (error) return null
+  return data?.assets
 }

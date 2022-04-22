@@ -20,7 +20,11 @@ export default function AccountInfo() {
   const t = useToast()
   return (
     <>
-      <Button size="sm" color="gray" onClick={() => toggle(true)}>
+      <Button
+        size="sm"
+        className="border border-dark-800 hover:bg-white/10"
+        onClick={() => toggle(true)}
+      >
         <Avatar size={16} />
         {shortenIfAddress(account)}
       </Button>

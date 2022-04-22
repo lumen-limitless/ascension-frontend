@@ -13,7 +13,10 @@ export default function Header() {
   const { pathname } = useRouter()
   return (
     <>
-      <Popover className={classNames(pathname === '/' ? 'absolute' : 'sticky', 'z-20 w-full')} as="nav">
+      <Popover
+        className={classNames(pathname === '/' ? 'absolute' : 'sticky', 'z-20 w-full')}
+        as="nav"
+      >
         <div className="flex h-24 items-center justify-between px-6 py-6 sm:px-12 md:justify-start md:space-x-10 lg:px-24 xl:px-36">
           <div>
             <span className="sr-only">Ascension Protocol</span>
@@ -29,14 +32,20 @@ export default function Header() {
           <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
             <Popover.Group as="nav" className="flex space-x-10">
               <Link href="/">
-                <a className=" text-base font-medium text-gray-300 transition hover:text-white">Home</a>
+                <a className=" text-base font-medium text-gray-300 transition hover:text-white">
+                  Home
+                </a>
               </Link>
               <Link href="/dashboard">
-                <a className="text-base font-medium text-gray-300 transition hover:text-white">Dashboard</a>
+                <a className="text-base font-medium text-gray-300 transition hover:text-white">
+                  Dashboard
+                </a>
               </Link>
 
               <Link href="/stake">
-                <a className="text-base font-medium text-gray-300 transition hover:text-white">Stake</a>
+                <a className="text-base font-medium text-gray-300 transition hover:text-white">
+                  Stake
+                </a>
               </Link>
 
               <Popover className="relative">
@@ -67,7 +76,7 @@ export default function Header() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform rounded border border-dark-600 lg:max-w-3xl">
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform rounded border border-dark-800 lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="bg-dark-800 p-6 sm:p-9">
                             {/* <Link href={'/tools/universalswap'}>
@@ -91,7 +100,9 @@ export default function Header() {
                             <Link href={'/tools/mempoolsniper'}>
                               <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                 <div className="flex items-center">
-                                  <div className="text-base font-medium text-white">Mempool Sniper</div>
+                                  <div className="text-base font-medium text-white">
+                                    Mempool Sniper
+                                  </div>
                                   <Badge text="New" />
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
@@ -104,7 +115,9 @@ export default function Header() {
                                 <div className="flex items-center">
                                   <div className="text-base font-medium text-white">All Tools</div>
                                 </div>
-                                <p className="mt-1 text-sm text-gray-500">View all Ascension tools</p>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  View all Ascension tools
+                                </p>
                               </a>
                             </Link>
                             {/* <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">

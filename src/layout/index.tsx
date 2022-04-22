@@ -9,7 +9,9 @@ export default function Layout({ children }: any) {
     <>
       <Header />
       <Toaster position="top-center" />
-      <main className="flex h-full min-h-screen flex-col items-center justify-start">{children}</main>
+      <main className="flex h-full min-h-screen flex-col items-center justify-start">
+        {children}
+      </main>
       <Footer />
     </>
   )
