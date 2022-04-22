@@ -25,7 +25,7 @@ const HomePage: NextPage = () => {
         <Container maxWidth="7xl">
           <div className="flex w-full flex-col place-content-center pt-24 text-center md:pt-32 lg:pt-48">
             {' '}
-            <div className="mx-auto w-56 md:w-64 lg:w-72 ">
+            <div className="mx-auto w-56 md:w-64 lg:w-80">
               <Image
                 src={ascensionRise}
                 layout="responsive"
