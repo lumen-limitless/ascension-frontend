@@ -245,7 +245,7 @@ const HomePage: NextPage = () => {
             <Card className="bg-dark-1000">
               <div className="md:pb-12">
                 <h4 className=" mb-12 text-4xl text-primary lg:text-5xl">Join the Ascension</h4>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">
                   <a href="https://t.me/AscensionProtocolChat" target={'_blank'} rel="noreferrer">
                     <Button className="bg-[#2AABEE] hover:shadow-[#2AABEE]">
                       {' '}
