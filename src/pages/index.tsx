@@ -9,7 +9,7 @@ import FadeUp from '../animation/fadeUp'
 import FadeIn from '../animation/fadeIn'
 import Button from '../components/Button'
 
-import ascensionRise from '../../public//images/ASCEND-rise-animation-128.gif'
+import ascensionRise from '../../public/images/ASCEND-rise-animation.gif'
 import gmx from '../../public/images/gmx.png'
 import frens from '../../public/images/frens-ventures-white.png'
 import cryptoJingles from '../../public/images/cryptojingles.png'
@@ -28,9 +28,9 @@ const HomePage: NextPage = () => {
             <div className="mx-auto w-56 md:w-64 lg:w-80">
               <Image
                 src={ascensionRise}
+                alt="Rise of Ascension"
                 layout="responsive"
                 sizes="50vw"
-                alt="Rise of Ascension"
                 priority={true}
               />
             </div>
