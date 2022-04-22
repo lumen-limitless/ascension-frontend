@@ -24,13 +24,13 @@ const HomePage: NextPage = () => {
         id="hero"
       >
         <Container maxWidth="7xl">
-          <div className="flex w-full flex-col place-content-center pt-12 text-center md:pt-36">
+          <div className="flex w-full flex-col place-content-center pt-16 text-center md:pt-36">
             {' '}
             <div className="mx-auto w-48 md:w-64 lg:w-80">
               <Image src={ascensionRise} alt="Rise of Ascension" priority={true} />
             </div>
             <FadeUp>
-              <div className="flex flex-col rounded bg-dark-1000/30 p-3 backdrop-blur-sm">
+              <div className="flex flex-col rounded bg-dark-1000/30  backdrop-blur-sm">
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                   Prepare for{' '}
                   <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">
