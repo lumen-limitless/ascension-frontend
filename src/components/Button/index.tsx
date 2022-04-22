@@ -11,13 +11,13 @@ const SIZE = {
 
 const COLORS = {
   default: 'rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md',
-  gray: 'bg-dark-800 rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md hover:shadow-lg',
-  red: 'bg-red  rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md hover:shadow-red/40',
-  blue: 'bg-blue  rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md hover:shadow-blue/40',
+  gray: 'bg-dark-800 rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md',
+  red: 'bg-red  rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md  hover:shadow-red/40',
+  blue: 'bg-blue  rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md  hover:shadow-blue/40',
   green:
-    'bg-green rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md hover:shadow-green/40',
+    'bg-green rounded text-high-emphesis bg-opacity-90 hover:bg-opacity-100 shadow-md  hover:shadow-green/40',
   gradient:
-    'bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange text-high-emphesis opacity-90 hover:opacity-100 shadow-md hover:shadow-ascend-magenta/40',
+    'bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange text-high-emphesis opacity-90 hover:opacity-100 shadow-md  hover:shadow-ascend-magenta/40',
 }
 
 export type ButtonColor =

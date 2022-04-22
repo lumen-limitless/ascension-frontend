@@ -1,4 +1,13 @@
 import { ChainId } from '@usedapp/core'
+import { StaticImageData } from 'next/image'
+import ethereum from '../../public/images/networks/mainnet-network.jpg'
+import arbitrum from '../../public/images/networks/arbitrum-network.jpg'
+import fantom from '../../public/images/networks/fantom-network.jpg'
+import polygon from '../../public/images/networks/polygon-network.jpg'
+import xdai from '../../public/images/networks/xdai-network.jpg'
+import bsc from '../../public/images/networks/bsc-network.jpg'
+import avax from '../../public/images/networks/avalanche-network.jpg'
+import harmony from '../../public/images/networks/harmonyone-network.jpg'
 
 export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'http://localhost:8545',
@@ -13,7 +22,6 @@ export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.BSCTestnet]: 'https://data-seed-prebsc-2-s3.binance.org:8545',
   [ChainId.Avalanche]: 'https://api.avax.network/ext/bc/C/rpc',
   [ChainId.Harmony]: 'https://api.harmony.one',
-  [ChainId.Palm]: 'https://palm-mainnet.infura.io/v3/da5fbfafcca14b109e2665290681e267',
 }
 
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
@@ -32,26 +40,24 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
   [ChainId.BSCTestnet]: 'BSCtest',
   [ChainId.Avalanche]: 'Avalanche',
   [ChainId.Harmony]: 'Harmony',
-  [ChainId.Palm]: 'PALM',
 }
 
-export const CHAIN_IMG: { [chainId in ChainId]?: string } = {
-  [ChainId.Hardhat]: '/images/networks/mainnet-network.jpg',
-  [ChainId.ArbitrumRinkeby]: '/images/networks/arbitrum-network.jpg',
-  [ChainId.Arbitrum]: '/images/networks/arbitrum-network.jpg',
-  [ChainId.Mainnet]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Ropsten]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Rinkeby]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Goerli]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Kovan]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Fantom]: '/images/networks/fantom-network.jpg',
-  [ChainId.Polygon]: '/images/networks/polygon-network.jpg',
-  [ChainId.xDai]: '/images/networks/xdai-network.jpg',
-  [ChainId.BSC]: '/images/networks/bsc-network.jpg',
-  [ChainId.BSCTestnet]: '/images/networks/bsc-network.jpg',
-  [ChainId.Avalanche]: '/images/networks/avalanche-network.jpg',
-  [ChainId.Harmony]: '/images/networks/harmony-network.jpg',
-  [ChainId.Palm]: '/images/networks/palm-network.jpg',
+export const CHAIN_IMG: { [chainId in ChainId]?: StaticImageData } = {
+  [ChainId.Hardhat]: ethereum,
+  [ChainId.ArbitrumRinkeby]: arbitrum,
+  [ChainId.Arbitrum]: arbitrum,
+  [ChainId.Mainnet]: ethereum,
+  [ChainId.Ropsten]: ethereum,
+  [ChainId.Rinkeby]: ethereum,
+  [ChainId.Goerli]: ethereum,
+  [ChainId.Kovan]: ethereum,
+  [ChainId.Fantom]: fantom,
+  [ChainId.Polygon]: polygon,
+  [ChainId.xDai]: xdai,
+  [ChainId.BSC]: bsc,
+  [ChainId.BSCTestnet]: bsc,
+  [ChainId.Avalanche]: avax,
+  [ChainId.Harmony]: harmony,
 }
 
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
@@ -70,5 +76,4 @@ export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.BSCTestnet]: 'BSC',
   [ChainId.Avalanche]: 'AVAX',
   [ChainId.Harmony]: 'HARM',
-  [ChainId.Palm]: 'PALM',
 }

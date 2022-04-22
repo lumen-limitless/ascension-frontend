@@ -9,6 +9,11 @@ import FadeUp from '../animation/fadeUp'
 import FadeIn from '../animation/fadeIn'
 import Button from '../components/Button'
 
+import ascensionRise from '../../public//images/ASCEND-rise-animation-128.gif'
+import gmx from '../../public/images/gmx.png'
+import frens from '../../public/images/frens-ventures-white.png'
+import cryptoJingles from '../../public/images/cryptojingles.png'
+
 const HomePage: NextPage = () => {
   return (
     <>
@@ -20,11 +25,10 @@ const HomePage: NextPage = () => {
         <Container maxWidth="7xl">
           <div className="flex w-full flex-col place-content-center pt-24 text-center md:pt-32 lg:pt-48">
             {' '}
-            <div className="">
+            <div className="mx-auto w-56 md:w-64 lg:w-72 ">
               <Image
-                src="/images/ASCEND-rise-animation.gif"
-                width={248}
-                height={248}
+                src={ascensionRise}
+                layout="intrinsic"
                 alt="Rise of Ascension"
                 priority={true}
               />
@@ -97,7 +101,7 @@ const HomePage: NextPage = () => {
                           </linearGradient>
                         </defs>
                       </svg>
-                      <h3 className="text-4xl text-primary">Tools</h3>
+                      <h2 className="text-4xl text-primary">Tools</h2>
                     </div>
 
                     <p className="text-secondary">
@@ -148,7 +152,7 @@ const HomePage: NextPage = () => {
                           </linearGradient>
                         </defs>
                       </svg>
-                      <h3 className="text-left text-4xl text-primary">Governance</h3>
+                      <h2 className="text-left text-4xl text-primary">Governance</h2>
                     </div>
                     <p className="text-secondary lg:text-lg">
                       Token holders can interact with the protocol directly via snapshot governance
@@ -189,7 +193,7 @@ const HomePage: NextPage = () => {
                           </linearGradient>
                         </defs>
                       </svg>
-                      <h3 className="text-4xl text-primary">Rewards</h3>
+                      <h2 className="text-4xl text-primary">Rewards</h2>
                     </div>
                     <p className="text-secondary lg:text-lg">
                       The Ascension DAO offers multiple private tiers that unlock access to a
@@ -212,41 +216,19 @@ const HomePage: NextPage = () => {
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
             <div className="w-full py-9 text-center">
-              <h2 className="text-shadow text-6xl text-primary">Partners & Investments</h2>
-              <div className="my-6 grid grid-cols-3 gap-1 md:px-3">
-                <div>
-                  <a href="https://gmx.io/" target={'_blank'} rel="noreferrer">
-                    <Image
-                      src="/images/gmx.png"
-                      height={64}
-                      layout="intrinsic"
-                      width="100%"
-                      alt="GMX"
-                    />
-                  </a>
-                </div>
-                <div>
-                  <a href="https://frens.ventures/" target={'_blank'} rel="noreferrer">
-                    <Image
-                      src="/images/frens-ventures-white.png"
-                      layout="intrinsic"
-                      height={64}
-                      width="100%"
-                      alt="Frens Ventures"
-                    />
-                  </a>
-                </div>
-                <div>
-                  <a href="https://cryptojingles.app/" target={'_blank'} rel="noreferrer">
-                    <Image
-                      src="/images/cryptojingles.png"
-                      layout="intrinsic"
-                      height={64}
-                      width="100%"
-                      alt="CryptoJingles"
-                    />
-                  </a>
-                </div>
+              <h3 className="text-shadow text-5xl text-primary lg:text-6xl">
+                Partners & Investments
+              </h3>
+              <div className="my-9 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
+                <a href="https://gmx.io/" target="_blank" rel="noopener noreferrer">
+                  <Image src={gmx} alt="GMX" />
+                </a>
+                <a href="https://frens.ventures/" target="_blank" rel="noopener noreferrer">
+                  <Image src={frens} alt="Frens Ventures" />
+                </a>
+                <a href="https://cryptojingles.app/" target="_blank" rel="noopener noreferrer">
+                  <Image src={cryptoJingles} alt="Crypto Jingles" />
+                </a>
               </div>
             </div>
           </FadeUpWhenVisible>
@@ -254,17 +236,17 @@ const HomePage: NextPage = () => {
       </section>
 
       <section
-        className="relative flex h-full min-h-[66vh] w-full flex-col items-center justify-center bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow text-center"
+        className="relative flex h-full min-h-[60vh] w-full flex-col items-center justify-center bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow text-center"
         id="cta"
       >
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
             <Card className="bg-dark-1000">
               <div className="md:pb-12">
-                <h3 className=" mb-12 text-5xl text-primary">Join the Ascension</h3>
+                <h4 className=" mb-12 text-4xl text-primary lg:text-5xl">Join the Ascension</h4>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <a href="https://t.me/AscensionProtocolChat" target={'_blank'} rel="noreferrer">
-                    <Button className="bg-[#2AABEE]">
+                    <Button className="bg-[#2AABEE] hover:shadow-[#2AABEE]">
                       {' '}
                       <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                         <path
@@ -277,7 +259,7 @@ const HomePage: NextPage = () => {
                     </Button>
                   </a>
                   <a href="https://discord.gg/8k2zGuGeAZ" target={'_blank'} rel="noreferrer">
-                    <Button className="bg-[#5865F2]">
+                    <Button className="bg-[#5865F2] hover:shadow-[#5865F2]">
                       {' '}
                       <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                         <path
@@ -305,7 +287,7 @@ const HomePage: NextPage = () => {
                     target={'_blank'}
                     rel="noreferrer"
                   >
-                    <Button className="bg-ascend-purple">
+                    <Button className="bg-ascend-purple hover:shadow-ascend-purple">
                       {' '}
                       <DocumentTextIcon height={24} />
                       Documentation

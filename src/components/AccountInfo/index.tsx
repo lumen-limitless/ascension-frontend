@@ -30,7 +30,7 @@ export default function AccountInfo() {
         <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
           <div className="my-3 flex w-full flex-col items-center justify-center ">
             <Avatar size={100} />
-            <div className="mt-3 flex w-full items-center justify-center rounded bg-dark-1000 px-6 py-3">
+            <div className="mt-3 flex w-full items-center justify-center rounded bg-dark-1000 px-6 py-3 shadow-md">
               {ens ?? shortenIfAddress(account)}{' '}
               <ClipboardCopyIcon
                 width={20}

@@ -81,7 +81,7 @@ export default function Swap({
           <Button className="">{<CogIcon width={24} />}</Button>
         </div>
         <div className="flex text-sm text-low-emphesis">You Pay:</div>
-        <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6">
+        <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6 shadow-md">
           <div className="absolute top-3 right-3 text-xs">
             Balance:{' '}
             {sellTokenBalance
@@ -114,7 +114,7 @@ export default function Swap({
           </Button>
         </div>
         <div className="flex text-sm text-low-emphesis">You Receive:</div>
-        <div className="relative flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6">
+        <div className="relative flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6 shadow-md">
           <div className="absolute top-3 right-3 text-xs">
             Balance: {buyTokenBalance && formatUnits(buyTokenBalance)}
           </div>

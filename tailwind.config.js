@@ -29,10 +29,10 @@ module.exports = {
       },
       colors: {
         purple: '#a755dd',
-        blue: '#3481AD',
+        blue: '#0346A2',
         pink: '#f338c3',
         green: '#31A700',
-        red: '#8B1C1C',
+        red: '#CE2116',
         yellow: '#ffd166',
         'ascend-purple': '#2D1A62',
         'ascend-magenta': '#943259',
