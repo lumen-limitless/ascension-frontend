@@ -1,8 +1,14 @@
 import React from 'react'
 
-export default function Loader({ size = 24, message }: { size?: string | number; message?: string }) {
+export default function Loader({
+  size = 24,
+  message,
+}: {
+  size?: string | number
+  message?: string
+}) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center text-center">
+    <div className="flex h-full w-full flex-col place-content-center place-items-center">
       <svg
         className="animate-spin-slow"
         xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +111,7 @@ export default function Loader({ size = 24, message }: { size?: string | number;
         <polygon className="cls-5" points="0 591.6 377 754 377 399.68 160.39 340.17 0 591.6" />
         <polygon className="cls-6" points="754 591.6 377 754 377 399.68 593.71 340.17 754 591.6" />
       </svg>
-      {message && <h1>{message}</h1>}
+      {message && <span>{message}</span>}
     </div>
   )
 }

@@ -13,6 +13,7 @@ import ascensionRise from '../../public/images/ASCEND-rise-animation.gif'
 import gmx from '../../public/images/gmx.png'
 import frens from '../../public/images/frens-ventures-white.png'
 import cryptoJingles from '../../public/images/cryptojingles.png'
+import l2dao from '../../public/images/Layer2DAO.png'
 
 const HomePage: NextPage = () => {
   return (
@@ -70,7 +71,7 @@ const HomePage: NextPage = () => {
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
               <FadeUpWhenVisible delay={0.03 * 1}>
-                <Card className="xl:h-[25rem] xl:text-lg">
+                <Card className="h-full xl:max-h-96 xl:text-lg">
                   <div className="flex w-full flex-col justify-center gap-3 p-3">
                     <div className="flex items-center gap-3 ">
                       {' '}
@@ -106,15 +107,15 @@ const HomePage: NextPage = () => {
                     </div>
 
                     <p className="text-secondary">
-                      Our ecosystem incorporates a variety of bots, tools, and automated processes
-                      to take advantage of market opportunities. These tools can be executed using
-                      trustless protocols to eliminate the risk of downtime and centralization.
+                      Our ecosystem incorporates a variety of bots and automated processes to take
+                      advantage of market opportunities. These tools utilize trustless protocols to
+                      eliminate the risk of downtime and centralization.
                     </p>
                   </div>
                 </Card>
               </FadeUpWhenVisible>
               <FadeUpWhenVisible delay={0.03 * 2}>
-                <Card className="xl:h-[25rem] xl:text-lg">
+                <Card className="h-full xl:max-h-96 xl:text-lg">
                   <div className="flex w-full flex-col justify-center gap-3 p-3">
                     <div className="flex items-center gap-3 ">
                       <svg
@@ -156,16 +157,16 @@ const HomePage: NextPage = () => {
                       <h2 className="text-left text-4xl text-primary">Governance</h2>
                     </div>
                     <p className="text-secondary lg:text-lg">
-                      Token holders can interact with the protocol directly via snapshot governance
-                      system. A modular smart contract system allows for restricted access to the
-                      treasury funds used with these governance strategies, preventing bad actors
-                      from abusing the system.
+                      Token holders can interact with the protocol directly via our snapshot
+                      governance platform. A modular smart contract system allows for restricted
+                      access to the treasury funds used with these governance strategies, preventing
+                      bad actors from abusing the system.
                     </p>
                   </div>
                 </Card>
               </FadeUpWhenVisible>
               <FadeUpWhenVisible delay={0.06 * 3}>
-                <Card className="xl:h-[25rem] xl:text-lg">
+                <Card className="h-full xl:max-h-96 xl:text-lg">
                   <div className="flex w-full flex-col justify-center gap-3 p-3">
                     <div className="flex items-center gap-3">
                       <svg
@@ -211,16 +212,16 @@ const HomePage: NextPage = () => {
       </section>
 
       <section
-        className="relative flex  w-full flex-col items-center justify-start border-t border-b border-dark-600 text-center"
+        className="relative flex  h-full w-full flex-col items-center justify-start border-t border-b border-dark-600 text-center"
         id="partners"
       >
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
-            <div className="w-full py-9 text-center">
+            <div className="w-full py-6 text-center lg:py-9">
               <h3 className="text-shadow text-5xl text-primary lg:text-6xl">
                 Partners & Investments
               </h3>
-              <div className="my-9 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
+              <div className="my-6 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
                 <a href="https://gmx.io/" target="_blank" rel="noopener noreferrer">
                   <Image src={gmx} alt="GMX" />
                 </a>
@@ -229,6 +230,9 @@ const HomePage: NextPage = () => {
                 </a>
                 <a href="https://cryptojingles.app/" target="_blank" rel="noopener noreferrer">
                   <Image src={cryptoJingles} alt="Crypto Jingles" />
+                </a>
+                <a href="https://www.layer2dao.org/#/" target="_blank" rel="noopener noreferrer">
+                  <Image src={l2dao} alt="Layer2 DAO" />
                 </a>
               </div>
             </div>
