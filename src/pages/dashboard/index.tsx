@@ -83,6 +83,7 @@ const DashboardPage: NextPage = () => {
   // const nftAssets = useOpenseaAssets(ASCENSION_TREASURY_MAINNET)
 
   const stakingData = useStakingSubgraph()
+  console.log(stakingData)
   const priceData = useQuery<SwapData>(GET_SWAPS, {
     variables: {
       pair: ASCENSION_LIQ_ADDRESS.toLowerCase(),
@@ -92,7 +93,7 @@ const DashboardPage: NextPage = () => {
     client: client,
   })
 
-  const graphData = useMemo(() => {
+  const priceGraphData = useMemo(() => {
     if (!priceData.data) return null
     if (priceData.loading) return null
     if (priceData.error) return null
@@ -140,6 +141,22 @@ const DashboardPage: NextPage = () => {
     return graphData
   }, [priceData])
 
+  const stakingGraphData = useMemo(() => {
+    if (!stakingData.data) return null
+    if (stakingData.loading) return null
+    if (stakingData.error) return null
+    let stakingGraphData = []
+
+    for (let i = 0; i < stakingData.data.stakingMetrics.length; i++) {
+      const metrics = stakingData.data.stakingMetrics[i]
+      stakingGraphData.push({
+        totalStaked: metrics.totalStaked,
+        time: new Date(metrics.id * 1000).toLocaleDateString(),
+      })
+    }
+
+    return stakingGraphData
+  }, [stakingData])
   return (
     <Container maxWidth="7xl">
       {/* <section className="flex h-full w-full flex-col py-12" id="treasury">
@@ -225,13 +242,13 @@ const DashboardPage: NextPage = () => {
             {stakingData?.loading ? (
               <Loader />
             ) : stakingData?.error ? (
-              <Loader message="Error" />
-            ) : stakingData.data.stakingMetrics.length === 0 ? (
-              <Loader message="No data available" />
+              <Loader />
+            ) : stakingGraphData.length === 0 ? (
+              <Loader />
             ) : (
               <ResponsiveContainer height={500} width="100%">
                 <AreaChart
-                  data={stakingData.data.stakingMetrics}
+                  data={stakingGraphData}
                   margin={{
                     top: 20,
                     right: 30,
@@ -245,7 +262,7 @@ const DashboardPage: NextPage = () => {
                       <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="id" />
+                  <XAxis dataKey="time" />
                   <YAxis />
                   <Tooltip />
                   <Area
@@ -264,14 +281,14 @@ const DashboardPage: NextPage = () => {
             {priceData?.loading ? (
               <Loader />
             ) : priceData?.error ? (
-              <Loader message="Error" />
-            ) : graphData?.length == 0 ? (
-              <Loader message="No Data available" />
+              <Loader />
+            ) : priceGraphData?.length == 0 ? (
+              <Loader />
             ) : (
               <>
                 <ResponsiveContainer height={500} width="100%">
                   <AreaChart
-                    data={graphData}
+                    data={priceGraphData}
                     margin={{
                       top: 20,
                       right: 30,
