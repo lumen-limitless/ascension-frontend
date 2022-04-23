@@ -30,14 +30,14 @@ const HomePage: NextPage = () => {
               <Image src={ascensionRise} alt="Rise of Ascension" priority={true} />
             </div>
             <FadeUp>
-              <div className="flex flex-col rounded bg-dark-1000/30  backdrop-blur-sm">
+              <div className="flex flex-col rounded bg-dark-1000/30 p-1 backdrop-blur-sm md:p-6">
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                   Prepare for{' '}
                   <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">
                     Ascension
                   </span>
                 </h1>{' '}
-                <p className="mx-auto py-3 text-xl  leading-7 text-gray-100 drop-shadow-2xl md:px-12 md:text-2xl">
+                <p className="mx-auto py-1 text-xl leading-7  text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
                   Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
                   providing DeFi tools and opportunities for its constituents.
                 </p>{' '}
@@ -194,10 +194,10 @@ const HomePage: NextPage = () => {
                       <h2 className="text-4xl text-primary">Rewards</h2>
                     </div>
                     <p className="text-secondary lg:text-lg">
-                      The Ascension DAO offers multiple private tiers that unlock access to a
-                      variety of perks and benefits, including access to whitelisted presales,
-                      private allocations, and much more. Members of our highest tier unlock early
-                      access to new features and enhancements.
+                      The Ascension DAO offers multiple private tiers that unlock a variety of perks
+                      and benefits, including access to whitelisted presales, private allocations,
+                      and much more. Members of our highest tier receive early access to new
+                      features and enhancements.
                     </p>
                   </div>
                 </Card>
