@@ -57,7 +57,7 @@ export default function AccountInfo() {
               {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
             </div>{' '}
           </div>
-          <div className="flex  content-center justify-center gap-1">
+          <div className="flex gap-1">
             {' '}
             <a
               className="w-full"
