@@ -141,7 +141,7 @@ const HomePage: NextPage = () => {
           <div className="flex w-full flex-col place-content-center pt-16 text-center md:pt-36">
             {' '}
             <div className="mx-auto w-48 md:w-64 lg:w-80">
-              <Image src={ascensionRise} alt="Rise of Ascension" priority={true} />
+              <Image src={ascensionRise} alt="" priority={true} />
             </div>
             <FadeUp>
               <Card>
