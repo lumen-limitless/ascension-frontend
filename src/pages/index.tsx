@@ -15,6 +15,120 @@ import frens from '../../public/images/frens-ventures-white.png'
 import cryptoJingles from '../../public/images/cryptojingles.png'
 import l2dao from '../../public/images/Layer2DAO.png'
 
+const features = [
+  {
+    svg: (
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_28)" />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M90.9049 111.257C76.2258 117.764 58.4322 115.001 46.3984 102.967C34.3647 90.9332 31.6012 73.1396 38.1081 58.4605L64.5065 84.8589L85.2893 64.0761L59.061 37.8478C73.6225 31.6781 91.0969 34.5283 102.967 46.3984C114.837 58.2685 117.687 75.7429 111.518 90.3044L161.657 140.444L140.874 161.226L90.9049 111.257Z"
+          fill="white"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_216_28"
+            x1="236"
+            y1="43"
+            x2="4.44651e-06"
+            y2="165"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#EE502F" />
+            <stop offset="1" stopColor="#943259" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    title: 'Tools',
+    description:
+      'Our ecosystem incorporates a variety of bots and automated processes to take advantage of market opportunities. These tools utilize trustless protocols to eliminate the risk of downtime and centralization.',
+  },
+  {
+    svg: (
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_6)" />
+        <path d="M38.25 83H161.75V91.5121H38.25V83Z" fill="white" />
+        <path d="M39.3333 93.6376H49.0833V126.794H39.3333V93.6376Z" fill="white" />
+        <path d="M149.833 93.6376H159.583V126.794H149.833V93.6376Z" fill="white" />
+        <path d="M133.583 93.6376H143.333V126.794H133.583V93.6376Z" fill="white" />
+        <path d="M114.083 93.6376H123.833V126.794H114.083V93.6376Z" fill="white" />
+        <path d="M75.0833 93.6376H84.8333V126.794H75.0833V93.6376Z" fill="white" />
+        <path d="M94.5833 93.6376H104.333V126.794H94.5833V93.6376Z" fill="white" />
+        <path d="M55.5833 93.6376H65.3333V126.794H55.5833V93.6376Z" fill="white" />
+        <path d="M38.25 129.345H161.75V137.847H38.25V129.345Z" fill="white" />
+        <path d="M35 139.547H165V154H35V139.547Z" fill="white" />
+        <path
+          d="M57 80.5C57 74.9188 58.1122 69.3923 60.2732 64.236C62.4341 59.0796 65.6015 54.3944 69.5944 50.448C73.5873 46.5015 78.3276 43.3709 83.5446 41.2351C88.7616 39.0993 94.3532 38 100 38C105.647 38 111.238 39.0993 116.455 41.2351C121.672 43.3709 126.413 46.5015 130.406 50.448C134.399 54.3945 137.566 59.0796 139.727 64.236C141.888 69.3923 143 74.9188 143 80.5L57 80.5Z"
+          fill="white"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_216_6"
+            x1="236"
+            y1="43"
+            x2="4.44651e-06"
+            y2="165"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#FCB503" />
+            <stop offset="1" stopColor="#EE502F" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    title: 'Governance',
+    description:
+      'Token holders can interact with the protocol directly via our snapshot governance platform. A modular smart contract system allows for safe and restricted access to treasury funds, preventing bad actors from abusing the system.',
+  },
+  {
+    svg: (
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_46)" />
+        <path
+          d="M146.939 70.4145H133.512C135.651 67.189 136.271 63.2736 135.205 59.5516C135.148 59.3526 134.885 58.5681 134.809 58.37C133.32 54.5122 130.169 51.6496 126.163 50.5161C122.071 49.3577 117.784 50.1702 114.401 52.7453L100 63.71L85.5986 52.7453C82.2165 50.1704 77.9298 49.3575 73.8365 50.5161C69.8312 51.6498 66.68 54.5122 65.1914 58.3694C65.1176 58.5606 64.852 59.352 64.7955 59.55C63.7296 63.2734 64.3488 67.1888 66.4882 70.4145H53.0612C51.3706 70.4145 50 71.7849 50 73.4755V97.9633C50 99.6539 51.3706 101.024 53.0612 101.024H56.1224V146.939C56.1224 148.63 57.4931 150 59.1837 150H140.816C142.507 150 143.878 148.63 143.878 146.939V101.024H146.939C148.629 101.024 150 99.6539 150 97.9633V73.4753C150 71.7849 148.629 70.4145 146.939 70.4145ZM103.061 69.0741L118.11 57.6161C119.946 56.2185 122.273 55.7773 124.496 56.4067C126.631 57.011 128.308 58.53 129.096 60.5716C129.138 60.6798 129.287 61.1232 129.319 61.2349C129.926 63.3545 129.501 65.5996 128.153 67.3941C126.761 69.2486 124.645 70.3175 122.35 70.3263C122.102 70.3273 120.408 70.4145 120.408 70.4145H103.061V69.0741H103.061ZM103.061 83.1196L111.379 94.9022H103.061V83.1196ZM70.6812 61.2351C70.7131 61.1239 70.861 60.6824 70.9029 60.5743C71.6918 58.53 73.369 57.011 75.5039 56.4067C77.7263 55.7775 80.0537 56.2185 81.8894 57.6161L96.9388 69.0741V70.4145H79.5918C79.5918 70.4145 77.8984 70.3273 77.6502 70.3263C75.3547 70.3173 73.2396 69.2486 71.8469 67.3941C70.4994 65.5994 70.0745 63.3545 70.6812 61.2351ZM56.1224 94.9022V76.5363H96.9388V94.9022H56.1224ZM137.755 143.878H62.2449V101.024H96.9388V122.451C96.9388 124.142 98.3094 125.512 100 125.512C101.691 125.512 103.061 124.142 103.061 122.451V101.024H115.701L121.989 109.932C122.964 111.313 124.875 111.642 126.255 110.667C127.637 109.692 127.966 107.782 126.991 106.401L123.195 101.024H137.755V143.878ZM143.878 94.9022H118.873L105.908 76.5363H143.878V94.9022Z"
+          fill="white"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_216_46"
+            x1="236"
+            y1="43"
+            x2="4.44651e-06"
+            y2="165"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#943259" />
+            <stop offset="1" stopColor="#2D1A62" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    title: 'Rewards',
+    description:
+      'The Ascension DAO offers multiple private tiers that unlock a variety of perks and benefits, including access to whitelisted presales, private allocations, and much more. Members of our highest tier receive early access to new features and enhancements.',
+  },
+]
+
 const HomePage: NextPage = () => {
   return (
     <>
@@ -30,7 +144,7 @@ const HomePage: NextPage = () => {
               <Image src={ascensionRise} alt="Rise of Ascension" priority={true} />
             </div>
             <FadeUp>
-              <div className="flex flex-col rounded bg-dark-1000/30 p-1 backdrop-blur-sm md:p-6">
+              <Card>
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                   Prepare for{' '}
                   <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">
@@ -53,7 +167,7 @@ const HomePage: NextPage = () => {
                     </a>
                   </div>
                 </FadeIn>
-              </div>
+              </Card>
             </FadeUp>
           </div>
         </Container>
@@ -66,149 +180,28 @@ const HomePage: NextPage = () => {
         <Container maxWidth="full">
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
-              <FadeUpWhenVisible delay={0.03 * 1}>
-                <Card className="h-full xl:max-h-96 xl:text-lg">
-                  <div className="flex w-full flex-col justify-center gap-3 p-3">
-                    <div className="flex items-center gap-3 ">
-                      {' '}
-                      <svg
-                        width="64"
-                        height="64"
-                        viewBox="0 0 200 200"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_28)" />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M90.9049 111.257C76.2258 117.764 58.4322 115.001 46.3984 102.967C34.3647 90.9332 31.6012 73.1396 38.1081 58.4605L64.5065 84.8589L85.2893 64.0761L59.061 37.8478C73.6225 31.6781 91.0969 34.5283 102.967 46.3984C114.837 58.2685 117.687 75.7429 111.518 90.3044L161.657 140.444L140.874 161.226L90.9049 111.257Z"
-                          fill="white"
-                        />
-                        <defs>
-                          <linearGradient
-                            id="paint0_linear_216_28"
-                            x1="236"
-                            y1="43"
-                            x2="4.44651e-06"
-                            y2="165"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stopColor="#EE502F" />
-                            <stop offset="1" stopColor="#943259" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <h2 className="text-4xl text-primary">Tools</h2>
-                    </div>
+              {features.map((f, i) => (
+                <FadeUpWhenVisible delay={0.03 * (i + 1)} key={f.title}>
+                  <Card className=" h-full xl:max-h-96 xl:text-lg">
+                    <div className="flex w-full flex-col justify-center gap-3 p-3">
+                      <div className="flex items-center gap-3 ">
+                        {' '}
+                        {f.svg}
+                        <h2 className="text-4xl text-primary">{f.title}</h2>
+                      </div>
 
-                    <p className="text-secondary">
-                      Our ecosystem incorporates a variety of bots and automated processes to take
-                      advantage of market opportunities. These tools utilize trustless protocols to
-                      eliminate the risk of downtime and centralization.
-                    </p>
-                  </div>
-                </Card>
-              </FadeUpWhenVisible>
-              <FadeUpWhenVisible delay={0.03 * 2}>
-                <Card className="h-full xl:max-h-96 xl:text-lg">
-                  <div className="flex w-full flex-col justify-center gap-3 p-3">
-                    <div className="flex items-center gap-3 ">
-                      <svg
-                        width="64"
-                        height="64"
-                        viewBox="0 0 200 200"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_6)" />
-                        <path d="M38.25 83H161.75V91.5121H38.25V83Z" fill="white" />
-                        <path d="M39.3333 93.6376H49.0833V126.794H39.3333V93.6376Z" fill="white" />
-                        <path d="M149.833 93.6376H159.583V126.794H149.833V93.6376Z" fill="white" />
-                        <path d="M133.583 93.6376H143.333V126.794H133.583V93.6376Z" fill="white" />
-                        <path d="M114.083 93.6376H123.833V126.794H114.083V93.6376Z" fill="white" />
-                        <path d="M75.0833 93.6376H84.8333V126.794H75.0833V93.6376Z" fill="white" />
-                        <path d="M94.5833 93.6376H104.333V126.794H94.5833V93.6376Z" fill="white" />
-                        <path d="M55.5833 93.6376H65.3333V126.794H55.5833V93.6376Z" fill="white" />
-                        <path d="M38.25 129.345H161.75V137.847H38.25V129.345Z" fill="white" />
-                        <path d="M35 139.547H165V154H35V139.547Z" fill="white" />
-                        <path
-                          d="M57 80.5C57 74.9188 58.1122 69.3923 60.2732 64.236C62.4341 59.0796 65.6015 54.3944 69.5944 50.448C73.5873 46.5015 78.3276 43.3709 83.5446 41.2351C88.7616 39.0993 94.3532 38 100 38C105.647 38 111.238 39.0993 116.455 41.2351C121.672 43.3709 126.413 46.5015 130.406 50.448C134.399 54.3945 137.566 59.0796 139.727 64.236C141.888 69.3923 143 74.9188 143 80.5L57 80.5Z"
-                          fill="white"
-                        />
-                        <defs>
-                          <linearGradient
-                            id="paint0_linear_216_6"
-                            x1="236"
-                            y1="43"
-                            x2="4.44651e-06"
-                            y2="165"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stopColor="#FCB503" />
-                            <stop offset="1" stopColor="#EE502F" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <h2 className="text-left text-4xl text-primary">Governance</h2>
+                      <p className="text-secondary">{f.description}</p>
                     </div>
-                    <p className="text-secondary lg:text-lg">
-                      Token holders can interact with the protocol directly via our snapshot
-                      governance platform. A modular smart contract system allows for safe and
-                      restricted access to treasury funds, preventing bad actors from abusing the
-                      system.
-                    </p>
-                  </div>
-                </Card>
-              </FadeUpWhenVisible>
-              <FadeUpWhenVisible delay={0.06 * 3}>
-                <Card className="h-full xl:max-h-96 xl:text-lg">
-                  <div className="flex w-full flex-col justify-center gap-3 p-3">
-                    <div className="flex items-center gap-3">
-                      <svg
-                        width="64"
-                        height="64"
-                        viewBox="0 0 200 200"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_46)" />
-                        <path
-                          d="M146.939 70.4145H133.512C135.651 67.189 136.271 63.2736 135.205 59.5516C135.148 59.3526 134.885 58.5681 134.809 58.37C133.32 54.5122 130.169 51.6496 126.163 50.5161C122.071 49.3577 117.784 50.1702 114.401 52.7453L100 63.71L85.5986 52.7453C82.2165 50.1704 77.9298 49.3575 73.8365 50.5161C69.8312 51.6498 66.68 54.5122 65.1914 58.3694C65.1176 58.5606 64.852 59.352 64.7955 59.55C63.7296 63.2734 64.3488 67.1888 66.4882 70.4145H53.0612C51.3706 70.4145 50 71.7849 50 73.4755V97.9633C50 99.6539 51.3706 101.024 53.0612 101.024H56.1224V146.939C56.1224 148.63 57.4931 150 59.1837 150H140.816C142.507 150 143.878 148.63 143.878 146.939V101.024H146.939C148.629 101.024 150 99.6539 150 97.9633V73.4753C150 71.7849 148.629 70.4145 146.939 70.4145ZM103.061 69.0741L118.11 57.6161C119.946 56.2185 122.273 55.7773 124.496 56.4067C126.631 57.011 128.308 58.53 129.096 60.5716C129.138 60.6798 129.287 61.1232 129.319 61.2349C129.926 63.3545 129.501 65.5996 128.153 67.3941C126.761 69.2486 124.645 70.3175 122.35 70.3263C122.102 70.3273 120.408 70.4145 120.408 70.4145H103.061V69.0741H103.061ZM103.061 83.1196L111.379 94.9022H103.061V83.1196ZM70.6812 61.2351C70.7131 61.1239 70.861 60.6824 70.9029 60.5743C71.6918 58.53 73.369 57.011 75.5039 56.4067C77.7263 55.7775 80.0537 56.2185 81.8894 57.6161L96.9388 69.0741V70.4145H79.5918C79.5918 70.4145 77.8984 70.3273 77.6502 70.3263C75.3547 70.3173 73.2396 69.2486 71.8469 67.3941C70.4994 65.5994 70.0745 63.3545 70.6812 61.2351ZM56.1224 94.9022V76.5363H96.9388V94.9022H56.1224ZM137.755 143.878H62.2449V101.024H96.9388V122.451C96.9388 124.142 98.3094 125.512 100 125.512C101.691 125.512 103.061 124.142 103.061 122.451V101.024H115.701L121.989 109.932C122.964 111.313 124.875 111.642 126.255 110.667C127.637 109.692 127.966 107.782 126.991 106.401L123.195 101.024H137.755V143.878ZM143.878 94.9022H118.873L105.908 76.5363H143.878V94.9022Z"
-                          fill="white"
-                        />
-                        <defs>
-                          <linearGradient
-                            id="paint0_linear_216_46"
-                            x1="236"
-                            y1="43"
-                            x2="4.44651e-06"
-                            y2="165"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stopColor="#943259" />
-                            <stop offset="1" stopColor="#2D1A62" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <h2 className="text-4xl text-primary">Rewards</h2>
-                    </div>
-                    <p className="text-secondary lg:text-lg">
-                      The Ascension DAO offers multiple private tiers that unlock a variety of perks
-                      and benefits, including access to whitelisted presales, private allocations,
-                      and much more. Members of our highest tier receive early access to new
-                      features and enhancements.
-                    </p>
-                  </div>
-                </Card>
-              </FadeUpWhenVisible>
+                  </Card>
+                </FadeUpWhenVisible>
+              ))}
             </div>
           </div>
         </Container>
       </section>
 
       <section
-        className="relative flex  h-full w-full flex-col items-center justify-start border-t border-b border-dark-600 text-center"
+        className="relative flex  h-full w-full flex-col items-center justify-start border-t border-b border-dark-900 text-center"
         id="partners"
       >
         <Container maxWidth="7xl">

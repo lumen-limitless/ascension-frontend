@@ -78,12 +78,14 @@ const DashboardPage: NextPage = () => {
     'arbitrum-one'
   )
 
-  // const portfolio = useZerionPortfolio()
+  const portfolio = useZerionPortfolio()
+  console.table(portfolio)
+
   // const assets = useZerionAssets()
-  // const nftAssets = useOpenseaAssets(ASCENSION_TREASURY_MAINNET)
+  // console.table(assets)
 
   const stakingData = useStakingSubgraph()
-  console.log(stakingData)
+
   const priceData = useQuery<SwapData>(GET_SWAPS, {
     variables: {
       pair: ASCENSION_LIQ_ADDRESS.toLowerCase(),
@@ -159,32 +161,30 @@ const DashboardPage: NextPage = () => {
   }, [stakingData])
   return (
     <Container maxWidth="7xl">
-      {/* <section className="flex h-full w-full flex-col py-12" id="treasury">
+      <section className="flex h-full w-full flex-col py-12" id="treasury">
         {' '}
         <Stat
           title="Treasury Stats"
           stats={[
             {
-              name: 'Treasury Balance',
+              name: 'Total Value Locked',
               stat: portfolio && commify(parseFloat(portfolio.total_value).toFixed(2)),
               before: '$',
             },
             {
-              name: 'Value Change(24h)',
-              stat:
-                portfolio && portfolio?.absolute_change_24h === 0
-                  ? '0.0'
-                  : portfolio?.absolute_change_24h.toFixed(2),
+              name: 'Liquid Assets',
+              stat: portfolio && commify(parseFloat(portfolio.assets_value).toFixed(2)),
               before: '$',
             },
             {
-              name: 'NFT Count',
-              stat: nftAssets?.length,
+              name: 'NFT Floor Price',
+              stat: portfolio && commify(parseFloat(portfolio.nft_floor_price_value).toFixed(2)),
+              before: '$',
             },
           ]}
         ></Stat>
         <div className="flex flex-col gap-3">
-          <Card title="Portfolio">
+          {/* <Card title="Portfolio">
             <ResponsiveContainer width="100%" height={500}>
               <PieChart>
                 <Pie
@@ -195,18 +195,13 @@ const DashboardPage: NextPage = () => {
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
-                >
-                  {assets &&
-                    Object.keys(assets).map((asset, i) => {
-                      return <Cell key={asset} />
-                    })}
-                </Pie>
+                ></Pie>
               </PieChart>
             </ResponsiveContainer>
-          </Card>
-          <Card title="NFT Collection"></Card>
+          </Card> */}
+          {/* <Card title="NFT Collection"></Card> */}
         </div>
-      </section> */}
+      </section>
 
       <section className="flex h-full w-full flex-col pb-12">
         {' '}
@@ -239,11 +234,7 @@ const DashboardPage: NextPage = () => {
         ></Stat>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <Card title="Total Staked">
-            {stakingData?.loading ? (
-              <Loader />
-            ) : stakingData?.error ? (
-              <Loader />
-            ) : stakingGraphData.length === 0 ? (
+            {stakingData?.loading || stakingData?.error || stakingGraphData.length === 0 ? (
               <Loader />
             ) : (
               <ResponsiveContainer height={500} width="100%">
@@ -278,11 +269,7 @@ const DashboardPage: NextPage = () => {
             )}
           </Card>
           <Card title="ASCEND Price">
-            {priceData?.loading ? (
-              <Loader />
-            ) : priceData?.error ? (
-              <Loader />
-            ) : priceGraphData?.length == 0 ? (
+            {priceData?.loading || priceData?.error || priceGraphData?.length === 0 ? (
               <Loader />
             ) : (
               <>

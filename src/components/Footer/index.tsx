@@ -140,8 +140,7 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <footer className=" relative text-center">
-      <Divider />
+    <footer className=" relative  border border-t border-dark-900 text-center">
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
         <Image
           src="/images/mono-logotype-white-p-1080.png"

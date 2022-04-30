@@ -12,12 +12,12 @@ const SIZE = {
 const COLORS = {
   default: 'rounded text-high-emphesis shadow-md hover:brightness-125',
   gray: 'bg-dark-800 rounded text-high-emphesis shadow-md hover:brightness-125',
-  red: 'bg-red  rounded text-high-emphesis shadow-md  hover:shadow-red/40 hover:brightness-125',
-  blue: 'bg-blue  rounded text-high-emphesis  shadow-md  hover:shadow-blue/40 hover:brightness-125',
+  red: 'bg-red  rounded text-high-emphesis shadow-md  hover:shadow-red/30 hover:brightness-125',
+  blue: 'bg-blue  rounded text-high-emphesis  shadow-md  hover:shadow-blue/30 hover:brightness-125',
   green:
-    'bg-green rounded text-high-emphesis  shadow-md  hover:shadow-green/40 hover:brightness-125',
+    'bg-green rounded text-high-emphesis  shadow-md  hover:shadow-green/30 hover:brightness-125',
   gradient:
-    'bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange text-high-emphesis shadow-md  hover:shadow-ascend-magenta/40 hover:brightness-125',
+    'bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange text-high-emphesis shadow-md  hover:shadow-ascend-magenta/30 hover:brightness-125',
 }
 
 export type ButtonColor =

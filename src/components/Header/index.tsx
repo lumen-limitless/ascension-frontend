@@ -176,7 +176,7 @@ export default function Header() {
             focus
             className="fixed inset-x-0 top-0 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
           >
-            <div className="divide-y-2 divide-dark-600 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="divide-y-2 divide-dark-900 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
                   <div>
