@@ -14,6 +14,7 @@ import gmx from '../../public/images/gmx.png'
 import frens from '../../public/images/frens-ventures-white.png'
 import cryptoJingles from '../../public/images/cryptojingles.png'
 import l2dao from '../../public/images/Layer2DAO.png'
+import Section from '../components/Section'
 
 const features = [
   {
@@ -132,26 +133,31 @@ const features = [
 const HomePage: NextPage = () => {
   return (
     <>
-      <section
-        className="relative flex h-full min-h-screen w-full flex-col justify-start bg-[#050310] bg-cover bg-center bg-no-repeat "
-        style={{ backgroundImage: "url('/images/bg-p-2600.jpeg')" }}
+      <Section
+        className=" bg-[#050310] "
+        style={{
+          backgroundImage: "url('/images/bg-p-3200.jpeg')",
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
         id="hero"
       >
         <Container maxWidth="7xl">
-          <div className="flex w-full flex-col place-content-center pt-16 text-center md:pt-36">
+          <div className="p flex w-full flex-col text-center">
             {' '}
             <div className="mx-auto w-48 md:w-64 lg:w-80">
               <Image src={ascensionRise} alt="" priority={true} />
             </div>
             <FadeUp>
-              <Card>
+              <Card className="border-transparent">
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                   Prepare for{' '}
                   <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">
                     Ascension
                   </span>
                 </h1>{' '}
-                <p className="mx-auto py-1 text-xl leading-7  text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
+                <p className="mx-auto py-1 text-base text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
                   Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
                   providing DeFi tools and opportunities for its constituents.
                 </p>{' '}
@@ -171,7 +177,7 @@ const HomePage: NextPage = () => {
             </FadeUp>
           </div>
         </Container>
-      </section>
+      </Section>
 
       <section
         className="relative flex h-full w-full flex-col items-center justify-start"
@@ -181,7 +187,7 @@ const HomePage: NextPage = () => {
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
               {features.map((f, i) => (
-                <FadeUpWhenVisible delay={0.03 * (i + 1)} key={f.title}>
+                <FadeUpWhenVisible delay={0.09 * (i + 1)} key={f.title}>
                   <Card className=" h-full xl:max-h-96 xl:text-lg">
                     <div className="flex w-full flex-col justify-center gap-3 p-3">
                       <div className="flex items-center gap-3 ">
@@ -235,7 +241,7 @@ const HomePage: NextPage = () => {
       >
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
-            <Card className="border-0">
+            <Card className="border-transparent">
               <div className="md:pb-12">
                 <h4 className=" mb-12 text-4xl text-primary lg:text-5xl">Join the Ascension</h4>
                 <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">

@@ -17,42 +17,27 @@ import Container from '../../components/Container'
 import Connection from '../../components/Connection'
 import { useSwitchNetwork } from '../../hooks/useSwitchNetwork'
 
+const contract = new Contract(ASCENSION.AscensionToken.address, ASCENSION.AscensionToken.abi)
 const StakePage: NextPage = () => {
   const switchNetwork = useSwitchNetwork()
   const { account, chainId } = useEthers()
   const [amount, setAmount] = useState<string>('')
-  const ascendBalance = useASCENDBalance(account)
-  const allowance = useTokenAllowance(ASCENSION.AscensionToken.address, account, ASCENSION.AscensionStaking.address)
-
-  const approve = useContractFunction(
-    new Contract(ASCENSION.AscensionToken.address, ASCENSION.AscensionToken.abi) as any,
-    'approve',
-    { transactionName: 'Approve' }
+  const ascendBalance = useASCENDBalance(account ?? '')
+  const allowance = useTokenAllowance(
+    ASCENSION.AscensionToken.address,
+    account,
+    ASCENSION.AscensionStaking.address
   )
 
-  const stake = useContractFunction(
-    new Contract(ASCENSION.AscensionStaking.address, ASCENSION.AscensionStaking.abi) as any,
-    'stake',
-    { transactionName: 'Stake' }
-  )
+  const approve = useContractFunction(contract, 'approve', { transactionName: 'Approve' })
 
-  const withdraw = useContractFunction(
-    new Contract(ASCENSION.AscensionStaking.address, ASCENSION.AscensionStaking.abi) as any,
-    'withdraw',
-    { transactionName: 'Withdraw' }
-  )
+  const stake = useContractFunction(contract, 'stake', { transactionName: 'Stake' })
 
-  const getReward = useContractFunction(
-    new Contract(ASCENSION.AscensionStaking.address, ASCENSION.AscensionStaking.abi) as any,
-    'getReward',
-    { transactionName: 'Get Reward' }
-  )
+  const withdraw = useContractFunction(contract, 'withdraw', { transactionName: 'Withdraw' })
 
-  const exit = useContractFunction(
-    new Contract(ASCENSION.AscensionStaking.address, ASCENSION.AscensionStaking.abi) as any,
-    'exit',
-    { transactionName: 'Exit' }
-  )
+  const getReward = useContractFunction(contract, 'getReward', { transactionName: 'Get Reward' })
+
+  const exit = useContractFunction(contract, 'exit', { transactionName: 'Exit' })
 
   const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } = useStaking()
 
@@ -103,9 +88,11 @@ const StakePage: NextPage = () => {
                     color="green"
                     disabled={approve?.state?.status == 'None' ? false : true}
                     onClick={() => {
-                      approve.send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256).then(() => {
-                        if (approve?.state?.status == 'None') return approve.resetState()
-                      })
+                      approve
+                        .send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256)
+                        .then(() => {
+                          if (approve?.state?.status == 'None') return approve.resetState()
+                        })
                     }}
                   >
                     {approve?.state?.status == 'None' ? 'Enable Deposits' : <Loader />}
@@ -126,7 +113,9 @@ const StakePage: NextPage = () => {
                     size="none"
                     className="p-1 text-sm"
                     color="blue"
-                    disabled={amount && parseFloat(amount) <= parseBalance(ascendBalance) ? false : true}
+                    disabled={
+                      amount && parseFloat(amount) <= parseBalance(ascendBalance) ? false : true
+                    }
                     onClick={() => {
                       stake.send(parseUnits(amount))
                       setAmount('')
@@ -138,7 +127,9 @@ const StakePage: NextPage = () => {
                     size="none"
                     className="p-1 text-sm"
                     color="red"
-                    disabled={amount && parseFloat(amount) <= parseBalance(balanceOf) ? false : true}
+                    disabled={
+                      amount && parseFloat(amount) <= parseBalance(balanceOf) ? false : true
+                    }
                     onClick={() => {
                       withdraw.send(parseUnits(amount))
                       setAmount('')
@@ -153,19 +144,26 @@ const StakePage: NextPage = () => {
               <>
                 <ul className="my-4 w-full text-left">
                   <li className="flex w-full">
-                    Balance: {ascendBalance ? formatBalance(ascendBalance) + ' ASCEND' : <Skeleton />}{' '}
+                    Balance:{' '}
+                    {ascendBalance ? formatBalance(ascendBalance) + ' ASCEND' : <Skeleton />}{' '}
                   </li>
 
                   <li className="flex w-full">
                     Stake: {balanceOf ? formatBalance(balanceOf) + ' ASCEND' : <Skeleton />}
                   </li>
 
-                  <li className="flex w-full">Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}</li>
+                  <li className="flex w-full">
+                    Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}
+                  </li>
                 </ul>
                 <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
                   <Button
                     color="green"
-                    disabled={earned && parseBalance(earned) > 0 && getReward.state.status === 'None' ? false : true}
+                    disabled={
+                      earned && parseBalance(earned) > 0 && getReward.state.status === 'None'
+                        ? false
+                        : true
+                    }
                     onClick={() => {
                       getReward.send().then(() => getReward.resetState())
                     }}
@@ -174,7 +172,11 @@ const StakePage: NextPage = () => {
                   </Button>
                   <Button
                     color="red"
-                    disabled={balanceOf && parseBalance(balanceOf) > 0 && exit.state.status === 'None' ? false : true}
+                    disabled={
+                      balanceOf && parseBalance(balanceOf) > 0 && exit.state.status === 'None'
+                        ? false
+                        : true
+                    }
                     onClick={() => {
                       exit.send().then(() => exit.resetState())
                     }}

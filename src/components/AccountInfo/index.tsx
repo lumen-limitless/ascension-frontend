@@ -46,7 +46,7 @@ export default function AccountInfo() {
               />
             </div>
           </div>
-          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md md:px-9 md:py-9">
+          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
             <Image src="/images/circle-coin.png" height={100} width={100} alt="" />
             <div className="flex w-full flex-col items-center">
               <span className="text-xs md:text-sm">ASCEND Balance</span>
