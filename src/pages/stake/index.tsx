@@ -16,8 +16,12 @@ import useStaking from '../../hooks/useStaking'
 import Container from '../../components/Container'
 import Connection from '../../components/Connection'
 import { useSwitchNetwork } from '../../hooks/useSwitchNetwork'
+import { AscensionStaking, AscensionToken } from '../../typechain'
 
-const contract = new Contract(ASCENSION.AscensionToken.address, ASCENSION.AscensionToken.abi)
+const contract = new Contract(
+  ASCENSION.AscensionToken.address,
+  ASCENSION.AscensionToken.abi
+) as AscensionStaking
 const StakePage: NextPage = () => {
   const switchNetwork = useSwitchNetwork()
   const { account, chainId } = useEthers()
@@ -29,7 +33,11 @@ const StakePage: NextPage = () => {
     ASCENSION.AscensionStaking.address
   )
 
-  const approve = useContractFunction(contract, 'approve', { transactionName: 'Approve' })
+  const approve = useContractFunction(
+    new Contract(ASCENSION.AscensionToken.address, ASCENSION.AscensionToken.abi) as AscensionToken,
+    'approve',
+    { transactionName: 'Approve' }
+  )
 
   const stake = useContractFunction(contract, 'stake', { transactionName: 'Stake' })
 
