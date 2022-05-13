@@ -17,10 +17,15 @@ import Container from '../../components/Container'
 import Connection from '../../components/Connection'
 import { useSwitchNetwork } from '../../hooks/useSwitchNetwork'
 import { AscensionStaking, AscensionToken } from '../../typechain'
+import TransactionButton from '../../components/TransactionButton'
 
-const contract = new Contract(
+const token = new Contract(
   ASCENSION.AscensionToken.address,
   ASCENSION.AscensionToken.abi
+) as AscensionToken
+const staking = new Contract(
+  ASCENSION.AscensionStaking.address,
+  ASCENSION.AscensionStaking.abi
 ) as AscensionStaking
 const StakePage: NextPage = () => {
   const switchNetwork = useSwitchNetwork()
@@ -33,19 +38,15 @@ const StakePage: NextPage = () => {
     ASCENSION.AscensionStaking.address
   )
 
-  const approve = useContractFunction(
-    new Contract(ASCENSION.AscensionToken.address, ASCENSION.AscensionToken.abi) as AscensionToken,
-    'approve',
-    { transactionName: 'Approve' }
-  )
+  const approve = useContractFunction(token, 'approve', { transactionName: 'Approve' })
 
-  const stake = useContractFunction(contract, 'stake', { transactionName: 'Stake' })
+  const stake = useContractFunction(staking, 'stake', { transactionName: 'Stake' })
 
-  const withdraw = useContractFunction(contract, 'withdraw', { transactionName: 'Withdraw' })
+  const withdraw = useContractFunction(staking, 'withdraw', { transactionName: 'Withdraw' })
 
-  const getReward = useContractFunction(contract, 'getReward', { transactionName: 'Get Reward' })
+  const getReward = useContractFunction(staking, 'getReward', { transactionName: 'Get Reward' })
 
-  const exit = useContractFunction(contract, 'exit', { transactionName: 'Exit' })
+  const exit = useContractFunction(staking, 'exit', { transactionName: 'Exit' })
 
   const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } = useStaking()
 
@@ -92,19 +93,12 @@ const StakePage: NextPage = () => {
               {parseBalance(allowance) === 0 ? (
                 <div className="flex place-content-center">
                   {' '}
-                  <Button
+                  <TransactionButton
+                    method={approve}
                     color="green"
-                    disabled={approve?.state?.status == 'None' ? false : true}
-                    onClick={() => {
-                      approve
-                        .send(ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256)
-                        .then(() => {
-                          if (approve?.state?.status == 'None') return approve.resetState()
-                        })
-                    }}
-                  >
-                    {approve?.state?.status == 'None' ? 'Enable Deposits' : <Loader />}
-                  </Button>
+                    name="Enable Deposits"
+                    args={[ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256]}
+                  />
                 </div>
               ) : (
                 <div className="mr-3 flex gap-3 md:mr-9">
