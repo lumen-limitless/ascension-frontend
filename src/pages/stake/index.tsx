@@ -38,15 +38,17 @@ const StakePage: NextPage = () => {
     ASCENSION.AscensionStaking.address
   )
 
-  const approve = useContractFunction(token, 'approve', { transactionName: 'Approve' })
+  const approve = useContractFunction(token as any, 'approve', { transactionName: 'Approve' })
 
-  const stake = useContractFunction(staking, 'stake', { transactionName: 'Stake' })
+  const stake = useContractFunction(staking as any, 'stake', { transactionName: 'Stake' })
 
-  const withdraw = useContractFunction(staking, 'withdraw', { transactionName: 'Withdraw' })
+  const withdraw = useContractFunction(staking as any, 'withdraw', { transactionName: 'Withdraw' })
 
-  const getReward = useContractFunction(staking, 'getReward', { transactionName: 'Get Reward' })
+  const getReward = useContractFunction(staking as any, 'getReward', {
+    transactionName: 'Get Reward',
+  })
 
-  const exit = useContractFunction(staking, 'exit', { transactionName: 'Exit' })
+  const exit = useContractFunction(staking as any, 'exit', { transactionName: 'Exit' })
 
   const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } = useStaking()
 
