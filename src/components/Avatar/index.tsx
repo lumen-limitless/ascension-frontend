@@ -8,7 +8,6 @@ export default function Avatar({ size = 64 }) {
 
   return (
     <img
-      layout="fixed"
       src={makeBlockie(account ?? BURN_ADDRESS)}
       alt="Blockie"
       width={size}
