@@ -8,7 +8,6 @@ import Button from '../Button'
 import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
-import Image from 'next/image'
 import useToast from '../../hooks/useToast'
 
 export default function AccountInfo() {
@@ -47,13 +46,13 @@ export default function AccountInfo() {
             </div>
           </div>
           <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
-            <Image src="/images/circle-coin.png" height={100} width={100} alt="" />
+            <img src="/images/circle-coin.png" height={72} width={72} alt="" />
             <div className="flex w-full flex-col items-center">
-              <span className="text-xs md:text-sm">ASCEND Balance</span>
+              <span className="text-xs md:text-sm">Balance</span>
               <span>{tokenData ? formatBalance(tokenData.balance) : <Skeleton />}</span>
             </div>{' '}
             <div className="flex w-full flex-col items-center">
-              <span className="text-xs md:text-sm">ASCEND Staked</span>
+              <span className="text-xs md:text-sm">Staked</span>
               {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
             </div>{' '}
           </div>

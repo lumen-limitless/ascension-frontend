@@ -3,7 +3,6 @@ import Button from '../Button'
 import AccountInfo from '../AccountInfo'
 import { CHAIN_IMG, CHAIN_NAME, HOME_CHAINID, RPC } from '../../constants'
 import { useEthers } from '@usedapp/core'
-import Image from 'next/image'
 import { useToggle } from 'react-use'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from '../Modal'
@@ -41,7 +40,7 @@ export default function Connection() {
         <div className="flex gap-2">
           <Button size="sm" className="border border-dark-900 hover:bg-white/10">
             {chainId && (
-              <Image
+              <img
                 about={CHAIN_NAME[chainId ?? HOME_CHAINID]}
                 width={24}
                 height={24}

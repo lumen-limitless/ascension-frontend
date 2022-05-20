@@ -1,6 +1,3 @@
-import Image from 'next/image'
-import Divider from '../Divider'
-
 const navigation = {
   main: [
     { name: 'Docs', href: 'https://ascension-group.gitbook.io/ascension-protocol/' },
@@ -142,11 +139,12 @@ export default function Footer() {
   return (
     <footer className=" relative  border border-t border-dark-900 text-center">
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-        <Image
+        <img
           src="/images/mono-logotype-white-p-1080.png"
           height="80"
           width="80"
           alt="ascension protocol"
+          className="mx-auto"
         />
         <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           {navigation.main.map((item) => (

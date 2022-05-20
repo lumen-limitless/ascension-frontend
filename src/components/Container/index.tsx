@@ -1,7 +1,19 @@
 import { ReactNode } from 'react'
 import { classNames } from '../../functions'
 
-export type MaxWidth = 'full' | '7xl' | '6xl' | '5xl' | '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+export type MaxWidth =
+  | 'full'
+  | '7xl'
+  | '6xl'
+  | '5xl'
+  | '4xl'
+  | '3xl'
+  | '2xl'
+  | 'xl'
+  | 'lg'
+  | 'md'
+  | 'sm'
+  | 'xs'
 
 const TailwindMapper: Record<MaxWidth, string> = {
   full: 'max-w-full',
@@ -26,7 +38,14 @@ interface ContainerProps {
 }
 
 const Container = ({ children, maxWidth = '2xl', className = '', id }: ContainerProps) => (
-  <div className={classNames(className, TailwindMapper[maxWidth], 'mx-auto w-full px-3 lg:px-9')} id={id}>
+  <div
+    className={classNames(
+      className,
+      TailwindMapper[maxWidth],
+      'mx-auto w-full px-3 md:px-6 lg:px-9'
+    )}
+    id={id}
+  >
     {children}
   </div>
 )

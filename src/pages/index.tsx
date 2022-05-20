@@ -1,19 +1,12 @@
 import { CurrencyDollarIcon, DocumentTextIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
-import Image from 'next/image'
 import Card from '../components/Card'
 import Container from '../components/Container'
 import Link from 'next/link'
-import FadeUpWhenVisible from '../animation/fadeUpWhenVisible'
-import FadeUp from '../animation/fadeUp'
-import FadeIn from '../animation/fadeIn'
+import FadeUpWhenVisible from '../animations/fadeUpWhenVisible'
+import FadeUp from '../animations/fadeUp'
+import FadeIn from '../animations/fadeIn'
 import Button from '../components/Button'
-
-import ascensionRise from '../../public/images/ASCEND-rise-animation.gif'
-import gmx from '../../public/images/gmx.png'
-import frens from '../../public/images/frens-ventures-white.png'
-import cryptoJingles from '../../public/images/cryptojingles.png'
-import l2dao from '../../public/images/Layer2DAO.png'
 import Section from '../components/Section'
 
 const features = [
@@ -134,20 +127,17 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Section
-        className=" bg-[#050310] "
+        className=" bg-[#050310] bg-cover bg-center bg-no-repeat"
+        id="hero"
         style={{
           backgroundImage: "url('/images/bg-p-3200.jpeg')",
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
         }}
-        id="hero"
       >
         <Container maxWidth="7xl">
           <div className="p flex w-full flex-col text-center">
             {' '}
             <div className="mx-auto w-48 md:w-64 lg:w-80">
-              <Image src={ascensionRise} alt="" priority={true} />
+              <img src="/images/ASCEND-rise-animation.gif" alt="" />
             </div>
             <FadeUp>
               <Card className="border-transparent">
@@ -218,16 +208,16 @@ const HomePage: NextPage = () => {
               </h3>
               <div className="my-6 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
                 <a href="https://gmx.io/" target="_blank" rel="noopener noreferrer">
-                  <Image src={gmx} alt="GMX" />
+                  <img src="/images/gmx.png" alt="GMX" />
                 </a>
                 <a href="https://frens.ventures/" target="_blank" rel="noopener noreferrer">
-                  <Image src={frens} alt="Frens Ventures" />
+                  <img src="/images/frens-ventures-white.png" alt="Frens Ventures" />
                 </a>
                 <a href="https://cryptojingles.app/" target="_blank" rel="noopener noreferrer">
-                  <Image src={cryptoJingles} alt="Crypto Jingles" />
+                  <img src="/images/cryptojingles.png" alt="Crypto Jingles" />
                 </a>
                 <a href="https://www.layer2dao.org/#/" target="_blank" rel="noopener noreferrer">
-                  <Image src={l2dao} alt="Layer2 DAO" />
+                  <img src="/images/Layer2DAO.png" alt="Layer2 DAO" />
                 </a>
               </div>
             </div>
