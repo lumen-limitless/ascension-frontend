@@ -8,7 +8,9 @@ import Button from '../Button'
 import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
-import useToast from '../../hooks/useToast'
+import { useToast } from '../../hooks'
+import Image from 'next/image'
+import ImageComponent from '../ImageComponent'
 
 export default function AccountInfo() {
   const { account, deactivate } = useEthers()
@@ -19,13 +21,8 @@ export default function AccountInfo() {
   const t = useToast()
   return (
     <>
-      <Button
-        size="sm"
-        className="border border-dark-900 hover:bg-white/10"
-        onClick={() => toggle(true)}
-      >
+      <Button className="border border-dark-900" onClick={() => toggle(true)}>
         <Avatar size={16} />
-        {shortenIfAddress(account)}
       </Button>
 
       {viewing && (
@@ -46,7 +43,12 @@ export default function AccountInfo() {
             </div>
           </div>
           <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
-            <img src="/images/circle-coin.png" height={72} width={72} alt="" />
+            <ImageComponent
+              src="/circle-coin_weqrld.png"
+              height={72}
+              width={72}
+              alt="ASCEND balance"
+            />
             <div className="flex w-full flex-col items-center">
               <span className="text-xs md:text-sm">Balance</span>
               <span>{tokenData ? formatBalance(tokenData.balance) : <Skeleton />}</span>

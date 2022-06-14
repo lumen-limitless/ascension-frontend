@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import ImageComponent from '../ImageComponent'
+
 const navigation = {
   main: [
     { name: 'Docs', href: 'https://ascension-group.gitbook.io/ascension-protocol/' },
@@ -139,8 +142,8 @@ export default function Footer() {
   return (
     <footer className=" relative  border border-t border-dark-900 text-center">
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-        <img
-          src="/images/mono-logotype-white-p-1080.png"
+        <ImageComponent
+          src="/mono-logotype-white_ftolwk.png"
           height="80"
           width="80"
           alt="ascension protocol"

@@ -3,15 +3,16 @@ import Button from '../Button'
 import AccountInfo from '../AccountInfo'
 import { CHAIN_IMG, CHAIN_NAME, HOME_CHAINID, RPC } from '../../constants'
 import { useEthers } from '@usedapp/core'
-import { useToggle } from 'react-use'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from '../Modal'
 import useToast from '../../hooks/useToast'
+import { useBoolean } from 'react-use'
+import { LoginIcon } from '@heroicons/react/outline'
 
 export default function Connection() {
   const { account, chainId } = useEthers()
   const { activateBrowserWallet, activate } = useEthers()
-  const [viewing, toggle] = useToggle(false)
+  const [viewing, toggle] = useBoolean(false)
   const t = useToast()
 
   const onWalletConnect = async () => {
@@ -32,13 +33,13 @@ export default function Connection() {
     <>
       {!account ? (
         <>
-          <Button size="sm" color="blue" onClick={toggle}>
-            Connect
+          <Button color="blue" onClick={toggle}>
+            <LoginIcon width={24} /> Connect Wallet
           </Button>
         </>
       ) : (
         <div className="flex gap-2">
-          <Button size="sm" className="border border-dark-900 hover:bg-white/10">
+          <Button className="border border-dark-900">
             {chainId && (
               <img
                 about={CHAIN_NAME[chainId ?? HOME_CHAINID]}

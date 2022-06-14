@@ -7,6 +7,7 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   trailingSlash: true,
   images: {
+    loader: 'custom',
     domains: ['res.cloudinary.com'],
   },
 })

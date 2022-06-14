@@ -20,7 +20,9 @@ export const Input = React.memo(
     align?: 'right' | 'left'
   } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) => {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+      e.preventDefault()
       const amount = e.target.value
+
       if (!amount || amount.match(/^\d{1,}(\.\d{0,4})?$/)) {
         onUserInput(amount)
       }

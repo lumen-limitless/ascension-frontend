@@ -10,7 +10,7 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
     <Card
       header={
         <div className="flex place-content-center pt-3">
-          <Logo />
+          <Logo size={32} />
         </div>
       }
     >
@@ -34,17 +34,19 @@ const tools = [
 ]
 export default function ToolsPage() {
   return (
-    <Container maxWidth="2xl">
+    <>
       <Head>
         <title>Tools | Ascension Protocol</title>
         <meta key="description" name="description" content="Ascension Protocol tools" />
       </Head>
-      <div className="grid grid-cols-1 justify-between gap-9 ">
-        {tools &&
-          tools.map((t, i) => {
-            return <ToolTile key={i} name={t.name} path={t.path} />
-          })}
-      </div>
-    </Container>
+      <Container maxWidth="2xl">
+        <div className="grid grid-cols-1 justify-between gap-9 ">
+          {tools &&
+            tools.map((t, i) => {
+              return <ToolTile key={i} name={t.name} path={t.path} />
+            })}
+        </div>
+      </Container>
+    </>
   )
 }

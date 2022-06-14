@@ -1,12 +1,12 @@
 import { ApolloClient, gql, InMemoryCache, QueryHookOptions, useQuery } from '@apollo/client'
-import { addressEqual, ChainId, useEthers } from '@usedapp/core'
+import { addressEqual, useEthers } from '@usedapp/core'
 import { useMemo, useState } from 'react'
 import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import Card from '../Card'
 import Loader from '../Loader'
 import Tabs from '../Tabs'
 import { DEX_BY_CHAIN, WNATIVE_ADDRESS } from '../../constants'
-import { useCREATE2PairAddress } from '../../hooks/useCREATE2Address'
+import { useCREATE2PairAddress } from '../../hooks'
 import { Token } from '../../types'
 
 export interface TradingChartProps {
@@ -110,7 +110,9 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
     let graphData = []
 
     for (let i = 0; i < data.swaps.length; i++) {
-      const buyAmountNum = addressEqual(data.swaps[i].pair.token0.id, buyToken.address) ? 'amount0' : 'amount1'
+      const buyAmountNum = addressEqual(data.swaps[i].pair.token0.id, buyToken.address)
+        ? 'amount0'
+        : 'amount1'
       const sellAmountNum = buyAmountNum === 'amount0' ? 'amount1' : 'amount0'
       if (parseFloat(data.swaps[i][`${buyAmountNum}In`]) > 0) {
         const amountUSD = parseFloat(data.swaps[i].amountUSD)

@@ -10,7 +10,7 @@ const LegalPage: NextPage = () => {
         title="Legal Disclaimer"
         header={
           <div className="mt-3 flex place-content-center">
-            <Logo />
+            <Logo size={32} />
           </div>
         }
       >

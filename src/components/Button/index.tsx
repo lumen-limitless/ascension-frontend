@@ -5,30 +5,30 @@ const SIZE = {
   xs: 'p-1 text-xs max-w-xs w-full',
   sm: 'p-2 text-sm max-w-sm w-full',
   default: 'p-3 text-base max-w-md w-full',
-  lg: 'p-6 text-base w-full max-w-lg',
+  lg: 'p-6 text-lg w-full max-w-lg',
   none: '',
 }
 
 const COLORS = {
-  default: 'rounded text-high-emphesis shadow-md hover:brightness-125',
-  gray: 'bg-dark-800 rounded text-high-emphesis shadow-md hover:brightness-125',
-  red: 'bg-red  rounded text-high-emphesis shadow-md  hover:shadow-red/30 hover:brightness-125',
-  blue: 'bg-blue  rounded text-high-emphesis  shadow-md  hover:shadow-blue/30 hover:brightness-125',
-  green:
-    'bg-green rounded text-high-emphesis  shadow-md  hover:shadow-green/30 hover:brightness-125',
-  gradient:
-    'bg-gradient-to-r from-ascend-purple via-ascend-magenta to-ascend-orange text-high-emphesis shadow-md  hover:shadow-ascend-magenta/30 hover:brightness-125',
+  default: '',
+  blue: 'bg-blue hover:shadow-blue/30',
+  green: 'bg-green hover:shadow-green/30',
+  red: 'bg-red hover:shadow-red/30',
+  yellow: 'bg-yellow hover:shadow-yellow/30',
+  pink: 'bg-pink hover:shadow-pink/30',
+  gray: 'bg-gray-800 hover:shadow-gray-800/30',
+  gradient: 'bg-gradient-to-r from-pink  to-purple  hover:shadow-pink/30',
 }
 
 export type ButtonColor =
+  | 'default'
   | 'blue'
+  | 'green'
+  | 'red'
+  | 'yellow'
   | 'pink'
   | 'gray'
   | 'gradient'
-  | 'default'
-  | 'red'
-  | 'green'
-  | 'yellow'
 
 export type ButtonSize = 'xs' | 'sm' | 'lg' | 'default' | 'none'
 
@@ -36,6 +36,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   color?: ButtonColor
   size?: ButtonSize
   ref?: React.Ref<HTMLButtonElement>
+  icon?: JSX.Element
 }
 
 export default function Button({
@@ -43,6 +44,7 @@ export default function Button({
   className = undefined,
   color = 'default',
   size = 'default',
+  icon,
   ...rest
 }: ButtonProps): JSX.Element {
   return (
@@ -50,11 +52,12 @@ export default function Button({
       className={classNames(
         COLORS[color],
         SIZE[size],
-        'inline-flex flex-grow items-center justify-center gap-1 rounded transition focus:outline-none disabled:cursor-not-allowed disabled:opacity-20 disabled:shadow-none disabled:hover:bg-opacity-30',
+        'inline-flex flex-grow items-center justify-center gap-1 rounded text-white shadow-md transition hover:brightness-110 focus:outline-none disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none disabled:hover:brightness-100',
         className
       )}
       {...rest}
     >
+      {icon}
       {children}
     </button>
   )
