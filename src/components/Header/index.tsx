@@ -14,13 +14,13 @@ export default function Header() {
   return (
     <>
       <Popover
-        className={classNames(pathname === '/' ? 'absolute' : 'sticky', 'z-20 w-full')}
+        className={classNames(pathname === '/' ? 'absolute' : 'block', 'z-20 w-full')}
         as="nav"
       >
         <div className="flex h-24 items-center justify-between px-6 py-6 sm:px-12 md:justify-start md:space-x-10 lg:px-24 xl:px-36">
           <div>
             <span className="sr-only">Ascension Protocol</span>
-            <Logo />
+            <Logo size={32} />
           </div>
           <div className="-my-2 -mr-2 flex gap-1 md:hidden">
             <Connection />
@@ -60,7 +60,7 @@ export default function Header() {
                       <span>Tools</span>
                       <ChevronDownIcon
                         className={classNames(
-                          open ? 'text-white' : 'text-gray-300',
+                          open ? 'rotate-180 text-white' : 'text-gray-300',
                           'ml-2 h-5 w-5 transition group-hover:text-white'
                         )}
                         aria-hidden="true"
@@ -85,6 +85,8 @@ export default function Header() {
                                   <div className="text-base font-medium text-white">
                                     Universal Swap Tool
                                   </div>
+                                  <Badge text="new" />
+                                  <Badge text="beta" />
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
                                   Perform swaps on any chain at the best rates
@@ -97,6 +99,8 @@ export default function Header() {
                                   <div className="text-base font-medium text-white">
                                     Batch Sender
                                   </div>
+                                  <Badge text="new" />
+                                  <Badge text="beta" />
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
                                   Easily create & send bulk ERC-20 transfers
@@ -126,29 +130,6 @@ export default function Header() {
                                 </p>
                               </a>
                             </Link>
-                            <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-white">
-                                  Event Reactor
-                                </div>
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">
-                                Automate contract interactions
-                              </p>
-                            </a>
-                            <a href="#" className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-white">
-                                  Uni-V3 LP Manager
-                                </div>
-                                <Badge text="New" />
-                              </div>
-
-                              <p className="mt-1 text-sm text-gray-500">
-                                Set-and-forget pool for maximizing yield on Uniswap-V3 liquidity
-                                positions
-                              </p>
-                            </a>
                           </div>
                         </div>
                       </Popover.Panel>
@@ -180,7 +161,7 @@ export default function Header() {
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <Logo />
+                    <Logo size={32} />
                   </div>
                   <div className="-mr-2">
                     <Popover.Button className="inline-flex items-center justify-center rounded-md  p-2 text-gray-100 transition hover:text-gray-500 ">

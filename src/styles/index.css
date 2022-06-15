@@ -1,10 +1,7 @@
 @tailwind base;
-
-@import "@fontsource/jura/index.css";
-
 @tailwind components;
-
 @tailwind utilities;
+@import "@fontsource/jura/index.css";
 
 *,
 *:before,

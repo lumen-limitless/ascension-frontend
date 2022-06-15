@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ASCENSION, HOME_CHAINID } from '../../constants'
+import { ASCENSION, HOME_CHAINID, ZERO_ADDRESS } from '../../constants'
 import { parseUnits } from '@ethersproject/units'
 import { formatBalance, parseBalance } from '../../functions'
 import { Arbitrum, useContractFunction, useEthers, useTokenAllowance } from '@usedapp/core'
@@ -15,9 +15,10 @@ import Skeleton from '../../components/Skeleton'
 import useStaking from '../../hooks/useStaking'
 import Container from '../../components/Container'
 import Connection from '../../components/Connection'
-import { useSwitchNetwork } from '../../hooks/useSwitchNetwork'
+import { useSwitchNetwork } from '../../hooks'
 import { AscensionStaking, AscensionToken } from '../../typechain'
 import TransactionButton from '../../components/TransactionButton'
+import Head from 'next/head'
 
 const token = new Contract(
   ASCENSION.AscensionToken.address,
@@ -31,7 +32,7 @@ const StakePage: NextPage = () => {
   const switchNetwork = useSwitchNetwork()
   const { account, chainId } = useEthers()
   const [amount, setAmount] = useState<string>('')
-  const ascendBalance = useASCENDBalance(account ?? '')
+  const ascendBalance = useASCENDBalance(account ?? ZERO_ADDRESS)
   const allowance = useTokenAllowance(
     ASCENSION.AscensionToken.address,
     account,
@@ -52,148 +53,151 @@ const StakePage: NextPage = () => {
 
   const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } = useStaking()
 
+  const handleAmountInput = (input) => {
+    parseFloat(input) === NaN ? setAmount('') : setAmount(input)
+  }
   return (
-    <Container maxWidth="4xl">
-      <Stat
-        title=""
-        stats={[
-          { name: 'APR', stat: apy, isPercent: true },
-          {
-            name: 'Total Staked',
-            stat: totalStaked,
-            isBalance: true,
-          },
-          {
-            name: 'Rewards End',
-            stat: rewardsEndAt,
-          },
-        ]}
-      ></Stat>
+    <>
+      <Head>
+        <title>Staking | Ascension Protocol</title>
+        <meta key="description" name="description" content="Ascension Protocol staking" />
+      </Head>
 
-      <Card title="Stake ASCEND">
-        {!account ? (
-          <>
+      <Container maxWidth="4xl">
+        <Stat
+          title=""
+          stats={[
+            { name: 'APR', stat: apy, isPercent: true },
+            {
+              name: 'Total Staked',
+              stat: totalStaked,
+              isBalance: true,
+            },
+            {
+              name: 'Rewards End',
+              stat: rewardsEndAt,
+            },
+          ]}
+        ></Stat>
+
+        <Card title="Stake ASCEND">
+          {!account ? (
+            <>
+              <div className="flex place-content-center">
+                <Connection />
+              </div>
+            </>
+          ) : chainId != HOME_CHAINID ? (
             <div className="flex place-content-center">
-              <Connection />
+              <Button color="blue" onClick={() => switchNetwork(Arbitrum.chainId)}>
+                Switch to Arbitrum
+              </Button>
             </div>
-          </>
-        ) : chainId != HOME_CHAINID ? (
-          <div className="flex place-content-center">
-            <Button color="blue" onClick={() => switchNetwork(Arbitrum.chainId)}>
-              Switch to Arbitrum
-            </Button>
-          </div>
-        ) : !allowance ? (
-          <Loader />
-        ) : paused ? (
-          <>
-            <Loader message="Staking inactive, please check back later." />
-          </>
-        ) : (
-          <>
-            <div>
-              {parseBalance(allowance) === 0 ? (
-                <div className="flex place-content-center">
-                  {' '}
-                  <TransactionButton
-                    method={approve}
-                    color="green"
-                    name="Enable Deposits"
-                    args={[ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256]}
-                  />
-                </div>
-              ) : (
-                <div className="mr-3 flex gap-3 md:mr-9">
-                  <div className="w-full ">
+          ) : !allowance ? (
+            <Loader />
+          ) : paused ? (
+            <>
+              <Loader message="Staking inactive, please check back later." />
+            </>
+          ) : (
+            <>
+              <div>
+                {parseBalance(allowance) === 0 ? (
+                  <div className="flex place-content-center">
                     {' '}
-                    <Input.Numeric
-                      value={amount}
-                      onUserInput={setAmount}
-                      max={ascendBalance ? parseBalance(ascendBalance).toFixed(2).toString() : '0'}
+                    <TransactionButton
+                      method={approve}
+                      color="green"
+                      name="Enable Deposits"
+                      args={[ASCENSION.AscensionStaking.address, ethers.constants.MaxUint256]}
                     />
                   </div>
+                ) : (
+                  <div className="mr-3 flex flex-col gap-3 md:mr-9 md:flex-row">
+                    <div className="w-full ">
+                      {' '}
+                      <Input.Numeric
+                        value={amount}
+                        onUserInput={handleAmountInput}
+                        max={
+                          ascendBalance ? parseBalance(ascendBalance).toFixed(2).toString() : '0'
+                        }
+                      />
+                    </div>
+                    <div className="flex w-full gap-3">
+                      {' '}
+                      <TransactionButton
+                        size="sm"
+                        color="blue"
+                        requirements={{
+                          requirement:
+                            amount !== '' && parseFloat(amount) <= parseBalance(ascendBalance),
+                          message: 'Insufficient Balance',
+                        }}
+                        method={stake}
+                        args={[amount === '' ? ethers.constants.Zero : parseUnits(amount)]}
+                        name="Stake"
+                      />
+                      <TransactionButton
+                        size="sm"
+                        color="blue"
+                        requirements={{
+                          requirement:
+                            amount !== '' && parseFloat(amount) <= parseBalance(balanceOf),
+                          message: 'Insufficient Balance',
+                        }}
+                        method={withdraw}
+                        args={[amount === '' ? ethers.constants.Zero : parseUnits(amount)]}
+                        name="Withdraw"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+              {parseBalance(allowance) > 0 && (
+                <>
+                  <ul className="my-4 w-full text-left">
+                    <li className="flex w-full">
+                      Balance:{' '}
+                      {ascendBalance ? formatBalance(ascendBalance) + ' ASCEND' : <Skeleton />}{' '}
+                    </li>
 
-                  <Button
-                    size="none"
-                    className="p-1 text-sm"
-                    color="blue"
-                    disabled={
-                      amount && parseFloat(amount) <= parseBalance(ascendBalance) ? false : true
-                    }
-                    onClick={() => {
-                      stake.send(parseUnits(amount))
-                      setAmount('')
-                    }}
-                  >
-                    Stake
-                  </Button>
-                  <Button
-                    size="none"
-                    className="p-1 text-sm"
-                    color="red"
-                    disabled={
-                      amount && parseFloat(amount) <= parseBalance(balanceOf) ? false : true
-                    }
-                    onClick={() => {
-                      withdraw.send(parseUnits(amount))
-                      setAmount('')
-                    }}
-                  >
-                    Withdraw
-                  </Button>
-                </div>
+                    <li className="flex w-full">
+                      Stake: {balanceOf ? formatBalance(balanceOf) + ' ASCEND' : <Skeleton />}
+                    </li>
+
+                    <li className="flex w-full">
+                      Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}
+                    </li>
+                  </ul>
+                  <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
+                    <TransactionButton
+                      color="green"
+                      requirements={{
+                        requirement: earned && parseBalance(earned) > 0,
+                        message: 'No Earnings',
+                      }}
+                      method={getReward}
+                      name="Collect Earnings"
+                    />
+
+                    <TransactionButton
+                      color="red"
+                      requirements={{
+                        requirement: balanceOf && parseBalance(balanceOf) > 0,
+                        message: '',
+                      }}
+                      method={exit}
+                      name="Exit Staking"
+                    />
+                  </div>
+                </>
               )}
-            </div>
-            {parseBalance(allowance) > 0 && (
-              <>
-                <ul className="my-4 w-full text-left">
-                  <li className="flex w-full">
-                    Balance:{' '}
-                    {ascendBalance ? formatBalance(ascendBalance) + ' ASCEND' : <Skeleton />}{' '}
-                  </li>
-
-                  <li className="flex w-full">
-                    Stake: {balanceOf ? formatBalance(balanceOf) + ' ASCEND' : <Skeleton />}
-                  </li>
-
-                  <li className="flex w-full">
-                    Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}
-                  </li>
-                </ul>
-                <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
-                  <Button
-                    color="green"
-                    disabled={
-                      earned && parseBalance(earned) > 0 && getReward.state.status === 'None'
-                        ? false
-                        : true
-                    }
-                    onClick={() => {
-                      getReward.send().then(() => getReward.resetState())
-                    }}
-                  >
-                    {getReward.state.status !== 'None' ? <Loader /> : 'Collect earnings'}
-                  </Button>
-                  <Button
-                    color="red"
-                    disabled={
-                      balanceOf && parseBalance(balanceOf) > 0 && exit.state.status === 'None'
-                        ? false
-                        : true
-                    }
-                    onClick={() => {
-                      exit.send().then(() => exit.resetState())
-                    }}
-                  >
-                    {exit.state.status != 'None' ? <Loader /> : 'Exit staking'}
-                  </Button>
-                </div>
-              </>
-            )}
-          </>
-        )}
-      </Card>
-    </Container>
+            </>
+          )}
+        </Card>
+      </Container>
+    </>
   )
 }
 

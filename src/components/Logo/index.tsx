@@ -1,14 +1,15 @@
 import React from 'react'
 
-export default function Logo() {
+const Logo: React.FC<{ size: number }> = ({ size = 32 }: { size: number }) => {
   return (
     <svg
+      height={size}
+      width={size}
       id="Vrstva_1"
       data-name="Vrstva 1"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 754 754"
-      className="h-[32px]"
     >
       <defs>
         <style
@@ -109,7 +110,13 @@ export default function Logo() {
 
 export function ReactorLogo() {
   return (
-    <svg width="128" height="128" viewBox="0 0 380 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="128"
+      height="128"
+      viewBox="0 0 380 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M240.505 181.157C203.357 212.781 163.808 237.768 129.96 252.622C113.026 260.054 97.6336 264.898 84.7574 266.813C71.8644 268.73 61.8373 267.668 55.1436 263.656C48.4499 259.644 45.2451 252.775 45.6493 243.372C46.0529 233.982 50.0592 222.313 57.364 209.11C71.9654 182.72 99.5469 150.559 136.695 118.935C173.843 87.3112 213.393 62.3239 247.241 47.4697C264.174 40.0383 279.567 35.1938 292.443 33.2792C305.336 31.3621 315.363 32.4237 322.057 36.4358C328.75 40.4479 331.955 47.3172 331.551 56.7199C331.147 66.1104 327.141 77.7796 319.836 90.9822C305.235 117.373 277.653 149.534 240.505 181.157Z"
         stroke="url(#paint0_linear_229_19)"
@@ -126,10 +133,22 @@ export function ReactorLogo() {
         strokeWidth="4"
       />
       <g clipPath="url(#clip0_229_19)">
-        <path d="M205.039 138.808H172.929L188.984 133.081L205.039 138.808Z" fill="url(#paint3_linear_229_19)" />
-        <path d="M188.984 133.081V114L172.929 138.808L188.984 133.081Z" fill="url(#paint4_linear_229_19)" />
-        <path d="M188.984 133.081V114L205.039 138.808L188.984 133.081Z" fill="url(#paint5_linear_229_19)" />
-        <path d="M210.01 146.483H167.968L188.984 152.166L210.01 146.483Z" fill="url(#paint6_linear_229_19)" />
+        <path
+          d="M205.039 138.808H172.929L188.984 133.081L205.039 138.808Z"
+          fill="url(#paint3_linear_229_19)"
+        />
+        <path
+          d="M188.984 133.081V114L172.929 138.808L188.984 133.081Z"
+          fill="url(#paint4_linear_229_19)"
+        />
+        <path
+          d="M188.984 133.081V114L205.039 138.808L188.984 133.081Z"
+          fill="url(#paint5_linear_229_19)"
+        />
+        <path
+          d="M210.01 146.483H167.968L188.984 152.166L210.01 146.483Z"
+          fill="url(#paint6_linear_229_19)"
+        />
         <path
           d="M152.406 170.492L188.984 186V152.166L167.968 146.483L152.406 170.492Z"
           fill="url(#paint7_linear_229_19)"
@@ -258,3 +277,5 @@ export function ReactorLogo() {
     </svg>
   )
 }
+
+export default Logo

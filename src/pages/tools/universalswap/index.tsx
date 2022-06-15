@@ -29,12 +29,24 @@ const UniversalSwapPage: NextPage = () => {
 
   const [lastSellToken] = useLocalStorage<Token>('LastSellToken')
   const [sellToken, setSellToken] = useState<Token>(
-    lastSellToken ?? { address: WNATIVE_ADDRESS[chainId], name: 'Wrapped Ether', symbol: 'WETH', decimals: 18, chainId }
+    lastSellToken ?? {
+      address: WNATIVE_ADDRESS[chainId],
+      name: 'Wrapped Ether',
+      symbol: 'WETH',
+      decimals: 18,
+      chainId,
+    }
   )
 
   const [lastBuyToken] = useLocalStorage<Token>('LastBuyToken')
   const [buyToken, setBuyToken] = useState<Token>(
-    lastBuyToken ?? { address: USDC_ADDRESS[chainId], name: 'USDC', symbol: 'USDC', decimals: 6, chainId }
+    lastBuyToken ?? {
+      address: USDC_ADDRESS[chainId],
+      name: 'USDC',
+      symbol: 'USDC',
+      decimals: 6,
+      chainId,
+    }
   )
 
   if (!account)
@@ -62,7 +74,11 @@ const UniversalSwapPage: NextPage = () => {
     <>
       <Head>
         <title>Universal Swap Tool | Ascension Protocol</title>
-        <meta key="description" name="description" content="Ascension Protocol tools" />
+        <meta
+          key="description"
+          name="description"
+          content="Ascension Protocol universal swap tool"
+        />
       </Head>
 
       <Container maxWidth="7xl">

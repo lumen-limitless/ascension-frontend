@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 
@@ -22,12 +23,12 @@ module.exports = {
         },
       },
       colors: {
-        purple: '#a755dd',
+        purple: '#2D1A62',
         blue: '#0346A2',
-        pink: '#f338c3',
+        pink: '#943259',
         green: '#31A700',
         red: '#CE2116',
-        yellow: '#ffd166',
+        yellow: '#fcb503',
         'ascend-purple': '#2D1A62',
         'ascend-magenta': '#943259',
         'ascend-orange': '#ef5030',

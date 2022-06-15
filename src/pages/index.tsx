@@ -1,20 +1,17 @@
 import { CurrencyDollarIcon, DocumentTextIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
-import Image from 'next/image'
 import Card from '../components/Card'
 import Container from '../components/Container'
 import Link from 'next/link'
-import FadeUpWhenVisible from '../animation/fadeUpWhenVisible'
-import FadeUp from '../animation/fadeUp'
-import FadeIn from '../animation/fadeIn'
+import FadeUpWhenVisible from '../animations/fadeUpWhenVisible'
+import FadeUp from '../animations/fadeUp'
+import FadeIn from '../animations/fadeIn'
 import Button from '../components/Button'
-
-import ascensionRise from '../../public/images/ASCEND-rise-animation.gif'
-import gmx from '../../public/images/gmx.png'
-import frens from '../../public/images/frens-ventures-white.png'
-import cryptoJingles from '../../public/images/cryptojingles.png'
-import l2dao from '../../public/images/Layer2DAO.png'
 import Section from '../components/Section'
+import { APP_NAME } from '../constants'
+import Head from 'next/head'
+import Logo from '../components/Logo'
+import ImageComponent from '../components/ImageComponent'
 
 const features = [
   {
@@ -133,22 +130,21 @@ const features = [
 const HomePage: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>{APP_NAME}</title>
+      </Head>
       <Section
-        className=" bg-[#050310] "
-        style={{
-          backgroundImage: "url('/images/bg-p-3200.jpeg')",
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
+        fullscreen
+        className=" bg-[#050310] bg-cover bg-center bg-no-repeat"
         id="hero"
+        style={{
+          backgroundImage:
+            "url('https://res.cloudinary.com/ascension-protocol/image/upload/v1655238292/ASCENSION/bg-p-3200_dvrwoc.jpg')",
+        }}
       >
         <Container maxWidth="7xl">
-          <div className="p flex w-full flex-col text-center">
-            {' '}
-            <div className="mx-auto w-48 md:w-64 lg:w-80">
-              <Image src={ascensionRise} alt="" priority={true} />
-            </div>
+          <div className="p flex w-full flex-col items-center gap-3 text-center">
+            <Logo size={128} />
             <FadeUp>
               <Card className="border-transparent">
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
@@ -179,10 +175,7 @@ const HomePage: NextPage = () => {
         </Container>
       </Section>
 
-      <section
-        className="relative flex h-full w-full flex-col items-center justify-start"
-        id="features"
-      >
+      <Section id="features">
         <Container maxWidth="full">
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
@@ -204,12 +197,9 @@ const HomePage: NextPage = () => {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
 
-      <section
-        className="relative flex  h-full w-full flex-col items-center justify-start border-t border-b border-dark-900 text-center"
-        id="partners"
-      >
+      <Section id="partners">
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
             <div className="w-full py-6 text-center lg:py-9">
@@ -218,31 +208,46 @@ const HomePage: NextPage = () => {
               </h3>
               <div className="my-6 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
                 <a href="https://gmx.io/" target="_blank" rel="noopener noreferrer">
-                  <Image src={gmx} alt="GMX" />
+                  <ImageComponent src="/gmx_lcmrxs.png" width={100} height={64} alt="GMX" />
                 </a>
                 <a href="https://frens.ventures/" target="_blank" rel="noopener noreferrer">
-                  <Image src={frens} alt="Frens Ventures" />
+                  <ImageComponent
+                    src="/frens-ventures-white_bmoqdd.png"
+                    alt="Frens Ventures"
+                    width={100}
+                    height={64}
+                  />
                 </a>
                 <a href="https://cryptojingles.app/" target="_blank" rel="noopener noreferrer">
-                  <Image src={cryptoJingles} alt="Crypto Jingles" />
+                  <ImageComponent
+                    src="/cryptojingles_pweofi.png"
+                    alt="Crypto Jingles"
+                    width={100}
+                    height={64}
+                  />
                 </a>
                 <a href="https://www.layer2dao.org/#/" target="_blank" rel="noopener noreferrer">
-                  <Image src={l2dao} alt="Layer2 DAO" />
+                  <ImageComponent
+                    src="/Layer2DAO_uyrfs1.png"
+                    alt="Layer2 DAO"
+                    width={100}
+                    height={64}
+                  />
                 </a>
               </div>
             </div>
           </FadeUpWhenVisible>
         </Container>
-      </section>
+      </Section>
 
-      <section
-        className="relative flex h-full min-h-[60vh] w-full flex-col items-center justify-center bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow text-center"
+      <Section
+        className=" min-h-[60vh]  bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow"
         id="cta"
       >
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
             <Card className="border-transparent">
-              <div className="md:pb-12">
+              <div className="text-center md:pb-12">
                 <h4 className=" mb-12 text-4xl text-primary lg:text-5xl">Join the Ascension</h4>
                 <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">
                   <a href="https://t.me/AscensionProtocolChat" target={'_blank'} rel="noreferrer">
@@ -298,7 +303,7 @@ const HomePage: NextPage = () => {
             </Card>
           </FadeUpWhenVisible>
         </Container>
-      </section>
+      </Section>
     </>
   )
 }
