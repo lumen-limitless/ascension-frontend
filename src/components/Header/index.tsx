@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import Divider from '../Divider'
 import Badge from '../Badge'
 
-export default function Header() {
+const Header: React.FC = () => {
   const { pathname } = useRouter()
   return (
     <>
@@ -155,7 +155,7 @@ export default function Header() {
         >
           <Popover.Panel
             focus
-            className="fixed inset-x-0 top-0 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
+            className="fixed inset-x-0 top-0 z-50 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
           >
             <div className="divide-y-2 divide-dark-900 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="px-5 pt-5 pb-6">
@@ -209,3 +209,5 @@ export default function Header() {
     </>
   )
 }
+
+export default Header

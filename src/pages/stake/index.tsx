@@ -62,7 +62,6 @@ const StakePage: NextPage = () => {
         <title>Staking | Ascension Protocol</title>
         <meta key="description" name="description" content="Ascension Protocol staking" />
       </Head>
-
       <Container maxWidth="4xl">
         <Stat
           title=""

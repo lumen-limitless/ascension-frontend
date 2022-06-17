@@ -143,10 +143,10 @@ const HomePage: NextPage = () => {
         }}
       >
         <Container maxWidth="7xl">
-          <div className="p flex w-full flex-col items-center gap-3 text-center">
-            <Logo size={128} />
+          <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
             <FadeUp>
               <Card className="border-transparent">
+                <Logo size={128} className="mx-auto" />
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                   Prepare for{' '}
                   <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Logo: React.FC<{ size: number }> = ({ size = 32 }: { size: number }) => {
+const Logo: React.FC<{ size?: number; className?: string }> = ({ size = 32, className = '' }) => {
   return (
     <svg
       height={size}
@@ -10,6 +10,7 @@ const Logo: React.FC<{ size: number }> = ({ size = 32 }: { size: number }) => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 754 754"
+      className={className}
     >
       <defs>
         <style
