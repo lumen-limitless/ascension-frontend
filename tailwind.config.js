@@ -48,9 +48,7 @@ module.exports = {
       lineHeight: {
         '48px': '48px',
       },
-      fontFamily: {
-        sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
-      },
+
       fontSize: {
         hero: [
           '48px',

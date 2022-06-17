@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Skeleton from '../Skeleton'
 import Card from '../Card'
-import { formatBalance, formatPercent } from '../../functions'
+import { formatBalance, formatPercent } from '../../../functions'
 import { BigNumberish } from 'ethers'
 
 type Stat = {
@@ -17,7 +17,7 @@ export interface StatProps {
   maxCols?: number
   stats?: Stat[]
 }
-export default function Stat({ title, stats, maxCols }: StatProps) {
+const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
   return (
     <div className="my-2 md:my-4">
       <h3 className="text-lg font-medium leading-6 ">{title}</h3>
@@ -26,12 +26,18 @@ export default function Stat({ title, stats, maxCols }: StatProps) {
         {stats &&
           stats.map((item, i) => (
             <Card key={i}>
-              <dt className="truncate text-sm font-medium text-secondary">{item?.name && item.name}</dt>
+              <dt className="truncate text-sm font-medium text-secondary">
+                {item?.name && item.name}
+              </dt>
               <dd className="mt-1 flex items-center text-2xl font-semibold text-primary">
                 {item.stat ? (
                   <>
                     {item.before && item.before}
-                    {item.isBalance ? formatBalance(item.stat) : item.isPercent ? formatPercent(item.stat) : item.stat}
+                    {item.isBalance
+                      ? formatBalance(item.stat)
+                      : item.isPercent
+                      ? formatPercent(item.stat)
+                      : item.stat}
                     {item.after && item.after}
                   </>
                 ) : (
@@ -44,3 +50,5 @@ export default function Stat({ title, stats, maxCols }: StatProps) {
     </div>
   )
 }
+
+export default Stat

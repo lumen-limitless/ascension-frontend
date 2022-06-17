@@ -2,8 +2,8 @@ import React from 'react'
 import '../styles/index.css'
 
 import type { AppProps } from 'next/app'
-import Layout from '../layout'
-import { Arbitrum, Config, DAppProvider } from '@usedapp/core'
+import Layout from '../layouts'
+import { Config, DAppProvider } from '@usedapp/core'
 import { HOME_CHAINID, RPC } from '../constants'
 
 const config: Config = {

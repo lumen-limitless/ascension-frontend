@@ -1,7 +1,6 @@
 import { Switch } from '@headlessui/react'
 import React from 'react'
-
-import { classNames } from '../../functions'
+import cn from 'clsx'
 
 export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   id?: string
@@ -14,7 +13,7 @@ export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
     <Switch
       checked={isActive}
       onChange={toggle}
-      className={classNames(
+      className={cn(
         isActive ? 'bg-blue' : 'bg-dark-800',
         'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
       )}
@@ -22,13 +21,13 @@ export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
       <span className="sr-only">Use setting</span>
       <span
         id={id}
-        className={classNames(
+        className={cn(
           isActive ? 'translate-x-5' : 'translate-x-0',
           'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-dark-900 shadow ring-0 transition duration-200 ease-in-out'
         )}
       >
         <span
-          className={classNames(
+          className={cn(
             isActive ? 'opacity-0 duration-100 ease-out' : 'opacity-100 duration-200 ease-in',
             'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity'
           )}
@@ -45,7 +44,7 @@ export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
           </svg>
         </span>
         <span
-          className={classNames(
+          className={cn(
             isActive ? 'opacity-100 duration-200 ease-in' : 'opacity-0 duration-100 ease-out',
             'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity'
           )}

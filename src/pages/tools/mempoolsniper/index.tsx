@@ -2,10 +2,10 @@ import { DownloadIcon } from '@heroicons/react/outline'
 import { useEthers } from '@usedapp/core'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Button from '../../../components/Button'
+import Button from '../../../components/ui/Button'
 import BuyAscend from '../../../components/BuyAscend'
-import Card from '../../../components/Card'
-import Container from '../../../components/Container'
+import Card from '../../../components/ui/Card'
+import Container from '../../../components/ui/Container'
 import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 
 const MempoolSniperPage: NextPage = () => {

@@ -11,13 +11,13 @@ import { formatUnits, getAddress } from 'ethers/lib/utils'
 import { SetStateAction, useState } from 'react'
 import { useLocalStorage, useToggle } from 'react-use'
 import { ASCENSION, DEX_BY_CHAIN } from '../../constants'
-import Dropdown from '../Dropdown'
+import Dropdown from '../ui/Dropdown'
 import { formatBalance, isAddress } from '../../functions'
 import { Token } from '../../types'
-import Button from '../Button'
-import Card from '../Card'
-import Input from '../Input'
-import Modal from '../Modal'
+import Button from '../ui/Button'
+import Card from '../ui/Card'
+import Input from '../ui/Input'
+import Modal from '../ui/Modal'
 
 interface SwapProps {
   sellToken: Token

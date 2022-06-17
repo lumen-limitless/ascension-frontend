@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import { useBoolean } from 'react-use'
-import Button from '../../../components/Button'
-import Card from '../../../components/Card'
-import Container from '../../../components/Container'
-import Input from '../../../components/Input'
-import Modal from '../../../components/Modal'
-import TextArea from '../../../components/TextArea'
+import Button from '../../../components/ui/Button'
+import Card from '../../../components/ui/Card'
+import Container from '../../../components/ui/Container'
+import Input from '../../../components/ui/Input'
+import Modal from '../../../components/ui/Modal'
+import TextArea from '../../../components/ui/TextArea'
 
 export default function BatchSenderPage() {
   const [isReviewing, toggleReviewing] = useBoolean(false)

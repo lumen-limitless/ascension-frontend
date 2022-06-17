@@ -1,22 +1,19 @@
 import React, { Fragment } from 'react'
 import Connection from '../Connection'
-import Logo from '../Logo'
+import Logo from '../icons/Logo'
 import { ChevronDownIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
-import { classNames } from '../../functions'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Divider from '../Divider'
-import Badge from '../Badge'
+import Divider from '../ui/Divider'
+import Badge from '../ui/Badge'
+import cn from 'clsx'
 
 const Header: React.FC = () => {
   const { pathname } = useRouter()
   return (
     <>
-      <Popover
-        className={classNames(pathname === '/' ? 'absolute' : 'block', 'z-20 w-full')}
-        as="nav"
-      >
+      <Popover className={cn(pathname === '/' ? 'absolute' : 'block', 'z-20 w-full')} as="nav">
         <div className="flex h-24 items-center justify-between px-6 py-6 sm:px-12 md:justify-start md:space-x-10 lg:px-24 xl:px-36">
           <div>
             <span className="sr-only">Ascension Protocol</span>

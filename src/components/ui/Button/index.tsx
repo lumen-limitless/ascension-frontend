@@ -1,5 +1,5 @@
-import React from 'react'
-import { classNames } from '../../functions'
+import React, { FC } from 'react'
+import cn from 'clsx'
 
 const SIZE = {
   xs: 'p-1 text-xs max-w-xs w-full',
@@ -38,21 +38,20 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   ref?: React.Ref<HTMLButtonElement>
   icon?: JSX.Element
 }
-
-export default function Button({
+const Button: FC<ButtonProps> = ({
   children,
   className = undefined,
   color = 'default',
   size = 'default',
   icon,
   ...rest
-}: ButtonProps): JSX.Element {
+}) => {
   return (
     <button
-      className={classNames(
+      className={cn(
         COLORS[color],
         SIZE[size],
-        'inline-flex flex-grow items-center justify-center gap-1 rounded text-white shadow-md transition hover:brightness-110 focus:outline-none disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none disabled:hover:brightness-100',
+        'inline-flex flex-grow items-center justify-center gap-1 rounded text-white shadow-md transition hover:brightness-125 focus:outline-none disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none disabled:hover:brightness-100',
         className
       )}
       {...rest}
@@ -62,3 +61,5 @@ export default function Button({
     </button>
   )
 }
+
+export default Button

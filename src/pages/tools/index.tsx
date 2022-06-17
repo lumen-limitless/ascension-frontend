@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Card from '../../components/Card'
-import Container from '../../components/Container'
-import Button from '../../components/Button'
+import Card from '../../components/ui/Card'
+import Container from '../../components/ui/Container'
+import Button from '../../components/ui/Button'
 import Link from 'next/link'
-import Logo from '../../components/Logo'
+import Logo from '../../components/icons/Logo'
 
 const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (

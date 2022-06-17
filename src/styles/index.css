@@ -24,19 +24,11 @@ html {
 
 html,
 body {
-    @apply scroll-smooth;
-    @apply bg-dark-1000;
-    @apply text-primary;
-    @apply h-full;
-    @apply box-border;
-    @apply overflow-x-hidden;
-    @apply overflow-y-auto;
+    @apply scroll-smooth bg-dark-1000 text-primary h-full box-border overflow-x-hidden overflow-y-auto;
 }
 
 body {
-    @apply relative;
-    @apply m-0;
-    @apply min-h-full;
+    @apply relative m-0 min-h-full;
 }
 
 a {

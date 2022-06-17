@@ -1,16 +1,16 @@
 import React from 'react'
-import Skeleton from '../Skeleton'
+import Skeleton from '../ui/Skeleton'
 import { formatBalance } from '../../functions'
 import { useCopyToClipboard, useToggle } from 'react-use'
-import Modal from '../Modal'
+import Modal from '../ui/Modal'
 import Avatar from '../Avatar'
-import Button from '../Button'
+import Button from '../ui/Button'
 import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
 import { useToast } from '../../hooks'
 import Image from 'next/image'
-import ImageComponent from '../ImageComponent'
+import ImageComponent from '../ui/ImageComponent'
 
 export default function AccountInfo() {
   const { account, deactivate } = useEthers()
@@ -22,7 +22,7 @@ export default function AccountInfo() {
   return (
     <>
       <Button className="border border-dark-900" onClick={() => toggle(true)}>
-        <Avatar size={16} />
+        <Avatar size={20} />
       </Button>
 
       {viewing && (

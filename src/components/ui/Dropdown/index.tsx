@@ -1,21 +1,16 @@
-import React, { Dispatch, Fragment, SetStateAction } from 'react'
+import React, { Dispatch, FC, Fragment, SetStateAction } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { classNames } from '../../functions'
 import Button from '../Button'
+import cn from 'clsx'
 
-export interface DropdownProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   options: string[]
   title: string
   onSelect: Dispatch<SetStateAction<any>>
 }
 
-export default function Dropdown({
-  options,
-  title,
-  onSelect,
-  ...rest
-}: DropdownProps): JSX.Element {
+const Dropdown: FC<Props> = ({ options, title, onSelect, ...rest }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -42,7 +37,7 @@ export default function Dropdown({
               <Menu.Item key={i} onClick={() => onSelect(option)}>
                 {({ active }) => (
                   <a
-                    className={classNames(
+                    className={cn(
                       active
                         ? 'bg-dark-700 bg-opacity-40 text-gray-100'
                         : 'bg-opacity-20 text-gray-300',
@@ -59,3 +54,5 @@ export default function Dropdown({
     </Menu>
   )
 }
+
+export default Dropdown

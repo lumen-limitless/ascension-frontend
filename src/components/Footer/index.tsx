@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import ImageComponent from '../ImageComponent'
+import ImageComponent from '../ui/ImageComponent'
 
 const navigation = {
   main: [

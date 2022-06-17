@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react'
-import { classNames } from '../../functions'
+import cn from 'clsx'
 
 export default function Tabs({
   options,
@@ -20,7 +20,7 @@ export default function Tabs({
                 key={o}
                 onChange={() => onTabSelect && onTabSelect(o)}
                 className={({ selected }) =>
-                  classNames(
+                  cn(
                     'w-full rounded-sm  text-sm font-medium leading-5',
                     '  focus:outline-none ',
                     selected ? 'bg-ascend-purple shadow' : ' opacity-80 hover:bg-ascend-purple'

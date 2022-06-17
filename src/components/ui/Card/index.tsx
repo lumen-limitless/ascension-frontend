@@ -1,9 +1,8 @@
 import React from 'react'
-import { classNames } from '../../functions'
-
+import cn from 'clsx'
 function Header({ className, children }) {
   return (
-    <div className={classNames('flex items-center rounded-t px-4 py-4 sm:px-8 sm:py-6', className)}>
+    <div className={cn('flex items-center rounded-t px-4 py-4 sm:px-8 sm:py-6', className)}>
       {children}
     </div>
   )
@@ -28,7 +27,7 @@ function Card({
 }: CardProps) {
   return (
     <div
-      className={classNames(
+      className={cn(
         className,
         'relative flex-1 flex-grow border border-dark-900  bg-dark-1000/40 shadow-pink-glow backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
       )}
