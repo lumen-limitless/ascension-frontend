@@ -33,24 +33,6 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
   [ChainId.Harmony]: 'Harmony',
 }
 
-export const CHAIN_IMG: { [chainId in ChainId]?: string } = {
-  [ChainId.Hardhat]: '/images/networks/mainnet-network.jpg',
-  [ChainId.ArbitrumRinkeby]: '/images/networks/arbitrum-network.jpg',
-  [ChainId.Arbitrum]: '/images/networks/arbitrum-network.jpg',
-  [ChainId.Mainnet]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Ropsten]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Rinkeby]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Goerli]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Kovan]: '/images/networks/mainnet-network.jpg',
-  [ChainId.Fantom]: '/images/networks/fantom-network.jpg',
-  [ChainId.Polygon]: '/images/networks/polygon-network.jpg',
-  [ChainId.xDai]: '/images/networks/xdai-network.jpg',
-  [ChainId.BSC]: '/images/networks/bsc-network.jpg',
-  [ChainId.BSCTestnet]: '/images/networks/bsc-network.jpg',
-  [ChainId.Avalanche]: '/images/networks/avalanche-network.jpg',
-  [ChainId.Harmony]: '/images/networks/harmonyone-network.jpg',
-}
-
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'ETH',
   [ChainId.ArbitrumRinkeby]: 'aETH',

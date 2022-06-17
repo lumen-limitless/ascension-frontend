@@ -22,7 +22,7 @@ export default function AccountInfo() {
   return (
     <>
       <Button className="border border-dark-900" onClick={() => toggle(true)}>
-        <Avatar size={20} />
+        <Avatar size={24} />
       </Button>
 
       {viewing && (

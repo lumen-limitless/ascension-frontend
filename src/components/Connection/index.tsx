@@ -1,13 +1,41 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Button from '../ui/Button'
 import AccountInfo from '../AccountInfo'
-import { CHAIN_IMG, CHAIN_NAME, HOME_CHAINID, RPC } from '../../constants'
-import { useEthers } from '@usedapp/core'
+import { CHAIN_NAME, HOME_CHAINID, RPC } from '../../constants'
+import { ChainId, useEthers } from '@usedapp/core'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from '../ui/Modal'
 import useToast from '../../hooks/useToast'
 import { useBoolean } from 'react-use'
 import { LoginIcon } from '@heroicons/react/outline'
+import ArbitrumIcon from '../icons/networks/ArbitrumIcon'
+import EthereumIcon from '../icons/networks/EthereumIcon'
+import HardhatIcon from '../icons/networks/HardhatIcon'
+import AvalancheIcon from '../icons/networks/AvalancheIcon'
+import HarmonyIcon from '../icons/networks/HarmonyIcon'
+import BscIcon from '../icons/networks/BscIcon'
+import { Polygon } from 'recharts'
+import PolygonIcon from '../icons/networks/PolygonIcon'
+import GnosisIcon from '../icons/networks/GnosisIcon'
+import FantomIcon from '../icons/networks/FantomIcon'
+
+const CHAIN_ICON = {
+  [ChainId.Hardhat]: <HardhatIcon />,
+  [ChainId.ArbitrumRinkeby]: <ArbitrumIcon />,
+  [ChainId.Arbitrum]: <ArbitrumIcon />,
+  [ChainId.Mainnet]: <EthereumIcon />,
+  [ChainId.Ropsten]: <EthereumIcon />,
+  [ChainId.Rinkeby]: <EthereumIcon />,
+  [ChainId.Goerli]: <EthereumIcon />,
+  [ChainId.Kovan]: <EthereumIcon />,
+  [ChainId.Fantom]: <FantomIcon />,
+  [ChainId.Polygon]: <PolygonIcon />,
+  [ChainId.xDai]: <GnosisIcon />,
+  [ChainId.BSC]: <BscIcon />,
+  [ChainId.BSCTestnet]: <ArbitrumIcon />,
+  [ChainId.Avalanche]: <AvalancheIcon />,
+  [ChainId.Harmony]: <HarmonyIcon />,
+}
 
 export default function Connection() {
   const { account, chainId } = useEthers()
@@ -34,22 +62,12 @@ export default function Connection() {
       {!account ? (
         <>
           <Button color="blue" onClick={toggle}>
-            <LoginIcon width={24} /> Connect Wallet
+            <LoginIcon width={20} /> Connect Wallet
           </Button>
         </>
       ) : (
         <div className="flex gap-2">
-          <Button className="border border-dark-900">
-            {chainId && (
-              <img
-                about={CHAIN_NAME[chainId ?? HOME_CHAINID]}
-                width={24}
-                height={24}
-                src={CHAIN_IMG[chainId ?? HOME_CHAINID]}
-                alt={CHAIN_NAME[chainId ?? HOME_CHAINID]}
-              />
-            )}
-          </Button>
+          <Button className="border border-dark-900">{CHAIN_ICON[chainId ?? 1]}</Button>
           <AccountInfo />
         </div>
       )}

@@ -1,9 +1,5 @@
 import { ChainId } from '@usedapp/core'
 
-export type SVGProps = {
-  className?: string
-}
-
 export type AddressMap = { [chainId: number]: string }
 
 export type Token = {

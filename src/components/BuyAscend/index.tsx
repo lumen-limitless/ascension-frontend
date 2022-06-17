@@ -2,7 +2,7 @@ import React from 'react'
 import { formatBalance } from '../../functions'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
-import ExternalLink from '../ExternalLink'
+import ExternalLink from '../ui/ExternalLink'
 
 export default function BuyAscend({ amount }) {
   return (

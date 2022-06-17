@@ -56,7 +56,12 @@ const HomePage: NextPage = () => {
           <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
             <FadeUp>
               <Card className="border-transparent">
-                <Logo size={128} className="mx-auto" />
+                <ImageComponent
+                  src="/ASCEND-rise-animation_tmhgil"
+                  height={128}
+                  width={128}
+                  priority={true}
+                />
                 <h1 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl">
                   Prepare for{' '}
                   <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent brightness-110">
@@ -118,22 +123,22 @@ const HomePage: NextPage = () => {
               </h3>
               <div className="my-6 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
                 <a href="https://gmx.io/" target="_blank" rel="noopener noreferrer">
-                  <ImageComponent src="/gmx_lcmrxs.png" width={100} height={64} alt="GMX" />
+                  <ImageComponent src="/gmx_lcmrxs.png" width={172} height={100} alt="GMX" />
                 </a>
                 <a href="https://frens.ventures/" target="_blank" rel="noopener noreferrer">
                   <ImageComponent
                     src="/frens-ventures-white_bmoqdd.png"
                     alt="Frens Ventures"
-                    width={100}
-                    height={64}
+                    width={316}
+                    height={100}
                   />
                 </a>
                 <a href="https://cryptojingles.app/" target="_blank" rel="noopener noreferrer">
                   <ImageComponent
                     src="/cryptojingles_pweofi.png"
                     alt="Crypto Jingles"
-                    width={100}
-                    height={64}
+                    width={271}
+                    height={100}
                   />
                 </a>
                 <a href="https://www.layer2dao.org/#/" target="_blank" rel="noopener noreferrer">
@@ -141,7 +146,7 @@ const HomePage: NextPage = () => {
                     src="/Layer2DAO_uyrfs1.png"
                     alt="Layer2 DAO"
                     width={100}
-                    height={64}
+                    height={100}
                   />
                 </a>
               </div>
