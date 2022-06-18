@@ -134,7 +134,7 @@ const StakePage: NextPage = () => {
                           requirements={{
                             requirement:
                               amount !== '' && parseFloat(amount) <= parseBalance(ascendBalance),
-                            message: 'Insufficient Balance',
+                            message: 'Stake',
                           }}
                           method={stake}
                           args={[amount === '' ? ethers.constants.Zero : parseUnits(amount)]}
@@ -146,7 +146,7 @@ const StakePage: NextPage = () => {
                           requirements={{
                             requirement:
                               amount !== '' && parseFloat(amount) <= parseBalance(balanceOf),
-                            message: 'Insufficient Balance',
+                            message: 'Withdraw',
                           }}
                           method={withdraw}
                           args={[amount === '' ? ethers.constants.Zero : parseUnits(amount)]}
