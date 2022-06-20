@@ -30,14 +30,14 @@ const TailwindMapper: Record<MaxWidth, string> = {
   xs: 'max-w-xs',
 }
 
-interface Props {
+export interface ContainerProps {
   children: ReactNode
   maxWidth?: MaxWidth
   className?: string
   id?: string
 }
 
-const Container: FC<Props> = ({ children, maxWidth = '2xl', className = '', id }) => (
+const Container: FC<ContainerProps> = ({ children, maxWidth = '2xl', className = '', id }) => (
   <div
     className={cn(className, TailwindMapper[maxWidth], 'mx-auto w-full px-3 md:px-6 lg:px-9')}
     id={id}

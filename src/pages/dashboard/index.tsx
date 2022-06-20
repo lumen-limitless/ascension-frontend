@@ -9,49 +9,38 @@ import { addressEqual } from '@usedapp/core'
 import { useMemo } from 'react'
 import { ASCENSION, ASCENSION_LIQ_ADDRESS, DEX_BY_CHAIN, HOME_CHAINID } from '../../constants'
 import Loader from '../../components/ui/Loader'
-import { SwapData } from '../../components/TradingChart'
-import { useZerionPortfolio, useStakingSubgraph } from '../../hooks'
+import { useStakingSubgraph, useQuery } from '../../hooks'
 import Head from 'next/head'
-import { ApolloClient, gql, InMemoryCache, useQuery } from '@apollo/client'
 import Section from '../../components/ui/Section'
+import { gql } from 'graphql-request'
 
-const GET_SWAPS = gql(`
-query Swap($pair: String!, $orderBy: BigInt!) {
-  swaps(
-    orderBy: $orderBy
-    orderDirection: asc
-    first: 1000
-    where: { pair: $pair}
-  ) {
-    timestamp
-    transaction {
-      id
-    }
-    pair {
-      token0 {
+const GET_SWAPS = gql`
+  query Swap($pair: String!, $orderBy: BigInt!) {
+    swaps(orderBy: $orderBy, orderDirection: asc, first: 1000, where: { pair: $pair }) {
+      timestamp
+      transaction {
         id
-        symbol
       }
-      token1 {
-        id
-        symbol
+      pair {
+        token0 {
+          id
+          symbol
+        }
+        token1 {
+          id
+          symbol
+        }
       }
+      sender
+      to
+      amount0In
+      amount0Out
+      amount1In
+      amount1Out
+      amountUSD
     }
-    sender
-    to
-    amount0In
-    amount0Out
-    amount1In
-    amount1Out
-    amountUSD
   }
-}
-`)
-
-const client = new ApolloClient({
-  uri: DEX_BY_CHAIN[HOME_CHAINID]['sushiswap'].subgraphUrl,
-  cache: new InMemoryCache(),
-})
+`
 
 const DashboardPage: NextPage = () => {
   const ascendPrice = useCoingeckoTokenPrice(
@@ -60,22 +49,17 @@ const DashboardPage: NextPage = () => {
     'arbitrum-one'
   )
 
-  const portfolio = useZerionPortfolio()
+  // const portfolio = useZerionPortfolio()
 
   const stakingData = useStakingSubgraph()
 
-  const priceData = useQuery<SwapData>(GET_SWAPS, {
-    variables: {
-      pair: ASCENSION_LIQ_ADDRESS.toLowerCase(),
-      orderBy: 'timestamp',
-    },
-    pollInterval: 60000,
-    client: client,
+  const priceData = useQuery(DEX_BY_CHAIN[HOME_CHAINID]['sushiswap'].subgraphUrl, GET_SWAPS, {
+    pair: ASCENSION_LIQ_ADDRESS.toLowerCase(),
+    orderBy: 'timestamp',
   })
 
   const priceGraphData = useMemo(() => {
     if (!priceData.data) return null
-    if (priceData.loading) return null
     if (priceData.error) return null
     let graphData = []
 
@@ -123,7 +107,6 @@ const DashboardPage: NextPage = () => {
 
   const stakingGraphData = useMemo(() => {
     if (!stakingData.data) return null
-    if (stakingData.loading) return null
     if (stakingData.error) return null
     let stakingGraphData = []
 
@@ -137,92 +120,86 @@ const DashboardPage: NextPage = () => {
 
     return stakingGraphData
   }, [stakingData])
+
   return (
     <>
       <Head>
         <title>Dashboard | Ascension Protocol</title>
         <meta key="description" name="description" content="Ascension Protocol Dashboard" />
       </Head>
-      <Section fullscreen>
+      <Section fullscreen padding="md">
         <Container maxWidth="7xl">
-          <section className="flex h-full w-full flex-col py-12" id="treasury">
-            {' '}
-            <Stat
-              title="Treasury Stats"
-              stats={[
-                {
-                  name: 'Total Value Locked',
-                  stat: portfolio && commify(parseFloat(portfolio.total_value).toFixed(2)),
-                  before: '$',
-                },
-                {
-                  name: 'Liquidity Locked',
-                  stat: portfolio && '100',
-                  after: '%',
-                },
-                {
-                  name: 'NFT Collection',
-                  stat: portfolio && '1',
-                },
-              ]}
-            ></Stat>
-            <div className="flex flex-col gap-3">
-              {/* <Card title="Portfolio">
-            <ResponsiveContainer width="100%" height={500}>
-              <PieChart>
-                <Pie
-                  data={assets}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                ></Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </Card> */}
-              {/* <Card title="NFT Collection"></Card> */}
-            </div>
-          </section>
-
-          <section className="flex h-full w-full flex-col pb-12">
-            {' '}
-            <Stat
-              title="Token Stats"
-              stats={[
-                {
-                  name: 'Price',
-                  stat: ascendPrice && commify(parseFloat(ascendPrice).toFixed(3)),
-                  before: '$',
-                },
-                {
-                  name: 'Market Cap',
-                  stat: ascendPrice && commify((parseFloat(ascendPrice) * 14400000).toFixed(3)),
-                  before: '$',
-                },
-                {
-                  name: 'Staked Supply',
-                  stat:
-                    stakingData?.data &&
-                    (
-                      (stakingData.data.stakingMetrics[stakingData.data.stakingMetrics.length - 1]
-                        ?.totalStaked /
-                        14400000) *
-                      100
-                    ).toFixed(0),
-                  after: '%',
-                },
-              ]}
-            ></Stat>
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-              <Card title="Total Staked">
-                {stakingData?.loading || stakingData?.error || stakingGraphData.length === 0 ? (
-                  <Loader />
-                ) : (
+          <Stat
+            title="Protocol Stats"
+            stats={[
+              {
+                name: 'Price',
+                stat: ascendPrice && commify(parseFloat(ascendPrice).toFixed(3)),
+                before: '$',
+              },
+              {
+                name: 'Market Cap',
+                stat: ascendPrice && commify((parseFloat(ascendPrice) * 14400000).toFixed(3)),
+                before: '$',
+              },
+              {
+                name: 'Staked Supply',
+                stat:
+                  stakingData?.data &&
+                  (
+                    (stakingData.data.stakingMetrics[stakingData.data.stakingMetrics.length - 1]
+                      ?.totalStaked /
+                      14400000) *
+                    100
+                  ).toFixed(0),
+                after: '%',
+              },
+            ]}
+          ></Stat>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <Card title="Total Staked">
+              {!stakingData?.data || stakingData?.error || stakingGraphData.length === 0 ? (
+                <Loader />
+              ) : (
+                <ResponsiveContainer height={500} width="100%">
+                  <AreaChart
+                    data={stakingGraphData}
+                    margin={{
+                      top: 20,
+                      right: 30,
+                      left: 0,
+                      bottom: 0,
+                    }}
+                  >
+                    <defs>
+                      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#943259" stopOpacity={0.66} />
+                        <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" />
+                    <YAxis />
+                    <Tooltip />
+                    <Area
+                      type="monotone"
+                      dataKey="totalStaked"
+                      stroke="#943259"
+                      strokeWidth={3}
+                      fillOpacity={1}
+                      fill="url(#colorUv)"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              )}
+            </Card>
+            <Card title="ASCEND Price">
+              {!priceData?.data || priceData?.error || priceGraphData?.length === 0 ? (
+                <Loader />
+              ) : (
+                <>
                   <ResponsiveContainer height={500} width="100%">
                     <AreaChart
-                      data={stakingGraphData}
+                      data={priceGraphData}
                       margin={{
                         top: 20,
                         right: 30,
@@ -241,7 +218,7 @@ const DashboardPage: NextPage = () => {
                       <Tooltip />
                       <Area
                         type="monotone"
-                        dataKey="totalStaked"
+                        dataKey="priceUSD"
                         stroke="#943259"
                         strokeWidth={3}
                         fillOpacity={1}
@@ -249,47 +226,10 @@ const DashboardPage: NextPage = () => {
                       />
                     </AreaChart>
                   </ResponsiveContainer>
-                )}
-              </Card>
-              <Card title="ASCEND Price">
-                {priceData?.loading || priceData?.error || priceGraphData?.length === 0 ? (
-                  <Loader />
-                ) : (
-                  <>
-                    <ResponsiveContainer height={500} width="100%">
-                      <AreaChart
-                        data={priceGraphData}
-                        margin={{
-                          top: 20,
-                          right: 30,
-                          left: 0,
-                          bottom: 0,
-                        }}
-                      >
-                        <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#943259" stopOpacity={0.66} />
-                            <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
-                          </linearGradient>
-                        </defs>
-                        <XAxis dataKey="time" />
-                        <YAxis />
-                        <Tooltip />
-                        <Area
-                          type="monotone"
-                          dataKey="priceUSD"
-                          stroke="#943259"
-                          strokeWidth={3}
-                          fillOpacity={1}
-                          fill="url(#colorUv)"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </>
-                )}
-              </Card>
-            </div>
-          </section>
+                </>
+              )}
+            </Card>
+          </div>
         </Container>
       </Section>
     </>

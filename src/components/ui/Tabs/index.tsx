@@ -1,33 +1,26 @@
 import { Tab } from '@headlessui/react'
 import cn from 'clsx'
+import { FC, memo } from 'react'
+import Button from '../Button'
 
-export default function Tabs({
-  options,
-  onTabChange,
-  onTabSelect,
-}: {
-  options: any
-  onTabChange?: any
-  onTabSelect?: any
-}) {
+export interface TabProps {
+  options?: string[]
+  onTabChange?: (i: number) => any
+  onTabSelect?: (o: string) => any
+}
+const Tabs: FC<TabProps> = ({ options, onTabChange, onTabSelect }) => {
   return (
-    <div className="max-w-xs flex-grow">
-      <Tab.Group onChange={(e) => onTabChange && onTabChange(e)}>
-        <Tab.List className="flex space-x-1 rounded-sm bg-dark-1000  p-1">
+    <div className="w-full">
+      <Tab.Group onChange={(i) => onTabChange && onTabChange(i)}>
+        <Tab.List className="flex flex-shrink flex-wrap gap-1">
           {options &&
             options.map((o) => (
-              <Tab
-                key={o}
-                onChange={() => onTabSelect && onTabSelect(o)}
-                className={({ selected }) =>
-                  cn(
-                    'w-full rounded-sm  text-sm font-medium leading-5',
-                    '  focus:outline-none ',
-                    selected ? 'bg-ascend-purple shadow' : ' opacity-80 hover:bg-ascend-purple'
-                  )
-                }
-              >
-                {o}
+              <Tab key={o} onChange={() => onTabSelect && onTabSelect(o)}>
+                {({ selected }) => (
+                  <Button color={selected ? 'gradient' : 'transparent'} size="sm">
+                    {o}
+                  </Button>
+                )}
               </Tab>
             ))}
         </Tab.List>
@@ -35,3 +28,5 @@ export default function Tabs({
     </div>
   )
 }
+
+export default memo(Tabs)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Head from 'next/head'
 import Container from '../../../components/ui/Container'
 import Loader from '../../../components/ui/Loader'
@@ -12,6 +12,8 @@ import Swap from '../../../components/Swap'
 import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
 import { useLocalStorage } from 'react-use'
+import Section from '../../../components/ui/Section'
+import Grid from '../../../components/ui/Grid'
 
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
 const REQUIRED_BALANCE = 1
@@ -77,27 +79,32 @@ const UniversalSwapPage: NextPage = () => {
         <meta
           key="description"
           name="description"
-          content="Ascension Protocol universal swap tool"
+          content="Ascension Protocol universal swap tool allows you to perform aggregated swaps on many chains at the best rates."
         />
       </Head>
-
-      <Container maxWidth="7xl">
-        {pass && (
-          <>
-            <div className="flex flex-col gap-3 md:flex-row ">
-              <TradingChart buyToken={buyToken} dex={dex} />
-              <Swap
-                sellToken={sellToken}
-                setSellToken={setSellToken}
-                buyToken={buyToken}
-                setBuyToken={setBuyToken}
-                setDex={setDex}
-                dex={dex}
-              />
-            </div>
-          </>
-        )}
-      </Container>
+      <Section fullscreen padding="md" layout="start">
+        <Container maxWidth="7xl">
+          {pass && (
+            <>
+              <Grid gap="md">
+                <div className="col-span-12  md:col-span-8">
+                  <TradingChart buyToken={buyToken} dex={dex} />
+                </div>
+                <div className="col-span-12 md:col-span-4">
+                  <Swap
+                    sellToken={sellToken}
+                    setSellToken={setSellToken}
+                    buyToken={buyToken}
+                    setBuyToken={setBuyToken}
+                    setDex={setDex}
+                    dex={dex}
+                  />
+                </div>
+              </Grid>
+            </>
+          )}
+        </Container>
+      </Section>
     </>
   )
 }

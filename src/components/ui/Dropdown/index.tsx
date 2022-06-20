@@ -1,21 +1,21 @@
 import React, { Dispatch, FC, Fragment, SetStateAction } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import Button from '../Button'
 import cn from 'clsx'
+import Button, { ButtonProps } from '../Button'
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface DropdownProps extends ButtonProps {
   options: string[]
   title: string
   onSelect: Dispatch<SetStateAction<any>>
 }
 
-const Dropdown: FC<Props> = ({ options, title, onSelect, ...rest }) => {
+const Dropdown: FC<DropdownProps> = ({ options, title, onSelect, color, size, ...props }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button as={Fragment}>
-          <Button color="gray" size="sm">
+          <Button color={color} size={size}>
             {title}
             <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
           </Button>
@@ -34,9 +34,10 @@ const Dropdown: FC<Props> = ({ options, title, onSelect, ...rest }) => {
         <Menu.Items className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md bg-dark-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           {options &&
             options.map((option, i) => (
-              <Menu.Item key={i} onClick={() => onSelect(option)}>
+              <Menu.Item key={i}>
                 {({ active }) => (
                   <a
+                    onClick={() => onSelect(option)}
                     className={cn(
                       active
                         ? 'bg-dark-700 bg-opacity-40 text-gray-100'

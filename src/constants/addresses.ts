@@ -1,5 +1,4 @@
 import { AddressMap } from '../types'
-import abis from '../constants/abis/abis.json'
 import { ChainId } from '@usedapp/core'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -8,26 +7,6 @@ export const DEAD_ADDRESS = '0x000000000000000000000000000000000000dEaD'
 export const ASCENSION_LIQ_ADDRESS = '0x10052e51797CC9a018d50D112547347E7951c198'
 export const ASCENSION_TREASURY_MAINNET = '0xf170F8cF57D00b60331c33Dc73103415bfb9980d'
 export const ASCENSION_TREASURY_ARBITRUM = '0xaF1513c82c95736Fb2aF91Afd535c998100339Dc'
-export const ASCENSION: {
-  [key: string]: { address: string; abi: any }
-} = {
-  AscensionToken: {
-    address: abis.contracts.AscensionToken.address,
-    abi: abis.contracts.AscensionToken.abi,
-  },
-  AscensionStakedToken: {
-    address: abis.contracts.AscensionStakedToken.address,
-    abi: abis.contracts.AscensionStakedToken.abi,
-  },
-  AscensionStaking: {
-    address: abis.contracts.AscensionStaking.address,
-    abi: abis.contracts.AscensionStaking.abi,
-  },
-  BatchSender: {
-    address: abis.contracts.BatchSender.address,
-    abi: abis.contracts.BatchSender.abi,
-  },
-}
 
 export const USDC_ADDRESS: AddressMap = {
   [ChainId.Mainnet]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -37,7 +16,6 @@ export const USDC_ADDRESS: AddressMap = {
   [ChainId.Fantom]: '0x04068DA6C83AFCFA0e13ba15A6696662335D5B75',
   [ChainId.BSC]: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
   [ChainId.Harmony]: '0x985458E523dB3d53125813eD68c274899e9DfAb4',
-
   [ChainId.xDai]: '0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83',
   [ChainId.Arbitrum]: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
   [ChainId.Avalanche]: '0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664',
@@ -169,16 +147,12 @@ export const MULTICALL2_ADDRESS: AddressMap = {
   [ChainId.Kovan]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
   [ChainId.Arbitrum]: '0x80C7DD17B01855a6D2347444a0FCC36136a314de',
   [ChainId.ArbitrumRinkeby]: '0x82790d6D25cF220646a2a10cAfBD607294aA9546',
-
   [ChainId.Fantom]: '0x22D4cF72C45F8198CfbF4B568dBdB5A85e8DC0B5',
   [ChainId.Polygon]: '0x02817C1e3543c2d908a590F5dB6bc97f933dB4BD',
-
   [ChainId.xDai]: '0x67dA5f2FfaDDfF067AB9d5F025F8810634d84287',
   [ChainId.BSC]: '0xa9193376D09C7f31283C54e56D013fCF370Cd9D9',
   [ChainId.Avalanche]: '0xdDCbf776dF3dE60163066A5ddDF2277cB445E0F3',
-
   [ChainId.Harmony]: '0xdDCbf776dF3dE60163066A5ddDF2277cB445E0F3',
-
   [ChainId.Palm]: '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F',
   [ChainId.Moonriver]: '0x270f2F35bED92B7A59eA5F08F6B3fd34c8D9D9b5',
 }

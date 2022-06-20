@@ -1,9 +1,5 @@
-import { ApolloClient, gql, InMemoryCache, useQuery } from '@apollo/client'
-
-const client = new ApolloClient({
-  uri: 'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
-  cache: new InMemoryCache(),
-})
+import { gql } from 'graphql-request'
+import { useQuery } from './useQuery'
 
 const GET_TOKEN_DATA = gql`
   query User($id: ID!) {
@@ -19,12 +15,15 @@ export function useAscendSubgraph(account: string): {
   balance: number
   stakedBalance: number
 } | null {
-  const { data, loading, error } = useQuery(GET_TOKEN_DATA, {
-    variables: { id: account?.toLowerCase() },
-    client: client,
-  })
+  const { data, error } = useQuery(
+    'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
+    GET_TOKEN_DATA,
+    {
+      id: account?.toLowerCase(),
+    }
+  )
 
-  if (loading || error) return null
+  if (!data || error) return null
   if (data.users.length === 0)
     return {
       totalBalance: 0,
@@ -36,6 +35,7 @@ export function useAscendSubgraph(account: string): {
 
 export const useStakingSubgraph = () => {
   const stakingData = useQuery(
+    'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
     gql`
       query StakingMetric {
         stakingMetrics {
@@ -43,10 +43,7 @@ export const useStakingSubgraph = () => {
           totalStaked
         }
       }
-    `,
-    {
-      client: client,
-    }
+    `
   )
 
   return stakingData

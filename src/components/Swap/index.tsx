@@ -7,10 +7,10 @@ import {
   useTokenBalance,
   useTokenList,
 } from '@usedapp/core'
-import { formatUnits, getAddress } from 'ethers/lib/utils'
+import { formatUnits } from 'ethers/lib/utils'
 import { SetStateAction, useState } from 'react'
 import { useLocalStorage, useToggle } from 'react-use'
-import { ASCENSION, DEX_BY_CHAIN } from '../../constants'
+import { ASCENSION, DEX_BY_CHAIN, HOME_CHAINID, USDC_ADDRESS } from '../../constants'
 import Dropdown from '../ui/Dropdown'
 import { formatBalance, isAddress } from '../../functions'
 import { Token } from '../../types'
@@ -48,7 +48,7 @@ export default function Swap({
   const [settingBuyToken, toggleSettingBuyToken] = useToggle(false)
   const [settingSellToken, toggleSettingSellToken] = useToggle(false)
   const [input, setInput] = useState('')
-  const inputMeta = useToken(ASCENSION.AscensionToken.address)
+  const inputMeta = useToken(USDC_ADDRESS[chainId])
   const tokenList = useTokenList('https://gateway.ipfs.io/ipns/tokens.uniswap.org')
 
   const switchTokens = () => {

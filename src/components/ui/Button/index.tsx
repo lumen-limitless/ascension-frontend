@@ -10,6 +10,7 @@ const SIZE = {
 }
 
 const COLORS = {
+  transparent: 'border border-dark-900',
   default: '',
   blue: 'bg-blue hover:shadow-blue/30',
   green: 'bg-green hover:shadow-green/30',
@@ -21,6 +22,7 @@ const COLORS = {
 }
 
 export type ButtonColor =
+  | 'transparent'
   | 'default'
   | 'blue'
   | 'green'

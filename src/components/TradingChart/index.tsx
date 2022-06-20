@@ -1,4 +1,3 @@
-import { ApolloClient, gql, InMemoryCache, QueryHookOptions, useQuery } from '@apollo/client'
 import { addressEqual, useEthers } from '@usedapp/core'
 import { useMemo, useState } from 'react'
 import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
@@ -6,8 +5,9 @@ import Card from '../ui/Card'
 import Loader from '../ui/Loader'
 import Tabs from '../ui/Tabs'
 import { DEX_BY_CHAIN, WNATIVE_ADDRESS } from '../../constants'
-import { useCREATE2PairAddress } from '../../hooks'
+import { useCREATE2PairAddress, useQuery } from '../../hooks'
 import { Token } from '../../types'
+import { gql } from 'graphql-request'
 
 export interface TradingChartProps {
   buyToken: Token
@@ -43,38 +43,38 @@ export interface SwapData {
   swaps: Swap[]
 }
 
-const GET_SWAPS = gql(`
-query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt!) {
-  swaps(
-    orderBy: $orderBy
-    orderDirection: asc
-    first: 1000
-    where: { pair: $pair, timestamp_gt: $timestamp }
-  ) {
-    timestamp
-    transaction {
-      id
-    }
-    pair {
-      token0 {
+const GET_SWAPS = gql`
+  query Swap($timestamp: BigInt!, $pair: String!, $orderBy: BigInt!) {
+    swaps(
+      orderBy: $orderBy
+      orderDirection: asc
+      first: 1000
+      where: { pair: $pair, timestamp_gt: $timestamp }
+    ) {
+      timestamp
+      transaction {
         id
-        symbol
       }
-      token1 {
-        id
-        symbol
+      pair {
+        token0 {
+          id
+          symbol
+        }
+        token1 {
+          id
+          symbol
+        }
       }
+      sender
+      to
+      amount0In
+      amount0Out
+      amount1In
+      amount1Out
+      amountUSD
     }
-    sender
-    to
-    amount0In
-    amount0Out
-    amount1In
-    amount1Out
-    amountUSD
   }
-}
-`)
+`
 const times = [900, 3600, 21600, 86400, 604800]
 
 export default function TradingChart({ buyToken, dex }: TradingChartProps) {
@@ -88,21 +88,10 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
     return parseInt((Date.now() / 1000).toFixed(0)) - timeframe
   }, [timeframe])
 
-  const client = useMemo(() => {
-    return new ApolloClient({
-      uri: DEX_BY_CHAIN[chainId][dex]?.subgraphUrl,
-      cache: new InMemoryCache(),
-    })
-  }, [chainId, dex])
-
-  const { data, loading, error } = useQuery<SwapData>(GET_SWAPS, {
-    variables: {
-      pair: pair?.toLowerCase(),
-      timestamp: afterTimestamp,
-      orderBy: 'timestamp',
-    },
-    pollInterval: 60000,
-    client: client,
+  const { data, error } = useQuery(DEX_BY_CHAIN[chainId][dex]?.subgraphUrl, GET_SWAPS, {
+    pair: pair?.toLowerCase(),
+    timestamp: afterTimestamp,
+    orderBy: 'timestamp',
   })
 
   const graphData = useMemo(() => {
@@ -163,7 +152,7 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
           </div>
         }
       >
-        {loading ? (
+        {!data ? (
           <Loader message="Loading graph..." />
         ) : error ? (
           <Loader message={`Error loading graph`} />

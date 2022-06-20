@@ -13,22 +13,19 @@ import Button from '../../components/ui/Button'
 import Input from '../../components/ui/Input'
 import Skeleton from '../../components/ui/Skeleton'
 import useStaking from '../../hooks/useStaking'
-import Container from '../../components/ui/Container'
-import Connection from '../../components/Connection'
-import { useSwitchNetwork } from '../../hooks'
-import { AscensionStaking, AscensionToken } from '../../typechain'
-import TransactionButton from '../../components/ui/TransactionButton'
-import Head from 'next/head'
 import Section from '../../components/ui/Section'
+import dynamic from 'next/dynamic'
+import { useAscendStakingContract, useAscendTokenContract, useSwitchNetwork } from '../../hooks'
+import Container from '../../components/ui/Container'
+import Head from 'next/head'
+import TransactionButton from '../../components/ui/TransactionButton'
+import { AscensionToken } from '../../typechain'
 
-const token = new Contract(
-  ASCENSION.AscensionToken.address,
-  ASCENSION.AscensionToken.abi
-) as AscensionToken
-const staking = new Contract(
-  ASCENSION.AscensionStaking.address,
-  ASCENSION.AscensionStaking.abi
-) as AscensionStaking
+const Connection = dynamic(() => import('../../components/Connection'), {
+  ssr: false,
+  loading: () => <Loader />,
+})
+
 const StakePage: NextPage = () => {
   const switchNetwork = useSwitchNetwork()
   const { account, chainId } = useEthers()
@@ -40,21 +37,21 @@ const StakePage: NextPage = () => {
     ASCENSION.AscensionStaking.address
   )
 
-  const approve = useContractFunction(token as any, 'approve', { transactionName: 'Approve' })
-
+  const token = useAscendTokenContract()
+  const staking = useAscendStakingContract()
+  const approve = useContractFunction(token as any, 'approve', {
+    transactionName: 'Approve',
+  })
   const stake = useContractFunction(staking as any, 'stake', { transactionName: 'Stake' })
-
   const withdraw = useContractFunction(staking as any, 'withdraw', { transactionName: 'Withdraw' })
-
   const getReward = useContractFunction(staking as any, 'getReward', {
     transactionName: 'Get Reward',
   })
-
   const exit = useContractFunction(staking as any, 'exit', { transactionName: 'Exit' })
 
   const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } = useStaking()
 
-  const handleAmountInput = (input) => {
+  const handleAmountInput = (input: string) => {
     parseFloat(input) === NaN ? setAmount('') : setAmount(input)
   }
   return (
@@ -63,8 +60,8 @@ const StakePage: NextPage = () => {
         <title>Staking | Ascension Protocol</title>
         <meta key="description" name="description" content="Ascension Protocol staking" />
       </Head>
-      <Section layout="start" fullscreen>
-        {' '}
+
+      <Section fullscreen layout="start" padding="md">
         <Container maxWidth="4xl">
           <Stat
             title=""
@@ -106,7 +103,6 @@ const StakePage: NextPage = () => {
                 <div>
                   {parseBalance(allowance) === 0 ? (
                     <div className="flex place-content-center">
-                      {' '}
                       <TransactionButton
                         method={approve}
                         color="green"

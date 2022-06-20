@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from '../Button'
-import Loader from '../Loader'
+import Spinner from '../Spinner'
 
 type Requirement = {
   requirement: boolean
@@ -36,7 +36,7 @@ export default function TransactionButton({
       ) : method.state.status === 'None' ? (
         name
       ) : (
-        <Loader />
+        <Spinner />
       )}
     </Button>
   )

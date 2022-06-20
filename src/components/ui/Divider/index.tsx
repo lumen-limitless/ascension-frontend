@@ -1,4 +1,6 @@
-export default function Divider() {
+import { VFC } from 'react'
+
+const Divider: VFC = () => {
   return (
     <div className="relative">
       <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -7,3 +9,5 @@ export default function Divider() {
     </div>
   )
 }
+
+export default Divider

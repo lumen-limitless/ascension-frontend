@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-export default function Loader({
-  size = 24,
+export interface LoaderProps {
+  size?: number
+  message?: string
+}
+const Loader: FC<LoaderProps> = ({
+  size = 48,
   message,
 }: {
   size?: string | number
   message?: string
-}) {
+}) => {
   return (
     <div className="flex h-full w-full flex-col place-content-center place-items-center">
       <svg
-        className="animate-spin-slow"
+        className="animate-pulse"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 754 754"
@@ -111,7 +115,9 @@ export default function Loader({
         <polygon className="cls-5" points="0 591.6 377 754 377 399.68 160.39 340.17 0 591.6" />
         <polygon className="cls-6" points="754 591.6 377 754 377 399.68 593.71 340.17 754 591.6" />
       </svg>
-      {message && <span>{message}</span>}
+      {message && <strong>{message}</strong>}
     </div>
   )
 }
+
+export default Loader

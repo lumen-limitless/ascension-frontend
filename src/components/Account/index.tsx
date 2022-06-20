@@ -9,10 +9,9 @@ import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
 import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
 import { useToast } from '../../hooks'
-import Image from 'next/image'
 import ImageComponent from '../ui/ImageComponent'
 
-export default function AccountInfo() {
+export default function Account() {
   const { account, deactivate } = useEthers()
 
   const tokenData = useAscendSubgraph(account)

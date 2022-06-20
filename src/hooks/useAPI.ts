@@ -2,10 +2,9 @@ import { ChainId } from '@usedapp/core'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 import { CHAIN_SYMBOL, SCAN_INFO } from '../constants'
+import { isAddress } from '../functions'
 
-const fetcher = async (url: string) => {
-  return await fetch(url).then((r) => r.json())
-}
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export const useEthUsdPrice = () => {
   const { data, error } = useSWR(
@@ -28,35 +27,24 @@ export const useNativeUsdPrice = (chainId: ChainId) => {
   return data ? parseFloat(data.result[`${CHAIN_SYMBOL[chainId]?.toLowerCase()}usd`]) : null
 }
 
-export const useVerifiedContractABI = (contract: string, chainId: ChainId): any[] => {
+//returns null on errors
+export const useVerifiedContractABI = (address: string, chainId: ChainId): any[] => {
   const { data, error } = useSWR(
-    `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=contract&action=getabi&address=${contract}&apikey=${SCAN_INFO[chainId]?.apiKey}`
+    isAddress(address) && chainId
+      ? `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
+      : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   )
 
-  const contractABI = useMemo(() => {
+  return useMemo(() => {
+    if (error) return null
     if (!data) return null
-    try {
-      const abi = JSON.parse(data.result)
-      return abi
-    } catch {
-      return []
-    }
-  }, [data])
-
-  if (error) return null
-
-  return contractABI
+    if (data?.status === '0') return null
+    return JSON.parse(data.result)
+  }, [data, error])
 }
-
-// export const useOpenseaAssets = (account: string) => {
-//   const { data, error } = useSWR(
-//     `https://api.opensea.io/api/v1/assets?owner=${account}&order_direction=desc&limit=20&include_orders=false`,
-//     {
-//       method: 'GET',
-//       headers: { Accept: 'application/json', 'X-API-KEY': process.env.OPENSEA_API_KEY },
-//     }
-//   )
-
-//   if (error) return null
-//   return data?.assets
-// }

@@ -2,10 +2,11 @@ import { useEthers, useNotifications } from '@usedapp/core'
 import { useEffect } from 'react'
 import useToast from './useToast'
 
-export default function useNotificationsToast() {
+export const useNetworkNotifications = () => {
   const { chainId } = useEthers()
   const { notifications, removeNotification } = useNotifications()
   const t = useToast()
+
   useEffect(() => {
     if (notifications.length > 0) {
       notifications.forEach((n) => {
@@ -27,5 +28,5 @@ export default function useNotificationsToast() {
         }
       })
     }
-  })
+  }, [notifications])
 }
