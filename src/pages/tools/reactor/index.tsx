@@ -183,7 +183,7 @@ const ReactorPage: NextPage = () => {
                         <div className="flex max-h-96 flex-col items-center justify-start gap-3 overflow-y-auto overflow-x-hidden py-3">
                           {_.reverse(logs.value).map((log, i) => (
                             <Card key={i} className="w-full">
-                              <Grid>
+                              <Grid gap="sm">
                                 <div className="col-span-3">
                                   <ExternalLink
                                     href={`https://${SCAN_INFO[chainId].name}.io/block/${log.blockNumber}`}

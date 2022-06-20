@@ -25,7 +25,7 @@ export default function Document() {
         <meta key="twitter:creator" name="twitter:creator" content="@AscendProtocol" />
         <meta key="og:type" property="og:type" content="website" />
         <meta key="og:site_name" property="og:site_name" content={APP_NAME} />
-        <meta key="og:url" property="og:url" content="https://ascensionprotocol.io" />
+        <meta key="og:url" property="og:url" content="https://www.ascensionprotocol.io" />
         <meta
           key="og:image"
           property="og:image"
