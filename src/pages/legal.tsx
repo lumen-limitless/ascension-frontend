@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Card from '../components/ui/Card'
 import Container from '../components/ui/Container'
-import Logo from '../components/icons/Logo'
+import Logo from '../components/ui/Logo'
 
 const LegalPage: NextPage = () => {
   return (

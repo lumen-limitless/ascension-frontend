@@ -3,7 +3,7 @@ import Card from '../../components/ui/Card'
 import Container from '../../components/ui/Container'
 import Button from '../../components/ui/Button'
 import Link from 'next/link'
-import Logo from '../../components/icons/Logo'
+import Logo from '../../components/ui/Logo'
 
 const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (

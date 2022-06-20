@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 
-function verify(request, response) {
-  // each value in request payload must be found in response meta
-  return Object.keys(request.payload).every((key) => {
-    const requestValue = request.payload[key]
-    const responseMetaValue = response.meta[key]
-    if (typeof requestValue === 'object') {
-      return JSON.stringify(requestValue) === JSON.stringify(responseMetaValue)
-    }
-    return responseMetaValue === requestValue
-  })
-}
+// function verify(request, response) {
+//   // each value in request payload must be found in response meta
+//   return Object.keys(request.payload).every((key) => {
+//     const requestValue = request.payload[key]
+//     const responseMetaValue = response.meta[key]
+//     if (typeof requestValue === 'object') {
+//       return JSON.stringify(requestValue) === JSON.stringify(responseMetaValue)
+//     }
+//     return responseMetaValue === requestValue
+//   })
+// }
 
 // export const useZerionPortfolio = () => {
 //   const [portfolio, setPortfolio] = useState(null)

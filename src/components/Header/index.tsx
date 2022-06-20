@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import Connection from '../Connection'
-import Logo from '../icons/Logo'
+import Logo from '../ui/Logo'
 import { ChevronDownIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'

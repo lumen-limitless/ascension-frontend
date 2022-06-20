@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import toast, { ErrorIcon } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import ToastComponent from '../components/ui/ToastComponent'
 
 export const useToast = () => {

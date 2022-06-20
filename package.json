@@ -30,7 +30,7 @@
     "@usedapp/coingecko": "^0.4.4",
     "@usedapp/core": "^1.0.9",
     "@walletconnect/web3-provider": "^1.7.7",
-    "autoprefixer": "^10.4.0",
+    "autoprefixer": "10.4.5",
     "clsx": "^1.1.1",
     "csstype": "^3.0.10",
     "dom-helpers": "^5.2.1",
