@@ -10,6 +10,8 @@ import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/reac
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
 import { useToast } from '../../hooks'
 import ImageComponent from '../ui/ImageComponent'
+import Typography from '../ui/Typography'
+import Grid from '../ui/Grid'
 
 export default function Account() {
   const { account, deactivate } = useEthers()
@@ -26,10 +28,13 @@ export default function Account() {
 
       {viewing && (
         <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
-          <div className="my-3 flex w-full flex-col items-center justify-center ">
-            <Avatar size={100} />
-            <div className="mt-3 flex w-full items-center justify-center rounded bg-dark-1000 px-6 py-3 shadow-md">
-              {shortenIfAddress(account)}{' '}
+          <Grid gap="sm">
+            <div className="col-span-12 place-self-center">
+              <Avatar size={100} />
+            </div>
+
+            <div className="col-span-12 mt-3 flex w-full items-center justify-center rounded bg-dark-1000 px-6 py-3 shadow-md">
+              <Typography>{shortenIfAddress(account)}</Typography>
               <ClipboardCopyIcon
                 width={24}
                 onClick={() => {
@@ -40,40 +45,46 @@ export default function Account() {
                 className="ml-1 text-secondary"
               />
             </div>
-          </div>
-          <div className="mb-3 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
-            <ImageComponent
-              src="/circle-coin_weqrld.png"
-              height={72}
-              width={72}
-              alt="ASCEND balance"
-            />
-            <div className="flex w-full flex-col items-center">
-              <span className="text-xs md:text-sm">Balance</span>
-              <span>{tokenData ? formatBalance(tokenData.balance) : <Skeleton />}</span>
-            </div>{' '}
-            <div className="flex w-full flex-col items-center">
-              <span className="text-xs md:text-sm">Staked</span>
-              {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
-            </div>{' '}
-          </div>
-          <div className="flex gap-1">
-            {' '}
-            <a
-              className="w-full"
-              about="View on block explorer"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://arbiscan.io/address/${account}`}
-            >
-              <Button size="sm" color="blue">
-                <ExternalLinkIcon width={24} className="stroke-current" /> Block Explorer
+
+            <div className=" col-span-12 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
+              <ImageComponent
+                src="/circle-coin_weqrld.png"
+                height={72}
+                width={72}
+                alt="ASCEND balance"
+              />
+              <div className="flex w-full flex-col items-center">
+                <Typography className="text-xs md:text-sm">Balance</Typography>
+                <Typography>
+                  {tokenData ? formatBalance(tokenData.balance) : <Skeleton />}
+                </Typography>
+              </div>{' '}
+              <div className="flex w-full flex-col items-center">
+                <Typography className="text-xs md:text-sm">Staked</Typography>
+                {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
+              </div>{' '}
+            </div>
+
+            <div className="col-span-6">
+              {' '}
+              <a
+                className="w-full"
+                about="View on block explorer"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://arbiscan.io/address/${account}`}
+              >
+                <Button size="sm" color="blue">
+                  <ExternalLinkIcon width={24} className="stroke-current" /> Block Explorer
+                </Button>
+              </a>
+            </div>
+            <div className="col-span-6">
+              <Button size="sm" color="red" onClick={deactivate}>
+                <LogoutIcon className="stroke-current" width={24} /> Disconnect
               </Button>
-            </a>
-            <Button size="sm" color="red" onClick={deactivate}>
-              <LogoutIcon className="stroke-current" width={24} /> Disconnect
-            </Button>
-          </div>
+            </div>
+          </Grid>
         </Modal>
       )}
     </>
