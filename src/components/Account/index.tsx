@@ -31,7 +31,7 @@ export default function Account() {
             <div className="mt-3 flex w-full items-center justify-center rounded bg-dark-1000 px-6 py-3 shadow-md">
               {shortenIfAddress(account)}{' '}
               <ClipboardCopyIcon
-                width={20}
+                width={24}
                 onClick={() => {
                   setCopy(account)
                   t('success', 'Copied address to clipboard')
@@ -67,12 +67,11 @@ export default function Account() {
               href={`https://arbiscan.io/address/${account}`}
             >
               <Button size="sm" color="blue">
-                <ExternalLinkIcon width={16} height={16} className="stroke-current" /> Block
-                Explorer
+                <ExternalLinkIcon width={24} className="stroke-current" /> Block Explorer
               </Button>
             </a>
             <Button size="sm" color="red" onClick={deactivate}>
-              <LogoutIcon className="stroke-current" width={16} height={16} /> Disconnect
+              <LogoutIcon className="stroke-current" width={24} /> Disconnect
             </Button>
           </div>
         </Modal>

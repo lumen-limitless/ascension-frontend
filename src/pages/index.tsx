@@ -3,7 +3,6 @@ import { NextPage } from 'next'
 import Card from '../components/ui/Card'
 import Container from '../components/ui/Container'
 import Link from 'next/link'
-import FadeUpWhenVisible from '../animations/fadeUpWhenVisible'
 import FadeIn from '../animations/fadeIn'
 import Button from '../components/ui/Button'
 import Section from '../components/ui/Section'
@@ -13,6 +12,7 @@ import ImageComponent from '../components/ui/ImageComponent'
 import GovernanceIcon from '../components/icons/GovernanceIcon'
 import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
+import FadeUpWhenVisible from '../animations/fadeUpWhenVisible'
 
 const features = [
   {
