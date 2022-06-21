@@ -99,7 +99,6 @@ const ReactorPage: NextPage = () => {
       <Section fullscreen layout="start" padding="md">
         <Container maxWidth="7xl">
           <Grid gap="md">
-            {' '}
             <Card className="col-span-12">
               <div className="flex w-full items-center justify-center gap-3 py-6">
                 {settingAddress ? (

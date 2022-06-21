@@ -1,49 +1,46 @@
 import { useMemo } from 'react'
 import { ASCENSION, HOME_CHAINID } from '../constants'
-import { useContractCalls, useEthers } from '@usedapp/core'
-import { Interface } from 'ethers/lib/utils'
-import { BigNumber } from 'ethers'
+import { useCalls, useEthers } from '@usedapp/core'
 import { parseBalance } from '../functions'
+import { useContract } from './useContract'
 
-export default function useStaking() {
+export function useStaking() {
   const { account, chainId } = useEthers()
-
-  const [balanceOf, totalStaked, rewardRate, periodFinish, earned, paused] = useContractCalls(
-    chainId == HOME_CHAINID
+  const contract: any = useContract(
+    ASCENSION.AscensionStaking.address,
+    ASCENSION.AscensionStaking.abi,
+    HOME_CHAINID
+  )
+  const [balanceOf, totalStaked, rewardRate, periodFinish, earned, paused] = useCalls(
+    chainId === HOME_CHAINID && account
       ? [
           {
-            abi: new Interface(ASCENSION.AscensionStaking.abi),
-            address: ASCENSION.AscensionStaking.address,
+            contract: contract,
             method: 'balanceOf',
             args: [account],
           },
           {
-            abi: new Interface(ASCENSION.AscensionStaking.abi),
-            address: ASCENSION.AscensionStaking.address,
+            contract: contract,
             method: 'totalStaked',
             args: [],
           },
           {
-            abi: new Interface(ASCENSION.AscensionStaking.abi),
-            address: ASCENSION.AscensionStaking.address,
+            contract: contract,
             method: 'rewardRate',
             args: [],
           },
           {
-            abi: new Interface(ASCENSION.AscensionStaking.abi),
-            address: ASCENSION.AscensionStaking.address,
+            contract: contract,
             method: 'periodFinish',
             args: [],
           },
           {
-            abi: new Interface(ASCENSION.AscensionStaking.abi),
-            address: ASCENSION.AscensionStaking.address,
+            contract: contract,
             method: 'earned',
             args: [account],
           },
           {
-            abi: new Interface(ASCENSION.AscensionStaking.abi),
-            address: ASCENSION.AscensionStaking.address,
+            contract: contract,
             method: 'paused',
             args: [],
           },
@@ -52,23 +49,25 @@ export default function useStaking() {
   )
 
   const rewardsEndAt = useMemo(() => {
-    if (!periodFinish) return null
-    const timestamp = parseInt(periodFinish[0])
+    if (!periodFinish || periodFinish?.error) return null
+    const timestamp = parseInt(periodFinish.value[0])
     return new Date(timestamp * 1000).toLocaleDateString()
   }, [periodFinish])
 
+  console.log(rewardRate)
   const apy = useMemo(() => {
-    if (!rewardRate || !totalStaked) return null
-    const r = parseBalance(rewardRate[0])
-    const t = parseBalance(totalStaked[0])
+    if (!rewardRate || rewardRate?.error) return null
+    if (!totalStaked || totalStaked?.error) return null
+    const r = parseBalance(rewardRate.value[0])
+    const t = parseBalance(totalStaked.value[0])
     return ((r * 31557600) / t) * 100
   }, [rewardRate, totalStaked])
 
   return {
-    totalStaked: totalStaked && (totalStaked[0] as BigNumber),
-    balanceOf: balanceOf && (balanceOf[0] as BigNumber),
-    earned: earned && (earned[0] as BigNumber),
-    paused: paused && (paused[0] as boolean),
+    totalStaked: totalStaked && !totalStaked.error ? totalStaked.value[0] : null,
+    balanceOf: balanceOf && !balanceOf.error ? balanceOf.value[0] : null,
+    earned: earned && !earned.error ? earned.value[0] : null,
+    paused: paused && !paused.error ? paused.value[0] : null,
     rewardsEndAt,
     apy,
   }

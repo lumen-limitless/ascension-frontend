@@ -12,14 +12,13 @@ import Loader from '../../components/ui/Loader'
 import Button from '../../components/ui/Button'
 import Input from '../../components/ui/Input'
 import Skeleton from '../../components/ui/Skeleton'
-import useStaking from '../../hooks/useStaking'
 import Section from '../../components/ui/Section'
 import dynamic from 'next/dynamic'
 import { useAscendStakingContract, useAscendTokenContract, useSwitchNetwork } from '../../hooks'
 import Container from '../../components/ui/Container'
 import Head from 'next/head'
 import TransactionButton from '../../components/ui/TransactionButton'
-import { AscensionToken } from '../../typechain'
+import { useStaking } from '../../hooks'
 
 const Connection = dynamic(() => import('../../components/Connection'), {
   ssr: false,
