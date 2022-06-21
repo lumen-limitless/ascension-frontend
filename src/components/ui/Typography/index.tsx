@@ -8,9 +8,20 @@ const WEIGHTS = {
   700: 'font-bold',
 }
 
-export type TypographyVariant = 'hero' | 'h1' | 'h2' | 'h3' | 'lg' | 'base' | 'sm' | 'xs' | 'xxs'
+export type TypographyVariant =
+  | 'none'
+  | 'hero'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'lg'
+  | 'base'
+  | 'sm'
+  | 'xs'
+  | 'xxs'
 
 const VARIANTS = {
+  none: '',
   hero: 'text-hero leading-[4rem]',
   h1: 'text-4xl leading-[46px]',
   h2: 'text-3xl tracking-[-0.02em]',
@@ -25,7 +36,6 @@ const VARIANTS = {
 export interface TypographyProps extends React.AllHTMLAttributes<React.ReactHTML> {
   variant?: TypographyVariant
   weight?: TypographyWeight
-  component?: keyof React.ReactHTML
   className?: string
   clickable?: boolean
 }
@@ -33,10 +43,10 @@ export interface TypographyProps extends React.AllHTMLAttributes<React.ReactHTML
 const Typography: FC<TypographyProps> = forwardRef(
   (
     {
-      variant = 'base',
+      variant = 'none',
       weight = 400,
-      component = 'div',
-      className = 'currentColor',
+      as = 'p',
+      className = '',
       clickable = false,
       children = [],
       onClick = undefined,
@@ -45,7 +55,7 @@ const Typography: FC<TypographyProps> = forwardRef(
     ref
   ) => {
     return React.createElement(
-      component,
+      as,
       {
         className: cn(
           VARIANTS[variant],

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { shortenIfAddress, useBlockNumber, useEthers, useLogs } from '@usedapp/core'
+import { shortenIfAddress, TypedFilter, useBlockNumber, useEthers, useLogs } from '@usedapp/core'
 import { useMemo } from 'react'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
@@ -19,6 +19,7 @@ import ExternalLink from '../ui/ExternalLink'
 import Typography from '../ui/Typography'
 import shallow from 'zustand/shallow'
 import useStore from '../../store/useStore'
+import { Contract } from 'ethers'
 
 const Reactor: FC = () => {
   const { chainId } = useEthers()
@@ -52,22 +53,17 @@ const Reactor: FC = () => {
     })
   }, [abi])
 
-  const contract = useContract(address, abi, chainId)
-  const logs = useLogs(
-    contract &&
-      events &&
-      blockNumber && {
-        contract: contract as any,
-        event: events[eventIndex].name,
-        args: [],
-      },
-    { fromBlock: blockNumber - 10 }
-  )
+  const contract: any = useContract(address, abi, chainId)
+  const filter: TypedFilter = useMemo(() => {
+    return { contract: contract, event: events ? events[eventIndex].name : '', args: [] }
+  }, [contract, events, eventIndex])
+
+  const logs = useLogs(contract && events ? filter : null, { fromBlock: blockNumber - 10 })
 
   return (
     <Grid gap="md">
       <Card className="col-span-12">
-        <div className="flex w-full items-center justify-center gap-3 py-6">
+        <div className="flex w-full items-center justify-center gap-3">
           {settingAddress ? (
             <>
               <Input.Address
@@ -91,7 +87,8 @@ const Reactor: FC = () => {
             <Grid gap="sm">
               <div className="col-span-6 md:col-span-3">
                 <ExternalLink href={`https://${SCAN_INFO[chainId].name}.io/address/${address}`}>
-                  <Button color="blue" icon={<Icon icon="fa-solid:file-contract" />}>
+                  <Button color="blue">
+                    <Icon icon="fa-solid:file-contract" />
                     {isAddress(address) && shortenIfAddress(address)}
                   </Button>
                 </ExternalLink>

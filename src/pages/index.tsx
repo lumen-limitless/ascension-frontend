@@ -60,13 +60,16 @@ const HomePage: NextPage = () => {
                 width={128}
                 priority={true}
               />
-              <Typography variant="hero" component="h1" weight={700}>
+              <Typography
+                as="h1"
+                className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl"
+              >
                 Prepare for{' '}
                 <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent ">
                   Ascension
                 </span>
               </Typography>{' '}
-              <Typography variant="lg" component="p">
+              <Typography className="mx-auto py-1 text-base text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
                 Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
                 providing DeFi tools and opportunities for its constituents.
               </Typography>{' '}
@@ -98,14 +101,12 @@ const HomePage: NextPage = () => {
                       <div className="flex items-center gap-3 ">
                         {' '}
                         {f.icon}
-                        <Typography component="h2" className="text-4xl text-primary">
+                        <Typography as="h2" className="text-4xl text-primary">
                           {f.title}
                         </Typography>
                       </div>
 
-                      <Typography variant="base" component="p" className="text-secondary">
-                        {f.description}
-                      </Typography>
+                      <Typography className="text-secondary">{f.description}</Typography>
                     </div>
                   </Card>
                 </FadeUpWhenVisible>
@@ -119,7 +120,7 @@ const HomePage: NextPage = () => {
         <Container maxWidth="7xl">
           <FadeUpWhenVisible>
             <div className="w-full py-6 text-center lg:py-9">
-              <Typography variant="hero" component="h3" weight={700}>
+              <Typography as="h3" className="text-shadow text-5xl text-primary lg:text-6xl">
                 Partners & Investments
               </Typography>
               <div className="my-6 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
@@ -164,7 +165,7 @@ const HomePage: NextPage = () => {
           <FadeUpWhenVisible>
             <Card className="border-transparent">
               <div className="text-center md:pb-12">
-                <Typography component="h4" className=" mb-12 text-4xl text-primary lg:text-5xl">
+                <Typography as="h4" className=" mb-12 text-4xl text-primary lg:text-5xl">
                   Join the Ascension
                 </Typography>
                 <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">
