@@ -1,22 +1,15 @@
-import React from 'react'
+import React, { FC } from 'react'
 import cn from 'clsx'
-function Header({ className, children }) {
-  return (
-    <div className={cn('flex items-center rounded-t px-4 py-4 sm:px-8 sm:py-6', className)}>
-      {children}
-    </div>
-  )
-}
 
-type CardProps = {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   header?: React.ReactChild
   footer?: React.ReactChild
   backgroundImage?: string
   title?: string
   description?: string
-} & React.HTMLAttributes<HTMLDivElement>
+}
 
-function Card({
+const Card: FC<CardProps> = ({
   header = undefined,
   footer = undefined,
   backgroundImage = '',
@@ -24,7 +17,7 @@ function Card({
   description = '',
   children,
   className,
-}: CardProps) {
+}) => {
   return (
     <div
       className={cn(
@@ -51,7 +44,5 @@ function Card({
     </div>
   )
 }
-
-Card.Header = Header
 
 export default Card

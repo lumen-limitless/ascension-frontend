@@ -19,7 +19,6 @@ import ExternalLink from '../ui/ExternalLink'
 import Typography from '../ui/Typography'
 import shallow from 'zustand/shallow'
 import useStore from '../../store/useStore'
-import { Contract } from 'ethers'
 
 const Reactor: FC = () => {
   const { chainId } = useEthers()

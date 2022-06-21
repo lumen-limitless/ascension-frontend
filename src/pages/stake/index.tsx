@@ -20,7 +20,7 @@ import Head from 'next/head'
 import TransactionButton from '../../components/ui/TransactionButton'
 import { useStaking } from '../../hooks'
 
-const Connection = dynamic(() => import('../../components/Connection'), {
+const Connect = dynamic(() => import('../../components/Connect'), {
   ssr: false,
   loading: () => <Loader />,
 })
@@ -82,7 +82,7 @@ const StakePage: NextPage = () => {
             {!account ? (
               <>
                 <div className="flex place-content-center">
-                  <Connection />
+                  <Connect />
                 </div>
               </>
             ) : chainId != HOME_CHAINID ? (

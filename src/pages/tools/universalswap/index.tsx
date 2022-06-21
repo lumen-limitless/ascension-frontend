@@ -5,7 +5,6 @@ import Loader from '../../../components/ui/Loader'
 import { useEthers } from '@usedapp/core'
 import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 import BuyAscend from '../../../components/BuyAscend'
-import Connection from '../../../components/Connection'
 import { NextPage } from 'next'
 import { DEX_BY_CHAIN, USDC_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
 import Swap from '../../../components/Swap'
@@ -14,7 +13,9 @@ import { Token } from '../../../types'
 import { useLocalStorage } from 'react-use'
 import Section from '../../../components/ui/Section'
 import Grid from '../../../components/ui/Grid'
+import dynamic from 'next/dynamic'
 
+const Connect = dynamic(() => import('../../../components/Connect'), { ssr: false })
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
 const REQUIRED_BALANCE = 1
 
@@ -54,7 +55,7 @@ const UniversalSwapPage: NextPage = () => {
   if (!account)
     return (
       <Container>
-        <Connection />
+        <Connect />
       </Container>
     )
 

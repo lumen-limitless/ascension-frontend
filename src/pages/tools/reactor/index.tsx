@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Container from '../../../components/ui/Container'
 import Section from '../../../components/ui/Section'
 
-const Connection = dynamic(() => import('../../../components/Connection'), {
+const Connect = dynamic(() => import('../../../components/Connect'), {
   ssr: false,
 })
 const Reactor = dynamic(() => import('../../../components/Reactor'), { ssr: false })
@@ -25,7 +25,7 @@ const ReactorPage: NextPage = () => {
         <Container maxWidth="7xl">
           {!account ? (
             <div className="flex w-full justify-center">
-              <Connection />
+              <Connect />
             </div>
           ) : (
             <Reactor />

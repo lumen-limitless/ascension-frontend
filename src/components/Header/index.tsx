@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import Connection from '../Connection'
 import Logo from '../ui/Logo'
 import { ChevronDownIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
@@ -8,8 +7,15 @@ import Divider from '../ui/Divider'
 import Badge from '../ui/Badge'
 import cn from 'clsx'
 import Button from '../ui/Button'
+import { useEthers } from '@usedapp/core'
+import dynamic from 'next/dynamic'
+
+const Connect = dynamic(() => import('../Connect'), { ssr: false })
+const Network = dynamic(() => import('../Network'), { ssr: false })
+const Account = dynamic(() => import('../Account'), { ssr: false })
 
 const Header: React.FC = () => {
+  const { account } = useEthers()
   return (
     <>
       <header
@@ -24,7 +30,15 @@ const Header: React.FC = () => {
               </a>
             </Link>
             <div className="-my-2 -mr-2 flex gap-1 md:hidden">
-              <Connection />
+              {!account ? (
+                <Connect />
+              ) : (
+                <>
+                  <Network />
+                  <Account />
+                </>
+              )}
+
               <Popover.Button>
                 <span className="sr-only">Open menu</span>
                 <Button color="transparent">
@@ -159,7 +173,14 @@ const Header: React.FC = () => {
                 </Popover>
               </Popover.Group>
               <div className="flex items-center md:ml-12">
-                <Connection />
+                {!account ? (
+                  <Connect />
+                ) : (
+                  <>
+                    <Network />
+                    <Account />
+                  </>
+                )}
               </div>
             </div>
           </div>
