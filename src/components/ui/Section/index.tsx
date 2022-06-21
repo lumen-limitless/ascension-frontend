@@ -8,11 +8,11 @@ interface SectionProps extends DetailedHTMLProps<HTMLProps<HTMLElement>, HTMLEle
 
 const PADDING = {
   none: '',
-  xs: 'p-6',
-  sm: 'p-12',
-  md: 'p-24',
-  lg: 'p-36',
-  xl: 'p-48',
+  xs: 'py-6',
+  sm: 'py-12',
+  md: 'py-24',
+  lg: 'py-36',
+  xl: 'py-48',
 }
 const Section: React.FC<SectionProps> = ({
   children,
