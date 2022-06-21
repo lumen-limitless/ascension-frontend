@@ -41,7 +41,7 @@ module.exports = {
         },
 
         primary: '#F9F9F9',
-        secondary: '#7F7F7F',
+        secondary: '#9F9F9F',
         'low-emphesis': '#575757',
         'high-emphesis': '#E3E3E3',
       },
