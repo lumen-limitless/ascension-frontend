@@ -1,4 +1,5 @@
 import { StateCreator } from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
 
 export interface ReactorSlice {
   address: string
@@ -19,7 +20,9 @@ const initialState = {
   eventIndex: 0,
 }
 
-const createReactorSlice: StateCreator<ReactorSlice> = (set) => ({
+const createReactorSlice: StateCreator<ReactorSlice, [['zustand/persist', unknown]], []> = (
+  set
+) => ({
   ...initialState,
   reset: () => set(initialState),
   toggleSettingAddress: (bool: boolean) => set({ settingAddress: bool }),

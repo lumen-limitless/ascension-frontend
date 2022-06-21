@@ -109,7 +109,8 @@ export default function Connection() {
                 MetaMask
               </Button>
 
-              <Button color="gray" onClick={() => onWalletConnect()} icon={<WalletConnectIcon />}>
+              <Button color="gray" onClick={() => onWalletConnect()}>
+                <WalletConnectIcon />
                 WalletConnect
               </Button>
             </div>
