@@ -51,7 +51,7 @@ const Header: React.FC = () => {
                   </a>
                 </Link>
 
-                {/* <Popover className="relative">
+                <Popover className="relative">
                   {({ open }) => (
                     <>
                       <Popover.Button
@@ -156,7 +156,7 @@ const Header: React.FC = () => {
                       </Transition>
                     </>
                   )}
-                </Popover> */}
+                </Popover>
               </Popover.Group>
               <div className="flex items-center md:ml-12">
                 <Connection />
@@ -214,12 +214,12 @@ const Header: React.FC = () => {
                       </a>
                     </Link>
                     <Divider />
-                    {/* <Link href="/tools">
+                    <Link href="/tools">
                       <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
                         <Popover.Button className={'w-full'}>Tools</Popover.Button>
                       </a>
                     </Link>
-                    <Divider /> */}
+                    <Divider />
                   </div>
                 </div>
               </div>
