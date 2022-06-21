@@ -10,16 +10,14 @@ import Grid from '../../../components/ui/Grid'
 import Input from '../../../components/ui/Input'
 import Modal from '../../../components/ui/Modal'
 import Section from '../../../components/ui/Section'
-import { BURN_ADDRESS, SCAN_INFO, WNATIVE_ADDRESS } from '../../../constants'
+import { SCAN_INFO } from '../../../constants'
 import { useContract, useVerifiedContractABI } from '../../../hooks'
 import _ from 'lodash'
-import { BigNumber, Contract, ethers } from 'ethers'
 import { NextPage } from 'next'
 import Loader from '../../../components/ui/Loader'
 import FadeUp from '../../../animations/fadeUp'
 import { formatUnits, isAddress } from 'ethers/lib/utils'
 import Tabs from '../../../components/ui/Tabs'
-import Spinner from '../../../components/ui/Spinner'
 import { CubeTransparentIcon, PlusCircleIcon } from '@heroicons/react/outline'
 import { Icon } from '@iconify/react'
 import ExternalLink from '../../../components/ui/ExternalLink'
@@ -78,7 +76,8 @@ const ReactorPage: NextPage = () => {
   const contract = useContract(address, abi, chainId)
   const logs = useLogs(
     contract &&
-      events && {
+      events &&
+      blockNumber && {
         contract: contract as any,
         event: events[eventIndex].name,
         args: [],

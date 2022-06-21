@@ -4,7 +4,6 @@ import { Contract } from '@ethersproject/contracts'
 import IERC20 from '@openzeppelin/contracts/build/contracts/IERC20.json'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ASCENSION, ENS_REGISTRAR_ADDRESS, HOME_CHAINID, RPC } from '../constants'
-
 import { ChainId } from '@usedapp/core'
 
 // returns null on errors

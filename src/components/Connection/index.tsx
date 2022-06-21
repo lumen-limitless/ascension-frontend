@@ -8,6 +8,7 @@ import { LoginIcon } from '@heroicons/react/outline'
 import dynamic from 'next/dynamic'
 import Spinner from '../ui/Spinner'
 import { Icon } from '@iconify/react'
+import WalletConnectIcon from '../icons/WalletConnectIcon'
 
 const Modal = dynamic(() => import('../ui/Modal'), { ssr: false })
 const Account = dynamic(() => import('../Account'), { ssr: false })
@@ -80,7 +81,7 @@ export default function Connection() {
       )
       const provider = new WalletConnectProvider({ chainId: chainId, rpc: RPC })
       await provider.enable()
-      await activate(provider as any)
+      await activate(provider)
       toggle()
     } catch (err) {
       t('error', err?.message)
@@ -92,23 +93,23 @@ export default function Connection() {
       {!account ? (
         <>
           <Button color="blue" onClick={toggle}>
-            <LoginIcon width={20} /> Connect Wallet
+            <LoginIcon width={24} /> Connect Wallet
           </Button>
           <Modal isOpen={viewing} onDismiss={() => toggle(false)}>
             <div className="my-3 flex flex-col items-center gap-3">
               <span className="mb-3 text-xl">Select a Wallet</span>
               <Button
                 color="gray"
+                icon={<Icon icon="logos:metamask-icon" width={24} />}
                 onClick={() => {
                   activateBrowserWallet()
                   toggle()
                 }}
               >
-                <Icon icon="logos:metamask-icon" width={24} />
                 MetaMask
               </Button>
 
-              <Button color="gray" onClick={() => onWalletConnect()}>
+              <Button color="gray" onClick={() => onWalletConnect()} icon={<WalletConnectIcon />}>
                 WalletConnect
               </Button>
             </div>
