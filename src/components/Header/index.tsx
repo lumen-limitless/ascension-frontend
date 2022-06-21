@@ -172,7 +172,7 @@ const Header: React.FC = () => {
                   )}
                 </Popover>
               </Popover.Group>
-              <div className="flex items-center md:ml-12">
+              <div className="flex items-center gap-1 md:ml-12">
                 {!account ? (
                   <Connect />
                 ) : (
