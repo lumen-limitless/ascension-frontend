@@ -5,7 +5,7 @@ import { useCopyToClipboard, useToggle } from 'react-use'
 import Modal from '../ui/Modal'
 import Avatar from '../Avatar'
 import Button from '../ui/Button'
-import { shortenIfAddress, useEthers, useLookupAddress } from '@usedapp/core'
+import { shortenIfAddress, useEthers } from '@usedapp/core'
 import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
 import { useToast } from '../../hooks'
@@ -75,13 +75,14 @@ export default function Account() {
                 href={`https://arbiscan.io/address/${account}`}
               >
                 <Button size="sm" color="blue">
-                  <ExternalLinkIcon width={24} className="stroke-current" /> Block Explorer
+                  <ExternalLinkIcon width={24} height={24} className="stroke-current" /> Block
+                  Explorer
                 </Button>
               </a>
             </div>
             <div className="col-span-6">
               <Button size="sm" color="red" onClick={deactivate}>
-                <LogoutIcon className="stroke-current" width={24} /> Disconnect
+                <LogoutIcon className="stroke-current" width={24} height={24} /> Disconnect
               </Button>
             </div>
           </Grid>

@@ -27,9 +27,9 @@ const Section: React.FC<SectionProps> = ({
       className={cn(
         layout === 'center' && 'flex flex-col items-center justify-center',
         layout === 'start' && 'flex flex-col items-center justify-start',
-        'relative h-full w-full ',
         fullscreen && 'min-h-screen',
         PADDING[padding],
+        'relative h-full w-full ',
         className
       )}
       {...rest}

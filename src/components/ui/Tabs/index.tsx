@@ -14,8 +14,8 @@ const Tabs: FC<TabProps> = ({ options, onTabChange, onTabSelect }) => {
       <Tab.Group onChange={(i) => onTabChange && onTabChange(i)}>
         <Tab.List className="flex flex-shrink flex-wrap gap-1">
           {options &&
-            options.map((o) => (
-              <Tab key={o} onChange={() => onTabSelect && onTabSelect(o)}>
+            options.map((o, i) => (
+              <Tab key={i} onChange={() => onTabSelect && onTabSelect(o)}>
                 {({ selected }) => (
                   <Button color={selected ? 'gradient' : 'transparent'} size="sm">
                     {o}

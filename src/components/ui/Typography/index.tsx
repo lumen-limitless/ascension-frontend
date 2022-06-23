@@ -22,10 +22,7 @@ export type TypographyVariant =
 
 const VARIANTS = {
   none: '',
-  hero: 'text-hero leading-[4rem]',
-  h1: 'text-4xl leading-[46px]',
-  h2: 'text-3xl tracking-[-0.02em]',
-  h3: 'text-2xl leading-7 tracking-[-0.01em]',
+  xl: 'text-2xl leading-7 tracking-[-0.01em]',
   lg: 'text-lg leading-6',
   base: 'text-base leading-5',
   sm: 'text-sm leading-5',
@@ -38,6 +35,7 @@ export interface TypographyProps extends React.AllHTMLAttributes<React.ReactHTML
   weight?: TypographyWeight
   className?: string
   clickable?: boolean
+  centered?: boolean
 }
 
 const Typography: FC<TypographyProps> = forwardRef(
@@ -48,6 +46,7 @@ const Typography: FC<TypographyProps> = forwardRef(
       as = 'p',
       className = '',
       clickable = false,
+      centered = false,
       children = [],
       onClick = undefined,
       ...rest
@@ -61,6 +60,7 @@ const Typography: FC<TypographyProps> = forwardRef(
           VARIANTS[variant],
           // @ts-ignore TYPE NEEDS FIXING
           WEIGHTS[weight],
+          centered && 'text-center',
           onClick ? 'cursor-pointer select-none' : '',
           className
         ),

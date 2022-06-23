@@ -38,14 +38,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   color?: ButtonColor
   size?: ButtonSize
   ref?: React.Ref<HTMLButtonElement>
-  icon?: JSX.Element
 }
 const Button: FC<ButtonProps> = ({
   children,
   className = undefined,
   color = 'default',
   size = 'default',
-  icon,
+
   ...rest
 }) => {
   return (
@@ -58,7 +57,6 @@ const Button: FC<ButtonProps> = ({
       )}
       {...rest}
     >
-      {icon}
       {children}
     </button>
   )

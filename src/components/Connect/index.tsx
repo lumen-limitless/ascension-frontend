@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic'
 import Spinner from '../ui/Spinner'
 import { Icon } from '@iconify/react'
 import WalletConnectIcon from '../icons/WalletConnectIcon'
+import MetaMaskIcon from '../icons/MetaMaskIcon'
 
 const Modal = dynamic(() => import('../ui/Modal'), { ssr: false })
 const Account = dynamic(() => import('../Account'), { ssr: false })
@@ -45,12 +46,12 @@ export default function Connect() {
               <span className="mb-3 text-xl">Select a Wallet</span>
               <Button
                 color="gray"
-                icon={<Icon icon="logos:metamask-icon" width={24} />}
                 onClick={() => {
                   activateBrowserWallet()
                   toggle()
                 }}
               >
+                <MetaMaskIcon />
                 MetaMask
               </Button>
 

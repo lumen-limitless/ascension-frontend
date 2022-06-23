@@ -1,5 +1,5 @@
 import { Switch } from '@headlessui/react'
-import React from 'react'
+import React, { FC } from 'react'
 import cn from 'clsx'
 
 export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,7 +8,7 @@ export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   toggle: () => void
 }
 
-export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
+const Toggle: FC<ToggleProps> = ({ id, isActive, toggle, ...rest }) => {
   return (
     <Switch
       checked={isActive}
@@ -58,3 +58,5 @@ export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
     </Switch>
   )
 }
+
+export default Toggle

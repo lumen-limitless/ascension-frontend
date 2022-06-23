@@ -1,34 +1,38 @@
 import { StateCreator } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
 
 export interface ReactorSlice {
   address: string
-  input: string
-  settingAddress: boolean
+  eventArgs: any[]
+  functionArgs: any[]
   eventIndex: number
+  functionIndex: number
+  reactionActive: boolean
   reset: () => void
-  toggleSettingAddress: (bool: boolean) => void
-  setIndex: (i: number) => void
-  setInput: (input: string) => void
+  setEventIndex: (i: number) => void
+  setFunctionIndex: (i: number) => void
   setAddress: (address: string) => void
+  setReaction: (filterArgs: any[], functionArgs: any[]) => void
+  cancelReaction: () => void
 }
 
 const initialState = {
   address: '',
-  input: '',
-  settingAddress: true,
+  eventArgs: [],
+  functionArgs: [],
   eventIndex: 0,
+  functionIndex: 0,
+  reactionActive: false,
 }
 
-const createReactorSlice: StateCreator<ReactorSlice, [['zustand/persist', unknown]], []> = (
-  set
-) => ({
+const createReactorSlice: StateCreator<ReactorSlice, [], []> = (set) => ({
   ...initialState,
   reset: () => set(initialState),
-  toggleSettingAddress: (bool: boolean) => set({ settingAddress: bool }),
-  setIndex: (i: number) => set({ eventIndex: i }),
-  setInput: (input: string) => set({ input: input }),
-  setAddress: (address: string) => set({ address: address }),
+  setEventIndex: (i) => set({ eventIndex: i }),
+  setFunctionIndex: (i) => set({ functionIndex: i }),
+  setAddress: (address) => set({ address: address }),
+  setReaction: (eventArgs, functionArgs) =>
+    set({ eventArgs: eventArgs, functionArgs: functionArgs, reactionActive: true }),
+  cancelReaction: () => set({ eventArgs: [], functionArgs: [], reactionActive: false }),
 })
 
 export default createReactorSlice
