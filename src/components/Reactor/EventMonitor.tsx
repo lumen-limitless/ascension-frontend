@@ -27,7 +27,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ logs, event }) => {
       <Card>
         {' '}
         {!logs ? (
-          <Loader size={48} message="Fetching Event Logs" />
+          <Loader size={48} message="Loading Events" />
         ) : logs.error ? (
           <Loader size={48} message="Error" />
         ) : (
