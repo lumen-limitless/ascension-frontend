@@ -22,7 +22,7 @@ const Card: FC<CardProps> = ({
     <div
       className={cn(
         className,
-        'relative flex-1 flex-grow border border-dark-900  bg-dark-1000/40 shadow-pink-glow backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
+        'relative flex-1 flex-grow border-2 border-dark-700/30  bg-dark-1000/60 shadow-pink-glow backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
       )}
       style={{
         borderRadius: '10px',

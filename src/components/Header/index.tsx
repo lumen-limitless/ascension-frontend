@@ -19,7 +19,9 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={'fixed z-40 w-full border-b-2 border-dark-700/30 bg-black/60 backdrop-blur-md'}
+        className={
+          'fixed z-40 w-full border-b-2 border-dark-700/30 bg-dark-1000/60 backdrop-blur-md'
+        }
       >
         <Popover as="nav">
           <div className="flex h-16 items-center justify-between px-6 py-6 sm:px-12 md:justify-start md:space-x-10 lg:px-24 xl:px-36">
