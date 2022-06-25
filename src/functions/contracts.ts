@@ -1,7 +1,7 @@
 import { isAddress } from '.'
 import { ZERO_ADDRESS } from '../constants'
 import { JsonRpcSigner, Web3Provider, JsonRpcProvider } from '@ethersproject/providers'
-import { Contract } from '@ethersproject/contracts'
+import { Contract } from 'ethers'
 
 // account is not optional
 export function getSigner(library: Web3Provider, account: string): JsonRpcSigner {

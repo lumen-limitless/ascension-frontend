@@ -80,7 +80,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ logs, event }) => {
                               ? shortenIfAddress(d)
                               : event.inputs[i].type === 'uint256'
                               ? formatUnits(d, '0')
-                              : d.toString()}
+                              : d}
                           </div>
                         </div>
                       ))}

@@ -8,17 +8,7 @@ const WEIGHTS = {
   700: 'font-bold',
 }
 
-export type TypographyVariant =
-  | 'none'
-  | 'hero'
-  | 'h1'
-  | 'h2'
-  | 'h3'
-  | 'lg'
-  | 'base'
-  | 'sm'
-  | 'xs'
-  | 'xxs'
+export type TypographyVariant = 'none' | 'xl' | 'lg' | 'base' | 'sm' | 'xs' | 'xxs'
 
 const VARIANTS = {
   none: '',

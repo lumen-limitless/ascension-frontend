@@ -27,7 +27,6 @@ import useStore from '../../store/useStore'
 import ReactorIcon from '../icons/ReactorIcon'
 import { useList } from 'react-use'
 import EventMonitor from './EventMonitor'
-import Toggle from '../ui/Toggle'
 import FlexibleInput from './FlexibleInput'
 import FadeUp from '../../animations/fadeUp'
 
@@ -35,8 +34,12 @@ const Reactor: FC = () => {
   const { chainId } = useEthers()
   const blockNumber = useBlockNumber()
   const [addressInput, setAddressInput] = useState('')
-  const [eventArgsInput, { updateAt: updateEventArgsInputAt }] = useList([])
-  const [functionArgsInput, { updateAt: updateFunctionArgsInputAt }] = useList([])
+  const [eventArgsInput, { updateAt: updateEventArgsInputAt, reset: resetEventArgsInput }] =
+    useList([])
+  const [
+    functionArgsInput,
+    { updateAt: updateFunctionArgsInputAt, reset: resetFunctionArgsInput },
+  ] = useList([])
   const { address, eventIndex, functionIndex, eventArgs, functionArgs, reactionActive } = useStore(
     (state) => ({
       address: state.address,
@@ -117,16 +120,19 @@ const Reactor: FC = () => {
               </Button>
             </div>
           ) : (
-            <div className="flex w-full">
+            <div className="flex w-full items-center justify-center gap-3">
               <ExternalLink href={`https://${SCAN_INFO[chainId].name}.io/address/${address}`}>
                 <Button color="blue">
                   <Icon icon="fa-solid:file-contract" height={24} />
                   <Typography as="span">{shortenIfAddress(address)}</Typography>
                 </Button>
               </ExternalLink>
-              <Button color="yellow" onClick={() => reset()}>
-                <Icon icon="ic:baseline-change-circle" height={24} />
-              </Button>
+              <div>
+                <Button color="yellow" onClick={() => reset()}>
+                  <Icon icon="ic:baseline-change-circle" height={24} />
+                  Reset
+                </Button>
+              </div>
             </div>
           )}
         </Card>
@@ -136,71 +142,105 @@ const Reactor: FC = () => {
         {isAddress(address) && (
           <FadeUp>
             <Card>
-              <Grid gap="sm">
-                <div className="col-span-12">
-                  <Typography centered>Choose Event</Typography>
-                  <Divider />
-                  {!events ? (
-                    <Loader />
-                  ) : (
-                    <Tabs
-                      onTabChange={(i) => setEventIndex(i)}
-                      options={events.map((event) => {
-                        return `${event.name}`
-                      })}
-                    />
-                  )}
-                </div>
-                <div className="col-span-12 flex w-full flex-col gap-3">
-                  {abi && (
+              {!abi ? (
+                <Loader size={48} message="Loading contract ABI..." />
+              ) : (
+                <Grid gap="sm">
+                  {reactionActive ? (
                     <>
-                      {events[eventIndex].inputs.map((input, i) => (
-                        <div key={i} className="rounded bg-dark-900 p-3">
-                          <Typography>{input.name}</Typography>
-                          <FlexibleInput
-                            inputType={input.type}
-                            inputIndex={i}
-                            inputValue={eventArgsInput[i]}
-                            updateAt={updateEventArgsInputAt}
-                          />
-                        </div>
-                      ))}
-                      <Tabs
-                        options={functions.map((f) => {
-                          return f.name
-                        })}
-                        onTabChange={(i) => setFunctionIndex(i)}
-                      />
-                      {functions[functionIndex].inputs.map((input, i) => (
-                        <div key={i} className="rounded bg-dark-900 p-3">
-                          <Typography>{input.name}</Typography>
-                          <FlexibleInput
-                            inputType={input.type}
-                            inputIndex={i}
-                            inputValue={functionArgsInput[i]}
-                            updateAt={updateFunctionArgsInputAt}
-                          />
-                        </div>
-                      ))}
+                      <div className="col-span-12 flex flex-col items-center justify-center">
+                        <ReactorIcon size={100} className="animate-pulse" />
+                        <Typography as="h2">Reactor Active</Typography>
+                        <Typography as="strong">Transaction Status: {state.status}</Typography>
+                        <Button color="red" onClick={() => cancelReaction()}>
+                          Cancel Reaction
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="col-span-12 flex w-full flex-col gap-3" id="events">
+                        {!events ? (
+                          <Loader />
+                        ) : (
+                          <>
+                            <div>
+                              <Typography centered>Choose Event</Typography>
+                              <Divider />
+                            </div>
+
+                            <Tabs
+                              onTabChange={(i) => {
+                                setEventIndex(i)
+                                resetEventArgsInput()
+                              }}
+                              options={events.map((event) => {
+                                return `${event.name}`
+                              })}
+                            />
+                            {events[eventIndex].inputs.map((input, i) => (
+                              <div key={i} className="rounded bg-dark-900 p-3">
+                                <Typography>{input.name}</Typography>
+                                <FlexibleInput
+                                  inputType={input.type}
+                                  inputIndex={i}
+                                  inputValue={eventArgsInput[i]}
+                                  updateAt={updateEventArgsInputAt}
+                                />
+                              </div>
+                            ))}
+                          </>
+                        )}
+                      </div>
+
+                      <div className="col-span-12 flex w-full flex-col gap-3" id="functions">
+                        {!functions ? (
+                          <Loader />
+                        ) : (
+                          <>
+                            <div>
+                              <Typography centered>Choose Function</Typography>
+                              <Divider />
+                            </div>
+
+                            <Tabs
+                              options={functions.map((f) => {
+                                return f.name
+                              })}
+                              onTabChange={(i) => {
+                                setFunctionIndex(i)
+                                resetFunctionArgsInput
+                              }}
+                            />
+                            {functions[functionIndex].inputs.map((input, i) => (
+                              <div key={i} className="rounded bg-dark-900 p-3">
+                                <Typography>{input.name}</Typography>
+                                <FlexibleInput
+                                  inputType={input.type}
+                                  inputIndex={i}
+                                  inputValue={functionArgsInput[i]}
+                                  updateAt={updateFunctionArgsInputAt}
+                                />
+                              </div>
+                            ))}
+
+                            <div className="col-span-12 place-self-center">
+                              {' '}
+                              <Button
+                                color="gradient"
+                                onClick={() => setReaction(eventArgsInput, functionArgsInput)}
+                              >
+                                <Icon icon="clarity:atom-solid" height={24} />
+                                Start Reaction
+                              </Button>
+                            </div>
+                          </>
+                        )}
+                      </div>
                     </>
                   )}
-                </div>
-                <div className="col-span-12  place-self-center">
-                  {reactionActive ? (
-                    <Button color="red" onClick={() => cancelReaction()}>
-                      Cancel Reaction
-                    </Button>
-                  ) : (
-                    <Button
-                      color="gradient"
-                      onClick={() => setReaction(eventArgsInput, functionArgsInput)}
-                    >
-                      <Icon icon="clarity:atom-solid" height={24} />
-                      Start Reaction
-                    </Button>
-                  )}
-                </div>
-              </Grid>
+                </Grid>
+              )}
             </Card>
           </FadeUp>
         )}

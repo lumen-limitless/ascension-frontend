@@ -1,8 +1,15 @@
 import { ChainId, useEthers } from '@usedapp/core'
 import dynamic from 'next/dynamic'
 import { FC } from 'react'
+import { useBoolean } from 'react-use'
+import { SUPPORTED_CHAINS } from '../../constants'
+import { useSwitchNetwork } from '../../hooks'
 import Button from '../ui/Button'
+import Divider from '../ui/Divider'
+import Grid from '../ui/Grid'
+import Modal from '../ui/Modal'
 import Spinner from '../ui/Spinner'
+import Typography from '../ui/Typography'
 
 const ArbitrumIcon = dynamic(() => import('../icons/networks/ArbitrumIcon'), {
   ssr: false,
@@ -61,8 +68,38 @@ const CHAIN_ICON = {
 
 const Network: FC = () => {
   const { chainId } = useEthers()
+  const [viewing, toggle] = useBoolean(false)
+  const switchNetwork = useSwitchNetwork()
 
-  return <Button className="border border-dark-900">{chainId && CHAIN_ICON[chainId]}</Button>
+  return (
+    <>
+      <Button className="border border-dark-900" onClick={toggle}>
+        {chainId && CHAIN_ICON[chainId]}
+      </Button>
+
+      {viewing && (
+        <Modal isOpen={viewing} onDismiss={toggle}>
+          <div className="w-full pb-3">
+            {' '}
+            <Typography as="h1" variant="xl" centered className="pb-1">
+              Choose Network
+            </Typography>
+            <Divider />
+          </div>
+
+          <Grid gap="md">
+            {SUPPORTED_CHAINS.map((chain) => (
+              <div key={chain.chainId} className="col-span-6">
+                <Button color="gray" onClick={() => switchNetwork(chain.chainId)}>
+                  {CHAIN_ICON[chain.chainId]} {chain.chainName}
+                </Button>
+              </div>
+            ))}
+          </Grid>
+        </Modal>
+      )}
+    </>
+  )
 }
 
 export default Network

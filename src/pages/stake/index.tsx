@@ -20,6 +20,7 @@ import Head from 'next/head'
 import TransactionButton from '../../components/ui/TransactionButton'
 import { useStaking } from '../../hooks'
 import Grid from '../../components/ui/Grid'
+import { AscensionStaking, AscensionToken } from '../../typechain'
 
 const Connect = dynamic(() => import('../../components/Connect'), {
   ssr: false,
@@ -39,15 +40,17 @@ const StakePage: NextPage = () => {
 
   const token = useAscendTokenContract()
   const staking = useAscendStakingContract()
-  const approve = useContractFunction(token as any, 'approve', {
+  const approve = useContractFunction(token, 'approve', {
     transactionName: 'Approve',
   })
-  const stake = useContractFunction(staking as any, 'stake', { transactionName: 'Stake' })
-  const withdraw = useContractFunction(staking as any, 'withdraw', { transactionName: 'Withdraw' })
-  const getReward = useContractFunction(staking as any, 'getReward', {
+  const stake = useContractFunction(staking, 'stake', {
+    transactionName: 'Stake',
+  })
+  const withdraw = useContractFunction(staking, 'withdraw', { transactionName: 'Withdraw' })
+  const getReward = useContractFunction(staking, 'getReward', {
     transactionName: 'Get Reward',
   })
-  const exit = useContractFunction(staking as any, 'exit', { transactionName: 'Exit' })
+  const exit = useContractFunction(staking, 'exit', { transactionName: 'Exit' })
 
   const { balanceOf, earned, totalStaked, rewardsEndAt, apy, paused } = useStaking()
 
@@ -164,18 +167,18 @@ const StakePage: NextPage = () => {
                           <li className="flex w-full">
                             Balance:{' '}
                             {ascendBalance ? (
-                              formatBalance(ascendBalance) + ' ASCEND'
+                              `${formatBalance(ascendBalance)} ASCEND`
                             ) : (
                               <Skeleton />
                             )}{' '}
                           </li>
 
                           <li className="flex w-full">
-                            Stake: {balanceOf ? formatBalance(balanceOf) + ' ASCEND' : <Skeleton />}
+                            Stake: {balanceOf ? `${formatBalance(balanceOf)} ASCEND` : <Skeleton />}
                           </li>
 
                           <li className="flex w-full">
-                            Earnings: {earned ? formatBalance(earned) + ' ASCEND' : <Skeleton />}
+                            Earnings: {earned ? ` ${formatBalance(earned)} ASCEND` : <Skeleton />}
                           </li>
                         </ul>
                         <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
