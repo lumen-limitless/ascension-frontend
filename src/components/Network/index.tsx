@@ -90,7 +90,14 @@ const Network: FC = () => {
           <Grid gap="md">
             {SUPPORTED_CHAINS.map((chain) => (
               <div key={chain.chainId} className="col-span-6">
-                <Button color="gray" onClick={() => switchNetwork(chain.chainId)}>
+                <Button
+                  color="gray"
+                  onClick={() => {
+                    switchNetwork(chain.chainId).then(() => {
+                      toggle()
+                    })
+                  }}
+                >
                   {CHAIN_ICON[chain.chainId]} {chain.chainName}
                 </Button>
               </div>
