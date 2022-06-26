@@ -1,5 +1,5 @@
-import { useNetworkNotifications } from '../hooks'
 import dynamic from 'next/dynamic'
+import { useNetworkNotifications } from '../hooks'
 
 const Footer = dynamic(() => import('../components/Footer'), { ssr: false })
 const Header = dynamic(() => import('../components/Header'), { ssr: false })

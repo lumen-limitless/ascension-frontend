@@ -1,12 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import {
-  shortenIfAddress,
-  TypedFilter,
-  useBlockNumber,
-  useContractFunction,
-  useEthers,
-  useLogs,
-} from '@usedapp/core'
+import { shortenIfAddress, Songbird, useContractFunction, useEthers } from '@usedapp/core'
 import { useMemo } from 'react'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
@@ -14,8 +7,7 @@ import Divider from '../ui/Divider'
 import Grid from '../ui/Grid'
 import Input from '../ui/Input'
 import { SCAN_INFO } from '../../constants'
-import { useContract, useVerifiedContractABI } from '../../hooks'
-import _ from 'lodash'
+import { useContract, useToast, useVerifiedContractABI } from '../../hooks'
 import Loader from '../ui/Loader'
 import { isAddress } from 'ethers/lib/utils'
 import Tabs from '../ui/Tabs'
@@ -25,74 +17,125 @@ import Typography from '../ui/Typography'
 import shallow from 'zustand/shallow'
 import useStore from '../../store/useStore'
 import ReactorIcon from '../icons/ReactorIcon'
-import { useList } from 'react-use'
+import { useDebounce, useList } from 'react-use'
 import EventMonitor from './EventMonitor'
 import FlexibleInput from './FlexibleInput'
 import FadeUp from '../../animations/fadeUp'
+import { EventFilter } from 'ethers'
+import Toggle from '../ui/Toggle'
+import { XCircleIcon } from '@heroicons/react/outline'
+import { ContractEvent, ContractFunction } from '../../types'
 
 const Reactor: FC = () => {
+  const t = useToast()
   const { chainId } = useEthers()
-  const blockNumber = useBlockNumber()
+
   const [addressInput, setAddressInput] = useState('')
-  const [eventArgsInput, { updateAt: updateEventArgsInputAt, reset: resetEventArgsInput }] =
-    useList([])
-  const [
-    functionArgsInput,
-    { updateAt: updateFunctionArgsInputAt, reset: resetFunctionArgsInput },
-  ] = useList([])
-  const { address, eventIndex, functionIndex, eventArgs, functionArgs, reactionActive } = useStore(
+
+  const { address, eventIndex, functionIndex, reactionActive } = useStore(
     (state) => ({
       address: state.address,
       eventIndex: state.eventIndex,
       functionIndex: state.functionIndex,
-      eventArgs: state.eventArgs,
-      functionArgs: state.functionArgs,
       reactionActive: state.reactionActive,
     }),
     shallow
   )
-  const [setAddress, reset, setEventIndex, setFunctionIndex, setReaction, cancelReaction] =
-    useStore(
-      (state) => [
-        state.setAddress,
-        state.reset,
-        state.setEventIndex,
-        state.setFunctionIndex,
-        state.setReaction,
-        state.cancelReaction,
-      ],
-      shallow
-    )
-
-  const { abi, functions, events } = useVerifiedContractABI(address, chainId)
-  console.table(abi)
-
-  const contract: any = useContract(address, abi, chainId)
-  const filter: TypedFilter = useMemo(() => {
-    if (!contract || !events || !blockNumber) return null
-
-    return { contract: contract, event: events[eventIndex].name, args: eventArgs }
-  }, [contract, events, eventIndex, eventArgs, blockNumber])
-
-  const logs = useLogs(filter, { fromBlock: blockNumber - 1 })
-  console.log(logs)
-
-  const { state, send } = useContractFunction(
-    contract && contract,
-    functions && functions[functionIndex].name
+  const [setAddress, reset, setEventIndex, setFunctionIndex, setReaction] = useStore(
+    (state) => [
+      state.setAddress,
+      state.reset,
+      state.setEventIndex,
+      state.setFunctionIndex,
+      state.setReaction,
+    ],
+    shallow
   )
 
-  useEffect(() => {
-    if (!reactionActive) return
-    if (!logs || logs.error) return
+  const abi = useVerifiedContractABI(address, chainId)
+  // console.table(abi)
 
-    const sendTx = async () => {
-      await send(...functionArgs)
+  const selectedEvent = useMemo(() => {
+    if (!abi) return null
+    if (abi.filter((value) => value.type === 'event').length === 0) return null
+
+    return abi.filter((value) => value.type === 'event')[eventIndex] as ContractEvent
+  }, [abi, eventIndex])
+
+  const selectedFunction = useMemo(() => {
+    if (!abi) return null
+    if (
+      abi.filter((value) => value.type === 'function' && value.stateMutability !== 'view')
+        .length === 0
+    )
+      return null
+
+    return abi.filter((value) => value.type === 'function' && value.stateMutability !== 'view')[
+      functionIndex
+    ] as ContractFunction
+  }, [abi, functionIndex])
+
+  const [eventArgs, { updateAt: updateEventArgsAt, reset: resetEventArgs }] = useList([])
+
+  const [functionArgs, { updateAt: updateFunctionArgsAt, reset: resetFunctionArgs }] = useList([])
+  console.log(functionArgs)
+
+  const contract = useContract(address, abi, chainId)
+
+  const { state, send, resetState } = useContractFunction(contract, selectedFunction?.name)
+  console.log(state)
+  const filter = useMemo(() => {
+    if (!contract) return null
+    if (!selectedEvent) return null
+    let filter: string | EventFilter
+
+    try {
+      filter = contract.filters[selectedEvent.name](...eventArgs)
+    } catch (err) {
+      console.error(err)
+      filter = selectedEvent.name
     }
-    if (logs.value.length > 0) {
-      sendTx()
+    return filter
+  }, [contract, eventArgs, selectedEvent])
+  console.log(filter)
+  useEffect(() => {
+    if (!reactionActive || !contract || !filter) return
+
+    if (state.status === 'Exception') {
+      t('error', 'Transaction exception occurred')
+      resetState()
+      setReaction(false)
     }
-  }, [logs, functionArgs, reactionActive, send])
+    if (state.status === 'PendingSignature') {
+      t('info', 'Confirm transaction in wallet')
+    }
+    if (state.status === 'None') {
+      contract.once(filter, () => {
+        send(...functionArgs).then(() => {
+          state.status === 'Success'
+            ? t('success', 'Transaction succeeded')
+            : t('error', 'Transaction failed')
+          setReaction(false)
+          resetState()
+        })
+      })
+    }
+
+    return function cleanup() {
+      contract.removeAllListeners()
+    }
+  }, [
+    selectedEvent,
+    contract,
+    reactionActive,
+    send,
+    functionArgs,
+    filter,
+    resetState,
+    state,
+    setReaction,
+    t,
+  ])
 
   return (
     <Grid gap="md">
@@ -113,6 +156,7 @@ const Reactor: FC = () => {
                 disabled={!isAddress(addressInput)}
                 onClick={() => {
                   setAddress(addressInput)
+                  setAddressInput('')
                 }}
                 color="green"
               >
@@ -152,74 +196,114 @@ const Reactor: FC = () => {
                         <ReactorIcon size={100} className="animate-pulse" />
                         <Typography as="h2">Reactor Active</Typography>
                         <Typography as="strong">Transaction Status: {state.status}</Typography>
-                        <Button color="red" onClick={() => cancelReaction()}>
+                        <Button
+                          color="red"
+                          onClick={() => {
+                            setReaction(!reactionActive)
+                            resetState()
+                          }}
+                        >
+                          <XCircleIcon height={24} />
                           Cancel Reaction
                         </Button>
                       </div>
                     </>
                   ) : (
                     <>
-                      <div className="col-span-12 flex w-full flex-col gap-3" id="events">
-                        {!events ? (
-                          <Loader />
-                        ) : (
-                          <>
+                      {!abi ? (
+                        <Loader />
+                      ) : !selectedEvent ? (
+                        <Typography as="h2" centered className="col-span-12">
+                          NO EVENTS FOUND
+                        </Typography>
+                      ) : !selectedFunction ? (
+                        <Typography as="h2" centered className="col-span-12">
+                          NO FUNCTIONS FOUND
+                        </Typography>
+                      ) : (
+                        <>
+                          <div className="col-span-12 flex w-full flex-col gap-3" id="events">
                             <div>
-                              <Typography centered>Choose Event</Typography>
+                              <Typography centered as="h2" variant="lg">
+                                Choose Event to listen for:
+                              </Typography>
                               <Divider />
                             </div>
-
                             <Tabs
+                              selectedIndex={eventIndex}
                               onTabChange={(i) => {
                                 setEventIndex(i)
-                                resetEventArgsInput()
+                                resetEventArgs()
                               }}
-                              options={events.map((event) => {
-                                return `${event.name}`
-                              })}
+                              options={abi
+                                .filter((value) => value.type === 'event')
+                                .map((event) => {
+                                  return `${event.name}`
+                                })}
                             />
-                            {events[eventIndex].inputs.map((input, i) => (
-                              <div key={i} className="rounded bg-dark-900 p-3">
-                                <Typography>{input.name}</Typography>
-                                <FlexibleInput
-                                  inputType={input.type}
-                                  inputIndex={i}
-                                  inputValue={eventArgsInput[i]}
-                                  updateAt={updateEventArgsInputAt}
-                                />
-                              </div>
-                            ))}
-                          </>
-                        )}
-                      </div>
+                            {selectedEvent.inputs
+                              .filter((eventInput) => eventInput.indexed === true)
+                              .map((input, i) => (
+                                <div key={i} className="rounded bg-dark-900 p-3">
+                                  <Typography>{input.name}</Typography>
 
-                      <div className="col-span-12 flex w-full flex-col gap-3" id="functions">
-                        {!functions ? (
-                          <Loader />
-                        ) : (
-                          <>
+                                  {/* TYPE CONVERSION FOR EVENT ARGS IS REQUIRED (NOT STRICT EQUALITY/INEQUALITY) */}
+                                  {eventArgs[i] != null && (
+                                    <FlexibleInput
+                                      inputType={input.type}
+                                      inputIndex={i}
+                                      inputValue={eventArgs[i]}
+                                      onUserInput={(input) => updateEventArgsAt(i, input)}
+                                      onToggle={() => updateEventArgsAt(i, !eventArgs[i])}
+                                    />
+                                  )}
+                                  <div className="flex ">
+                                    <Typography as="span">Any</Typography>{' '}
+                                    <Toggle
+                                      isActive={eventArgs[i] == null} //type conversion required
+                                      onToggle={
+                                        () => updateEventArgsAt(i, eventArgs[i] != null ? null : '') //type conversion required
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
+
+                          <div className="col-span-12 flex w-full flex-col gap-3" id="functions">
                             <div>
-                              <Typography centered>Choose Function</Typography>
+                              <Typography centered as="h2" variant="lg">
+                                Choose Function to call:
+                              </Typography>
                               <Divider />
                             </div>
 
                             <Tabs
-                              options={functions.map((f) => {
-                                return f.name
-                              })}
+                              selectedIndex={functionIndex}
+                              options={abi
+                                .filter(
+                                  (value) =>
+                                    value.type === 'function' && value.stateMutability !== 'view'
+                                )
+                                .map((f) => {
+                                  return f.name
+                                })}
                               onTabChange={(i) => {
                                 setFunctionIndex(i)
-                                resetFunctionArgsInput
+                                resetFunctionArgs()
                               }}
                             />
-                            {functions[functionIndex].inputs.map((input, i) => (
+
+                            {selectedFunction.inputs.map((input, i) => (
                               <div key={i} className="rounded bg-dark-900 p-3">
                                 <Typography>{input.name}</Typography>
+
                                 <FlexibleInput
                                   inputType={input.type}
                                   inputIndex={i}
-                                  inputValue={functionArgsInput[i]}
-                                  updateAt={updateFunctionArgsInputAt}
+                                  inputValue={functionArgs[i]}
+                                  onUserInput={(input) => updateFunctionArgsAt(i, input)}
+                                  onToggle={() => updateFunctionArgsAt(i, !functionArgs[i])}
                                 />
                               </div>
                             ))}
@@ -228,15 +312,22 @@ const Reactor: FC = () => {
                               {' '}
                               <Button
                                 color="gradient"
-                                onClick={() => setReaction(eventArgsInput, functionArgsInput)}
+                                onClick={() => {
+                                  t('info', 'Starting Reactor')
+                                  setReaction(!reactionActive)
+                                }}
+                                disabled={
+                                  functionArgs.length !== selectedFunction.inputs.length ||
+                                  functionArgs.includes('')
+                                }
                               >
                                 <Icon icon="clarity:atom-solid" height={24} />
                                 Start Reaction
                               </Button>
                             </div>
-                          </>
-                        )}
-                      </div>
+                          </div>
+                        </>
+                      )}
                     </>
                   )}
                 </Grid>
@@ -245,8 +336,8 @@ const Reactor: FC = () => {
           </FadeUp>
         )}
       </div>
-      <div className="col-span-5">
-        {reactionActive && <EventMonitor logs={logs} event={events[eventIndex]} />}
+      <div className="col-span-5 ">
+        {abi && selectedEvent && <EventMonitor contract={contract} event={selectedEvent} />}
       </div>
     </Grid>
   )

@@ -1,9 +1,8 @@
 import { CubeTransparentIcon, PlusCircleIcon } from '@heroicons/react/outline'
 import { Icon } from '@iconify/react'
-import { LogsResult, shortenIfAddress, useEthers } from '@usedapp/core'
+import { shortenIfAddress, useBlockNumber, useEthers, useLogs } from '@usedapp/core'
 import { Contract } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
-import _ from 'lodash'
 import { FC } from 'react'
 import FadeUp from '../../animations/fadeUp'
 import { SCAN_INFO } from '../../constants'
@@ -17,11 +16,16 @@ import Loader from '../ui/Loader'
 import Typography from '../ui/Typography'
 
 interface EventMonitorProps {
-  logs: LogsResult<Contract, string>
+  contract: Contract
   event: ContractEvent
 }
-const EventMonitor: FC<EventMonitorProps> = ({ logs, event }) => {
+const EventMonitor: FC<EventMonitorProps> = ({ contract, event }) => {
   const { chainId } = useEthers()
+  const blockNumber = useBlockNumber()
+  const logs = useLogs(contract && event && { contract: contract, event: event.name, args: [] }, {
+    fromBlock: blockNumber - 1,
+  })
+
   return (
     <FadeUp>
       <Card>
@@ -29,7 +33,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ logs, event }) => {
         {!logs ? (
           <Loader size={48} message="Loading Events" />
         ) : logs.error ? (
-          <Loader size={48} message="Error" />
+          <Loader size={48} />
         ) : (
           <>
             <Typography as="h2" className="pb-3 text-center text-xl">
@@ -39,7 +43,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ logs, event }) => {
             <Divider />
 
             <div className="flex max-h-96 flex-col items-center justify-start gap-3 overflow-y-auto overflow-x-hidden py-3">
-              {_.reverse(logs.value).map((log, i) => (
+              {logs.value.map((log, i) => (
                 <Card key={i} className="w-full">
                   <Grid gap="sm">
                     <div className="col-span-4">

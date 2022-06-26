@@ -5,13 +5,14 @@ import Button from '../Button'
 
 export interface TabProps {
   options?: string[]
+  selectedIndex?: number
   onTabChange?: (i: number) => any
   onTabSelect?: (o: string) => any
 }
-const Tabs: FC<TabProps> = ({ options, onTabChange, onTabSelect }) => {
+const Tabs: FC<TabProps> = ({ options, selectedIndex, onTabChange, onTabSelect }) => {
   return (
     <div className="w-full">
-      <Tab.Group onChange={(i) => onTabChange && onTabChange(i)}>
+      <Tab.Group defaultIndex={selectedIndex} onChange={(i) => onTabChange && onTabChange(i)}>
         <Tab.List className="flex flex-shrink flex-wrap gap-1">
           {options &&
             options.map((o, i) => (

@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion'
-import { HTMLMotionProps } from 'framer-motion/types/render/html/types'
+import { HTMLMotionProps, motion } from 'framer-motion'
 import { FC } from 'react'
 
 interface FadeInProps extends HTMLMotionProps<'div'> {

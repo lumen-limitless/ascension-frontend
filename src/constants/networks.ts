@@ -28,7 +28,7 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
   [ChainId.Kovan]: 'Kovan',
   [ChainId.Fantom]: 'Fantom',
   [ChainId.Polygon]: 'Polygon',
-  [ChainId.Gnosis]: 'XDAI',
+  [ChainId.Gnosis]: 'Gnosis',
   [ChainId.BSC]: 'BSC',
   [ChainId.BSCTestnet]: 'BSCtest',
   [ChainId.Avalanche]: 'Avalanche',

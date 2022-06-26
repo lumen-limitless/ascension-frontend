@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 import cn from 'clsx'
 
 const SIZE = {
-  xs: 'p-1 text-xs max-w-xs w-full',
-  sm: 'p-2 text-sm max-w-sm w-full',
-  default: 'p-3 text-base max-w-md w-full',
-  lg: 'p-6 text-lg w-full max-w-lg',
+  xs: 'p-1 text-xs  w-full',
+  sm: 'p-2 text-sm  w-full',
+  default: 'p-3 text-base w-full',
+  lg: 'p-6 text-lg w-full ',
   none: '',
 }
 
@@ -18,7 +18,7 @@ const COLORS = {
   yellow: 'bg-yellow hover:shadow-yellow/30',
   pink: 'bg-pink hover:shadow-pink/30',
   gray: 'bg-gray-800 hover:shadow-gray-800/30',
-  gradient: 'bg-gradient-to-r from-pink  to-purple  hover:shadow-pink/30',
+  gradient: 'bg-gradient-to-r from-pink  to-purple  hover:shadow-pink/30 disabled:opacity-20',
 }
 
 export type ButtonColor =
@@ -52,7 +52,7 @@ const Button: FC<ButtonProps> = ({
       className={cn(
         COLORS[color],
         SIZE[size],
-        'inline-flex flex-grow items-center justify-center gap-1 rounded text-white shadow-md transition hover:brightness-125 focus:outline-none disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none disabled:hover:brightness-100',
+        'inline-flex max-w-xs flex-grow items-center justify-center gap-1 rounded text-white shadow-md transition hover:brightness-125 focus:outline-none disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none disabled:hover:brightness-100',
         className
       )}
       {...rest}

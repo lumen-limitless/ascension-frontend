@@ -170,7 +170,7 @@ const HomePage: NextPage = () => {
                 </Typography>
                 <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">
                   <a href="https://t.me/AscensionProtocolChat" target={'_blank'} rel="noreferrer">
-                    <Button className="bg-[#2AABEE] hover:shadow-[#2AABEE]">
+                    <Button className="bg-[#2AABEE] hover:shadow-[#2AABEE]" size="lg">
                       {' '}
                       <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                         <path
@@ -183,7 +183,7 @@ const HomePage: NextPage = () => {
                     </Button>
                   </a>
                   <a href="https://discord.gg/8k2zGuGeAZ" target={'_blank'} rel="noreferrer">
-                    <Button className="bg-[#5865F2] hover:shadow-[#5865F2]">
+                    <Button className="bg-[#5865F2] hover:shadow-[#5865F2]" size="lg">
                       {' '}
                       <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                         <path
@@ -200,7 +200,7 @@ const HomePage: NextPage = () => {
                     target={'_blank'}
                     rel="noreferrer"
                   >
-                    <Button color="gradient">
+                    <Button color="gradient" size="lg">
                       {' '}
                       <CurrencyDollarIcon height={24} />
                       Buy on SushiSwap
@@ -211,7 +211,7 @@ const HomePage: NextPage = () => {
                     target={'_blank'}
                     rel="noreferrer"
                   >
-                    <Button className="bg-ascend-purple hover:shadow-ascend-purple">
+                    <Button className="bg-ascend-purple hover:shadow-ascend-purple" size="lg">
                       {' '}
                       <DocumentTextIcon height={24} />
                       Documentation

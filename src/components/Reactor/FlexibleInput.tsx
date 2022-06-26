@@ -8,31 +8,27 @@ interface FlexibleInputProps {
   inputType: string
   inputIndex: number
   inputValue: any
-  updateAt: (i: number, item: any) => void
+  onUserInput: (input: string) => void
+  onToggle: () => void
 }
-const FlexibleInput: FC<FlexibleInputProps> = ({ inputType, inputIndex, inputValue, updateAt }) => {
+const FlexibleInput: FC<FlexibleInputProps> = ({
+  inputType,
+  inputIndex,
+  inputValue,
+  onUserInput,
+  onToggle,
+}) => {
   return (
     <>
       {' '}
       {inputType === 'address' ? (
-        <Input.Address value={inputValue} onUserInput={(input) => updateAt(inputIndex, input)} />
+        <Input.Address value={inputValue} onUserInput={onUserInput} />
       ) : startsWith(inputType, 'uint', 0) ? (
-        <Input.Numeric
-          placeholder={inputType}
-          value={inputValue}
-          onUserInput={(input) => updateAt(inputIndex, input)}
-        />
+        <Input.Numeric placeholder={inputType} value={inputValue} onUserInput={onUserInput} />
       ) : inputType === 'bool' ? (
-        <Toggle
-          isActive={inputValue ?? false}
-          toggle={() => updateAt(inputIndex, inputValue ? !inputValue : true)}
-        />
+        <Toggle isActive={inputValue ?? false} onToggle={onToggle} />
       ) : inputType === 'string' || startsWith(inputType, 'bytes', 0) ? (
-        <Input.String
-          placeholder={inputType}
-          value={inputValue}
-          onUserInput={(input) => updateAt(inputIndex, input)}
-        />
+        <Input.String placeholder={inputType} value={inputValue} onUserInput={onUserInput} />
       ) : (
         <Typography as="span">Input of type {inputType} is not supported</Typography>
       )}

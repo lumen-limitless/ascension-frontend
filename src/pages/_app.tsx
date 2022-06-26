@@ -10,13 +10,13 @@ const config: Config = {
   readOnlyUrls: RPC,
   multicallAddresses: MULTICALL2_ADDRESS,
   autoConnect: true,
+  networks: SUPPORTED_CHAINS,
+  pollingInterval: 10000,
   notifications: {
-    checkInterval: 3000,
     expirationPeriod: 0,
   },
-  networks: SUPPORTED_CHAINS,
-  pollingInterval: 60000,
   fastMulticallEncoding: true,
+  noMetamaskDeactivate: true,
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

@@ -33,12 +33,7 @@ export const useNativeUsdPrice = (chainId: ChainId) => {
 export const useVerifiedContractABI = (
   address: string,
   chainId: ChainId
-): {
-  abi: any[] | null
-  functions: ContractFunction[] | null
-  views: ContractFunction[] | null
-  events: ContractEvent[] | null
-} => {
+): Array<ContractEvent | ContractFunction> => {
   const { data, error } = useSWR(
     isAddress(address) && chainId
       ? `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
@@ -52,23 +47,10 @@ export const useVerifiedContractABI = (
   )
 
   return useMemo(() => {
-    if (error || !data || data?.status === '0')
-      return { abi: null, functions: null, views: null, events: null }
+    if (error || !data || data?.status === '0') return null
 
     const abi = JSON.parse(data.result)
 
-    const functions: ContractFunction[] = filter(abi, (value) => {
-      return value.type === 'function' && value.stateMutability !== 'view'
-    })
-
-    const views: ContractFunction[] = filter(abi, (value) => {
-      return value.type === 'function' && value.stateMutability === 'view'
-    })
-
-    const events: ContractEvent[] = filter(abi, (value) => {
-      return value.type === 'event'
-    })
-
-    return { abi, functions, views, events }
+    return abi
   }, [data, error])
 }

@@ -112,7 +112,7 @@ const Header: React.FC = () => {
                                   </p>
                                 </a>
                               </Link>
-                              <Link href={'/tools/batchsender'}>
+                              {/* <Link href={'/tools/batchsender'}>
                                 <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                   <div className="flex items-center">
                                     <div className="text-base font-medium text-white">
@@ -125,7 +125,7 @@ const Header: React.FC = () => {
                                     Easily create & send bulk token transfers
                                   </p>
                                 </a>
-                              </Link>
+                              </Link> */}
                               <Link href={'/tools/reactor'}>
                                 <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                   <div className="flex items-center">
@@ -140,7 +140,7 @@ const Header: React.FC = () => {
                                   </p>
                                 </a>
                               </Link>
-                              <Link href={'/tools/supernova'}>
+                              {/* <Link href={'/tools/supernova'}>
                                 <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                   <div className="flex items-center">
                                     <div className="text-base font-medium text-white">
@@ -153,7 +153,7 @@ const Header: React.FC = () => {
                                     opportunities
                                   </p>
                                 </a>
-                              </Link>
+                              </Link> */}
                               <Link href={'/tools'}>
                                 <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                                   <div className="flex items-center">
