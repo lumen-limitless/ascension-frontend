@@ -4,6 +4,7 @@ import { FC } from 'react'
 import { useBoolean } from 'react-use'
 import { SUPPORTED_CHAINS } from '../../constants'
 import { useSwitchNetwork } from '../../hooks'
+import useStore from '../../store/useStore'
 import Button from '../ui/Button'
 import Divider from '../ui/Divider'
 import Grid from '../ui/Grid'
@@ -52,7 +53,7 @@ const OptimismIcon = dynamic(() => import('../icons/networks/OptimismIcon'), {
   loading: () => <Spinner />,
 })
 
-const CHAIN_ICON = {
+export const CHAIN_ICON = {
   [ChainId.Hardhat]: <HardhatIcon />,
   [ChainId.ArbitrumRinkeby]: <ArbitrumIcon />,
   [ChainId.Arbitrum]: <ArbitrumIcon />,
@@ -72,44 +73,34 @@ const CHAIN_ICON = {
 }
 
 const Network: FC = () => {
-  const { chainId } = useEthers()
-  const [viewing, toggle] = useBoolean(false)
   const switchNetwork = useSwitchNetwork()
-
+  const toggleViewingModal = useStore((state) => state.toggleViewingModal)
   return (
     <>
-      <Button className="border border-dark-900" onClick={toggle}>
-        {chainId && CHAIN_ICON[chainId]}
-      </Button>
+      <div className="w-full pb-3">
+        {' '}
+        <Typography as="h1" variant="xl" centered className="pb-1">
+          Choose Network
+        </Typography>
+        <Divider />
+      </div>
 
-      {viewing && (
-        <Modal isOpen={viewing} onDismiss={toggle}>
-          <div className="w-full pb-3">
-            {' '}
-            <Typography as="h1" variant="xl" centered className="pb-1">
-              Choose Network
-            </Typography>
-            <Divider />
+      <Grid gap="md">
+        {SUPPORTED_CHAINS.map((chain) => (
+          <div key={chain.chainId} className="col-span-6">
+            <Button
+              color="gray"
+              onClick={() => {
+                switchNetwork(chain.chainId).then(() => {
+                  toggleViewingModal(false)
+                })
+              }}
+            >
+              {CHAIN_ICON[chain.chainId]} {chain.chainName}
+            </Button>
           </div>
-
-          <Grid gap="md">
-            {SUPPORTED_CHAINS.map((chain) => (
-              <div key={chain.chainId} className="col-span-6">
-                <Button
-                  color="gray"
-                  onClick={() => {
-                    switchNetwork(chain.chainId).then(() => {
-                      toggle()
-                    })
-                  }}
-                >
-                  {CHAIN_ICON[chain.chainId]} {chain.chainName}
-                </Button>
-              </div>
-            ))}
-          </Grid>
-        </Modal>
-      )}
+        ))}
+      </Grid>
     </>
   )
 }

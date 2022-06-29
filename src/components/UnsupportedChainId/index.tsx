@@ -23,7 +23,7 @@ const UnsupportedChainId: FC<UnsupporteChainIdProps> = ({ supportedChainIds }) =
 
       <Grid gap="md">
         {supportedChainIds.map((supportedChainId) => (
-          <div key="supportedChainId" className="col-span-6 flex place-content-center">
+          <div key={supportedChainId} className="col-span-6 flex place-content-center">
             <Button color="blue" onClick={() => switchNetwork(supportedChainId)}>
               Connect to {CHAIN_NAME[supportedChainId]}
             </Button>

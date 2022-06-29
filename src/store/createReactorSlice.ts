@@ -1,5 +1,4 @@
 import { StateCreator } from 'zustand'
-import Reactor from '../components/Reactor'
 
 export interface ReactorSlice {
   address: string
@@ -20,7 +19,11 @@ const initialState = {
   reactionActive: false,
 }
 
-const createReactorSlice: StateCreator<ReactorSlice, [], []> = (set) => ({
+const createReactorSlice: StateCreator<
+  ReactorSlice,
+  [['zustand/devtools', unknown], ['zustand/persist', unknown]],
+  []
+> = (set) => ({
   ...initialState,
   reset: () => set(initialState),
   setEventIndex: (i) => set({ eventIndex: i }),

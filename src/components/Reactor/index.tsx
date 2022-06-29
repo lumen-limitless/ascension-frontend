@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { shortenIfAddress, Songbird, useContractFunction, useEthers } from '@usedapp/core'
 import { useMemo } from 'react'
 import Button from '../ui/Button'
@@ -54,7 +54,6 @@ const Reactor: FC = () => {
   )
 
   const abi = useVerifiedContractABI(address, chainId)
-  console.table(abi)
 
   const { events, selectedEvent } = useMemo(() => {
     if (!abi) return { events: null, selectedEvent: null }
@@ -83,12 +82,11 @@ const Reactor: FC = () => {
     functionArgs,
     { updateAt: updateFunctionArgsAt, reset: resetFunctionArgs, set: setFunctionArgs },
   ] = useList([])
-  console.log(functionArgs)
 
   const contract = useContract(address, abi, chainId)
 
   const { state, send, resetState } = useContractFunction(contract, selectedFunction?.name)
-  console.log(state)
+
   const filter = useMemo(() => {
     if (!contract) return null
     if (!selectedEvent) return null
@@ -102,39 +100,46 @@ const Reactor: FC = () => {
     }
     return filter
   }, [contract, eventArgs, selectedEvent])
-  console.log(filter)
+
+  const startListener = useCallback(() => {
+    contract.once(filter, () => {
+      send(...functionArgs).then(() => {
+        state.status === 'Success'
+          ? t('success', 'Transaction succeeded')
+          : t('error', 'Transaction failed')
+        setReaction(false)
+        contract.removeAllListeners()
+        resetState()
+      })
+    })
+  }, [filter, functionArgs, state, contract, resetState, t, send, setReaction])
 
   useEffect(() => {
-    if (!reactionActive || !contract || !filter) return
+    if (!reactionActive || !contract || !filter) {
+      return
+    }
 
+    if (state.status === 'None') {
+      return
+    }
     if (state.status === 'Exception') {
       t('error', 'Transaction exception occurred')
       resetState()
       setReaction(false)
+      contract.removeAllListeners()
       return
     }
 
     if (state.status === 'PendingSignature') {
       t('info', 'Confirm transaction in wallet')
-      return
-    }
-    if (state.status === 'None') {
-      contract.once(filter, () => {
-        send(...functionArgs).then(() => {
-          state.status === 'Success'
-            ? t('success', 'Transaction succeeded')
-            : t('error', 'Transaction failed')
-          setReaction(false)
-          resetState()
-        })
-      })
+      contract.removeAllListeners()
       return
     }
 
     return function cleanup() {
       contract.removeAllListeners()
     }
-  }, [reactionActive, filter, state])
+  }, [reactionActive, filter, state, contract, functionArgs, resetState, setReaction, t])
 
   return (
     <Grid gap="md">
@@ -168,7 +173,7 @@ const Reactor: FC = () => {
               </div>
             ) : (
               <div className="flex w-full items-center justify-center gap-3">
-                <ExternalLink href={`https://${SCAN_INFO[chainId].name}.io/address/${address}`}>
+                <ExternalLink href={`https://${SCAN_INFO[chainId].name}/address/${address}`}>
                   <Button color="blue">
                     <Icon icon="fa-solid:file-contract" height={24} />
                     <Typography as="span">{shortenIfAddress(address)}</Typography>
@@ -204,6 +209,7 @@ const Reactor: FC = () => {
                           color="red"
                           onClick={() => {
                             setReaction(!reactionActive)
+                            contract.removeAllListeners()
                             resetState()
                           }}
                         >
@@ -309,7 +315,10 @@ const Reactor: FC = () => {
                               {' '}
                               <Button
                                 color="gradient"
-                                onClick={() => setReaction(!reactionActive)}
+                                onClick={() => {
+                                  setReaction(true)
+                                  startListener()
+                                }}
                                 disabled={
                                   functionArgs.length !== selectedFunction.inputs.length ||
                                   functionArgs.includes('')

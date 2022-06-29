@@ -10,7 +10,7 @@ export default function Avatar({ size = 64 }) {
   return (
     <Image
       src={makeBlockie(account ?? BURN_ADDRESS)}
-      alt={account ?? 'Blockie'}
+      alt={account ?? BURN_ADDRESS}
       width={size}
       height={size}
       className="rounded-full"

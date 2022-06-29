@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Logo from '../ui/Logo'
-import { ChevronDownIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon, LoginIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Divider from '../ui/Divider'
@@ -8,17 +8,15 @@ import Badge from '../ui/Badge'
 import cn from 'clsx'
 import Button from '../ui/Button'
 import { useEthers } from '@usedapp/core'
-import dynamic from 'next/dynamic'
 import { useBoolean } from 'react-use'
-
-const Connect = dynamic(() => import('../Connect'), { ssr: false })
-const Network = dynamic(() => import('../Network'), { ssr: false })
-const Account = dynamic(() => import('../Account'), { ssr: false })
+import Avatar from '../Avatar'
+import useStore from '../../store/useStore'
+import { CHAIN_ICON } from '../Network'
 
 const Header: React.FC = () => {
-  const { account } = useEthers()
+  const { account, chainId } = useEthers()
   const [viewing, toggle] = useBoolean(false)
-
+  const setModalView = useStore((state) => state.setModalView)
   return (
     <>
       <header
@@ -36,15 +34,27 @@ const Header: React.FC = () => {
             </Link>
             <div className="-my-2 -mr-2 flex gap-1 md:hidden">
               {!account ? (
-                <Connect />
+                <Button color="blue" onClick={() => setModalView('connect')}>
+                  <LoginIcon height={24} /> Connect Wallet
+                </Button>
               ) : (
                 <>
-                  <Network />
-                  <Account />
+                  <Button
+                    className="border border-dark-900"
+                    onClick={() => setModalView('network')}
+                  >
+                    {chainId && CHAIN_ICON[chainId]}
+                  </Button>
+                  <Button
+                    className="border border-dark-900"
+                    onClick={() => setModalView('account')}
+                  >
+                    <Avatar size={24} />
+                  </Button>
                 </>
               )}
 
-              <Popover.Button>
+              <Popover.Button as="div">
                 <span className="sr-only">Open menu</span>
                 <Button color="transparent">
                   <MenuAlt2Icon height={24} width={24} aria-hidden="true" />
@@ -185,11 +195,23 @@ const Header: React.FC = () => {
               </Popover.Group>
               <div className="flex items-center gap-1 md:ml-12">
                 {!account ? (
-                  <Connect />
+                  <Button color="blue" onClick={() => setModalView('connect')}>
+                    <LoginIcon height={24} /> Connect Wallet
+                  </Button>
                 ) : (
                   <>
-                    <Network />
-                    <Account />
+                    <Button
+                      className="border border-dark-900"
+                      onClick={() => setModalView('network')}
+                    >
+                      {chainId && CHAIN_ICON[chainId]}
+                    </Button>
+                    <Button
+                      className="border border-dark-900"
+                      onClick={() => setModalView('account')}
+                    >
+                      <Avatar size={24} />
+                    </Button>
                   </>
                 )}
               </div>

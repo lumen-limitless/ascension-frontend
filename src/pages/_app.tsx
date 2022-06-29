@@ -7,7 +7,9 @@ import '../styles/index.css'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
-  readOnlyUrls: RPC,
+  readOnlyUrls: {
+    [HOME_CHAINID]: RPC[HOME_CHAINID],
+  },
   multicallAddresses: MULTICALL2_ADDRESS,
   autoConnect: true,
   networks: SUPPORTED_CHAINS,

@@ -28,7 +28,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) 
   const { chainId } = useEthers()
   const blockNumber = useBlockNumber()
   const logs = useLogs(contract && event && { contract: contract, event: event.name, args: [] }, {
-    fromBlock: blockNumber - 1,
+    fromBlock: blockNumber - 10,
   })
 
   return (
@@ -48,7 +48,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) 
             <Divider />
 
             <div className="flex max-h-96 flex-col items-center justify-start gap-3 overflow-y-auto overflow-x-hidden py-3">
-              {logs.value.map((log, i) => (
+              {logs.value.reverse().map((log, i) => (
                 <Card key={i} className="w-full">
                   <Grid gap="sm">
                     <div className="col-span-4">
