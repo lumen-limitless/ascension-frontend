@@ -4,6 +4,7 @@ import Card from '../Card'
 import { formatBalance, formatPercent } from '../../../functions'
 import { BigNumberish } from 'ethers'
 import Typography from '../Typography'
+import { commify } from 'ethers/lib/utils'
 
 type Stat = {
   name?: string
@@ -38,7 +39,7 @@ const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
                     {item.before}
 
                     {item.isBalance
-                      ? formatBalance(item.stat)
+                      ? commify(formatBalance(item.stat))
                       : item.isPercent
                       ? formatPercent(item.stat)
                       : item.stat}

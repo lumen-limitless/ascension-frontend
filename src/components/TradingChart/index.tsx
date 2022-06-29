@@ -156,7 +156,7 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
           <Loader message="Loading graph..." />
         ) : error ? (
           <Loader message={`Error loading graph`} />
-        ) : graphData?.length == 0 ? (
+        ) : graphData?.length === 0 ? (
           <Loader message="No Data to show." />
         ) : (
           <>

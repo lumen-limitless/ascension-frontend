@@ -3,9 +3,12 @@ import { Icon } from '@iconify/react'
 import { shortenIfAddress, useBlockNumber, useEthers, useLogs } from '@usedapp/core'
 import { Contract } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
+import { dropRight, startsWith } from 'lodash'
 import { FC } from 'react'
-import FadeUp from '../../animations/fadeUp'
+import { IHookStateSetAction } from 'react-use/lib/misc/hookState'
+import Motion from '../../animations/Motion'
 import { SCAN_INFO } from '../../constants'
+import { useToast } from '../../hooks'
 import { ContractEvent } from '../../types'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
@@ -18,8 +21,10 @@ import Typography from '../ui/Typography'
 interface EventMonitorProps {
   contract: Contract
   event: ContractEvent
+  setEventArgs: (newList: IHookStateSetAction<any[]>) => void
 }
-const EventMonitor: FC<EventMonitorProps> = ({ contract, event }) => {
+const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) => {
+  const t = useToast()
   const { chainId } = useEthers()
   const blockNumber = useBlockNumber()
   const logs = useLogs(contract && event && { contract: contract, event: event.name, args: [] }, {
@@ -27,7 +32,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event }) => {
   })
 
   return (
-    <FadeUp>
+    <Motion variant="fadeIn">
       <Card>
         {' '}
         {!logs ? (
@@ -68,7 +73,20 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event }) => {
                       </ExternalLink>
                     </div>
                     <div className="col-span-4">
-                      <Button color="green">
+                      <Button
+                        color="green"
+                        onClick={() => {
+                          setEventArgs(
+                            dropRight(
+                              log.data as any[],
+                              log.data.length -
+                                event.inputs.filter((eventInput) => eventInput.indexed === true)
+                                  .length
+                            )
+                          )
+                          t('success', 'Added event inputs as filter ')
+                        }}
+                      >
                         <PlusCircleIcon height={24} />
                         Filter
                       </Button>
@@ -80,11 +98,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event }) => {
                           <div className=" p-3">{event.inputs[i].name}</div>
 
                           <div className="rounded-r bg-dark-900 p-3">
-                            {event.inputs[i].type === 'address'
-                              ? shortenIfAddress(d)
-                              : event.inputs[i].type === 'uint256'
-                              ? formatUnits(d, '0')
-                              : d}
+                            {startsWith(event.inputs[i].type, 'uint') ? formatUnits(d, '0') : d}
                           </div>
                         </div>
                       ))}
@@ -96,7 +110,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event }) => {
           </>
         )}
       </Card>
-    </FadeUp>
+    </Motion>
   )
 }
 

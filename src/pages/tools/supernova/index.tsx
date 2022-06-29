@@ -18,7 +18,7 @@ const SupernovaPage: NextPage = () => {
       <Section layout="start" padding="md">
         <Container maxWidth="xl">
           <Card>
-            <Typography variant="h1">COMING SOON</Typography>
+            <Typography as="h1">COMING SOON</Typography>
           </Card>
         </Container>
       </Section>

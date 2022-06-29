@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { useBoolean } from 'react-use'
 import { SUPPORTED_CHAINS } from '../../constants'
-import { useNetworkNotifications, useSwitchNetwork } from '../../hooks'
+import { useSwitchNetwork } from '../../hooks'
 import Button from '../ui/Button'
 import Divider from '../ui/Divider'
 import Grid from '../ui/Grid'
@@ -47,6 +47,10 @@ const FantomIcon = dynamic(() => import('../icons/networks/FantomIcon'), {
   ssr: false,
   loading: () => <Spinner />,
 })
+const OptimismIcon = dynamic(() => import('../icons/networks/OptimismIcon'), {
+  ssr: false,
+  loading: () => <Spinner />,
+})
 
 const CHAIN_ICON = {
   [ChainId.Hardhat]: <HardhatIcon />,
@@ -64,6 +68,7 @@ const CHAIN_ICON = {
   [ChainId.BSCTestnet]: <ArbitrumIcon />,
   [ChainId.Avalanche]: <AvalancheIcon />,
   [ChainId.Harmony]: <HarmonyIcon />,
+  [ChainId.Optimism]: <OptimismIcon />,
 }
 
 const Network: FC = () => {

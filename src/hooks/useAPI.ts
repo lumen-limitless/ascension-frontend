@@ -36,7 +36,7 @@ export const useVerifiedContractABI = (
 ): Array<ContractEvent | ContractFunction> => {
   const { data, error } = useSWR(
     isAddress(address) && chainId
-      ? `https://api.${SCAN_INFO[chainId]?.name}.io/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
+      ? `https://api.${SCAN_INFO[chainId]?.name}/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
       : null,
     fetcher,
     {

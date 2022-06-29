@@ -17,14 +17,14 @@ import Typography from '../ui/Typography'
 import shallow from 'zustand/shallow'
 import useStore from '../../store/useStore'
 import ReactorIcon from '../icons/ReactorIcon'
-import { useDebounce, useList } from 'react-use'
+import { useList } from 'react-use'
 import EventMonitor from './EventMonitor'
 import FlexibleInput from './FlexibleInput'
-import FadeUp from '../../animations/fadeUp'
 import { EventFilter } from 'ethers'
 import Toggle from '../ui/Toggle'
 import { XCircleIcon } from '@heroicons/react/outline'
 import { ContractEvent, ContractFunction } from '../../types'
+import Motion from '../../animations/Motion'
 
 const Reactor: FC = () => {
   const t = useToast()
@@ -41,6 +41,7 @@ const Reactor: FC = () => {
     }),
     shallow
   )
+
   const [setAddress, reset, setEventIndex, setFunctionIndex, setReaction] = useStore(
     (state) => [
       state.setAddress,
@@ -53,31 +54,35 @@ const Reactor: FC = () => {
   )
 
   const abi = useVerifiedContractABI(address, chainId)
-  // console.table(abi)
+  console.table(abi)
 
-  const selectedEvent = useMemo(() => {
-    if (!abi) return null
-    if (abi.filter((value) => value.type === 'event').length === 0) return null
-
-    return abi.filter((value) => value.type === 'event')[eventIndex] as ContractEvent
+  const { events, selectedEvent } = useMemo(() => {
+    if (!abi) return { events: null, selectedEvent: null }
+    const events = abi.filter((value) => value.type === 'event')
+    if (events.length === 0) return { events: null, selectedEvent: null }
+    return { events: events as ContractEvent[], selectedEvent: events[eventIndex] as ContractEvent }
   }, [abi, eventIndex])
 
-  const selectedFunction = useMemo(() => {
-    if (!abi) return null
-    if (
-      abi.filter((value) => value.type === 'function' && value.stateMutability !== 'view')
-        .length === 0
+  const { functions, selectedFunction } = useMemo(() => {
+    if (!abi) return { functions: null, selectedFunction: null }
+    const functions = abi.filter(
+      (value) =>
+        value.type === 'function' && value.stateMutability !== 'view' && value.constant !== true
     )
-      return null
-
-    return abi.filter((value) => value.type === 'function' && value.stateMutability !== 'view')[
-      functionIndex
-    ] as ContractFunction
+    if (functions.length === 0) return { functions: null, selectedFunction: null }
+    return {
+      functions: functions as ContractFunction[],
+      selectedFunction: functions[functionIndex] as ContractFunction,
+    }
   }, [abi, functionIndex])
 
-  const [eventArgs, { updateAt: updateEventArgsAt, reset: resetEventArgs }] = useList([])
+  const [eventArgs, { updateAt: updateEventArgsAt, reset: resetEventArgs, set: setEventArgs }] =
+    useList([])
 
-  const [functionArgs, { updateAt: updateFunctionArgsAt, reset: resetFunctionArgs }] = useList([])
+  const [
+    functionArgs,
+    { updateAt: updateFunctionArgsAt, reset: resetFunctionArgs, set: setFunctionArgs },
+  ] = useList([])
   console.log(functionArgs)
 
   const contract = useContract(address, abi, chainId)
@@ -90,7 +95,7 @@ const Reactor: FC = () => {
     let filter: string | EventFilter
 
     try {
-      filter = contract.filters[selectedEvent.name](...eventArgs)
+      filter = contract.filters[selectedEvent?.name](...eventArgs)
     } catch (err) {
       console.error(err)
       filter = selectedEvent.name
@@ -98,6 +103,7 @@ const Reactor: FC = () => {
     return filter
   }, [contract, eventArgs, selectedEvent])
   console.log(filter)
+
   useEffect(() => {
     if (!reactionActive || !contract || !filter) return
 
@@ -105,9 +111,12 @@ const Reactor: FC = () => {
       t('error', 'Transaction exception occurred')
       resetState()
       setReaction(false)
+      return
     }
+
     if (state.status === 'PendingSignature') {
       t('info', 'Confirm transaction in wallet')
+      return
     }
     if (state.status === 'None') {
       contract.once(filter, () => {
@@ -119,74 +128,69 @@ const Reactor: FC = () => {
           resetState()
         })
       })
+      return
     }
 
     return function cleanup() {
       contract.removeAllListeners()
     }
-  }, [
-    selectedEvent,
-    contract,
-    reactionActive,
-    send,
-    functionArgs,
-    filter,
-    resetState,
-    state,
-    setReaction,
-    t,
-  ])
+  }, [reactionActive, filter, state])
 
   return (
     <Grid gap="md">
       <div className="col-span-12">
-        <Card>
-          <div className="flex w-full items-center justify-center pb-3">
-            <ReactorIcon />
-          </div>
-          {!isAddress(address) ? (
-            <div className="flex gap-3">
-              <Input.Address
-                required
-                placeholder="Contract Address"
-                value={addressInput}
-                onUserInput={(input) => setAddressInput(input)}
-              ></Input.Address>
-              <Button
-                disabled={!isAddress(addressInput)}
-                onClick={() => {
-                  setAddress(addressInput)
-                  setAddressInput('')
-                }}
-                color="green"
-              >
-                Go
-              </Button>
-            </div>
-          ) : (
-            <div className="flex w-full items-center justify-center gap-3">
-              <ExternalLink href={`https://${SCAN_INFO[chainId].name}.io/address/${address}`}>
-                <Button color="blue">
-                  <Icon icon="fa-solid:file-contract" height={24} />
-                  <Typography as="span">{shortenIfAddress(address)}</Typography>
-                </Button>
-              </ExternalLink>
-              <div>
-                <Button color="yellow" onClick={() => reset()}>
-                  <Icon icon="ic:baseline-change-circle" height={24} />
-                  Reset
+        <Motion variant="fadeIn">
+          <Card>
+            {!isAddress(address) ? (
+              <div className="flex flex-col items-center gap-3 ">
+                <div>
+                  <Typography centered as="h2" variant="lg">
+                    Enter Contract Address
+                  </Typography>
+                  <Divider />
+                </div>
+                <Input.Address
+                  required
+                  placeholder="Contract Address"
+                  value={addressInput}
+                  onUserInput={(input) => setAddressInput(input)}
+                ></Input.Address>
+                <Button
+                  disabled={!isAddress(addressInput)}
+                  onClick={() => {
+                    setAddress(addressInput)
+                    setAddressInput('')
+                  }}
+                  color="green"
+                >
+                  Go
                 </Button>
               </div>
-            </div>
-          )}
-        </Card>
+            ) : (
+              <div className="flex w-full items-center justify-center gap-3">
+                <ExternalLink href={`https://${SCAN_INFO[chainId].name}.io/address/${address}`}>
+                  <Button color="blue">
+                    <Icon icon="fa-solid:file-contract" height={24} />
+                    <Typography as="span">{shortenIfAddress(address)}</Typography>
+                  </Button>
+                </ExternalLink>
+                <div>
+                  <Button color="yellow" onClick={() => reset()}>
+                    <Icon icon="ic:baseline-change-circle" height={24} />
+                    Reset
+                  </Button>
+                </div>
+              </div>
+            )}
+          </Card>{' '}
+        </Motion>
       </div>
 
-      <div className="col-span-7">
+      <div className="col-span-12 md:col-span-7">
         {isAddress(address) && (
-          <FadeUp>
+          <Motion variant="fadeIn">
             <Card>
-              {!abi ? (
+              {abi === null ? (
                 <Loader size={48} message="Loading contract ABI..." />
               ) : (
                 <Grid gap="sm">
@@ -235,11 +239,9 @@ const Reactor: FC = () => {
                                 setEventIndex(i)
                                 resetEventArgs()
                               }}
-                              options={abi
-                                .filter((value) => value.type === 'event')
-                                .map((event) => {
-                                  return `${event.name}`
-                                })}
+                              options={events.map((event) => {
+                                return `${event.name}`
+                              })}
                             />
                             {selectedEvent.inputs
                               .filter((eventInput) => eventInput.indexed === true)
@@ -280,14 +282,9 @@ const Reactor: FC = () => {
 
                             <Tabs
                               selectedIndex={functionIndex}
-                              options={abi
-                                .filter(
-                                  (value) =>
-                                    value.type === 'function' && value.stateMutability !== 'view'
-                                )
-                                .map((f) => {
-                                  return f.name
-                                })}
+                              options={functions.map((f) => {
+                                return f.name
+                              })}
                               onTabChange={(i) => {
                                 setFunctionIndex(i)
                                 resetFunctionArgs()
@@ -312,10 +309,7 @@ const Reactor: FC = () => {
                               {' '}
                               <Button
                                 color="gradient"
-                                onClick={() => {
-                                  t('info', 'Starting Reactor')
-                                  setReaction(!reactionActive)
-                                }}
+                                onClick={() => setReaction(!reactionActive)}
                                 disabled={
                                   functionArgs.length !== selectedFunction.inputs.length ||
                                   functionArgs.includes('')
@@ -333,11 +327,13 @@ const Reactor: FC = () => {
                 </Grid>
               )}
             </Card>
-          </FadeUp>
+          </Motion>
         )}
       </div>
-      <div className="col-span-5 ">
-        {abi && selectedEvent && <EventMonitor contract={contract} event={selectedEvent} />}
+      <div className="col-span-12 md:col-span-5 ">
+        {abi && selectedEvent && (
+          <EventMonitor contract={contract} event={selectedEvent} setEventArgs={setEventArgs} />
+        )}
       </div>
     </Grid>
   )

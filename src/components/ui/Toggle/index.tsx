@@ -9,14 +9,15 @@ export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   iconSet?: { on: JSX.Element; off: JSX.Element }
 }
 
-const Toggle: FC<ToggleProps> = ({ id, isActive, onToggle, iconSet }) => {
+const Toggle: FC<ToggleProps> = ({ id, isActive, onToggle, iconSet, className, ...rest }) => {
   return (
     <Switch
       checked={isActive}
       onChange={onToggle}
       className={cn(
         isActive ? 'bg-blue' : 'bg-dark-800',
-        'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
+        'inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
+        className
       )}
     >
       <span className="sr-only">Use setting</span>

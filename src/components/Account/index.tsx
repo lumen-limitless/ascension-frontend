@@ -12,6 +12,7 @@ import { useToast } from '../../hooks'
 import ImageComponent from '../ui/ImageComponent'
 import Typography from '../ui/Typography'
 import Grid from '../ui/Grid'
+import { commify } from 'ethers/lib/utils'
 
 export default function Account() {
   const { account, deactivate } = useEthers()
@@ -56,12 +57,12 @@ export default function Account() {
               <div className="flex w-full flex-col items-center">
                 <Typography className="text-xs md:text-sm">Balance</Typography>
                 <Typography>
-                  {tokenData ? formatBalance(tokenData.balance) : <Skeleton />}
+                  {tokenData ? commify(formatBalance(tokenData.balance)) : <Skeleton />}
                 </Typography>
               </div>{' '}
               <div className="flex w-full flex-col items-center">
                 <Typography className="text-xs md:text-sm">Staked</Typography>
-                {tokenData ? formatBalance(tokenData.stakedBalance) : <Skeleton />}
+                {tokenData ? commify(formatBalance(tokenData.stakedBalance)) : <Skeleton />}
               </div>{' '}
             </div>
 
