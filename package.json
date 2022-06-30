@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export",
-    "update:typechain": "cp ~/Documents/Projects/ASCENSION/ascension-protocol/typechain -r ~/Documents/Projects/ASCENSION/ascension-frontend/src/typechain"
+    "export": "next export"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

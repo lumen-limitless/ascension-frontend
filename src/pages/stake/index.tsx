@@ -25,6 +25,8 @@ import Toggle from '../../components/ui/Toggle'
 import { useBoolean } from 'react-use'
 import { Icon } from '@iconify/react'
 import Typography from '../../components/ui/Typography'
+import { LoginIcon } from '@heroicons/react/outline'
+import useStore from '../../store/useStore'
 
 const Connect = dynamic(() => import('../../components/Connect'), {
   ssr: false,
@@ -33,6 +35,7 @@ const Connect = dynamic(() => import('../../components/Connect'), {
 
 const StakePage: NextPage = () => {
   const switchNetwork = useSwitchNetwork()
+  const setModalView = useStore((state) => state.setModalView)
   const { account, chainId } = useEthers()
   const [amount, setAmount] = useState<string>('')
   const [isWithdrawing, toggle] = useBoolean(false)
@@ -110,7 +113,9 @@ const StakePage: NextPage = () => {
                 {!account ? (
                   <>
                     <div className="flex place-content-center">
-                      <Connect />
+                      <Button color="blue" onClick={() => setModalView('connect')}>
+                        <LoginIcon height={24} /> Connect Wallet
+                      </Button>
                     </div>
                   </>
                 ) : chainId != HOME_CHAINID ? (

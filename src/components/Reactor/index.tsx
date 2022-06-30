@@ -7,7 +7,7 @@ import Divider from '../ui/Divider'
 import Grid from '../ui/Grid'
 import Input from '../ui/Input'
 import { SCAN_INFO } from '../../constants'
-import { useContract, useToast, useVerifiedContractABI } from '../../hooks'
+import { useContract, useToast } from '../../hooks'
 import Loader from '../ui/Loader'
 import { isAddress } from 'ethers/lib/utils'
 import Tabs from '../ui/Tabs'
@@ -30,41 +30,40 @@ const Reactor: FC = () => {
   const t = useToast()
   const { chainId } = useEthers()
 
-  const [addressInput, setAddressInput] = useState('')
-
-  const { address, eventIndex, functionIndex, reactionActive } = useStore(
+  const { address, eventIndex, functionIndex, reactionActive, contractABI } = useStore(
     (state) => ({
       address: state.address,
       eventIndex: state.eventIndex,
       functionIndex: state.functionIndex,
       reactionActive: state.reactionActive,
+      contractABI: state.contractABI,
     }),
     shallow
   )
 
-  const [setAddress, reset, setEventIndex, setFunctionIndex, setReaction] = useStore(
-    (state) => [
-      state.setAddress,
-      state.reset,
-      state.setEventIndex,
-      state.setFunctionIndex,
-      state.setReaction,
-    ],
-    shallow
-  )
-
-  const abi = useVerifiedContractABI(address, chainId)
+  const [setAddress, reset, setEventIndex, setFunctionIndex, setReaction, fetchContractABI] =
+    useStore(
+      (state) => [
+        state.setAddress,
+        state.reset,
+        state.setEventIndex,
+        state.setFunctionIndex,
+        state.setReaction,
+        state.fetchContractABI,
+      ],
+      shallow
+    )
 
   const { events, selectedEvent } = useMemo(() => {
-    if (!abi) return { events: null, selectedEvent: null }
-    const events = abi.filter((value) => value.type === 'event')
+    if (!contractABI) return { events: null, selectedEvent: null }
+    const events = contractABI.filter((value) => value.type === 'event')
     if (events.length === 0) return { events: null, selectedEvent: null }
     return { events: events as ContractEvent[], selectedEvent: events[eventIndex] as ContractEvent }
-  }, [abi, eventIndex])
+  }, [contractABI, eventIndex])
 
   const { functions, selectedFunction } = useMemo(() => {
-    if (!abi) return { functions: null, selectedFunction: null }
-    const functions = abi.filter(
+    if (!contractABI) return { functions: null, selectedFunction: null }
+    const functions = contractABI.filter(
       (value) =>
         value.type === 'function' && value.stateMutability !== 'view' && value.constant !== true
     )
@@ -73,7 +72,7 @@ const Reactor: FC = () => {
       functions: functions as ContractFunction[],
       selectedFunction: functions[functionIndex] as ContractFunction,
     }
-  }, [abi, functionIndex])
+  }, [contractABI, functionIndex])
 
   const [eventArgs, { updateAt: updateEventArgsAt, reset: resetEventArgs, set: setEventArgs }] =
     useList([])
@@ -83,7 +82,7 @@ const Reactor: FC = () => {
     { updateAt: updateFunctionArgsAt, reset: resetFunctionArgs, set: setFunctionArgs },
   ] = useList([])
 
-  const contract = useContract(address, abi, chainId)
+  const contract = useContract(address, contractABI, chainId)
 
   const { state, send, resetState } = useContractFunction(contract, selectedFunction?.name)
 
@@ -102,13 +101,13 @@ const Reactor: FC = () => {
   }, [contract, eventArgs, selectedEvent])
 
   const startListener = useCallback(() => {
-    contract.once(filter, () => {
+    contract.once(filter, (tx) => {
+      console.log(tx)
       send(...functionArgs).then(() => {
         state.status === 'Success'
           ? t('success', 'Transaction succeeded')
           : t('error', 'Transaction failed')
         setReaction(false)
-        contract.removeAllListeners()
         resetState()
       })
     })
@@ -146,7 +145,7 @@ const Reactor: FC = () => {
       <div className="col-span-12">
         <Motion variant="fadeIn">
           <Card>
-            {!isAddress(address) ? (
+            {!contractABI ? (
               <div className="flex flex-col items-center gap-3 ">
                 <div>
                   <Typography centered as="h2" variant="lg">
@@ -157,18 +156,19 @@ const Reactor: FC = () => {
                 <Input.Address
                   required
                   placeholder="Contract Address"
-                  value={addressInput}
-                  onUserInput={(input) => setAddressInput(input)}
+                  value={address}
+                  onUserInput={(input) => setAddress(input)}
                 ></Input.Address>
                 <Button
-                  disabled={!isAddress(addressInput)}
-                  onClick={() => {
-                    setAddress(addressInput)
-                    setAddressInput('')
-                  }}
+                  disabled={!isAddress(address)}
+                  onClick={() =>
+                    fetchContractABI(
+                      `https://api.${SCAN_INFO[chainId]?.name}/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
+                    )
+                  }
                   color="green"
                 >
-                  Go
+                  Get Contract
                 </Button>
               </div>
             ) : (
@@ -192,11 +192,11 @@ const Reactor: FC = () => {
       </div>
 
       <div className="col-span-12 md:col-span-7">
-        {isAddress(address) && (
+        {contractABI && (
           <Motion variant="fadeIn">
             <Card>
-              {abi === null ? (
-                <Loader size={48} message="Loading contract ABI..." />
+              {contractABI.length === 0 ? (
+                <Loader size={48} message="Failed to find contract abi" />
               ) : (
                 <Grid gap="sm">
                   {reactionActive ? (
@@ -220,9 +220,7 @@ const Reactor: FC = () => {
                     </>
                   ) : (
                     <>
-                      {!abi ? (
-                        <Loader />
-                      ) : !selectedEvent ? (
+                      {!selectedEvent ? (
                         <Typography as="h2" centered className="col-span-12">
                           NO EVENTS FOUND
                         </Typography>
@@ -340,7 +338,7 @@ const Reactor: FC = () => {
         )}
       </div>
       <div className="col-span-12 md:col-span-5 ">
-        {abi && selectedEvent && (
+        {contractABI && selectedEvent && (
           <EventMonitor contract={contract} event={selectedEvent} setEventArgs={setEventArgs} />
         )}
       </div>

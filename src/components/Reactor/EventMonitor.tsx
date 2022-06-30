@@ -35,9 +35,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) 
     <Motion variant="fadeIn">
       <Card>
         {' '}
-        {!logs ? (
-          <Loader size={48} message="Loading Events" />
-        ) : logs.error ? (
+        {!logs || logs.error ? (
           <Loader size={48} />
         ) : (
           <>

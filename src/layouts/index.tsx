@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import Modal from '../components/ui/Modal'
 import { useNetworkNotifications } from '../hooks'
 import useStore from '../store/useStore'
 
@@ -9,14 +8,15 @@ const Toaster = dynamic(() => import('react-hot-toast').then((mod) => mod.Toaste
 const Connect = dynamic(() => import('../components/Connect'), { ssr: false })
 const Network = dynamic(() => import('../components/Network'), { ssr: false })
 const Account = dynamic(() => import('../components/Account'), { ssr: false })
+const Modal = dynamic(() => import('../components/ui/Modal'), { ssr: false })
 
 const MODAL_VIEWS = {
-  none: null,
+  none: <></>,
   account: <Account />,
   network: <Network />,
   connect: <Connect />,
 }
-export default function Layout({ children }: any) {
+export default function Layout({ children }) {
   useNetworkNotifications()
   const viewingModal = useStore((state) => state.viewingModal)
   const modalView = useStore((state) => state.modalView)

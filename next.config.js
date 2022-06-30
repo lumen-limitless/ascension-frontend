@@ -4,14 +4,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 module.exports = withBundleAnalyzer({
-  reactStrictMode: true,
+  strictMode: true,
   trailingSlash: true,
   il8n: {
     locales: ['en'],
     defaultLocale: 'en',
   },
   images: {
-    formats: ['image/webp'],
+    formats: ['image/webp', 'image/avif'],
     loader: 'custom',
     domains: ['res.cloudinary.com'],
   },

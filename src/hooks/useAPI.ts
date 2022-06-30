@@ -28,29 +28,3 @@ export const useNativeUsdPrice = (chainId: ChainId) => {
   if (error) return null
   return data ? parseFloat(data.result[`${CHAIN_SYMBOL[chainId]?.toLowerCase()}usd`]) : null
 }
-
-//returns null on errors
-export const useVerifiedContractABI = (
-  address: string,
-  chainId: ChainId
-): Array<ContractEvent | ContractFunction> => {
-  const { data, error } = useSWR(
-    isAddress(address) && chainId
-      ? `https://api.${SCAN_INFO[chainId]?.name}/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
-      : null,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  )
-
-  return useMemo(() => {
-    if (error || !data || data?.status === '0') return null
-
-    const abi = JSON.parse(data.result)
-
-    return abi
-  }, [data, error])
-}

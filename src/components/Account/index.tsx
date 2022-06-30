@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 import Skeleton from '../ui/Skeleton'
 import { formatBalance } from '../../functions'
-import { useCopyToClipboard, useToggle } from 'react-use'
-import Modal from '../ui/Modal'
+import { useCopyToClipboard } from 'react-use'
 import Avatar from '../Avatar'
 import Button from '../ui/Button'
 import { shortenIfAddress, useEthers } from '@usedapp/core'
@@ -49,9 +48,7 @@ export default function Account() {
         <ImageComponent src="/circle-coin_weqrld.png" height={72} width={72} alt="ASCEND balance" />
         <div className="flex w-full flex-col items-center">
           <Typography className="text-xs md:text-sm">Balance</Typography>
-          <Typography>
-            {tokenData ? commify(formatBalance(tokenData.balance)) : <Skeleton />}
-          </Typography>
+          {tokenData ? commify(formatBalance(tokenData.balance)) : <Skeleton />}
         </div>{' '}
         <div className="flex w-full flex-col items-center">
           <Typography className="text-xs md:text-sm">Staked</Typography>
