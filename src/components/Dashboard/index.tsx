@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import Card from '../../components/ui/Card'
 import Stat from '../../components/ui/Stat'
 import { useCoingeckoTokenPrice } from '@usedapp/coingecko'
 import { commify } from 'ethers/lib/utils'
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { addressEqual } from '@usedapp/core'
+import { addressEqual, ChainId } from '@usedapp/core'
 import { useMemo } from 'react'
 import { ASCENSION, ASCENSION_LIQ_ADDRESS, DEX_BY_CHAIN, HOME_CHAINID } from '../../constants'
 import Loader from '../../components/ui/Loader'
@@ -40,18 +39,16 @@ const GET_SWAPS = gql`
   }
 `
 
-const Dashboard: FC = () => {
+export default function Dashboard() {
   const ascendPrice = useCoingeckoTokenPrice(
     ASCENSION.AscensionToken.address,
     'usd',
     'arbitrum-one'
   )
 
-  // const portfolio = useZerionPortfolio()
-
   const stakingData = useStakingSubgraph()
 
-  const priceData = useQuery(DEX_BY_CHAIN[HOME_CHAINID]['sushiswap'].subgraphUrl, GET_SWAPS, {
+  const priceData = useQuery(DEX_BY_CHAIN[ChainId.Arbitrum]['sushiswap'].subgraphUrl, GET_SWAPS, {
     pair: ASCENSION_LIQ_ADDRESS.toLowerCase(),
     orderBy: 'timestamp',
   })
@@ -229,5 +226,3 @@ const Dashboard: FC = () => {
     </Grid>
   )
 }
-
-export default Dashboard

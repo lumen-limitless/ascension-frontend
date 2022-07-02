@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Logo: React.FC<{ size?: number; className?: string }> = ({ size = 32, className = '' }) => {
+export default function Logo({ size = 48, className = '' }) {
   return (
     <svg
       height={size}
@@ -108,5 +108,3 @@ const Logo: React.FC<{ size?: number; className?: string }> = ({ size = 32, clas
     </svg>
   )
 }
-
-export default Logo

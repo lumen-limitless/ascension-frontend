@@ -1,69 +1,93 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { shortenIfAddress, Songbird, useContractFunction, useEthers } from '@usedapp/core'
 import { useMemo } from 'react'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
-import Divider from '../ui/Divider'
+import cn from 'clsx'
 import Grid from '../ui/Grid'
 import Input from '../ui/Input'
-import { SCAN_INFO } from '../../constants'
+import { CHAIN_SYMBOL, SCAN_INFO } from '../../constants'
 import { useContract, useToast } from '../../hooks'
-import Loader from '../ui/Loader'
 import { isAddress } from 'ethers/lib/utils'
 import Tabs from '../ui/Tabs'
 import { Icon } from '@iconify/react'
-import ExternalLink from '../ui/ExternalLink'
 import Typography from '../ui/Typography'
 import shallow from 'zustand/shallow'
 import useStore from '../../store/useStore'
 import ReactorIcon from '../icons/ReactorIcon'
-import { useList } from 'react-use'
 import EventMonitor from './EventMonitor'
 import FlexibleInput from './FlexibleInput'
-import { EventFilter } from 'ethers'
+import { Contract, EventFilter } from 'ethers'
 import Toggle from '../ui/Toggle'
-import { XCircleIcon } from '@heroicons/react/outline'
+import { RefreshIcon } from '@heroicons/react/outline'
 import { ContractEvent, ContractFunction } from '../../types'
-import Motion from '../../animations/Motion'
+import Motion from '../../animations'
+import { ExclamationIcon } from '@heroicons/react/solid'
 
-const Reactor: FC = () => {
+export default function Reactor() {
   const t = useToast()
   const { chainId } = useEthers()
 
-  const { address, eventIndex, functionIndex, reactionActive, contractABI } = useStore(
+  const {
+    eventAddress,
+    eventIndex,
+    eventAbi,
+    eventArgs,
+    functionAddress,
+    functionIndex,
+    functionAbi,
+    functionArgs,
+    reactionActive,
+  } = useStore(
     (state) => ({
-      address: state.address,
-      eventIndex: state.eventIndex,
-      functionIndex: state.functionIndex,
+      eventAddress: state.event.address,
+      eventIndex: state.event.index,
+      eventAbi: state.event.abi,
+      eventArgs: state.event.args,
+      functionAddress: state.function.address,
+      functionIndex: state.function.index,
+      functionAbi: state.function.abi,
+      functionArgs: state.function.args,
       reactionActive: state.reactionActive,
-      contractABI: state.contractABI,
     }),
     shallow
   )
 
-  const [setAddress, reset, setEventIndex, setFunctionIndex, setReaction, fetchContractABI] =
-    useStore(
-      (state) => [
-        state.setAddress,
-        state.reset,
-        state.setEventIndex,
-        state.setFunctionIndex,
-        state.setReaction,
-        state.fetchContractABI,
-      ],
-      shallow
-    )
+  const [
+    resetAll,
+    reset,
+    setAddress,
+    setIndex,
+    setArgs,
+    updateArgsAt,
+    clearArgs,
+    toggleReaction,
+    fetchABI,
+  ] = useStore(
+    (state) => [
+      state.resetAll,
+      state.reset,
+      state.setAddress,
+      state.setIndex,
+      state.setArgs,
+      state.updateArgsAt,
+      state.clearArgs,
+      state.toggleReaction,
+      state.fetchABI,
+    ],
+    shallow
+  )
 
   const { events, selectedEvent } = useMemo(() => {
-    if (!contractABI) return { events: null, selectedEvent: null }
-    const events = contractABI.filter((value) => value.type === 'event')
+    if (!eventAbi) return { events: null, selectedEvent: null }
+    const events = eventAbi.filter((value) => value.type === 'event')
     if (events.length === 0) return { events: null, selectedEvent: null }
     return { events: events as ContractEvent[], selectedEvent: events[eventIndex] as ContractEvent }
-  }, [contractABI, eventIndex])
+  }, [eventAbi, eventIndex])
 
   const { functions, selectedFunction } = useMemo(() => {
-    if (!contractABI) return { functions: null, selectedFunction: null }
-    const functions = contractABI.filter(
+    if (!functionAbi) return { functions: null, selectedFunction: null }
+    const functions = functionAbi.filter(
       (value) =>
         value.type === 'function' && value.stateMutability !== 'view' && value.constant !== true
     )
@@ -72,49 +96,42 @@ const Reactor: FC = () => {
       functions: functions as ContractFunction[],
       selectedFunction: functions[functionIndex] as ContractFunction,
     }
-  }, [contractABI, functionIndex])
+  }, [functionAbi, functionIndex])
 
-  const [eventArgs, { updateAt: updateEventArgsAt, reset: resetEventArgs, set: setEventArgs }] =
-    useList([])
+  const eventContract = useContract(eventAddress, eventAbi, chainId)
+  const functionContract = useContract(functionAddress, functionAbi, chainId)
 
-  const [
-    functionArgs,
-    { updateAt: updateFunctionArgsAt, reset: resetFunctionArgs, set: setFunctionArgs },
-  ] = useList([])
-
-  const contract = useContract(address, contractABI, chainId)
-
-  const { state, send, resetState } = useContractFunction(contract, selectedFunction?.name)
+  const { state, send, resetState } = useContractFunction(functionContract, selectedFunction?.name)
 
   const filter = useMemo(() => {
-    if (!contract) return null
+    if (!eventContract) return null
     if (!selectedEvent) return null
     let filter: string | EventFilter
 
     try {
-      filter = contract.filters[selectedEvent?.name](...eventArgs)
+      filter = eventContract.filters[selectedEvent?.name](...eventArgs)
     } catch (err) {
       console.error(err)
       filter = selectedEvent.name
     }
     return filter
-  }, [contract, eventArgs, selectedEvent])
+  }, [eventContract, eventArgs, selectedEvent])
 
   const startListener = useCallback(() => {
-    contract.once(filter, (tx) => {
-      console.log(tx)
+    toggleReaction(true)
+    eventContract.once(filter, () => {
       send(...functionArgs).then(() => {
         state.status === 'Success'
           ? t('success', 'Transaction succeeded')
           : t('error', 'Transaction failed')
-        setReaction(false)
+        toggleReaction(false)
         resetState()
       })
     })
-  }, [filter, functionArgs, state, contract, resetState, t, send, setReaction])
+  }, [filter, functionArgs, state, eventContract, resetState, t, send, toggleReaction])
 
   useEffect(() => {
-    if (!reactionActive || !contract || !filter) {
+    if (!reactionActive || !eventContract || !filter) {
       return
     }
 
@@ -124,225 +141,281 @@ const Reactor: FC = () => {
     if (state.status === 'Exception') {
       t('error', 'Transaction exception occurred')
       resetState()
-      setReaction(false)
-      contract.removeAllListeners()
+      toggleReaction(false)
+      eventContract.removeAllListeners()
       return
     }
 
     if (state.status === 'PendingSignature') {
       t('info', 'Confirm transaction in wallet')
-      contract.removeAllListeners()
       return
     }
 
     return function cleanup() {
-      contract.removeAllListeners()
+      eventContract.removeAllListeners()
     }
-  }, [reactionActive, filter, state, contract, functionArgs, resetState, setReaction, t])
+  }, [reactionActive, filter, state, eventContract, functionArgs, resetState, toggleReaction, t])
 
   return (
     <Grid gap="md">
-      <div className="col-span-12">
-        <Motion variant="fadeIn">
+      <div className="col-span-12 ">
+        <Motion variant="fadeIn" className="h-full w-full">
           <Card>
-            {!contractABI ? (
-              <div className="flex flex-col items-center gap-3 ">
-                <div>
-                  <Typography centered as="h2" variant="lg">
-                    Enter Contract Address
-                  </Typography>
-                  <Divider />
-                </div>
-                <Input.Address
-                  required
-                  placeholder="Contract Address"
-                  value={address}
-                  onUserInput={(input) => setAddress(input)}
-                ></Input.Address>
-                <Button
-                  disabled={!isAddress(address)}
-                  onClick={() =>
-                    fetchContractABI(
-                      `https://api.${SCAN_INFO[chainId]?.name}/api?module=contract&action=getabi&address=${address}&apikey=${SCAN_INFO[chainId]?.apiKey}`
-                    )
-                  }
-                  color="green"
-                >
-                  Get Contract
-                </Button>
+            <>
+              <div className="flex w-full flex-col items-center justify-center gap-1">
+                <ReactorIcon
+                  size={80}
+                  className={cn(reactionActive ? 'animate-pulse' : 'opacity-60')}
+                />
+                <Typography as="h1" variant="xl">
+                  {reactionActive ? 'Active' : 'Paused'}
+                </Typography>
+                {reactionActive && <Typography>Transaction status: {state.status}</Typography>}
               </div>
-            ) : (
-              <div className="flex w-full items-center justify-center gap-3">
-                <ExternalLink href={`https://${SCAN_INFO[chainId].name}/address/${address}`}>
-                  <Button color="blue">
-                    <Icon icon="fa-solid:file-contract" height={24} />
-                    <Typography as="span">{shortenIfAddress(address)}</Typography>
-                  </Button>
-                </ExternalLink>
+              <div className="flex w-full items-center justify-center gap-3 py-3">
                 <div>
-                  <Button color="yellow" onClick={() => reset()}>
-                    <Icon icon="ic:baseline-change-circle" height={24} />
-                    Reset
+                  {!reactionActive ? (
+                    <Button
+                      color="gradient"
+                      onClick={startListener}
+                      disabled={
+                        !selectedEvent ||
+                        !selectedFunction ||
+                        functionArgs.length < selectedFunction.inputs.length
+                      }
+                    >
+                      <Icon icon="la:atom" height={24} /> Start Reaction
+                    </Button>
+                  ) : (
+                    <Button color="red" onClick={() => toggleReaction(false)}>
+                      Stop Reaction
+                    </Button>
+                  )}
+                </div>
+
+                <div>
+                  <Button
+                    color="transparent"
+                    onClick={() => {
+                      resetAll()
+                    }}
+                  >
+                    <RefreshIcon height={24} />
                   </Button>
                 </div>
               </div>
-            )}
+            </>
           </Card>{' '}
         </Motion>
       </div>
 
-      <div className="col-span-12 md:col-span-7">
-        {contractABI && (
+      <div className="relative col-span-12 md:col-span-7">
+        <>
           <Motion variant="fadeIn">
-            <Card>
-              {contractABI.length === 0 ? (
-                <Loader size={48} message="Failed to find contract abi" />
-              ) : (
-                <Grid gap="sm">
-                  {reactionActive ? (
-                    <>
-                      <div className="col-span-12 flex flex-col items-center justify-center">
-                        <ReactorIcon size={100} className="animate-pulse" />
-                        <Typography as="h2">Reactor Active</Typography>
-                        <Typography as="strong">Transaction Status: {state.status}</Typography>
-                        <Button
-                          color="red"
-                          onClick={() => {
-                            setReaction(!reactionActive)
-                            contract.removeAllListeners()
-                            resetState()
-                          }}
-                        >
-                          <XCircleIcon height={24} />
-                          Cancel Reaction
-                        </Button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {!selectedEvent ? (
-                        <Typography as="h2" centered className="col-span-12">
-                          NO EVENTS FOUND
-                        </Typography>
-                      ) : !selectedFunction ? (
-                        <Typography as="h2" centered className="col-span-12">
-                          NO FUNCTIONS FOUND
-                        </Typography>
-                      ) : (
-                        <>
-                          <div className="col-span-12 flex w-full flex-col gap-3" id="events">
-                            <div>
-                              <Typography centered as="h2" variant="lg">
-                                Choose Event to listen for:
-                              </Typography>
-                              <Divider />
-                            </div>
-                            <Tabs
-                              selectedIndex={eventIndex}
-                              onTabChange={(i) => {
-                                setEventIndex(i)
-                                resetEventArgs()
-                              }}
-                              options={events.map((event) => {
-                                return `${event.name}`
-                              })}
-                            />
-                            {selectedEvent.inputs
-                              .filter((eventInput) => eventInput.indexed === true)
-                              .map((input, i) => (
-                                <div key={i} className="rounded bg-dark-900 p-3">
-                                  <Typography>{input.name}</Typography>
-
-                                  {/* TYPE CONVERSION FOR EVENT ARGS IS REQUIRED (NOT STRICT EQUALITY/INEQUALITY) */}
-                                  {eventArgs[i] != null && (
-                                    <FlexibleInput
-                                      inputType={input.type}
-                                      inputIndex={i}
-                                      inputValue={eventArgs[i]}
-                                      onUserInput={(input) => updateEventArgsAt(i, input)}
-                                      onToggle={() => updateEventArgsAt(i, !eventArgs[i])}
-                                    />
-                                  )}
-                                  <div className="flex ">
-                                    <Typography as="span">Any</Typography>{' '}
-                                    <Toggle
-                                      isActive={eventArgs[i] == null} //type conversion required
-                                      onToggle={
-                                        () => updateEventArgsAt(i, eventArgs[i] != null ? null : '') //type conversion required
-                                      }
-                                    />
-                                  </div>
-                                </div>
-                              ))}
-                          </div>
-
-                          <div className="col-span-12 flex w-full flex-col gap-3" id="functions">
-                            <div>
-                              <Typography centered as="h2" variant="lg">
-                                Choose Function to call:
-                              </Typography>
-                              <Divider />
-                            </div>
-
-                            <Tabs
-                              selectedIndex={functionIndex}
-                              options={functions.map((f) => {
-                                return f.name
-                              })}
-                              onTabChange={(i) => {
-                                setFunctionIndex(i)
-                                resetFunctionArgs()
-                              }}
-                            />
-
-                            {selectedFunction.inputs.map((input, i) => (
-                              <div key={i} className="rounded bg-dark-900 p-3">
-                                <Typography>{input.name}</Typography>
-
-                                <FlexibleInput
-                                  inputType={input.type}
-                                  inputIndex={i}
-                                  inputValue={functionArgs[i]}
-                                  onUserInput={(input) => updateFunctionArgsAt(i, input)}
-                                  onToggle={() => updateFunctionArgsAt(i, !functionArgs[i])}
-                                />
-                              </div>
-                            ))}
-
-                            <div className="col-span-12 place-self-center">
-                              {' '}
-                              <Button
-                                color="gradient"
-                                onClick={() => {
-                                  setReaction(true)
-                                  startListener()
-                                }}
-                                disabled={
-                                  functionArgs.length !== selectedFunction.inputs.length ||
-                                  functionArgs.includes('')
-                                }
-                              >
-                                <Icon icon="clarity:atom-solid" height={24} />
-                                Start Reaction
-                              </Button>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                    </>
+            <Card
+              header={
+                <div className="flex justify-between p-3">
+                  <Typography as="h2" variant="lg">
+                    Choose event
+                  </Typography>
+                  {eventAbi && (
+                    <div>
+                      <Button size="none" onClick={() => reset('event')}>
+                        <Icon icon="fa-solid:file-contract" height={24} />
+                        {shortenIfAddress(eventAddress)}
+                      </Button>
+                    </div>
                   )}
-                </Grid>
+                </div>
+              }
+            >
+              {!eventAbi ? (
+                <div className="flex flex-col items-center gap-3 ">
+                  <div>
+                    <Typography centered as="h2" variant="lg">
+                      Enter contract address
+                    </Typography>
+                  </div>
+                  <Input.Address
+                    required
+                    placeholder="Contract Address"
+                    value={eventAddress}
+                    onUserInput={(input) => setAddress(input, 'event')}
+                  />
+                  <Button
+                    disabled={!isAddress(eventAddress)}
+                    onClick={() =>
+                      fetchABI(
+                        SCAN_INFO[chainId]?.name,
+                        eventAddress,
+                        SCAN_INFO[chainId]?.apiKey,
+                        'event'
+                      )
+                    }
+                    color="green"
+                  >
+                    Get Contract
+                  </Button>
+                </div>
+              ) : eventAbi.length === 0 ? (
+                <div className="flex w-full items-center justify-center">
+                  {' '}
+                  <ExclamationIcon height={48} className="fill-current text-yellow-500" />
+                  <Typography as="span">Failed to find valid contract ABI</Typography>
+                  <Button color="blue" onClick={() => reset('event')}>
+                    Use different contract
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <div className="col-span-12 flex w-full flex-col gap-3" id="events">
+                    <Tabs
+                      selectedIndex={eventIndex}
+                      onTabChange={(i) => {
+                        setIndex(i, 'event')
+                        clearArgs('event')
+                      }}
+                      options={events.map((event) => {
+                        return `${event.name}`
+                      })}
+                    />
+                    {selectedEvent.inputs
+                      .filter((eventInput) => eventInput.indexed === true)
+                      .map((input, i) => (
+                        <div key={i} className="rounded bg-dark-900 p-3">
+                          <Typography>{input.name}</Typography>
+
+                          {/* TYPE CONVERSION FOR EVENT ARGS IS REQUIRED (NOT STRICT EQUALITY/INEQUALITY) */}
+                          {eventArgs[i] != null && (
+                            <FlexibleInput
+                              inputType={input.type}
+                              inputIndex={i}
+                              inputValue={eventArgs[i]}
+                              onUserInput={(input) => updateArgsAt(i, input, 'event')}
+                              onToggle={() => updateArgsAt(i, !eventArgs[i], 'event')}
+                            />
+                          )}
+                          <div className="flex ">
+                            <Typography as="span">Any</Typography>{' '}
+                            <Toggle
+                              isActive={eventArgs[i] == null} //type conversion required
+                              onToggle={
+                                () => updateArgsAt(i, eventArgs[i] != null ? null : '', 'event') //type conversion required
+                              }
+                            />
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </>
               )}
             </Card>
           </Motion>
+        </>
+      </div>
+
+      <div className="relative col-span-12 md:order-last md:col-span-7">
+        {selectedEvent && (
+          <>
+            <Motion variant="fadeIn">
+              <Card
+                header={
+                  <div className="flex justify-between p-3">
+                    <Typography as="h2" variant="lg">
+                      Choose function
+                    </Typography>
+                    {functionAbi && (
+                      <div>
+                        <Button size="none" onClick={() => reset('function')}>
+                          <Icon icon="fa-solid:file-contract" height={24} />
+                          {shortenIfAddress(functionAddress)}
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                }
+              >
+                {!functionAbi ? (
+                  <div className="flex flex-col items-center gap-3 ">
+                    <div>
+                      <Typography centered as="h2" variant="lg">
+                        Enter function contract address
+                      </Typography>
+                    </div>
+                    <Input.Address
+                      required
+                      placeholder="Contract Address"
+                      value={functionAddress}
+                      onUserInput={(input) => setAddress(input, 'function')}
+                    />
+                    <Button
+                      disabled={!isAddress(functionAddress)}
+                      onClick={() =>
+                        fetchABI(
+                          SCAN_INFO[chainId]?.name,
+                          functionAddress,
+                          SCAN_INFO[chainId]?.apiKey,
+                          'function'
+                        )
+                      }
+                      color="green"
+                    >
+                      Get Contract
+                    </Button>
+                  </div>
+                ) : functionAbi.length === 0 ? (
+                  <div className="flex w-full items-center justify-center">
+                    {' '}
+                    <ExclamationIcon height={48} className="fill-current text-yellow-500" />
+                    <Typography as="span">Failed to find valid contract ABI</Typography>
+                    <Button color="blue" onClick={() => reset('function')}>
+                      Use different contract
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <div className="col-span-12 flex w-full flex-col gap-3" id="events">
+                      <Tabs
+                        selectedIndex={functionIndex}
+                        onTabChange={(i) => {
+                          setIndex(i, 'function')
+                          clearArgs('function')
+                        }}
+                        options={functions.map((func) => {
+                          return `${func.name}`
+                        })}
+                      />
+                      {selectedFunction.inputs.map((input, i) => (
+                        <div key={i} className="rounded bg-dark-900 p-3">
+                          <Typography>{input.name}</Typography>
+
+                          <FlexibleInput
+                            inputType={input.type}
+                            inputIndex={i}
+                            inputValue={functionArgs[i]}
+                            onUserInput={(input) => updateArgsAt(i, input, 'function')}
+                            onToggle={() => updateArgsAt(i, !functionArgs[i], 'function')}
+                          />
+                        </div>
+                      ))}
+                      <div className="rounded bg-blue-700 p-3">
+                        <Typography>Value ({CHAIN_SYMBOL[chainId]})</Typography>
+                        <Input.Numeric onUserInput={() => null} value={0.0} />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </Card>
+            </Motion>
+          </>
         )}
       </div>
-      <div className="col-span-12 md:col-span-5 ">
-        {contractABI && selectedEvent && (
-          <EventMonitor contract={contract} event={selectedEvent} setEventArgs={setEventArgs} />
+
+      <div className=" col-span-12  md:col-span-5 md:row-span-2">
+        {eventAbi && selectedEvent && (
+          <EventMonitor contract={eventContract} event={selectedEvent} setEventArgs={setArgs} />
         )}
       </div>
     </Grid>
   )
 }
-export default Reactor

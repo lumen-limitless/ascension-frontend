@@ -1,5 +1,4 @@
 import { HTMLMotionProps, motion, Variants } from 'framer-motion'
-import { FC } from 'react'
 
 interface MotionProps extends HTMLMotionProps<'div'> {
   delay?: number
@@ -17,13 +16,20 @@ const MOTION_VARIANTS: { [key: string]: Variants } = {
     hidden: { opacity: 0, translateY: '33%' },
   },
 }
-const Motion: FC<MotionProps> = ({ children, delay = 0, duration = 0.66, variant, ...rest }) => {
+export default function Motion({
+  children,
+  delay = 0,
+  duration = 0.33,
+  variant,
+  ...rest
+}: MotionProps) {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
+      exit="hidden"
       viewport={{ once: true }}
-      transition={{ ease: 'easeInOut', delay: delay, duration: duration }}
+      transition={{ ease: 'easeOut', delay: delay, duration: duration }}
       variants={MOTION_VARIANTS[variant]}
       {...rest}
     >
@@ -31,5 +37,3 @@ const Motion: FC<MotionProps> = ({ children, delay = 0, duration = 0.66, variant
     </motion.div>
   )
 }
-
-export default Motion

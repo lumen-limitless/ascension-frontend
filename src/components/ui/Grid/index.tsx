@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, FC, HTMLAttributes } from 'react'
+import { DetailedHTMLProps, HTMLAttributes } from 'react'
 import cn from 'clsx'
 
 export interface GridProps
@@ -14,12 +14,10 @@ const GAP = {
   lg: 'gap-4',
   xl: 'gap-6',
 }
-const Grid: FC<GridProps> = ({ gap = 'none', children, className, ...props }) => {
+export default function Grid({ gap = 'none', children, className, ...rest }: GridProps) {
   return (
-    <div className={cn('grid grid-cols-12', GAP[gap], className)} {...props}>
+    <div className={cn('grid grid-cols-12', GAP[gap], className)} {...rest}>
       {children}
     </div>
   )
 }
-
-export default Grid

@@ -37,13 +37,18 @@ export interface ContainerProps {
   id?: string
 }
 
-const Container: FC<ContainerProps> = ({ children, maxWidth = '2xl', className = '', id }) => (
-  <div
-    className={cn(className, TailwindMapper[maxWidth], 'mx-auto w-full px-3 md:px-6 lg:px-9')}
-    id={id}
-  >
-    {children}
-  </div>
-)
-
-export default Container
+export default function Container({
+  children,
+  maxWidth = '2xl',
+  className = '',
+  id,
+}: ContainerProps) {
+  return (
+    <div
+      className={cn(className, TailwindMapper[maxWidth], 'mx-auto w-full px-3 md:px-6 lg:px-9')}
+      id={id}
+    >
+      {children}
+    </div>
+  )
+}

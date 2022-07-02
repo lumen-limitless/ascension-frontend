@@ -1,6 +1,5 @@
 import { Tab } from '@headlessui/react'
-import cn from 'clsx'
-import { FC, memo } from 'react'
+import { memo } from 'react'
 import Button from '../Button'
 
 export interface TabProps {
@@ -9,7 +8,7 @@ export interface TabProps {
   onTabChange?: (i: number) => any
   onTabSelect?: (o: string) => any
 }
-const Tabs: FC<TabProps> = ({ options, selectedIndex, onTabChange, onTabSelect }) => {
+const Tabs = ({ options, selectedIndex, onTabChange, onTabSelect }: TabProps) => {
   return (
     <div className="w-full">
       <Tab.Group defaultIndex={selectedIndex} onChange={(i) => onTabChange && onTabChange(i)}>

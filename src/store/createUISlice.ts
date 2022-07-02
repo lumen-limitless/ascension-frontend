@@ -13,11 +13,15 @@ const initialState: { viewingModal: boolean; modalView: UIViewController } = {
   viewingModal: false,
   modalView: 'none',
 }
-const createUISlice: StateCreator<UISlice, [['zustand/devtools', unknown]], []> = (set) => ({
+const createUISlice: StateCreator<
+  UISlice,
+  [['zustand/devtools', any], ['zustand/immer', any]],
+  []
+> = (set) => ({
   ...initialState,
   toggleViewingModal: (isViewing) =>
     set((state) => ({
-      viewingModal: isViewing ?? !state.viewingModal,
+      viewingModal: isViewing === undefined ? !state.viewingModal : isViewing,
     })),
   setModalView: (view) =>
     set({

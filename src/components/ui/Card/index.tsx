@@ -9,7 +9,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   description?: string
 }
 
-const Card: FC<CardProps> = ({
+export default function Card({
   header = undefined,
   footer = undefined,
   backgroundImage = '',
@@ -17,22 +17,25 @@ const Card: FC<CardProps> = ({
   description = '',
   children,
   className,
-}) => {
+}: CardProps) {
   return (
     <div
       className={cn(
         className,
-        'relative flex-1 flex-grow border-2 border-dark-700/30  bg-dark-1000/60 shadow-pink-glow backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
+        'relative flex-1 flex-grow rounded border-2  border-dark-700/30 bg-dark-1000/60 shadow-pink-glow backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
       )}
       style={{
-        borderRadius: '10px',
         backgroundImage: `url(${backgroundImage})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'contain',
         backgroundPosition: 'center bottom',
       }}
     >
-      {header && <>{header}</>}
+      {header && (
+        <>
+          <div className="w-full rounded-t bg-dark-700/30">{header}</div>
+        </>
+      )}
 
       <div className="h-full px-2 py-4 sm:p-8">
         {title && <div className="pb-3 text-lg font-medium leading-6 text-primary">{title}</div>}
@@ -44,5 +47,3 @@ const Card: FC<CardProps> = ({
     </div>
   )
 }
-
-export default Card

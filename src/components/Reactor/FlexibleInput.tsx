@@ -1,5 +1,4 @@
 import { startsWith } from 'lodash'
-import { FC } from 'react'
 import Input from '../ui/Input'
 import Toggle from '../ui/Toggle'
 import Typography from '../ui/Typography'
@@ -11,13 +10,13 @@ interface FlexibleInputProps {
   onUserInput: (input: string) => void
   onToggle: () => void
 }
-const FlexibleInput: FC<FlexibleInputProps> = ({
+export default function FlexibleInput({
   inputType,
   inputIndex,
   inputValue,
   onUserInput,
   onToggle,
-}) => {
+}: FlexibleInputProps) {
   return (
     <>
       {' '}
@@ -35,5 +34,3 @@ const FlexibleInput: FC<FlexibleInputProps> = ({
     </>
   )
 }
-
-export default FlexibleInput

@@ -31,14 +31,6 @@ export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Fantom]: '',
 }
 
-export const WS: { [chainId in ChainId]?: string } = {
-  [ChainId.Hardhat]: 'ws://localhost:8546',
-  [ChainId.Arbitrum]: 'wss://arb-mainnet.g.alchemy.com/v2/Xpu3xuFHbBEKuScjXwICcPUXBv-JK6Kd',
-  [ChainId.Optimism]: 'wss://opt-mainnet.g.alchemy.com/v2/9YdE0-k34MYuWKV1Ogj6HHeo1gvTa4o5',
-  [ChainId.Mainnet]: 'wss://eth-mainnet.alchemyapi.io/v2/U_UAKx6kDChbizvp1_WVIWRCcXbZy8nI',
-  [ChainId.Polygon]: 'wss://polygon-mainnet.g.alchemy.com/v2/pq0GDkTLABUlK6V_xzwuS0lOolO6-PnK',
-}
-
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'Hardhat',
   [ChainId.ArbitrumRinkeby]: 'Arbtest',

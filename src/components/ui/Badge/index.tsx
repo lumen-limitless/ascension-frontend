@@ -4,7 +4,7 @@ export interface BadgeProps {
   text?: string
 }
 
-const Badge: FC<BadgeProps> = ({ text }) => {
+export default function Badge({ text }: BadgeProps) {
   return (
     <span
       className={cn(
@@ -16,5 +16,3 @@ const Badge: FC<BadgeProps> = ({ text }) => {
     </span>
   )
 }
-
-export default Badge

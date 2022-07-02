@@ -104,7 +104,7 @@ const StakePage: NextPage = () => {
                       onToggle={() => toggle()}
                       isActive={isWithdrawing}
                     />
-                    <Typography as="h1" variant="xl">{`${
+                    <Typography as="h1" variant="lg">{`${
                       isWithdrawing ? 'Withdraw' : 'Stake'
                     } ASCEND`}</Typography>
                   </div>

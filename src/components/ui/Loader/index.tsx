@@ -1,16 +1,10 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 export interface LoaderProps {
   size?: number
   message?: string
 }
-const Loader: FC<LoaderProps> = ({
-  size = 48,
-  message,
-}: {
-  size?: string | number
-  message?: string
-}) => {
+export default function Loader({ size = 48, message }: LoaderProps) {
   return (
     <div className="flex h-full w-full flex-col place-content-center place-items-center">
       <svg
@@ -119,5 +113,3 @@ const Loader: FC<LoaderProps> = ({
     </div>
   )
 }
-
-export default Loader

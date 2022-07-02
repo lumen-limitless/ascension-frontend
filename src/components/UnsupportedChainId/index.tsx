@@ -13,14 +13,15 @@ interface UnsupporteChainIdProps {
 const UnsupportedChainId: FC<UnsupporteChainIdProps> = ({ supportedChainIds }) => {
   const switchNetwork = useSwitchNetwork()
   return (
-    <Card>
-      <div className="w-full p-6">
-        {' '}
-        <Typography centered variant="lg" as="h1">
-          Please Connect to A Supported Network
-        </Typography>
-      </div>
-
+    <Card
+      header={
+        <div className="flex w-full justify-center p-3">
+          <Typography centered variant="lg" as="h1">
+            Please Connect to A Supported Network
+          </Typography>
+        </div>
+      }
+    >
       <Grid gap="md">
         {supportedChainIds.map((supportedChainId) => (
           <div key={supportedChainId} className="col-span-6 flex place-content-center">

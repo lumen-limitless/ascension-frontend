@@ -1,6 +1,4 @@
-import React, { FC, VFC } from 'react'
-
-const MetaMaskIcon: VFC = (props) => {
+export default function MetaMaskIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -59,5 +57,3 @@ const MetaMaskIcon: VFC = (props) => {
     </svg>
   )
 }
-
-export default MetaMaskIcon

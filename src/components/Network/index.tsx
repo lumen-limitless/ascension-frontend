@@ -1,14 +1,12 @@
-import { ChainId, useEthers } from '@usedapp/core'
+import { QuestionMarkCircleIcon } from '@heroicons/react/outline'
+import { ChainId } from '@usedapp/core'
 import dynamic from 'next/dynamic'
-import { FC } from 'react'
-import { useBoolean } from 'react-use'
 import { SUPPORTED_CHAINS } from '../../constants'
 import { useSwitchNetwork } from '../../hooks'
 import useStore from '../../store/useStore'
 import Button from '../ui/Button'
 import Divider from '../ui/Divider'
 import Grid from '../ui/Grid'
-import Modal from '../ui/Modal'
 import Spinner from '../ui/Spinner'
 import Typography from '../ui/Typography'
 
@@ -72,7 +70,7 @@ export const CHAIN_ICON = {
   [ChainId.Optimism]: <OptimismIcon />,
 }
 
-const Network: FC = () => {
+export default function Network() {
   const switchNetwork = useSwitchNetwork()
   const toggleViewingModal = useStore((state) => state.toggleViewingModal)
   return (
@@ -104,5 +102,3 @@ const Network: FC = () => {
     </>
   )
 }
-
-export default Network

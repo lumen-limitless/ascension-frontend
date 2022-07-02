@@ -19,7 +19,7 @@ export interface StatProps {
   maxCols?: number
   stats?: Stat[]
 }
-const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
+export default function Stat({ title, stats, maxCols }: StatProps) {
   return (
     <div>
       <Typography as="h3" className="text-lg font-medium leading-6 ">
@@ -56,5 +56,3 @@ const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
     </div>
   )
 }
-
-export default Stat

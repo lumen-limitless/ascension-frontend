@@ -1,6 +1,6 @@
 {
-  "name": "arbitrum",
-  "chainId": "42161",
+  "name": "localhost",
+  "chainId": "31337",
   "contracts": {
     "AscensionStakedToken": {
       "address": "0x40EaFEc3C261F7e706289d3b3aFEF812A6CA10cD",

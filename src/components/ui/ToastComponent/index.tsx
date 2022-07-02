@@ -9,7 +9,7 @@ interface ToastComponentProps {
   type: string
   message: string
 }
-const ToastComponent: React.FC<ToastComponentProps> = ({ t, type, message }) => {
+export default function ToastComponent({ t, type, message }: ToastComponentProps) {
   return (
     <Transition
       show={t.visible}
@@ -62,5 +62,3 @@ const ToastComponent: React.FC<ToastComponentProps> = ({ t, type, message }) => 
     </Transition>
   )
 }
-
-export default ToastComponent

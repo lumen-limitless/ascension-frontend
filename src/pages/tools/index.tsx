@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Logo from '../../components/ui/Logo'
 import Grid from '../../components/ui/Grid'
 import Section from '../../components/ui/Section'
-import Motion from '../../animations/Motion'
+import Motion from '../../animations'
 
 const ToolTile = ({ path, name, delay }: { path: string; name: string; delay: number }) => {
   return (
@@ -32,7 +32,12 @@ const ToolTile = ({ path, name, delay }: { path: string; name: string; delay: nu
   )
 }
 
-const tools = [{ name: 'Ascension Reactor', path: '/tools/reactor' }]
+const tools = [
+  { name: 'Ascension Reactor', path: '/tools/reactor' },
+  { name: 'Ascension Reactor', path: '/tools/reactor' },
+  { name: 'Ascension Reactor', path: '/tools/reactor' },
+  { name: 'Ascension Reactor', path: '/tools/reactor' },
+]
 export default function ToolsPage() {
   return (
     <>

@@ -14,6 +14,8 @@ export default function Avatar({ size = 64 }) {
       width={size}
       height={size}
       className="rounded-full"
+      unoptimized
+      layout="fixed"
     />
   )
 }

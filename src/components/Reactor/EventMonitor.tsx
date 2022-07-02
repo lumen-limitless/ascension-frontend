@@ -1,4 +1,5 @@
 import { CubeTransparentIcon, PlusCircleIcon } from '@heroicons/react/outline'
+import { FilterIcon } from '@heroicons/react/solid'
 import { Icon } from '@iconify/react'
 import { shortenIfAddress, useBlockNumber, useEthers, useLogs } from '@usedapp/core'
 import { Contract } from 'ethers'
@@ -6,7 +7,7 @@ import { formatUnits } from 'ethers/lib/utils'
 import { dropRight, startsWith } from 'lodash'
 import { FC } from 'react'
 import { IHookStateSetAction } from 'react-use/lib/misc/hookState'
-import Motion from '../../animations/Motion'
+import Motion from '../../animations'
 import { SCAN_INFO } from '../../constants'
 import { useToast } from '../../hooks'
 import { ContractEvent } from '../../types'
@@ -21,39 +22,45 @@ import Typography from '../ui/Typography'
 interface EventMonitorProps {
   contract: Contract
   event: ContractEvent
-  setEventArgs: (newList: IHookStateSetAction<any[]>) => void
+  setEventArgs: (args: any[], type: 'event' | 'function') => void
 }
-const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) => {
+export default function EventMonitor({ contract, event, setEventArgs }: EventMonitorProps) {
   const t = useToast()
   const { chainId } = useEthers()
   const blockNumber = useBlockNumber()
-  const logs = useLogs(contract && event && { contract: contract, event: event.name, args: [] }, {
-    fromBlock: blockNumber - 10,
-  })
+  const logs = useLogs(
+    contract && event && blockNumber && { contract: contract, event: event.name, args: [] },
+    {
+      fromBlock: blockNumber - 10,
+    }
+  )
 
   return (
-    <Motion variant="fadeIn">
-      <Card>
+    <Motion variant="fadeIn" className="h-full w-full">
+      <Card
+        className="h-full"
+        header={
+          <div className="flex p-3">
+            {' '}
+            <Typography as="h2" variant="lg">
+              {event.name} events
+            </Typography>
+          </div>
+        }
+      >
         {' '}
         {!logs || logs.error ? (
           <Loader size={48} />
         ) : (
           <>
-            <Typography as="h2" className="pb-3 text-center text-xl">
-              {event.name} events
-            </Typography>
-
-            <Divider />
-
-            <div className="flex max-h-96 flex-col items-center justify-start gap-3 overflow-y-auto overflow-x-hidden py-3">
+            <div className="flex max-h-[40rem] flex-col items-center justify-start gap-3 overflow-y-auto overflow-x-hidden py-3">
               {logs.value.reverse().map((log, i) => (
-                <Card key={i} className="w-full">
+                <Card key={i}>
                   <Grid gap="sm">
                     <div className="col-span-4">
                       <ExternalLink
-                        href={`https://${SCAN_INFO[chainId].name}.io/block/${log.blockNumber}`}
+                        href={`https://${SCAN_INFO[chainId].name}/block/${log.blockNumber}`}
                       >
-                        {' '}
                         <Button color="transparent">
                           <CubeTransparentIcon height={24} />
                           {log.blockNumber}
@@ -62,7 +69,7 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) 
                     </div>
                     <div className="col-span-4">
                       <ExternalLink
-                        href={`https://${SCAN_INFO[chainId].name}.io/tx/${log.transactionHash}`}
+                        href={`https://${SCAN_INFO[chainId].name}/tx/${log.transactionHash}`}
                       >
                         <Button color="blue">
                           <Icon icon="icon-park-solid:transaction" height={24} />
@@ -80,12 +87,13 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) 
                               log.data.length -
                                 event.inputs.filter((eventInput) => eventInput.indexed === true)
                                   .length
-                            )
+                            ),
+                            'event'
                           )
                           t('success', 'Added event inputs as filter ')
                         }}
                       >
-                        <PlusCircleIcon height={24} />
+                        <FilterIcon height={24} />
                         Filter
                       </Button>
                     </div>
@@ -111,5 +119,3 @@ const EventMonitor: FC<EventMonitorProps> = ({ contract, event, setEventArgs }) 
     </Motion>
   )
 }
-
-export default EventMonitor
