@@ -22,8 +22,10 @@ const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
         <h1 className="text-center text-xl">{name}</h1>
         <div className="flex place-content-center">
           {' '}
-          <Link href={path} passHref>
-            <Button color="blue">Launch</Button>
+          <Link href={path}>
+            <a className="w-full">
+              <Button color="blue">Launch</Button>
+            </a>
           </Link>
         </div>
       </div>
@@ -31,10 +33,7 @@ const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
   )
 }
 
-const tools = [
-  { name: 'Ascension Reactor', path: '/tools/reactor' },
-  { name: 'More coming soon...', path: '' },
-]
+const tools = [{ name: 'Ascension Reactor', path: '/tools/reactor' }]
 export default function ToolsPage() {
   return (
     <>
