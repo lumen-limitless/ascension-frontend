@@ -1,19 +1,28 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import Connection from '../Connection'
+import React, { Fragment } from 'react'
 import Logo from '../ui/Logo'
-import { ChevronDownIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon, LoginIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Divider from '../ui/Divider'
 import Badge from '../ui/Badge'
 import cn from 'clsx'
 import Button from '../ui/Button'
+import { useEthers } from '@usedapp/core'
+import { useBoolean } from 'react-use'
+import Avatar from '../Avatar'
+import useStore from '../../store/useStore'
+import { CHAIN_ICON } from '../Network'
 
 const Header: React.FC = () => {
+  const { account, chainId } = useEthers()
+  const [viewing, toggle] = useBoolean(false)
+  const setModalView = useStore((state) => state.setModalView)
   return (
     <>
       <header
-        className={'fixed z-40 w-full border-b-2 border-dark-700/30 bg-black/60 backdrop-blur-md'}
+        className={
+          'fixed z-20 w-full border-b-2 border-dark-700/30 bg-dark-1000/60 backdrop-blur-md'
+        }
       >
         <Popover as="nav">
           <div className="flex h-16 items-center justify-between px-6 py-6 sm:px-12 md:justify-start md:space-x-10 lg:px-24 xl:px-36">
@@ -24,8 +33,28 @@ const Header: React.FC = () => {
               </a>
             </Link>
             <div className="-my-2 -mr-2 flex gap-1 md:hidden">
-              <Connection />
-              <Popover.Button>
+              {!account ? (
+                <Button color="blue" onClick={() => setModalView('connect')}>
+                  <LoginIcon height={24} /> Connect Wallet
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    className="border border-dark-900"
+                    onClick={() => setModalView('network')}
+                  >
+                    {chainId && CHAIN_ICON[chainId]}
+                  </Button>
+                  <Button
+                    className="border border-dark-900"
+                    onClick={() => setModalView('account')}
+                  >
+                    <Avatar size={24} />
+                  </Button>
+                </>
+              )}
+
+              <Popover.Button as="div">
                 <span className="sr-only">Open menu</span>
                 <Button color="transparent">
                   <MenuAlt2Icon height={24} width={24} aria-hidden="true" />
@@ -51,115 +80,94 @@ const Header: React.FC = () => {
                   </a>
                 </Link>
 
-                {/* <Popover className="relative">
-                  {({ open }) => (
-                    <>
-                      <Popover.Button
-                        className={cn(
-                          open ? 'text-white' : 'text-gray-300',
-                          'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-white'
-                        )}
-                      >
-                        <span>Tools</span>
-                        <ChevronDownIcon
-                          className={cn(
-                            open ? 'rotate-180 text-white' : 'text-gray-300',
-                            'ml-2 h-5 w-5 transition group-hover:text-white'
-                          )}
-                          aria-hidden="true"
-                        />
-                      </Popover.Button>
+                <Popover className="relative">
+                  <Popover.Button
+                    onClick={() => toggle()}
+                    onMouseEnter={() => toggle(true)}
+                    onMouseLeave={() => toggle(false)}
+                    className={cn(
+                      viewing ? 'text-white' : 'text-gray-300',
+                      'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-white'
+                    )}
+                  >
+                    <span>Tools</span>
+                    <ChevronDownIcon
+                      className={cn(
+                        viewing ? 'rotate-180 text-white' : 'text-gray-300',
+                        'ml-2 h-5 w-5 transition group-hover:text-white'
+                      )}
+                      aria-hidden="true"
+                    />
+                  </Popover.Button>
 
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="opacity-0 translate-y-1"
-                        enterTo="opacity-100 translate-y-0"
-                        leave="transition ease-in duration-150"
-                        leaveFrom="opacity-100 translate-y-0"
-                        leaveTo="opacity-0 translate-y-1"
-                      >
-                        <Popover.Panel className="absolute z-10 -ml-4 mt-3 min-w-max max-w-md transform rounded border border-dark-900 lg:max-w-3xl ">
-                          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                            <div className="bg-dark-800 p-5">
-                              <Link href={'/tools/universalswap'}>
-                                <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                                  <div className="flex items-center">
-                                    <div className="text-base font-medium text-white">
-                                      Universal Swap Tool
-                                    </div>
-                                    <Badge text="new" />
-                                    <Badge text="beta" />
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    Perform swaps on any chain at the best rates
-                                  </p>
-                                </a>
-                              </Link>
-                              <Link href={'/tools/batchsender'}>
-                                <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                                  <div className="flex items-center">
-                                    <div className="text-base font-medium text-white">
-                                      Batch Sender
-                                    </div>
-                                    <Badge text="new" />
-                                    <Badge text="beta" />
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    Easily create & send bulk token transfers
-                                  </p>
-                                </a>
-                              </Link>
-                              <Link href={'/tools/reactor'}>
-                                <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                                  <div className="flex items-center">
-                                    <div className="text-base font-medium text-white">
-                                      Ascension Reactor
-                                    </div>
-                                    <Badge text="new" />
-                                    <Badge text="beta" />
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    Watch and react instantly to blockchain events
-                                  </p>
-                                </a>
-                              </Link>
-                              <Link href={'/tools/supernova'}>
-                                <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                                  <div className="flex items-center">
-                                    <div className="text-base font-medium text-white">
-                                      Ascension Supernova
-                                    </div>
-                                    <Badge text="New" />
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    Suite of advanced tools for taking advantage of market
-                                    opportunities
-                                  </p>
-                                </a>
-                              </Link>
-                              <Link href={'/tools'}>
-                                <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                                  <div className="flex items-center">
-                                    <div className="text-base font-medium text-white">
-                                      All Tools
-                                    </div>
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    View all Ascension tools
-                                  </p>
-                                </a>
-                              </Link>
-                            </div>
-                          </div>
-                        </Popover.Panel>
-                      </Transition>
-                    </>
-                  )}
-                </Popover> */}
+                  <Transition
+                    show={viewing}
+                    onMouseEnter={() => toggle(true)}
+                    onMouseLeave={() => toggle(false)}
+                    as={'div'}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel
+                      static
+                      className="absolute z-20 -ml-4  min-w-max max-w-md transform rounded border-2 border-dark-700/30 lg:max-w-3xl "
+                    >
+                      <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="bg-dark-1000 p-5">
+                          <Link href={'/tools/reactor'}>
+                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                              <div className="flex items-center">
+                                <div className="text-base font-medium text-white">
+                                  Ascension Reactor
+                                </div>
+                                <Badge text="new" />
+                                <Badge text="beta" />
+                              </div>
+                              <p className="mt-1 text-sm text-gray-500">
+                                Watch and react instantly to blockchain events
+                              </p>
+                            </a>
+                          </Link>
+
+                          <Link href={'/tools'}>
+                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                              <div className="flex items-center">
+                                <div className="text-base font-medium text-white">All Tools</div>
+                              </div>
+                              <p className="mt-1 text-sm text-gray-500">View all Ascension tools</p>
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
+                    </Popover.Panel>
+                  </Transition>
+                </Popover>
               </Popover.Group>
-              <div className="flex items-center md:ml-12">
-                <Connection />
+              <div className="flex items-center gap-1 md:ml-12">
+                {!account ? (
+                  <Button color="blue" onClick={() => setModalView('connect')}>
+                    <LoginIcon height={24} /> Connect Wallet
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      className="border border-dark-900"
+                      onClick={() => setModalView('network')}
+                    >
+                      {chainId && CHAIN_ICON[chainId]}
+                    </Button>
+                    <Button
+                      className="border border-dark-900"
+                      onClick={() => setModalView('account')}
+                    >
+                      <Avatar size={24} />
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -175,7 +183,7 @@ const Header: React.FC = () => {
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0 top-0 z-50 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
+              className="fixed inset-x-0 top-0 z-30 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
             >
               <div className="divide-y-2 divide-dark-900 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="px-5 pt-5 pb-6">
@@ -201,10 +209,14 @@ const Header: React.FC = () => {
 
                     <Divider />
 
-                    <Link href="/dashboard">
-                      <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500">
-                        <Popover.Button className={'w-full'}>Dashboard</Popover.Button>
-                      </a>
+                    <Link href="/dashboard" passHref>
+                      <Popover.Button
+                        className={
+                          'w-full text-base font-medium text-gray-100 transition hover:text-gray-500'
+                        }
+                      >
+                        Dashboard
+                      </Popover.Button>
                     </Link>
 
                     <Divider />
@@ -214,12 +226,12 @@ const Header: React.FC = () => {
                       </a>
                     </Link>
                     <Divider />
-                    {/* <Link href="/tools">
+                    <Link href="/tools">
                       <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
                         <Popover.Button className={'w-full'}>Tools</Popover.Button>
                       </a>
                     </Link>
-                    <Divider /> */}
+                    <Divider />
                   </div>
                 </div>
               </div>

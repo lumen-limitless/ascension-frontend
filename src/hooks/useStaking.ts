@@ -2,15 +2,12 @@ import { useMemo } from 'react'
 import { ASCENSION, HOME_CHAINID } from '../constants'
 import { useCalls, useEthers } from '@usedapp/core'
 import { parseBalance } from '../functions'
-import { useContract } from './useContract'
+import { useAscendStakingContract, useContract } from './useContract'
 
 export function useStaking() {
   const { account, chainId } = useEthers()
-  const contract: any = useContract(
-    ASCENSION.AscensionStaking.address,
-    ASCENSION.AscensionStaking.abi,
-    HOME_CHAINID
-  )
+  const contract = useAscendStakingContract()
+
   const [balanceOf, totalStaked, rewardRate, periodFinish, earned, paused] = useCalls(
     chainId === HOME_CHAINID && account
       ? [
@@ -54,7 +51,6 @@ export function useStaking() {
     return new Date(timestamp * 1000).toLocaleDateString()
   }, [periodFinish])
 
-  console.log(rewardRate)
   const apy = useMemo(() => {
     if (!rewardRate || rewardRate?.error) return null
     if (!totalStaked || totalStaked?.error) return null

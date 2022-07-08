@@ -3,6 +3,8 @@ import Skeleton from '../Skeleton'
 import Card from '../Card'
 import { formatBalance, formatPercent } from '../../../functions'
 import { BigNumberish } from 'ethers'
+import Typography from '../Typography'
+import { commify } from 'ethers/lib/utils'
 
 type Stat = {
   name?: string
@@ -17,12 +19,14 @@ export interface StatProps {
   maxCols?: number
   stats?: Stat[]
 }
-const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
+export default function Stat({ title, stats, maxCols }: StatProps) {
   return (
-    <div className="my-2 md:my-4">
-      <h3 className="text-lg font-medium leading-6 ">{title}</h3>
+    <div>
+      <Typography as="h3" className="text-lg font-medium leading-6 ">
+        {title}
+      </Typography>
 
-      <dl className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3 ">
+      <dl className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3 ">
         {stats &&
           stats.map((item, i) => (
             <Card key={i}>
@@ -32,13 +36,15 @@ const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
               <dd className="mt-1 flex items-center text-2xl font-semibold text-primary">
                 {item.stat ? (
                   <>
-                    {item.before && item.before}
+                    {item.before}
+
                     {item.isBalance
-                      ? formatBalance(item.stat)
+                      ? commify(formatBalance(item.stat))
                       : item.isPercent
                       ? formatPercent(item.stat)
                       : item.stat}
-                    {item.after && item.after}
+
+                    {item.after}
                   </>
                 ) : (
                   <Skeleton />
@@ -50,5 +56,3 @@ const Stat: FC<StatProps> = ({ title, stats, maxCols }) => {
     </div>
   )
 }
-
-export default Stat

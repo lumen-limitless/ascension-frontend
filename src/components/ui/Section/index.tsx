@@ -14,22 +14,22 @@ const PADDING = {
   lg: 'py-36',
   xl: 'py-48',
 }
-const Section: React.FC<SectionProps> = ({
+export default function Section({
   children,
   className,
   fullscreen,
   padding = 'none',
   layout = 'center',
   ...rest
-}) => {
+}: SectionProps) {
   return (
     <section
       className={cn(
         layout === 'center' && 'flex flex-col items-center justify-center',
         layout === 'start' && 'flex flex-col items-center justify-start',
-        'relative h-full w-full ',
         fullscreen && 'min-h-screen',
         PADDING[padding],
+        'relative h-full w-full ',
         className
       )}
       {...rest}
@@ -38,5 +38,3 @@ const Section: React.FC<SectionProps> = ({
     </section>
   )
 }
-
-export default Section

@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import Button, { ButtonProps } from '../Button'
 import Spinner from '../Spinner'
 
@@ -5,19 +6,19 @@ type Requirement = {
   requirement: boolean
   message: string
 }
-export interface TransactionButtonProps extends Omit<ButtonProps, 'disabled'> {
+export interface TransactionButtonProps extends Omit<ButtonProps, 'disabled' | 'onClick'> {
   method: any
   args?: any[]
   name?: string
   requirements?: Requirement
 }
-export default function TransactionButton({
+const TransactionButton: FC<TransactionButtonProps> = ({
   method,
   args = [],
   name,
   requirements,
   ...rest
-}: TransactionButtonProps) {
+}) => {
   return (
     <Button
       disabled={
@@ -41,3 +42,5 @@ export default function TransactionButton({
     </Button>
   )
 }
+
+export default TransactionButton

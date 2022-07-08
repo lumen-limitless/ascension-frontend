@@ -46,17 +46,21 @@ export function formatPercent(percentString: any) {
   }
 }
 
-export const formatBalance = (value: BigNumberish, decimals = 18, maxFraction = 2) => {
+export const formatBalance = (value: BigNumberish, decimals = 18, maxFraction = 2): string => {
   const formatted: string =
-    typeof value === 'string' ? value : typeof value === 'number' ? value.toString() : formatUnits(value, decimals)
+    typeof value === 'string'
+      ? value
+      : typeof value === 'number'
+      ? value.toString()
+      : formatUnits(value, decimals)
 
   if (maxFraction > 0) {
     const split = formatted.split('.')
     if (split.length > 1) {
-      return commify(split[0] + '.' + split[1].substr(0, maxFraction))
+      return split[0] + '.' + split[1].substr(0, maxFraction)
     }
   }
-  return commify(formatted === '0' ? '0.0' : formatted)
+  return formatted === '0' ? '0.0' : formatted
 }
 
 export const parseBalance = (value: BigNumberish, decimals = 18) => {

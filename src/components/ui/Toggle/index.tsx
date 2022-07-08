@@ -1,21 +1,23 @@
 import { Switch } from '@headlessui/react'
-import React from 'react'
+import React, { FC } from 'react'
 import cn from 'clsx'
 
 export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   id?: string
   isActive: boolean
-  toggle: () => void
+  onToggle: () => void
+  iconSet?: { on: JSX.Element; off: JSX.Element }
 }
 
-export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
+const Toggle: FC<ToggleProps> = ({ id, isActive, onToggle, iconSet, className, ...rest }) => {
   return (
     <Switch
       checked={isActive}
-      onChange={toggle}
+      onChange={onToggle}
       className={cn(
         isActive ? 'bg-blue' : 'bg-dark-800',
-        'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none'
+        'inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
+        className
       )}
     >
       <span className="sr-only">Use setting</span>
@@ -33,15 +35,17 @@ export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
           )}
           aria-hidden="true"
         >
-          <svg className="h-3 w-3 text-low-emphesis" fill="none" viewBox="0 0 12 12">
-            <path
-              d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          {iconSet?.on ?? (
+            <svg className="h-3 w-3 text-low-emphesis" fill="none" viewBox="0 0 12 12">
+              <path
+                d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
         </span>
         <span
           className={cn(
@@ -50,11 +54,15 @@ export default function Toggle({ id, isActive, toggle, ...rest }: ToggleProps) {
           )}
           aria-hidden="true"
         >
-          <svg className="h-3 w-3 text-high-emphesis" fill="currentColor" viewBox="0 0 12 12">
-            <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
-          </svg>
+          {iconSet?.off ?? (
+            <svg className="h-3 w-3 text-high-emphesis" fill="currentColor" viewBox="0 0 12 12">
+              <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
+            </svg>
+          )}
         </span>
       </span>
     </Switch>
   )
 }
+
+export default Toggle

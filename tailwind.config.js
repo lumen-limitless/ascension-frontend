@@ -6,29 +6,93 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      linearBorderGradients: {
-        directions: {
-          tr: 'to top right',
-          r: 'to right',
-        },
-        colors: {
-          'blue-pink': ['#27B0E6', '#FA52A0'],
-          'pink-red-light-brown': ['#FE5A75', '#FEC464'],
-        },
-        border: {
-          1: '1px',
-          2: '2px',
-          3: '3px',
-          4: '4px',
-        },
-      },
       colors: {
-        purple: '#2D1A62',
-        blue: '#0346A2',
-        pink: '#943259',
-        green: '#31A700',
-        red: '#CE2116',
-        yellow: '#fcb503',
+        purple: {
+          DEFAULT: '#2d1a62',
+          100: '#d5d1e0',
+          200: '#aba3c0',
+          300: '#8176a1',
+          400: '#574881',
+          500: '#2d1a62',
+          600: '#24154e',
+          700: '#1b103b',
+          800: '#120a27',
+          900: '#090514',
+        },
+        blue: {
+          DEFAULT: '#0346a2',
+          100: '#cddaec',
+          200: '#9ab5da',
+          300: '#6890c7',
+          400: '#356bb5',
+          500: '#0346a2',
+          600: '#023882',
+          700: '#022a61',
+          800: '#011c41',
+          900: '#010e20',
+        },
+        pink: {
+          DEFAULT: '#943259',
+          100: '#ead6de',
+          200: '#d4adbd',
+          300: '#bf849b',
+          400: '#a95b7a',
+          500: '#943259',
+          600: '#762847',
+          700: '#591e35',
+          800: '#3b1424',
+          900: '#1e0a12',
+        },
+        green: {
+          DEFAULT: '#31a700',
+          100: '#d6edcc',
+          200: '#addc99',
+          300: '#83ca66',
+          400: '#5ab933',
+          500: '#31a700',
+          600: '#278600',
+          700: '#1d6400',
+          800: '#144300',
+          900: '#0a2100',
+        },
+        red: {
+          DEFAULT: '#ce2116',
+          100: '#f5d3d0',
+          200: '#eba6a2',
+          300: '#e27a73',
+          400: '#d84d45',
+          500: '#ce2116',
+          600: '#a51a12',
+          700: '#7c140d',
+          800: '#520d09',
+          900: '#290704',
+        },
+
+        yellow: {
+          DEFAULT: '#fcb503',
+          100: '#fef0cd',
+          200: '#fee19a',
+          300: '#fdd368',
+          400: '#fdc435',
+          500: '#fcb503',
+          600: '#ca9102',
+          700: '#976d02',
+          800: '#654801',
+          900: '#322401',
+        },
+
+        orange: {
+          DEFAULT: '#fcb503',
+          100: '#fef0cd',
+          200: '#fee19a',
+          300: '#fdd368',
+          400: '#fdc435',
+          500: '#fcb503',
+          600: '#ca9102',
+          700: '#976d02',
+          800: '#654801',
+          900: '#322401',
+        },
         'ascend-purple': '#2D1A62',
         'ascend-magenta': '#943259',
         'ascend-orange': '#ef5030',
@@ -41,7 +105,7 @@ module.exports = {
         },
 
         primary: '#F9F9F9',
-        secondary: '#7F7F7F',
+        secondary: '#9F9F9F',
         'low-emphesis': '#575757',
         'high-emphesis': '#E3E3E3',
       },
@@ -84,41 +148,15 @@ module.exports = {
       minWidth: {
         5: '1.25rem',
       },
-      dropShadow: {
-        currencyLogo: '0px 3px 6px rgba(15, 15, 15, 0.25)',
-      },
+
       screens: {
         '3xl': '1600px',
       },
       animation: {
-        ellipsis: 'ellipsis 1.25s infinite',
         'spin-slow': 'spin 2s linear infinite',
-        fade: 'opacity 150ms linear',
-      },
-      keyframes: {
-        ellipsis: {
-          '0%': { content: '"."' },
-          '33%': { content: '".."' },
-          '66%': { content: '"..."' },
-        },
-        opacity: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 100 },
-        },
       },
     },
   },
 
-  plugins: [
-    require('@tailwindcss/forms'),
-    plugin(function ({ addUtilities }) {
-      addUtilities({
-        '.header-border-b': {
-          background:
-            'linear-gradient(to right, rgba(39, 176, 230, 0.2) 0%, rgba(250, 82, 160, 0.2) 100%) left bottom no-repeat',
-          backgroundSize: '100% 1px',
-        },
-      })
-    }),
-  ],
+  plugins: [require('@tailwindcss/forms')],
 }

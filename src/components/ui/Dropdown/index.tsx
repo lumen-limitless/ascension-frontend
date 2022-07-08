@@ -10,7 +10,14 @@ export interface DropdownProps extends ButtonProps {
   onSelect: Dispatch<SetStateAction<any>>
 }
 
-const Dropdown: FC<DropdownProps> = ({ options, title, onSelect, color, size, ...props }) => {
+export default function Dropdown({
+  options,
+  title,
+  onSelect,
+  color,
+  size,
+  ...rest
+}: DropdownProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -55,5 +62,3 @@ const Dropdown: FC<DropdownProps> = ({ options, title, onSelect, color, size, ..
     </Menu>
   )
 }
-
-export default Dropdown

@@ -9,3 +9,29 @@ export type Token = {
   decimals: number
   chainId: ChainId
 }
+
+export type ContractEventInput = {
+  indexed: boolean
+  name: string
+  type: string
+}
+export type ContractFunctionInput = {
+  name: string
+  type: string
+}
+export type ContractEvent = {
+  anonymous: boolean
+  inputs: ContractEventInput[]
+  name: string
+  type: 'event'
+}
+
+export type ContractFunction = {
+  constant: boolean
+  inputs?: ContractFunctionInput[]
+  name: string
+  outputs?: any[]
+  payable: boolean
+  stateMutability: 'view' | 'nonpayable' | 'payable'
+  type: 'function'
+}

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 type Props = {}
 
-const GovernanceIcon: FC<Props> = (props) => {
+export default function GovernanceIcon() {
   return (
     <svg
       width="64"
@@ -42,5 +42,3 @@ const GovernanceIcon: FC<Props> = (props) => {
     </svg>
   )
 }
-
-export default GovernanceIcon

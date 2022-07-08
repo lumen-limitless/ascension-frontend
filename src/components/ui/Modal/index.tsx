@@ -36,7 +36,7 @@ export default function Modal({ isOpen, onDismiss, children }: ModalProps) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className={cn('w-[99vw] transform transition-all md:w-[66vw] lg:w-[33vw]')}>
+              <div className={cn('w-full max-w-xl transform transition-all')}>
                 <div className="flex h-full w-full flex-col overflow-y-hidden rounded bg-dark-900  p-6 text-white">
                   <div className="absolute top-3 right-3">
                     <Button size="none" onClick={onDismiss}>

@@ -1,22 +1,20 @@
-import { FC, HTMLProps } from 'react'
+import { HTMLProps } from 'react'
 
-interface Props extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> {
+interface ExternalLinkProps extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> {
   href: string
 }
 
-const ExternalLink: FC<Props> = ({
+export default function ExternalLink({
   children,
   href,
   target = '_blank',
   rel = 'noopener noreferrer',
   className = '',
   ...rest
-}) => {
+}: ExternalLinkProps) {
   return (
     <a href={href} target={target} rel={rel} className={className} {...rest}>
       {children}
     </a>
   )
 }
-
-export default ExternalLink

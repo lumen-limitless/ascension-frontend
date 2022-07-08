@@ -9,7 +9,7 @@ interface ToastComponentProps {
   type: string
   message: string
 }
-const ToastComponent: React.FC<ToastComponentProps> = ({ t, type, message }) => {
+export default function ToastComponent({ t, type, message }: ToastComponentProps) {
   return (
     <Transition
       show={t.visible}
@@ -25,11 +25,11 @@ const ToastComponent: React.FC<ToastComponentProps> = ({ t, type, message }) => 
         className={cn(
           'pointer-events-auto w-full max-w-xs overflow-hidden rounded-lg  border-l  bg-dark-800 shadow-lg ring-1 ring-black ring-opacity-5',
           type === 'success'
-            ? 'border-green'
+            ? 'border-green-500'
             : type === 'info'
-            ? 'border-blue'
+            ? 'border-blue-500'
             : type === 'error'
-            ? 'border-red'
+            ? 'border-red-500'
             : null
         )}
       >
@@ -37,11 +37,11 @@ const ToastComponent: React.FC<ToastComponentProps> = ({ t, type, message }) => 
           <div className="flex items-center">
             <div className="flex-shrink-0">
               {type === 'success' ? (
-                <CheckCircleIcon className="h-6 w-6 text-green" aria-hidden="true" />
+                <CheckCircleIcon className="h-6 w-6 text-green-500" aria-hidden="true" />
               ) : type === 'error' ? (
-                <ErrorIcon className="h-6 w-6 text-red" aria-hidden="true" />
+                <ErrorIcon className="h-6 w-6 text-red-500" aria-hidden="true" />
               ) : type === 'info' ? (
-                <InformationCircleIcon className="h-6 w-6 text-blue" aria-hidden="true" />
+                <InformationCircleIcon className="h-6 w-6 text-blue-500" aria-hidden="true" />
               ) : null}
             </div>
             <div className="ml-3 w-0 flex-1 ">
@@ -62,5 +62,3 @@ const ToastComponent: React.FC<ToastComponentProps> = ({ t, type, message }) => 
     </Transition>
   )
 }
-
-export default ToastComponent

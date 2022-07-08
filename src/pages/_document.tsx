@@ -7,6 +7,7 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="manifest" href="/manifest.json" />
         <meta key="description" name="description" content={APP_DESCRIPTION} />
         <meta name="application-name" content={APP_NAME} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -25,7 +26,7 @@ export default function Document() {
         <meta key="twitter:creator" name="twitter:creator" content="@AscendProtocol" />
         <meta key="og:type" property="og:type" content="website" />
         <meta key="og:site_name" property="og:site_name" content={APP_NAME} />
-        <meta key="og:url" property="og:url" content="https://www.ascensionprotocol.io" />
+        <meta key="og:url" property="og:url" content="https://ascensionprotocol.io" />
         <meta
           key="og:image"
           property="og:image"

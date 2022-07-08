@@ -21,8 +21,6 @@ export type { IERC165 } from "./IERC165";
 export type { AscensionStaking } from "./AscensionStaking";
 export type { AscensionStakedToken } from "./AscensionStakedToken";
 export type { AscensionToken } from "./AscensionToken";
-export type { ERC20BatchSender } from "./ERC20BatchSender";
-export type { SniperRequirements } from "./SniperRequirements";
 
 export { AccessControl__factory } from "./factories/AccessControl__factory";
 export { AccessControlEnumerable__factory } from "./factories/AccessControlEnumerable__factory";
@@ -44,5 +42,3 @@ export { IERC165__factory } from "./factories/IERC165__factory";
 export { AscensionStaking__factory } from "./factories/AscensionStaking__factory";
 export { AscensionStakedToken__factory } from "./factories/AscensionStakedToken__factory";
 export { AscensionToken__factory } from "./factories/AscensionToken__factory";
-export { ERC20BatchSender__factory } from "./factories/ERC20BatchSender__factory";
-export { SniperRequirements__factory } from "./factories/SniperRequirements__factory";
