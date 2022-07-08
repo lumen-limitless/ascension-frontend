@@ -13,7 +13,7 @@ const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
   return (
     <Card
       header={
-        <div className="flex place-content-center pt-3">
+        <div className="flex place-content-center py-3">
           <Logo size={32} />
         </div>
       }
@@ -23,7 +23,7 @@ const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
         <div className="flex place-content-center">
           {' '}
           <Link href={path}>
-            <a className="w-full">
+            <a>
               <Button color="blue">Launch</Button>
             </a>
           </Link>
@@ -52,7 +52,7 @@ export default function ToolsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', delay: i * 0.09 }}
                     key={i}
-                    className="col-span-12 md:col-span-6 "
+                    className="col-span-12  "
                   >
                     <ToolTile name={t.name} path={t.path} />
                   </motion.div>
