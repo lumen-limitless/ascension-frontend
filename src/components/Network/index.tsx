@@ -1,11 +1,9 @@
-import { QuestionMarkCircleIcon } from '@heroicons/react/outline'
-import { ChainId } from '@usedapp/core'
+import { ChainId, useEthers } from '@usedapp/core'
 import dynamic from 'next/dynamic'
 import { SUPPORTED_CHAINS } from '../../constants'
-import { useSwitchNetwork } from '../../hooks'
+
 import useStore from '../../store/useStore'
 import Button from '../ui/Button'
-import Divider from '../ui/Divider'
 import Grid from '../ui/Grid'
 import Spinner from '../ui/Spinner'
 import Typography from '../ui/Typography'
@@ -71,7 +69,7 @@ export const CHAIN_ICON = {
 }
 
 export default function Network() {
-  const switchNetwork = useSwitchNetwork()
+  const { switchNetwork } = useEthers()
   const toggleViewingModal = useStore((state) => state.toggleViewingModal)
   return (
     <>
@@ -80,7 +78,6 @@ export default function Network() {
         <Typography as="h1" variant="xl" centered className="pb-1">
           Choose Network
         </Typography>
-        <Divider />
       </div>
 
       <Grid gap="md">

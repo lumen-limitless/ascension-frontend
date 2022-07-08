@@ -15,7 +15,7 @@ const initialState: { viewingModal: boolean; modalView: UIViewController } = {
 }
 const createUISlice: StateCreator<
   UISlice,
-  [['zustand/devtools', any], ['zustand/immer', any]],
+  [['zustand/devtools', unknown], ['zustand/immer', unknown]],
   []
 > = (set) => ({
   ...initialState,

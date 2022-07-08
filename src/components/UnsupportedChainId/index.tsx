@@ -1,7 +1,6 @@
-import { ChainId } from '@usedapp/core'
+import { ChainId, useEthers } from '@usedapp/core'
 import { FC } from 'react'
 import { CHAIN_NAME } from '../../constants'
-import { useSwitchNetwork } from '../../hooks'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
 import Grid from '../ui/Grid'
@@ -11,7 +10,7 @@ interface UnsupporteChainIdProps {
   supportedChainIds?: ChainId[]
 }
 const UnsupportedChainId: FC<UnsupporteChainIdProps> = ({ supportedChainIds }) => {
-  const switchNetwork = useSwitchNetwork()
+  const { switchNetwork } = useEthers()
   return (
     <Card
       header={

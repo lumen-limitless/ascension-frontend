@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import cn from 'clsx'
+import { ReactNode } from 'react'
 
 const SIZE = {
   xs: 'p-1 text-xs  w-full max-w-xs',
@@ -35,6 +36,8 @@ export type ButtonColor =
 export type ButtonSize = 'xs' | 'sm' | 'lg' | 'default' | 'none'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: ReactNode
+  className?: string
   color?: ButtonColor
   size?: ButtonSize
   ref?: React.Ref<HTMLButtonElement>

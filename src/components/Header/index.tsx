@@ -1,12 +1,6 @@
 import React, { Fragment } from 'react'
 import Logo from '../ui/Logo'
-import {
-  ChevronDownIcon,
-  LoginIcon,
-  MenuAlt2Icon,
-  QuestionMarkCircleIcon,
-  XIcon,
-} from '@heroicons/react/outline'
+import { ChevronDownIcon, LoginIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Divider from '../ui/Divider'
@@ -27,7 +21,7 @@ const Header: React.FC = () => {
     <>
       <header
         className={
-          'fixed z-10 w-full border-b-2 border-dark-700/30 bg-dark-1000/60 backdrop-blur-md'
+          'fixed z-20 w-full border-b-2 border-dark-700/30 bg-dark-1000/60 backdrop-blur-md'
         }
       >
         <Popover as="nav">
@@ -120,36 +114,10 @@ const Header: React.FC = () => {
                   >
                     <Popover.Panel
                       static
-                      className="absolute z-10 -ml-4  min-w-max max-w-md transform rounded border-2 border-dark-700/30 lg:max-w-3xl "
+                      className="absolute z-20 -ml-4  min-w-max max-w-md transform rounded border-2 border-dark-700/30 lg:max-w-3xl "
                     >
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="bg-dark-1000 p-5">
-                          <Link href={'/tools/universalswap'}>
-                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-white">
-                                  Universal Swap Tool
-                                </div>
-                                <Badge text="new" />
-                                <Badge text="beta" />
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">
-                                Perform swaps on any chain at the best rates
-                              </p>
-                            </a>
-                          </Link>
-                          <Link href={'/tools/batchsender'}>
-                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-white">Batch Sender</div>
-                                <Badge text="new" />
-                                <Badge text="beta" />
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">
-                                Easily create & send bulk token transfers
-                              </p>
-                            </a>
-                          </Link>
                           <Link href={'/tools/reactor'}>
                             <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                               <div className="flex items-center">
@@ -164,19 +132,7 @@ const Header: React.FC = () => {
                               </p>
                             </a>
                           </Link>
-                          <Link href={'/tools/supernova'}>
-                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-white">
-                                  Ascension Supernova
-                                </div>
-                                <Badge text="New" />
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">
-                                Suite of advanced tools for taking advantage of market opportunities
-                              </p>
-                            </a>
-                          </Link>
+
                           <Link href={'/tools'}>
                             <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                               <div className="flex items-center">
@@ -227,7 +183,7 @@ const Header: React.FC = () => {
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0 top-0 z-50 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
+              className="fixed inset-x-0 top-0 z-30 h-screen origin-top-right transform overflow-hidden bg-dark-1000 transition md:hidden"
             >
               <div className="divide-y-2 divide-dark-900 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="px-5 pt-5 pb-6">
@@ -253,10 +209,14 @@ const Header: React.FC = () => {
 
                     <Divider />
 
-                    <Link href="/dashboard">
-                      <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500">
-                        <Popover.Button className={'w-full'}>Dashboard</Popover.Button>
-                      </a>
+                    <Link href="/dashboard" passHref>
+                      <Popover.Button
+                        className={
+                          'w-full text-base font-medium text-gray-100 transition hover:text-gray-500'
+                        }
+                      >
+                        Dashboard
+                      </Popover.Button>
                     </Link>
 
                     <Divider />

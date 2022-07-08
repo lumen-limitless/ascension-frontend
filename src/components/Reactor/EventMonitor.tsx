@@ -5,19 +5,16 @@ import { shortenIfAddress, useBlockNumber, useEthers, useLogs } from '@usedapp/c
 import { Contract } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
 import { dropRight, startsWith } from 'lodash'
-import { FC } from 'react'
-import { IHookStateSetAction } from 'react-use/lib/misc/hookState'
-import Motion from '../../animations'
 import { SCAN_INFO } from '../../constants'
 import { useToast } from '../../hooks'
 import { ContractEvent } from '../../types'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
-import Divider from '../ui/Divider'
 import ExternalLink from '../ui/ExternalLink'
 import Grid from '../ui/Grid'
 import Loader from '../ui/Loader'
 import Typography from '../ui/Typography'
+import { motion } from 'framer-motion'
 
 interface EventMonitorProps {
   contract: Contract
@@ -36,7 +33,12 @@ export default function EventMonitor({ contract, event, setEventArgs }: EventMon
   )
 
   return (
-    <Motion variant="fadeIn" className="h-full w-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ ease: 'easeOut', duration: 0.33 }}
+      className="h-full w-full"
+    >
       <Card
         className="h-full"
         header={
@@ -116,6 +118,6 @@ export default function EventMonitor({ contract, event, setEventArgs }: EventMon
           </>
         )}
       </Card>
-    </Motion>
+    </motion.div>
   )
 }

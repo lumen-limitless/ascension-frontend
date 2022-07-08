@@ -10,12 +10,6 @@ const Network = dynamic(() => import('../components/Network'), { ssr: false })
 const Account = dynamic(() => import('../components/Account'), { ssr: false })
 const Modal = dynamic(() => import('../components/ui/Modal'), { ssr: false })
 
-const MODAL_VIEWS = {
-  none: <></>,
-  account: <Account />,
-  network: <Network />,
-  connect: <Connect />,
-}
 export default function Layout({ children }) {
   useNetworkNotifications()
   const viewingModal = useStore((state) => state.viewingModal)
@@ -30,7 +24,9 @@ export default function Layout({ children }) {
           toggleViewingModal(false)
         }}
       >
-        {MODAL_VIEWS[modalView]}
+        {modalView === 'account' && <Account />}
+        {modalView === 'network' && <Network />}
+        {modalView === 'connect' && <Connect />}
       </Modal>
       <Header />
       <main className="relative flex h-full min-h-screen w-full flex-col items-center justify-start">

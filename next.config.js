@@ -12,7 +12,6 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     formats: ['image/webp', 'image/avif'],
-    loader: 'custom',
     domains: ['res.cloudinary.com'],
   },
 })

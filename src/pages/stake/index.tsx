@@ -14,7 +14,7 @@ import Input from '../../components/ui/Input'
 import Skeleton from '../../components/ui/Skeleton'
 import Section from '../../components/ui/Section'
 import dynamic from 'next/dynamic'
-import { useAscendStakingContract, useAscendTokenContract, useSwitchNetwork } from '../../hooks'
+import { useAscendStakingContract, useAscendTokenContract } from '../../hooks'
 import Container from '../../components/ui/Container'
 import Head from 'next/head'
 import TransactionButton from '../../components/ui/TransactionButton'
@@ -28,15 +28,9 @@ import Typography from '../../components/ui/Typography'
 import { LoginIcon } from '@heroicons/react/outline'
 import useStore from '../../store/useStore'
 
-const Connect = dynamic(() => import('../../components/Connect'), {
-  ssr: false,
-  loading: () => <Loader />,
-})
-
 const StakePage: NextPage = () => {
-  const switchNetwork = useSwitchNetwork()
   const setModalView = useStore((state) => state.setModalView)
-  const { account, chainId } = useEthers()
+  const { account, chainId, switchNetwork } = useEthers()
   const [amount, setAmount] = useState<string>('')
   const [isWithdrawing, toggle] = useBoolean(false)
   const ascendBalance = useASCENDBalance(account)
@@ -68,7 +62,7 @@ const StakePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Staking | Ascension Protocol</title>
+        <title>Stake | Ascension Protocol</title>
         <meta key="description" name="description" content="Ascension Protocol staking" />
       </Head>
 

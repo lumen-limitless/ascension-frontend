@@ -11,10 +11,9 @@ import ImageComponent from '../components/ui/ImageComponent'
 import GovernanceIcon from '../components/icons/GovernanceIcon'
 import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
-import Motion from '../animations'
 import Typography from '../components/ui/Typography'
 import { ArrowRightIcon } from '@heroicons/react/solid'
-
+import { motion } from 'framer-motion'
 const features = [
   {
     icon: <ToolsIcon />,
@@ -43,24 +42,18 @@ const HomePage: NextPage = () => {
         <title>{APP_NAME}</title>
         <meta key="description" name="description" content={APP_DESCRIPTION} />
       </Head>
-      <Section
-        fullscreen
-        className="bg-[#050310] bg-cover bg-center bg-no-repeat"
-        id="hero"
-        style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/ascension-protocol/image/upload/v1655238292/ASCENSION/bg-p-3200_dvrwoc.jpg')",
-        }}
-      >
+      <Section fullscreen className="bg-[#050310] bg-cover bg-center bg-no-repeat" id="hero">
+        <ImageComponent
+          src="/bg-p-3200_dvrwoc.jpg"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          priority
+        />
         <Container maxWidth="7xl">
           <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
             <Card className="border-transparent">
-              <ImageComponent
-                src="/ASCEND-rise-animation_tmhgil"
-                height={128}
-                width={128}
-                priority={true}
-              />
+              <ImageComponent src="/ascension-rise" height={128} width={128} priority />
               <Typography
                 as="h1"
                 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl"
@@ -74,7 +67,11 @@ const HomePage: NextPage = () => {
                 Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
                 providing DeFi tools and opportunities for its constituents.
               </Typography>{' '}
-              <Motion variant="fadeIn" delay={0.33}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ ease: 'easeOut', delay: 0.33 }}
+              >
                 <div className="flex w-full flex-col items-center gap-3 px-6 py-6 lg:flex-row">
                   <Link href="/dashboard">
                     <a className="w-full">
@@ -90,7 +87,7 @@ const HomePage: NextPage = () => {
                     </Button>
                   </a>
                 </div>
-              </Motion>
+              </motion.div>
             </Card>
           </div>
         </Container>
@@ -101,7 +98,13 @@ const HomePage: NextPage = () => {
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
               {features.map((f, i) => (
-                <Motion variant="fadeUp" delay={0.09 * (i + 1)} duration={0.66} key={f.title}>
+                <motion.div
+                  initial={{ opacity: 0, y: 33 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', delay: 0.09 * i }}
+                  key={f.title}
+                >
                   <Card className=" h-full xl:max-h-96 xl:text-lg">
                     <div className="flex w-full flex-col justify-center gap-3 p-3">
                       <div className="flex items-center gap-3 ">
@@ -115,7 +118,7 @@ const HomePage: NextPage = () => {
                       <Typography className="text-secondary">{f.description}</Typography>
                     </div>
                   </Card>
-                </Motion>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -124,7 +127,12 @@ const HomePage: NextPage = () => {
 
       <Section id="partners">
         <Container maxWidth="7xl">
-          <Motion variant="fadeIn">
+          <motion.div
+            initial={{ opacity: 0 }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1 }}
+            transition={{ ease: 'easeOut', duration: 1 }}
+          >
             <div className="w-full py-6 text-center lg:py-9">
               <Typography
                 as="h3"
@@ -162,17 +170,19 @@ const HomePage: NextPage = () => {
                 </a>
               </div>
             </div>
-          </Motion>
+          </motion.div>
         </Container>
       </Section>
 
-      <Section
-        padding="sm"
-        className="  bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow"
-        id="cta"
-      >
-        <Container maxWidth="3xl">
-          <Motion variant="fadeIn">
+      <Section padding="sm" className="  " id="cta">
+        <div className="absolute -inset-1 rounded-lg bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow opacity-70 blur" />
+        <Container maxWidth="3xl" className="z-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1 }}
+            transition={{ ease: 'easeOut', duration: 1 }}
+          >
             <Typography
               as="h4"
               centered
@@ -227,11 +237,11 @@ const HomePage: NextPage = () => {
                 <Button className="bg-ascend-purple hover:shadow-ascend-purple/10" size="lg">
                   {' '}
                   <DocumentTextIcon height={24} />
-                  Documentation
+                  View Documentation
                 </Button>
               </a>
             </div>
-          </Motion>
+          </motion.div>
         </Container>
       </Section>
     </>

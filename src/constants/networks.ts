@@ -60,9 +60,9 @@ export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.Kovan]: 'ETH',
   [ChainId.Fantom]: 'FTM',
   [ChainId.Polygon]: 'MATIC',
-  [ChainId.Gnosis]: 'XDAI',
-  [ChainId.BSC]: 'BSC',
-  [ChainId.BSCTestnet]: 'BSC',
+  [ChainId.Gnosis]: 'xDAI',
+  [ChainId.BSC]: 'BNB',
+  [ChainId.BSCTestnet]: 'BNB',
   [ChainId.Avalanche]: 'AVAX',
   [ChainId.Harmony]: 'HARM',
 }

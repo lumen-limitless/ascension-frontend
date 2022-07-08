@@ -45,7 +45,12 @@ export default function Account() {
       </div>
 
       <div className=" col-span-12 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
-        <ImageComponent src="/circle-coin_weqrld.png" height={72} width={72} alt="ASCEND balance" />
+        <ImageComponent
+          src="/circle-coin_weqrld.png"
+          height={100}
+          width={100}
+          alt="ASCEND balance"
+        />
         <div className="flex w-full flex-col items-center">
           <Typography className="text-xs md:text-sm">Balance</Typography>
           {tokenData ? commify(formatBalance(tokenData.balance)) : <Skeleton />}

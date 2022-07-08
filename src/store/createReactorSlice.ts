@@ -13,17 +13,20 @@ export interface ReactorSlice {
     index: number
     abi: Array<ContractEvent | ContractFunction> | null
     args: any[]
+    value: string
   }
-
   reactionActive: boolean
-  resetAll: () => void
-  reset: (type?: 'event' | 'function') => void
+
+  reset: () => void
+  clearEvent: () => void
+  clearFunction: () => void
   fetchABI: (name: string, address: string, apiKey: string, type?: 'event' | 'function') => void
   setIndex: (index: number, type?: 'event' | 'function') => void
   setAddress: (address: string, type?: 'event' | 'function') => void
   setArgs: (args: any[], type?: 'event' | 'function') => void
   updateArgsAt: (i: number, arg: any, type: 'event' | 'function') => void
   clearArgs: (type?: 'event' | 'function') => void
+  setValue: (value: string) => void
   toggleReaction: (active?: boolean) => void
 }
 
@@ -39,22 +42,26 @@ const initialState = {
     index: 0,
     abi: null,
     args: [],
+    value: '',
   },
   reactionActive: false,
 }
 
 const createReactorSlice: StateCreator<
   ReactorSlice,
-  [['zustand/devtools', any], ['zustand/immer', any]],
+  [['zustand/devtools', unknown], ['zustand/immer', unknown]],
   []
 > = (set) => ({
   ...initialState,
-  resetAll: () => set(initialState),
-  reset: (type?) =>
+  reset: () => set(initialState),
+  clearEvent: () =>
     set((state) => {
-      state[type] = initialState[type]
+      state.event = initialState.event
     }),
-
+  clearFunction: () =>
+    set((state) => {
+      state.function = initialState.function
+    }),
   fetchABI: async (name, address, apiKey, type?) => {
     const data = await fetch(
       `https://api.${name}/api?module=contract&action=getabi&address=${address}&apikey=${apiKey}`
@@ -69,6 +76,7 @@ const createReactorSlice: StateCreator<
       return
     }
     const abi = JSON.parse(data.result)
+
     set((state) => {
       type != undefined
         ? (state[type].abi = abi)
@@ -114,6 +122,10 @@ const createReactorSlice: StateCreator<
       type != undefined
         ? (state[type].args = [])
         : ((state.function.args = []), (state.event.args = []))
+    }),
+  setValue: (value) =>
+    set((state) => {
+      state.function.value = value
     }),
   toggleReaction: (active: boolean) =>
     set((state) => ({

@@ -14,7 +14,7 @@ import useStore from '../../../store/useStore'
 
 const Reactor = dynamic(() => import('../../../components/Reactor'), { ssr: false })
 
-const REQUIRED_BALANCE = 100
+const REQUIRED_BALANCE = 10
 const SUPPORTED_CHAINIDS = [ChainId.Arbitrum, ChainId.Mainnet, ChainId.BSC, ChainId.Polygon]
 const ReactorPage: NextPage = () => {
   const { account, chainId } = useEthers()
