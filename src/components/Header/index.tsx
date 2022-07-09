@@ -209,14 +209,10 @@ const Header: React.FC = () => {
 
                     <Divider />
 
-                    <Link href="/dashboard" passHref>
-                      <Popover.Button
-                        className={
-                          'w-full text-base font-medium text-gray-100 transition hover:text-gray-500'
-                        }
-                      >
-                        Dashboard
-                      </Popover.Button>
+                    <Link href="/dashboard">
+                      <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
+                        <Popover.Button className={'w-full '}>Dashboard</Popover.Button>
+                      </a>
                     </Link>
 
                     <Divider />

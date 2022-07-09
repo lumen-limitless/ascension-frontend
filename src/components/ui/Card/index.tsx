@@ -22,7 +22,7 @@ export default function Card({
     <div
       className={cn(
         className,
-        'relative flex-1 flex-grow rounded border-2  border-dark-700/30 bg-dark-1000/60 shadow-pink-glow backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
+        'relative flex-1 flex-grow  rounded bg-dark-1000/60 shadow-pink-glow ring-2 ring-dark-700/30 backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
       )}
       style={{
         backgroundImage: `url(${backgroundImage})`,
@@ -33,7 +33,7 @@ export default function Card({
     >
       {header && (
         <>
-          <div className="w-full rounded-t bg-dark-700/30">{header}</div>
+          <div className="w-full rounded-t bg-dark-700/30 ">{header}</div>
         </>
       )}
 

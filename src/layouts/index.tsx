@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import Loader from '../components/ui/Loader'
 import { useNetworkNotifications } from '../hooks'
 import useStore from '../store/useStore'
 
@@ -9,6 +10,23 @@ const Connect = dynamic(() => import('../components/Connect'), { ssr: false })
 const Network = dynamic(() => import('../components/Network'), { ssr: false })
 const Account = dynamic(() => import('../components/Account'), { ssr: false })
 const Modal = dynamic(() => import('../components/ui/Modal'), { ssr: false })
+
+const Connect = dynamic(() => import('../components/Connect'), {
+  ssr: false,
+  loading: () => <Loader />,
+})
+const Network = dynamic(() => import('../components/Network'), {
+  ssr: false,
+  loading: () => <Loader />,
+})
+const Account = dynamic(() => import('../components/Account'), {
+  ssr: false,
+  loading: () => <Loader />,
+})
+const Modal = dynamic(() => import('../components/ui/Modal'), {
+  ssr: false,
+  loading: () => <Loader />,
+})
 
 export default function Layout({ children }) {
   useNetworkNotifications()

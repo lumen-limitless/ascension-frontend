@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme')
-const plugin = require('tailwindcss/plugin')
+// const defaultTheme = require('tailwindcss/defaultTheme')
+// const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
@@ -139,11 +139,6 @@ module.exports = {
         px: '1px',
         '3px': '3px',
       },
-      minHeight: {
-        empty: '128px',
-        cardContent: '230px',
-        fitContent: 'fit-content',
-      },
 
       minWidth: {
         5: '1.25rem',
@@ -153,7 +148,7 @@ module.exports = {
         '3xl': '1600px',
       },
       animation: {
-        'spin-slow': 'spin 2s linear infinite',
+        'spin-slow': 'spin 6s linear infinite',
       },
     },
   },

@@ -247,7 +247,7 @@ export default function Dashboard() {
 
       <div className="col-span-12">
         <Card title="Treasury NFT Portfolio">
-          <div className="flex h-[500px] w-full flex-col gap-3 overflow-y-scroll">
+          <div className="flex h-[500px] flex-col gap-3 overflow-y-scroll p-3">
             {!data ? (
               <Loader />
             ) : error ? (
