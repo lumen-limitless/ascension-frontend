@@ -1,5 +1,8 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import ImageComponent from '../ui/ImageComponent'
+import cn from 'clsx'
+import AscensionMonoIcon from '../icons/AscensionMonoIcon'
 
 const navigation = {
   main: [
@@ -139,16 +142,19 @@ const navigation = {
 }
 
 export default function Footer() {
+  const { pathname } = useRouter()
   return (
-    <footer className=" relative  border border-t border-dark-900 text-center">
+    <footer
+      className={cn(
+        pathname !== '/' && 'border-t-2 border-dark-700/30',
+        ' relative   border-dark-900 text-center'
+      )}
+    >
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-        <ImageComponent
-          src="/mono-logotype-white_ftolwk.png"
-          height="80"
-          width="80"
-          alt="ascension protocol"
-          className="mx-auto"
-        />
+        <div className="flex w-full  items-center justify-center">
+          {' '}
+          <AscensionMonoIcon />
+        </div>
         <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           {navigation.main.map((item) => (
             <div key={item.name} className="px-3 py-3 md:px-6">

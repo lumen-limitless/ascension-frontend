@@ -14,6 +14,11 @@ import ToolsIcon from '../components/icons/ToolsIcon'
 import Typography from '../components/ui/Typography'
 import { ArrowRightIcon } from '@heroicons/react/solid'
 import { motion } from 'framer-motion'
+import CryptoJinglesIcon from '../components/icons/CryptoJinglesIcon'
+import L2DAOIcon from '../components/icons/L2DAOIcon'
+import FrensIcon from '../components/icons/FrensIcon'
+import GMXIcon from '../components/icons/GMXIcon'
+import ExternalLink from '../components/ui/ExternalLink'
 const features = [
   {
     icon: <ToolsIcon />,
@@ -53,7 +58,14 @@ const HomePage: NextPage = () => {
         <Container maxWidth="7xl">
           <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
             <Card className="border-transparent">
-              <ImageComponent src="/ascension-rise" height={128} width={128} priority />
+              <ImageComponent
+                src="/ascension-rise"
+                height={128}
+                width={128}
+                priority
+                className="h-[128px] w-[128px]"
+                alt="Rise of Ascension"
+              />
               <Typography
                 as="h1"
                 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl"
@@ -125,7 +137,7 @@ const HomePage: NextPage = () => {
         </Container>
       </Section>
 
-      <Section id="partners">
+      <Section id="partners" padding="xs">
         <Container maxWidth="7xl">
           <motion.div
             initial={{ opacity: 0 }}
@@ -140,34 +152,19 @@ const HomePage: NextPage = () => {
               >
                 Partners & Investments
               </Typography>
-              <div className="my-6 flex w-full items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
-                <a href="https://gmx.io/" target="_blank" rel="noopener noreferrer">
-                  <ImageComponent src="/gmx_lcmrxs.png" width={172} height={100} alt="GMX" />
-                </a>
-                <a href="https://frens.ventures/" target="_blank" rel="noopener noreferrer">
-                  <ImageComponent
-                    src="/frens-ventures-white_bmoqdd.png"
-                    alt="Frens Ventures"
-                    width={316}
-                    height={100}
-                  />
-                </a>
-                <a href="https://cryptojingles.app/" target="_blank" rel="noopener noreferrer">
-                  <ImageComponent
-                    src="/cryptojingles_pweofi.png"
-                    alt="Crypto Jingles"
-                    width={271}
-                    height={100}
-                  />
-                </a>
-                <a href="https://www.layer2dao.org/#/" target="_blank" rel="noopener noreferrer">
-                  <ImageComponent
-                    src="/Layer2DAO_uyrfs1.png"
-                    alt="Layer2 DAO"
-                    width={100}
-                    height={100}
-                  />
-                </a>
+              <div className="my-6 flex w-full flex-wrap items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
+                <ExternalLink href="https://gmx.io/">
+                  <GMXIcon />
+                </ExternalLink>
+                <ExternalLink href="https://frens.ventures/">
+                  <FrensIcon />
+                </ExternalLink>
+                <ExternalLink href="https://cryptojingles.app/">
+                  <CryptoJinglesIcon />
+                </ExternalLink>
+                <ExternalLink href="https://www.layer2dao.org/#/">
+                  <L2DAOIcon />
+                </ExternalLink>
               </div>
             </div>
           </motion.div>

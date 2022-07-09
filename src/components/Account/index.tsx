@@ -13,6 +13,7 @@ import Typography from '../ui/Typography'
 import Grid from '../ui/Grid'
 import { commify } from 'ethers/lib/utils'
 import useStore from '../../store/useStore'
+import ASCENDIcon from '../icons/ASCENDIcon'
 
 export default function Account() {
   const { account, deactivate } = useEthers()
@@ -45,12 +46,7 @@ export default function Account() {
       </div>
 
       <div className=" col-span-12 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
-        <ImageComponent
-          src="/circle-coin_weqrld.png"
-          height={100}
-          width={100}
-          alt="ASCEND balance"
-        />
+        <ASCENDIcon />
         <div className="flex w-full flex-col items-center">
           <Typography className="text-xs md:text-sm">Balance</Typography>
           {tokenData ? commify(formatBalance(tokenData.balance)) : <Skeleton />}
