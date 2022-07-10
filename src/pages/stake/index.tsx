@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic'
 import { useAscendStakingContract, useAscendTokenContract } from '../../hooks'
 import Container from '../../components/ui/Container'
 import Head from 'next/head'
-import TransactionButton from '../../components/ui/TransactionButton'
+import TransactionButton from '../../components/TransactionButton'
 import { useStaking } from '../../hooks'
 import Grid from '../../components/ui/Grid'
 import ArbitrumIcon from '../../components/icons/networks/ArbitrumIcon'
@@ -27,6 +27,7 @@ import { Icon } from '@iconify/react'
 import Typography from '../../components/ui/Typography'
 import { LoginIcon } from '@heroicons/react/outline'
 import useStore from '../../store/useStore'
+import { NextSeo } from 'next-seo'
 
 const StakePage: NextPage = () => {
   const setModalView = useStore((state) => state.setModalView)
@@ -61,10 +62,7 @@ const StakePage: NextPage = () => {
   }
   return (
     <>
-      <Head>
-        <title>Stake | Ascension Protocol</title>
-        <meta key="description" name="description" content="Ascension Protocol staking" />
-      </Head>
+      <NextSeo title={`Stake | Ascension Protocol`} description={`Ascension Protocol staking`} />
 
       <Section fullscreen layout="start" padding="md">
         <Container maxWidth="4xl">
@@ -196,7 +194,7 @@ const StakePage: NextPage = () => {
                     </div>
                     {parseBalance(allowance) > 0 && (
                       <>
-                        <ul className="my-4 w-full text-left">
+                        <ul className="my-6 w-full space-y-1 ">
                           <li className="flex w-full">
                             Balance:{' '}
                             {ascendBalance ? (
@@ -221,25 +219,27 @@ const StakePage: NextPage = () => {
                           </li>
                         </ul>
                         <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
-                          <TransactionButton
-                            color="green"
-                            requirements={{
-                              requirement: earned && parseBalance(earned) > 0,
-                              message: 'No Earnings',
-                            }}
-                            method={getReward}
-                            name="Collect Earnings"
-                          />
+                          {balanceOf && parseBalance(balanceOf) > 0 && (
+                            <TransactionButton
+                              color="green"
+                              requirements={{
+                                requirement: earned && parseBalance(earned) > 0,
+                              }}
+                              method={getReward}
+                              name="Collect Earnings"
+                            />
+                          )}
 
-                          <TransactionButton
-                            color="red"
-                            requirements={{
-                              requirement: balanceOf && parseBalance(balanceOf) > 0,
-                              message: '',
-                            }}
-                            method={exit}
-                            name="Exit Staking"
-                          />
+                          {balanceOf && parseBalance(balanceOf) > 0 && (
+                            <TransactionButton
+                              color="red"
+                              requirements={{
+                                requirement: balanceOf && parseBalance(balanceOf) > 0,
+                              }}
+                              method={exit}
+                              name="Exit Staking"
+                            />
+                          )}
                         </div>
                       </>
                     )}

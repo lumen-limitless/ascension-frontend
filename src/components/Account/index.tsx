@@ -8,7 +8,6 @@ import { shortenIfAddress, useEthers } from '@usedapp/core'
 import { ClipboardCopyIcon, ExternalLinkIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAscendSubgraph } from '../../hooks/useSubgraph'
 import { useToast } from '../../hooks'
-import ImageComponent from '../ui/ImageComponent'
 import Typography from '../ui/Typography'
 import Grid from '../ui/Grid'
 import { commify } from 'ethers/lib/utils'
@@ -45,14 +44,18 @@ export default function Account() {
         />
       </div>
 
-      <div className=" col-span-12 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3 py-3 shadow-md ">
+      <div className=" col-span-12 flex w-full items-center justify-evenly rounded bg-gradient-to-r from-ascend-purple to-ascend-magenta px-3  shadow-md ">
         <ASCENDIcon />
         <div className="flex w-full flex-col items-center">
-          <Typography className="text-xs md:text-sm">Balance</Typography>
+          <Typography as="strong" weight={700} className="text-xs md:text-sm">
+            Balance
+          </Typography>
           {tokenData ? commify(formatBalance(tokenData.balance)) : <Skeleton />}
         </div>{' '}
         <div className="flex w-full flex-col items-center">
-          <Typography className="text-xs md:text-sm">Staked</Typography>
+          <Typography as="strong" weight={700} className="text-xs md:text-sm">
+            Staked
+          </Typography>
           {tokenData ? commify(formatBalance(tokenData.stakedBalance)) : <Skeleton />}
         </div>{' '}
       </div>

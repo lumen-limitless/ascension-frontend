@@ -21,14 +21,14 @@ export const SUPPORTED_CHAINS: Chain[] = [
 ]
 export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'http://localhost:8545',
-  [ChainId.Arbitrum]: 'https://arb-mainnet.g.alchemy.com/v2/Xpu3xuFHbBEKuScjXwICcPUXBv-JK6Kd',
-  [ChainId.Optimism]: 'https://opt-mainnet.g.alchemy.com/v2/9YdE0-k34MYuWKV1Ogj6HHeo1gvTa4o5',
-  [ChainId.Mainnet]: 'https://eth-mainnet.alchemyapi.io/v2/U_UAKx6kDChbizvp1_WVIWRCcXbZy8nI',
-  [ChainId.Polygon]: 'https://polygon-mainnet.g.alchemy.com/v2/pq0GDkTLABUlK6V_xzwuS0lOolO6-PnK',
+  [ChainId.Arbitrum]: 'https://arb1.arbitrum.io/rpc',
+  [ChainId.Optimism]: 'https://mainnet.optimism.io',
+  [ChainId.Mainnet]: 'https://rpc.ankr.com/eth',
+  [ChainId.Polygon]: 'https://polygon-rpc.com',
   [ChainId.BSC]: 'https://bsc-dataseed.binance.org/',
   [ChainId.Avalanche]: 'https://api.avax.network/ext/bc/C/rpc',
-  [ChainId.Harmony]: '',
-  [ChainId.Fantom]: '',
+  [ChainId.Harmony]: 'https://rpc.ankr.com/harmony',
+  [ChainId.Fantom]: 'https://rpc.fantom.network',
 }
 
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {

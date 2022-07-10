@@ -18,7 +18,7 @@ import Grid from '../../components/ui/Grid'
 
 import { useMoralisNFT } from '../../hooks/useMoralis'
 import Typography from '../ui/Typography'
-import ImageComponent from '../ui/ImageComponent'
+import ImageComponent from '../ImageComponent'
 import { endsWith, slice } from 'lodash'
 import { Icon } from '@iconify/react'
 import Button from '../ui/Button'

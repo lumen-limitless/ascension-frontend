@@ -8,6 +8,7 @@ import Grid from '../../components/ui/Grid'
 import Section from '../../components/ui/Section'
 import { motion } from 'framer-motion'
 import { VFC } from 'react'
+import { NextSeo } from 'next-seo'
 
 const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
   return (
@@ -37,10 +38,8 @@ const tools = [{ name: 'Ascension Reactor', path: '/tools/reactor' }]
 export default function ToolsPage() {
   return (
     <>
-      <Head>
-        <title>Tools | Ascension Protocol</title>
-        <meta key="description" name="description" content="Ascension Protocol tools" />
-      </Head>
+      <NextSeo title={`Tools | Ascension Protocol`} description={`Ascension Protocol tools`} />
+
       <Section fullscreen padding="md" layout="start">
         <Container maxWidth="5xl">
           <Grid gap={'md'}>

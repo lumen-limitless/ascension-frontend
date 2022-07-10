@@ -6,11 +6,6 @@ import useStore from '../store/useStore'
 const Footer = dynamic(() => import('../components/Footer'), { ssr: false })
 const Header = dynamic(() => import('../components/Header'), { ssr: false })
 const Toaster = dynamic(() => import('react-hot-toast').then((mod) => mod.Toaster), { ssr: false })
-const Connect = dynamic(() => import('../components/Connect'), { ssr: false })
-const Network = dynamic(() => import('../components/Network'), { ssr: false })
-const Account = dynamic(() => import('../components/Account'), { ssr: false })
-const Modal = dynamic(() => import('../components/ui/Modal'), { ssr: false })
-
 const Connect = dynamic(() => import('../components/Connect'), {
   ssr: false,
   loading: () => <Loader />,
@@ -23,10 +18,7 @@ const Account = dynamic(() => import('../components/Account'), {
   ssr: false,
   loading: () => <Loader />,
 })
-const Modal = dynamic(() => import('../components/ui/Modal'), {
-  ssr: false,
-  loading: () => <Loader />,
-})
+const Modal = dynamic(() => import('../components/ui/Modal'), { ssr: false })
 
 export default function Layout({ children }) {
   useNetworkNotifications()

@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import Button, { ButtonProps } from '../Button'
-import Spinner from '../Spinner'
+import Button, { ButtonProps } from '../ui/Button'
+import Spinner from '../ui/Spinner'
 
 type Requirement = {
   requirement: boolean
-  message: string
+  message?: string
 }
 export interface TransactionButtonProps extends Omit<ButtonProps, 'disabled' | 'onClick'> {
   method: any
@@ -33,7 +33,7 @@ const TransactionButton: FC<TransactionButtonProps> = ({
       {...rest}
     >
       {typeof requirements !== 'undefined' && requirements.requirement === false ? (
-        requirements.message
+        requirements.message ?? name
       ) : method.state.status === 'None' ? (
         name
       ) : (

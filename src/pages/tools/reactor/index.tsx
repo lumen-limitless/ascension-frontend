@@ -1,6 +1,7 @@
 import { LoginIcon } from '@heroicons/react/outline'
 import { ChainId, useEthers } from '@usedapp/core'
 import { NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import BuyAscend from '../../../components/BuyAscend'
@@ -22,14 +23,8 @@ const ReactorPage: NextPage = () => {
   const setModalView = useStore((state) => state.setModalView)
   return (
     <>
-      <Head>
-        <title>Reactor | Ascension Protocol</title>
-        <meta
-          key="description"
-          name="description"
-          content="Ascension Reactor allows you to instantly react to blockchain events and automate transaction execution"
-        />
-      </Head>
+      <NextSeo title={`Reactor | Ascension Protocol`} description={`Ascension Protocol reactor`} />
+
       <Section fullscreen layout="start" padding="md">
         <Container maxWidth="7xl">
           {!account ? (
