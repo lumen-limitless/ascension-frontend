@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo'
 import Head from 'next/head'
 import { useState } from 'react'
 import { useBoolean } from 'react-use'
@@ -20,14 +21,8 @@ export default function BatchSenderPage() {
   })
   return (
     <>
-      <Head>
-        <title> Batch Sender | Ascension Protocol</title>
-        <meta
-          key="description"
-          name="description"
-          content="Ascension Protocol token batch sender"
-        />
-      </Head>
+      <NextSeo title="Batch Sender" description={`Ascension Protocol batch sender`} />
+
       <Section fullscreen layout="start" padding="md">
         {' '}
         <Container maxWidth="7xl">

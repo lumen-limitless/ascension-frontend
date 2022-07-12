@@ -1,8 +1,16 @@
 import { Config, DAppProvider } from '@usedapp/core'
+import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
-import { HOME_CHAINID, MULTICALL2_ADDRESS, RPC, SUPPORTED_CHAINS } from '../constants'
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  HOME_CHAINID,
+  MULTICALL2_ADDRESS,
+  RPC,
+  SUPPORTED_CHAINS,
+} from '../constants'
 import Layout from '../layouts'
 import '../styles/index.css'
 
@@ -14,7 +22,7 @@ const config: Config = {
   multicallAddresses: MULTICALL2_ADDRESS,
   autoConnect: true,
   networks: SUPPORTED_CHAINS,
-  pollingInterval: 10000,
+  pollingInterval: 1000,
   notifications: {
     expirationPeriod: 0,
   },
@@ -25,6 +33,11 @@ const config: Config = {
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
+      <DefaultSeo
+        defaultTitle={APP_NAME}
+        titleTemplate={`%s | ${APP_NAME}`}
+        description={APP_DESCRIPTION}
+      />
       <Head>
         <meta
           name="viewport"

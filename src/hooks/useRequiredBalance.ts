@@ -6,7 +6,7 @@ export const useRequiredBalance = (account: string, amountRequired: number) => {
 
   const pass = useMemo(() => {
     if (!tokenData) return null
-    return tokenData.totalBalance >= amountRequired
+    return parseFloat(tokenData.totalBalance) >= amountRequired
   }, [tokenData, amountRequired])
 
   return pass

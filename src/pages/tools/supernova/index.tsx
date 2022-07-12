@@ -1,6 +1,7 @@
 import { DownloadIcon } from '@heroicons/react/outline'
 import { useEthers } from '@usedapp/core'
 import { NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 import Head from 'next/head'
 
 import Card from '../../../components/ui/Card'
@@ -11,10 +12,8 @@ import Typography from '../../../components/ui/Typography'
 const SupernovaPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Ascension Supernova | Ascension Protocol</title>
-        <meta key="description" name="description" content="Ascension Protocol mempool sniper" />
-      </Head>
+      <NextSeo title="Supernova" description={`Ascension Protocol supernova`} />
+
       <Section layout="start" padding="md">
         <Container maxWidth="xl">
           <Card>

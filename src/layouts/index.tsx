@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic'
 import Loader from '../components/ui/Loader'
+import Modal from '../components/ui/Modal'
 import { useNetworkNotifications } from '../hooks'
 import useStore from '../store/useStore'
 
 const Footer = dynamic(() => import('../components/Footer'), { ssr: false })
 const Header = dynamic(() => import('../components/Header'), { ssr: false })
 const Toaster = dynamic(() => import('react-hot-toast').then((mod) => mod.Toaster), { ssr: false })
-
 const Connect = dynamic(() => import('../components/Connect'), {
   ssr: false,
   loading: () => <Loader />,
@@ -19,7 +19,8 @@ const Account = dynamic(() => import('../components/Account'), {
   ssr: false,
   loading: () => <Loader />,
 })
-const Modal = dynamic(() => import('../components/ui/Modal'), {
+
+const Delegate = dynamic(() => import('../components/Delegate'), {
   ssr: false,
   loading: () => <Loader />,
 })
@@ -41,6 +42,7 @@ export default function Layout({ children }) {
         {modalView === 'account' && <Account />}
         {modalView === 'network' && <Network />}
         {modalView === 'connect' && <Connect />}
+        {modalView === 'delegate' && <Delegate />}
       </Modal>
       <Header />
       <main className="relative flex h-full min-h-screen w-full flex-col items-center justify-start">

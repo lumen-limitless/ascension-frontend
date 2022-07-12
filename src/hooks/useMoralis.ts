@@ -35,7 +35,6 @@ export const useMoralisNFT = (address: string) => {
             accept: 'application/json',
 
             'X-API-KEY': 'gldOOYmLD68TQgkadPZiSEd6eWEYzxCpCR0IywXht8NpJCbVwXjfTYP3mgF2QAHi',
-
           },
         })
         .then((res) => res.data)

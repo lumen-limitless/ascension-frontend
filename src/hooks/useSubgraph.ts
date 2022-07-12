@@ -7,13 +7,17 @@ const GET_TOKEN_DATA = gql`
       totalBalance
       balance
       stakedBalance
+      votes
+      stakedVotes
     }
   }
 `
 export function useAscendSubgraph(account: string): {
-  totalBalance: number
-  balance: number
-  stakedBalance: number
+  totalBalance: string
+  balance: string
+  stakedBalance: string
+  votes: string
+  stakedVotes: string
 } | null {
   const { data, error } = useQuery(
     'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
@@ -26,9 +30,11 @@ export function useAscendSubgraph(account: string): {
   if (!data || error) return null
   if (data.users.length === 0)
     return {
-      totalBalance: 0,
-      balance: 0,
-      stakedBalance: 0,
+      totalBalance: '0.0',
+      balance: '0.0',
+      stakedBalance: '0.0',
+      votes: '0.0',
+      stakedVotes: '0.0',
     }
   return data.users[0]
 }

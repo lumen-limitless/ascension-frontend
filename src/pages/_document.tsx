@@ -1,3 +1,4 @@
+import { DefaultSeo } from 'next-seo'
 import { Html, Head, Main, NextScript } from 'next/document'
 import { APP_DESCRIPTION, APP_NAME } from '../constants'
 

@@ -1,6 +1,6 @@
 import { StateCreator } from 'zustand'
 
-export type UIViewController = 'none' | 'account' | 'connect' | 'network'
+export type UIViewController = 'none' | 'account' | 'connect' | 'network' | 'delegate'
 
 export interface UISlice {
   viewingModal: boolean

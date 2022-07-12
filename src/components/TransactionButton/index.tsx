@@ -1,24 +1,24 @@
-import { FC } from 'react'
-import Button, { ButtonProps } from '../Button'
-import Spinner from '../Spinner'
+import Button, { ButtonProps } from '../ui/Button'
+import Spinner from '../ui/Spinner'
 
 type Requirement = {
   requirement: boolean
-  message: string
+  message?: string
 }
-export interface TransactionButtonProps extends Omit<ButtonProps, 'disabled' | 'onClick'> {
+export interface TransactionButtonProps
+  extends Omit<ButtonProps, 'disabled' | 'onClick' | 'children'> {
   method: any
   args?: any[]
   name?: string
   requirements?: Requirement
 }
-const TransactionButton: FC<TransactionButtonProps> = ({
+export default function TransactionButton({
   method,
   args = [],
   name,
   requirements,
   ...rest
-}) => {
+}: TransactionButtonProps) {
   return (
     <Button
       disabled={
@@ -33,7 +33,7 @@ const TransactionButton: FC<TransactionButtonProps> = ({
       {...rest}
     >
       {typeof requirements !== 'undefined' && requirements.requirement === false ? (
-        requirements.message
+        requirements.message ?? name
       ) : method.state.status === 'None' ? (
         name
       ) : (
@@ -42,5 +42,3 @@ const TransactionButton: FC<TransactionButtonProps> = ({
     </Button>
   )
 }
-
-export default TransactionButton

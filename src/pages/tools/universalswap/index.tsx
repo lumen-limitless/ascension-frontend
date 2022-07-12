@@ -14,6 +14,7 @@ import { useLocalStorage } from 'react-use'
 import Section from '../../../components/ui/Section'
 import Grid from '../../../components/ui/Grid'
 import dynamic from 'next/dynamic'
+import { NextSeo } from 'next-seo'
 
 const Connect = dynamic(() => import('../../../components/Connect'), { ssr: false })
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
@@ -75,14 +76,8 @@ const UniversalSwapPage: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Universal Swap Tool | Ascension Protocol</title>
-        <meta
-          key="description"
-          name="description"
-          content="Ascension Protocol universal swap tool allows you to perform aggregated swaps on many chains at the best rates."
-        />
-      </Head>
+      <NextSeo title="UniversalSwap" description={`Ascension Protocol universal swap tool`} />
+
       <Section fullscreen padding="md" layout="start">
         <Container maxWidth="7xl">
           {pass && (

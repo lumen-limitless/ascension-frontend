@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import ImageComponent from '../ui/ImageComponent'
+import ImageComponent from '../ImageComponent'
 import cn from 'clsx'
 import AscensionMonoIcon from '../icons/AscensionMonoIcon'
 
