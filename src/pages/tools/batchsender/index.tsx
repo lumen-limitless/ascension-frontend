@@ -21,10 +21,7 @@ export default function BatchSenderPage() {
   })
   return (
     <>
-      <NextSeo
-        title={`Batch Sender | Ascension Protocol`}
-        description={`Ascension Protocol batch sender`}
-      />
+      <NextSeo title="Batch Sender" description={`Ascension Protocol batch sender`} />
 
       <Section fullscreen layout="start" padding="md">
         {' '}

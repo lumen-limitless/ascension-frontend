@@ -76,10 +76,7 @@ const UniversalSwapPage: NextPage = () => {
 
   return (
     <>
-      <NextSeo
-        title={`Universal Swap Tool | Ascension Protocol`}
-        description={`Ascension Protocol universal swap tool`}
-      />
+      <NextSeo title="UniversalSwap" description={`Ascension Protocol universal swap tool`} />
 
       <Section fullscreen padding="md" layout="start">
         <Container maxWidth="7xl">

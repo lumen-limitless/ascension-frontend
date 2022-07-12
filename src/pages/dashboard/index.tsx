@@ -7,10 +7,7 @@ import { NextSeo } from 'next-seo'
 const DashboardPage: NextPage = () => {
   return (
     <>
-      <NextSeo
-        title={`Dashboard | Ascension Protocol`}
-        description={`Ascension Protocol dashboard.`}
-      />
+      <NextSeo title="Dashboard" description={`Ascension Protocol dashboard.`} />
 
       <Section fullscreen padding="md">
         <Container maxWidth="7xl">

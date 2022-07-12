@@ -24,7 +24,7 @@ export default function ToastComponent({ t, type, message }: ToastComponentProps
       >
         <div
           className={cn(
-            'pointer-events-auto w-60 overflow-hidden rounded border-l  bg-dark-800  shadow-lg ring-1 ring-black ring-opacity-5 md:w-72',
+            ' pointer-events-auto w-72 overflow-hidden rounded  border-l  bg-dark-800 shadow-lg ring-1 ring-black ring-opacity-5',
             type === 'success'
               ? 'border-green-500'
               : type === 'info'

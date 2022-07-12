@@ -38,7 +38,7 @@ const tools = [{ name: 'Ascension Reactor', path: '/tools/reactor' }]
 export default function ToolsPage() {
   return (
     <>
-      <NextSeo title={`Tools | Ascension Protocol`} description={`Ascension Protocol tools`} />
+      <NextSeo title="Tools" description={`Ascension Protocol tools`} />
 
       <Section fullscreen padding="md" layout="start">
         <Container maxWidth="5xl">

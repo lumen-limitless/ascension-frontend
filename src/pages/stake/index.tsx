@@ -62,7 +62,7 @@ const StakePage: NextPage = () => {
   }
   return (
     <>
-      <NextSeo title={`Stake | Ascension Protocol`} description={`Ascension Protocol staking`} />
+      <NextSeo title="Stake" description={`Ascension Protocol staking`} />
 
       <Section fullscreen layout="start" padding="md">
         <Container maxWidth="4xl">

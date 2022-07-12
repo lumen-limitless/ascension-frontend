@@ -12,6 +12,7 @@ import { useBoolean } from 'react-use'
 import Avatar from '../Avatar'
 import useStore from '../../store/useStore'
 import { CHAIN_ICON } from '../Network'
+import { ZERO_ADDRESS } from '../../constants'
 
 const Header: React.FC = () => {
   const { account, chainId } = useEthers()
@@ -49,7 +50,7 @@ const Header: React.FC = () => {
                     className="border border-dark-900"
                     onClick={() => setModalView('account')}
                   >
-                    <Avatar size={24} />
+                    <Avatar size={24} address={account ?? ZERO_ADDRESS} />
                   </Button>
                 </>
               )}
@@ -164,7 +165,7 @@ const Header: React.FC = () => {
                       className="border border-dark-900"
                       onClick={() => setModalView('account')}
                     >
-                      <Avatar size={24} />
+                      <Avatar size={24} address={account ?? ZERO_ADDRESS} />
                     </Button>
                   </>
                 )}

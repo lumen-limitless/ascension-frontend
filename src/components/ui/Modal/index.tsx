@@ -40,7 +40,7 @@ export default function Modal({ isOpen, onDismiss, children }: ModalProps) {
                 <div className="flex h-full w-full flex-col overflow-y-hidden rounded bg-dark-900  p-6 text-white">
                   <div className="absolute top-3 right-3">
                     <Button size="none" onClick={onDismiss}>
-                      <XIcon height="20px" />
+                      <XIcon height={24} />
                     </Button>
                   </div>
                   {children}

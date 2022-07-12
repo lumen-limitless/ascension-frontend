@@ -23,7 +23,7 @@ const ReactorPage: NextPage = () => {
   const setModalView = useStore((state) => state.setModalView)
   return (
     <>
-      <NextSeo title={`Reactor | Ascension Protocol`} description={`Ascension Protocol reactor`} />
+      <NextSeo title="Reactor" description={`Ascension Protocol reactor`} />
 
       <Section fullscreen layout="start" padding="md">
         <Container maxWidth="7xl">

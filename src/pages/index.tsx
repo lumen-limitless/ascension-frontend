@@ -19,6 +19,7 @@ import L2DAOIcon from '../components/icons/L2DAOIcon'
 import FrensIcon from '../components/icons/FrensIcon'
 import GMXIcon from '../components/icons/GMXIcon'
 import ExternalLink from '../components/ui/ExternalLink'
+import { NextSeo } from 'next-seo'
 const features = [
   {
     icon: <ToolsIcon />,
@@ -43,10 +44,8 @@ const features = [
 const HomePage: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>{APP_NAME}</title>
-        <meta key="description" name="description" content={APP_DESCRIPTION} />
-      </Head>
+      <NextSeo />
+
       <Section fullscreen className="bg-[#050310] bg-cover bg-center bg-no-repeat" id="hero">
         <ImageComponent
           src="/bg-p-3200_dvrwoc.jpg"

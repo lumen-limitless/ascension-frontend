@@ -47,6 +47,7 @@ export function formatPercent(percentString: any) {
 }
 
 export const formatBalance = (value: BigNumberish, decimals = 18, maxFraction = 2): string => {
+  if (!value) return null
   const formatted: string =
     typeof value === 'string'
       ? value

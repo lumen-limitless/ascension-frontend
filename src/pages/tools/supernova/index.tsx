@@ -12,10 +12,7 @@ import Typography from '../../../components/ui/Typography'
 const SupernovaPage: NextPage = () => {
   return (
     <>
-      <NextSeo
-        title={`Supernova | Ascension Protocol`}
-        description={`Ascension Protocol supernova`}
-      />
+      <NextSeo title="Supernova" description={`Ascension Protocol supernova`} />
 
       <Section layout="start" padding="md">
         <Container maxWidth="xl">

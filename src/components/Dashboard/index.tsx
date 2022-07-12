@@ -60,7 +60,7 @@ export default function Dashboard() {
   )
 
   const { data, error } = useMoralisNFT(ASCENSION_TREASURY_MAINNET)
-  console.log(data)
+
   const stakingData = useStakingSubgraph()
 
   const priceData = useQuery(DEX_BY_CHAIN[ChainId.Arbitrum]['sushiswap'].subgraphUrl, GET_SWAPS, {
