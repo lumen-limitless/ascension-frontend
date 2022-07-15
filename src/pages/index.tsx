@@ -5,8 +5,6 @@ import Container from '../components/ui/Container'
 import Link from 'next/link'
 import Button from '../components/ui/Button'
 import Section from '../components/ui/Section'
-import { APP_DESCRIPTION, APP_NAME } from '../constants'
-import Head from 'next/head'
 import ImageComponent from '../components/ImageComponent'
 import GovernanceIcon from '../components/icons/GovernanceIcon'
 import RewardsIcon from '../components/icons/RewardsIcon'
@@ -152,7 +150,7 @@ const HomePage: NextPage = () => {
                 Partners & Investments
               </Typography>
               <div className="my-6 flex w-full flex-wrap items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
-                <ExternalLink href="https://gmx.io/">
+                <ExternalLink href="https://gmx.io/#/?ref=ascension">
                   <GMXIcon />
                 </ExternalLink>
                 <ExternalLink href="https://frens.ventures/">
