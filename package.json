@@ -37,7 +37,7 @@
     "@tailwindcss/forms": "^0.4.0",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "@usedapp/coingecko": "^1.0.15",
-    "@usedapp/core": "^1.0.15",
+    "@usedapp/core": "^1.1.6-dev.f266ce6",
     "@walletconnect/web3-provider": "^1.7.7",
     "autoprefixer": "10.4.5",
     "axios": "^0.27.2",

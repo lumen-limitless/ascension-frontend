@@ -2,22 +2,22 @@ import React, { FC, useCallback } from 'react'
 import Button from '../ui/Button'
 import { RPC } from '../../constants'
 import { useEthers } from '@usedapp/core'
-import { useToast } from '../../hooks'
+import { useToast, useUI } from '../../hooks'
 import WalletConnectIcon from '../icons/WalletConnectIcon'
 import MetaMaskIcon from '../icons/MetaMaskIcon'
 import useStore from '../../store/useStore'
 
-const Connect: FC = () => {
+export default function Connect() {
   const { chainId } = useEthers()
   const { activateBrowserWallet, activate } = useEthers()
-  const toggleViewingModal = useStore((state) => state.toggleViewingModal)
+  const { toggleViewingModal } = useUI()
   const t = useToast()
 
   const onWalletConnect = useCallback(async () => {
     try {
-      const WalletConnectProvider = await import('@walletconnect/web3-provider').then(
-        (mod) => mod.default
-      )
+      const WalletConnectProvider = await import(
+        '@walletconnect/web3-provider'
+      ).then((mod) => mod.default)
       const provider = new WalletConnectProvider({ chainId: chainId, rpc: RPC })
       await provider.enable()
       await activate(provider)
@@ -50,5 +50,3 @@ const Connect: FC = () => {
     </>
   )
 }
-
-export default Connect

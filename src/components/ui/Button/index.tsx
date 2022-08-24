@@ -55,7 +55,7 @@ export default function Button({
       className={cn(
         COLORS[color],
         SIZE[size],
-        ' inline-flex flex-grow items-center justify-center gap-1 rounded text-white shadow-md transition focus:outline-none hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none ',
+        ' inline-flex  items-center justify-center gap-1 rounded text-white shadow-md transition focus:outline-none hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none ',
         className
       )}
       {...rest}

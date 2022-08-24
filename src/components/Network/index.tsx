@@ -1,4 +1,4 @@
-import { ChainId, useEthers } from '@usedapp/core'
+import { Arbitrum, ChainId, useEthers } from '@usedapp/core'
 import dynamic from 'next/dynamic'
 import { SUPPORTED_CHAINS } from '../../constants'
 
@@ -40,6 +40,7 @@ export const CHAIN_ICON = {
 export default function Network() {
   const { switchNetwork } = useEthers()
   const toggleViewingModal = useStore((state) => state.toggleViewingModal)
+
   return (
     <>
       <div className="w-full pb-3">

@@ -1134,10 +1134,22 @@
     "@usedapp/core" "1.0.15"
     isomorphic-fetch "^3.0.0"
 
-"@usedapp/core@1.0.15", "@usedapp/core@^1.0.15":
+"@usedapp/core@1.0.15":
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-1.0.15.tgz#66c982c13cf9aeb061b74fa6ad1f8ef6f7cd4fd2"
   integrity sha512-dvjLiYVyutM25BiwiFlPjyhPVlLQA4Dg/WnN0Q8XPnWtyasM0mytxerGQMl0Um1WCtqQynV2R8SU5iQY723cCA==
+  dependencies:
+    "@metamask/detect-provider" "^1.2.0"
+    "@uniswap/token-lists" "^1.0.0-beta.27"
+    fetch-mock "^9.11.0"
+    lodash.merge "^4.6.2"
+    lodash.pickby "^4.6.0"
+    nanoid "3.3.4"
+
+"@usedapp/core@^1.1.6-dev.f266ce6":
+  version "1.1.6-dev.f266ce6"
+  resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-1.1.6-dev.f266ce6.tgz#4e383e672352eefe5e73ba81df94e06a727ebffc"
+  integrity sha512-prjduYOhGgp0tUx1/h8y929AkuYUXFCR87ViBUVWR7jyGcyVOeYoOexqD0C+KG1yUWAAAz7mMfyhrv7kx9TAog==
   dependencies:
     "@metamask/detect-provider" "^1.2.0"
     "@uniswap/token-lists" "^1.0.0-beta.27"

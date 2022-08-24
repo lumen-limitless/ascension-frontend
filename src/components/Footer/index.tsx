@@ -1,12 +1,10 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
-import ImageComponent from '../ImageComponent'
 import cn from 'clsx'
 import AscensionMonoIcon from '../icons/AscensionMonoIcon'
 
 const navigation = {
   main: [
-    { name: 'Docs', href: 'https://ascension-group.gitbook.io/ascension-protocol/' },
+    { name: 'Docs', href: 'https://docs.ascensionprotocol.io/' },
     { name: 'Blog', href: 'https://ascensionprotocolofficial.medium.com/' },
     { name: 'Vote', href: 'https://vote.ascensionprotocol.io/#/' },
     { name: 'Bridge', href: 'https://bridge.arbitrum.io/' },
@@ -17,7 +15,13 @@ const navigation = {
       name: 'Twitter',
       href: 'https://mobile.twitter.com/AscendProtocol',
       icon: (props) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img" {...props}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          role="img"
+          {...props}
+        >
           <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
         </svg>
       ),
@@ -26,7 +30,13 @@ const navigation = {
       name: 'GitHub',
       href: 'https://github.com/Ascension-group',
       icon: (props) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img" {...props}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          role="img"
+          {...props}
+        >
           <path
             fillRule="evenodd"
             d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
@@ -39,7 +49,13 @@ const navigation = {
       name: 'Discord',
       href: 'https://discord.gg/8k2zGuGeAZ',
       icon: (props) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img" {...props}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          role="img"
+          {...props}
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -52,7 +68,13 @@ const navigation = {
       name: 'Telegram',
       href: 'https://t.me/AscensionProtocolChat',
       icon: (props) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img" {...props}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          role="img"
+          {...props}
+        >
           <path
             fillRule="evenodd"
             d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12S5.373 0 12 0s12 5.373 12 12ZM12.43 8.859c-1.167.485-3.5 1.49-6.998 3.014c-.568.226-.866.447-.893.663c-.046.366.412.51 1.034.705c.085.027.173.054.263.084c.613.199 1.437.432 1.865.441c.389.008.823-.152 1.302-.48c3.268-2.207 4.955-3.322 5.061-3.346c.075-.017.179-.039.249.024c.07.062.063.18.056.212c-.046.193-1.84 1.862-2.77 2.726c-.29.269-.495.46-.537.504c-.094.097-.19.19-.282.279c-.57.548-.996.96.024 1.632c.49.323.882.59 1.273.856c.427.291.853.581 1.405.943c.14.092.274.187.405.28c.497.355.944.673 1.496.623c.32-.03.652-.331.82-1.23c.397-2.126 1.179-6.73 1.36-8.628a2.111 2.111 0 0 0-.02-.472a.506.506 0 0 0-.172-.325c-.143-.117-.365-.142-.465-.14c-.451.008-1.143.249-4.476 1.635Z"
@@ -65,7 +87,13 @@ const navigation = {
       name: 'Email',
       href: 'mailto:admin@ascensionprotocol.io',
       icon: (props) => (
-        <svg fill="currentColor" viewBox="0 0 28 24" aria-hidden="true" role="img" {...props}>
+        <svg
+          fill="currentColor"
+          viewBox="0 0 28 24"
+          aria-hidden="true"
+          role="img"
+          {...props}
+        >
           <path
             fillRule="evenodd"
             d="M12 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V18C0 18.5304 0.210714 19.0391 0.585786 19.4142C0.960859 19.7893 1.46957 20 2 20H26C26.5304 20 27.0391 19.7893 27.4142 19.4142C27.7893 19.0391 28 18.5304 28 18V2C28 1.46957 27.7893 0.960859 27.4142 0.585786C27.0391 0.210714 26.5304 0 26 0V0ZM23.8 2L14 8.78L4.2 2H23.8ZM2 18V2.91L13.43 10.82C13.5974 10.9361 13.7963 10.9984 14 10.9984C14.2037 10.9984 14.4026 10.9361 14.57 10.82L26 2.91V18H2Z"
@@ -155,7 +183,10 @@ export default function Footer() {
           {' '}
           <AscensionMonoIcon />
         </div>
-        <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+        <nav
+          className="-mx-5 -my-2 flex flex-wrap justify-center"
+          aria-label="Footer"
+        >
           {navigation.main.map((item) => (
             <div key={item.name} className="px-3 py-3 md:px-6">
               <a
