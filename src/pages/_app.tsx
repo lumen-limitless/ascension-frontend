@@ -1,3 +1,5 @@
+import '@fontsource/jura/400.css'
+import '../styles/index.css'
 import { Config, DAppProvider } from '@usedapp/core'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
@@ -12,19 +14,16 @@ import {
   SUPPORTED_CHAINS,
 } from '../constants'
 import Layout from '../layouts'
-import '../styles/index.css'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
-  readOnlyUrls: {
-    [HOME_CHAINID]: RPC[HOME_CHAINID],
-  },
+  readOnlyUrls: RPC,
   multicallAddresses: MULTICALL2_ADDRESS,
   autoConnect: true,
   networks: SUPPORTED_CHAINS,
   pollingInterval: 1000,
   notifications: {
-    expirationPeriod: 0,
+    expirationPeriod: 1,
   },
   fastMulticallEncoding: true,
   noMetamaskDeactivate: true,

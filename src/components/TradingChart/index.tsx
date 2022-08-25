@@ -160,7 +160,7 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
           <Loader message="No Data to show." />
         ) : (
           <>
-            <ResponsiveContainer height={500} width="100%">
+            <ResponsiveContainer height={250} width="100%">
               <AreaChart
                 data={graphData}
                 margin={{

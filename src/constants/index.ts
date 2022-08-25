@@ -12,6 +12,7 @@ export * from './scan'
 
 export const CONTRACTS_INFO =
   process.env.NODE_ENV === 'development' ? contractsInfoLocal : contractsInfo
+
 export const ASCENSION: {
   [key: string]: { address: string; abi: any }
 } = {

@@ -1,7 +1,5 @@
 import {
   Arbitrum,
-  Avalanche,
-  BSC,
   Chain,
   ChainId,
   Hardhat,
@@ -16,19 +14,17 @@ export const SUPPORTED_CHAINS: Chain[] = [
   Optimism,
   Mainnet,
   Polygon,
-  BSC,
-  Avalanche,
 ]
 export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'http://localhost:8545',
-  [ChainId.Arbitrum]: 'https://arb1.arbitrum.io/rpc',
-  [ChainId.Optimism]: 'https://mainnet.optimism.io',
-  [ChainId.Mainnet]: 'https://rpc.ankr.com/eth',
-  [ChainId.Polygon]: 'https://polygon-rpc.com',
-  [ChainId.BSC]: 'https://bsc-dataseed.binance.org/',
-  [ChainId.Avalanche]: 'https://api.avax.network/ext/bc/C/rpc',
-  [ChainId.Harmony]: 'https://rpc.ankr.com/harmony',
-  [ChainId.Fantom]: 'https://rpc.fantom.network',
+  [ChainId.Arbitrum]:
+    'https://arb-mainnet.g.alchemy.com/v2/Xpu3xuFHbBEKuScjXwICcPUXBv-JK6Kd',
+  [ChainId.Optimism]:
+    'https://opt-mainnet.g.alchemy.com/v2/9YdE0-k34MYuWKV1Ogj6HHeo1gvTa4o5',
+  [ChainId.Mainnet]:
+    'https://eth-mainnet.g.alchemy.com/v2/U_UAKx6kDChbizvp1_WVIWRCcXbZy8nI',
+  [ChainId.Polygon]:
+    'https://polygon-mainnet.g.alchemy.com/v2/pq0GDkTLABUlK6V_xzwuS0lOolO6-PnK',
 }
 
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
@@ -36,10 +32,7 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
   [ChainId.ArbitrumRinkeby]: 'Arbtest',
   [ChainId.Arbitrum]: 'Arbitrum',
   [ChainId.Mainnet]: 'Ethereum',
-  [ChainId.Ropsten]: 'Ropsten',
-  [ChainId.Rinkeby]: 'Rinkeby',
-  [ChainId.Goerli]: 'Gorli',
-  [ChainId.Kovan]: 'Kovan',
+  [ChainId.Goerli]: 'Goerli',
   [ChainId.Fantom]: 'Fantom',
   [ChainId.Polygon]: 'Polygon',
   [ChainId.Gnosis]: 'Gnosis',
@@ -51,12 +44,13 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
 
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'ETH',
-  [ChainId.ArbitrumRinkeby]: 'aETH',
-  [ChainId.Arbitrum]: 'aETH',
+  [ChainId.ArbitrumRinkeby]: 'ETH',
+  [ChainId.Arbitrum]: 'ETH',
+  [ChainId.Optimism]: 'ETH',
   [ChainId.Mainnet]: 'ETH',
-  [ChainId.Ropsten]: 'rETH',
-  [ChainId.Rinkeby]: 'rETH',
-  [ChainId.Goerli]: 'rETH',
+  [ChainId.Ropsten]: 'ETH',
+  [ChainId.Rinkeby]: 'ETH',
+  [ChainId.Goerli]: 'ETH',
   [ChainId.Kovan]: 'ETH',
   [ChainId.Fantom]: 'FTM',
   [ChainId.Polygon]: 'MATIC',

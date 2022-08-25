@@ -6,7 +6,7 @@ import { useEthers } from '@usedapp/core'
 import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 import BuyAscend from '../../../components/BuyAscend'
 import { NextPage } from 'next'
-import { DEX_BY_CHAIN, USDC_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
+import { CHAIN_SYMBOL, DEX_BY_CHAIN, USDC_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
 import Swap from '../../../components/Swap'
 import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
@@ -15,6 +15,9 @@ import Section from '../../../components/ui/Section'
 import Grid from '../../../components/ui/Grid'
 import dynamic from 'next/dynamic'
 import { NextSeo } from 'next-seo'
+import ImageComponent from '../../../components/ImageComponent'
+import ExternalLink from '../../../components/ui/ExternalLink'
+import Card from '../../../components/ui/Card'
 
 const Connect = dynamic(() => import('../../../components/Connect'), { ssr: false })
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
@@ -76,15 +79,25 @@ const UniversalSwapPage: NextPage = () => {
 
   return (
     <>
-      <NextSeo title="UniversalSwap" description={`Ascension Protocol universal swap tool`} />
+      <NextSeo title="Mercury" description={`Ascension Protocol universal swap tool`} />
 
       <Section fullscreen padding="md" layout="start">
         <Container maxWidth="7xl">
           {pass && (
             <>
               <Grid gap="md">
-                <div className="col-span-12  md:col-span-8">
+                <div className="col-span-12  flex flex-col gap-3 md:col-span-8">
                   <TradingChart buyToken={buyToken} dex={dex} />
+                  <Card>
+                    <ExternalLink href="https://cfgi.io/ethereum-fear-greed-index/1d">
+                      <ImageComponent
+                        src={`https://cfgi.io/images/cfgi/dark/${CHAIN_SYMBOL[chainId]}-CFGI-15m.png`}
+                        alt="ETH CFGI analysis"
+                        height="250"
+                        width="260"
+                      />
+                    </ExternalLink>
+                  </Card>
                 </div>
                 <div className="col-span-12 md:col-span-4">
                   <Swap

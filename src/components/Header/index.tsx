@@ -1,6 +1,11 @@
 import React, { Fragment } from 'react'
 import Logo from '../ui/Logo'
-import { ChevronDownIcon, LoginIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline'
+import {
+  ChevronDownIcon,
+  LoginIcon,
+  MenuAlt2Icon,
+  XIcon,
+} from '@heroicons/react/outline'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Divider from '../ui/Divider'
@@ -10,14 +15,15 @@ import Button from '../ui/Button'
 import { useEthers } from '@usedapp/core'
 import { useBoolean } from 'react-use'
 import Avatar from '../Avatar'
-import useStore from '../../store/useStore'
-import { CHAIN_ICON } from '../Network'
 import { ZERO_ADDRESS } from '../../constants'
+import Nav from '../Nav'
+import { useUI } from '../../hooks'
+import ChainIcon from '../icons/ChainIcon'
 
-const Header: React.FC = () => {
+export default function Header() {
   const { account, chainId } = useEthers()
   const [viewing, toggle] = useBoolean(false)
-  const setModalView = useStore((state) => state.setModalView)
+  const { setModalView } = useUI()
   return (
     <>
       <header
@@ -44,7 +50,7 @@ const Header: React.FC = () => {
                     className="border border-dark-900"
                     onClick={() => setModalView('network')}
                   >
-                    {chainId && CHAIN_ICON[chainId]}
+                    {chainId && <ChainIcon chainId={chainId} />}
                   </Button>
                   <Button
                     className="border border-dark-900"
@@ -134,12 +140,32 @@ const Header: React.FC = () => {
                             </a>
                           </Link>
 
+                          {/* <Link href={'/tools/mercury'}>
+                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
+                              <div className="flex items-center">
+                                <div className="text-base font-medium text-white">
+                                  Ascension Mercury
+                                </div>
+                                <Badge text="new" />
+                                <Badge text="beta" />
+                              </div>
+                              <p className="mt-1 text-sm text-gray-500">
+                                Perform swaps and margin trading on multiple
+                                chains with advanced metrics
+                              </p>
+                            </a>
+                          </Link> */}
+
                           <Link href={'/tools'}>
                             <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                               <div className="flex items-center">
-                                <div className="text-base font-medium text-white">All Tools</div>
+                                <div className="text-base font-medium text-white">
+                                  All Tools
+                                </div>
                               </div>
-                              <p className="mt-1 text-sm text-gray-500">View all Ascension tools</p>
+                              <p className="mt-1 text-sm text-gray-500">
+                                View all Ascension tools
+                              </p>
                             </a>
                           </Link>
                         </div>
@@ -159,7 +185,7 @@ const Header: React.FC = () => {
                       className="border border-dark-900"
                       onClick={() => setModalView('network')}
                     >
-                      {chainId && CHAIN_ICON[chainId]}
+                      {chainId && <ChainIcon chainId={chainId} />}
                     </Button>
                     <Button
                       className="border border-dark-900"
@@ -204,7 +230,9 @@ const Header: React.FC = () => {
                   <div className="flex flex-col gap-6 text-center">
                     <Link href="/">
                       <a className=" text-base font-medium text-gray-100 transition hover:text-gray-500 ">
-                        <Popover.Button className={'w-full'}>Home</Popover.Button>
+                        <Popover.Button className={'w-full'}>
+                          Home
+                        </Popover.Button>
                       </a>
                     </Link>
 
@@ -212,20 +240,26 @@ const Header: React.FC = () => {
 
                     <Link href="/dashboard">
                       <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
-                        <Popover.Button className={'w-full '}>Dashboard</Popover.Button>
+                        <Popover.Button className={'w-full '}>
+                          Dashboard
+                        </Popover.Button>
                       </a>
                     </Link>
 
                     <Divider />
                     <Link href="/stake">
                       <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
-                        <Popover.Button className={'w-full'}>Stake</Popover.Button>
+                        <Popover.Button className={'w-full'}>
+                          Stake
+                        </Popover.Button>
                       </a>
                     </Link>
                     <Divider />
                     <Link href="/tools">
                       <a className="text-base font-medium text-gray-100 transition hover:text-gray-500">
-                        <Popover.Button className={'w-full'}>Tools</Popover.Button>
+                        <Popover.Button className={'w-full'}>
+                          Tools
+                        </Popover.Button>
                       </a>
                     </Link>
                     <Divider />
@@ -239,5 +273,3 @@ const Header: React.FC = () => {
     </>
   )
 }
-
-export default Header
