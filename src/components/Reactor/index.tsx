@@ -88,26 +88,35 @@ export default function Reactor() {
     if (!eventAbi) return { events: null, selectedEvent: null }
     const events = eventAbi.filter((value) => value.type === 'event')
     if (events.length === 0) return { events: null, selectedEvent: null }
-    return { events: events as ContractEvent[], selectedEvent: events[eventIndex] as ContractEvent }
+    return {
+      events: events as ContractEvent[],
+      selectedEvent: events[eventIndex] as ContractEvent,
+    }
   }, [eventAbi, eventIndex])
 
   const { functions, selectedFunction } = useMemo(() => {
     if (!functionAbi) return { functions: null, selectedFunction: null }
     const functions = functionAbi.filter(
       (value) =>
-        value.type === 'function' && value.stateMutability !== 'view' && value.constant !== true
+        value.type === 'function' &&
+        value.stateMutability !== 'view' &&
+        value.constant !== true
     )
-    if (functions.length === 0) return { functions: null, selectedFunction: null }
+    if (functions.length === 0)
+      return { functions: null, selectedFunction: null }
     return {
       functions: functions as ContractFunction[],
       selectedFunction: functions[functionIndex] as ContractFunction,
     }
   }, [functionAbi, functionIndex])
 
-  const eventContract = useContract(eventAddress, eventAbi, chainId)
-  const functionContract = useContract(functionAddress, functionAbi, chainId)
+  const eventContract = useContract(eventAddress, eventAbi)
+  const functionContract = useContract(functionAddress, functionAbi)
 
-  const { state, send, resetState } = useContractFunction(functionContract, selectedFunction?.name)
+  const { state, send, resetState } = useContractFunction(
+    functionContract,
+    selectedFunction?.name
+  )
 
   const filter = useMemo(() => {
     if (!eventContract) return null
@@ -126,15 +135,15 @@ export default function Reactor() {
   const startListener = useCallback(() => {
     toggleReaction(true)
     eventContract.once(filter, () => {
-      send(...functionArgs, { value: parseEther(functionValue === '' ? '0' : functionValue) }).then(
-        () => {
-          state.status === 'Success'
-            ? t('success', 'Transaction succeeded')
-            : t('error', 'Transaction failed')
-          toggleReaction(false)
-          resetState()
-        }
-      )
+      send(...functionArgs, {
+        value: parseEther(functionValue === '' ? '0' : functionValue),
+      }).then(() => {
+        state.status === 'Success'
+          ? t('success', 'Transaction succeeded')
+          : t('error', 'Transaction failed')
+        toggleReaction(false)
+        resetState()
+      })
     })
   }, [
     filter,
@@ -172,7 +181,16 @@ export default function Reactor() {
     return function cleanup() {
       eventContract.removeAllListeners()
     }
-  }, [reactionActive, filter, state, eventContract, functionArgs, resetState, toggleReaction, t])
+  }, [
+    reactionActive,
+    filter,
+    state,
+    eventContract,
+    functionArgs,
+    resetState,
+    toggleReaction,
+    t,
+  ])
 
   return (
     <Grid gap="md">
@@ -188,12 +206,16 @@ export default function Reactor() {
               <div className="flex w-full flex-col items-center justify-center gap-1">
                 <ReactorIcon
                   size={80}
-                  className={cn(reactionActive ? 'animate-pulse' : 'opacity-60')}
+                  className={cn(
+                    reactionActive ? 'animate-pulse' : 'opacity-60'
+                  )}
                 />
                 <Typography as="h1" variant="xl">
                   {reactionActive ? 'Active' : 'Paused'}
                 </Typography>
-                {reactionActive && <Typography>Transaction status: {state.status}</Typography>}
+                {reactionActive && (
+                  <Typography>Transaction status: {state.status}</Typography>
+                )}
               </div>
               <div className="flex w-full items-center justify-center gap-3 py-3">
                 <div>
@@ -281,15 +303,23 @@ export default function Reactor() {
                 </div>
               ) : eventAbi.length === 0 ? (
                 <div className="flex w-full flex-col items-center justify-center">
-                  <ExclamationIcon height={48} className="fill-current text-yellow-500" />
-                  <Typography as="span">Failed to find valid contract ABI</Typography>
+                  <ExclamationIcon
+                    height={48}
+                    className="fill-current text-yellow-500"
+                  />
+                  <Typography as="span">
+                    Failed to find valid contract ABI
+                  </Typography>
                   <Button color="blue" onClick={() => clearEvent()}>
                     Use different contract
                   </Button>
                 </div>
               ) : !events ? (
                 <div className="flex w-full flex-col items-center justify-center">
-                  <ExclamationIcon height={48} className="fill-current text-yellow-500" />
+                  <ExclamationIcon
+                    height={48}
+                    className="fill-current text-yellow-500"
+                  />
                   <Typography as="span">No events found in ABI</Typography>
                   <Button color="blue" onClick={() => clearEvent()}>
                     Use different contract
@@ -297,7 +327,10 @@ export default function Reactor() {
                 </div>
               ) : (
                 <>
-                  <div className="col-span-12 flex w-full flex-col gap-3" id="events">
+                  <div
+                    className="col-span-12 flex w-full flex-col gap-3"
+                    id="events"
+                  >
                     <Tabs
                       selectedIndex={eventIndex}
                       onTabChange={(i) => {
@@ -320,8 +353,12 @@ export default function Reactor() {
                               inputType={input.type}
                               inputIndex={i}
                               inputValue={eventArgs[i]}
-                              onUserInput={(input) => updateArgsAt(i, input, 'event')}
-                              onToggle={() => updateArgsAt(i, !eventArgs[i], 'event')}
+                              onUserInput={(input) =>
+                                updateArgsAt(i, input, 'event')
+                              }
+                              onToggle={() =>
+                                updateArgsAt(i, !eventArgs[i], 'event')
+                              }
                             />
                           )}
                           <div className="flex ">
@@ -329,7 +366,12 @@ export default function Reactor() {
                             <Toggle
                               isActive={eventArgs[i] == null} //type conversion required
                               onToggle={
-                                () => updateArgsAt(i, eventArgs[i] != null ? null : '', 'event') //type conversion required
+                                () =>
+                                  updateArgsAt(
+                                    i,
+                                    eventArgs[i] != null ? null : '',
+                                    'event'
+                                  ) //type conversion required
                               }
                             />
                           </div>
@@ -394,15 +436,23 @@ export default function Reactor() {
                 ) : functionAbi.length === 0 ? (
                   <div className="flex w-full items-center justify-center">
                     {' '}
-                    <ExclamationIcon height={48} className="fill-current text-yellow-500" />
-                    <Typography as="span">Failed to find valid contract ABI</Typography>
+                    <ExclamationIcon
+                      height={48}
+                      className="fill-current text-yellow-500"
+                    />
+                    <Typography as="span">
+                      Failed to find valid contract ABI
+                    </Typography>
                     <Button color="blue" onClick={() => clearFunction()}>
                       Use different contract
                     </Button>
                   </div>
                 ) : !functions ? (
                   <div className="flex w-full flex-col items-center justify-center">
-                    <ExclamationIcon height={48} className="fill-current text-yellow-500" />
+                    <ExclamationIcon
+                      height={48}
+                      className="fill-current text-yellow-500"
+                    />
                     <Typography as="span">No functions found in ABI</Typography>
                     <Button color="blue" onClick={() => clearEvent()}>
                       Use different contract
@@ -410,7 +460,10 @@ export default function Reactor() {
                   </div>
                 ) : (
                   <>
-                    <div className="col-span-12 flex w-full flex-col gap-3" id="events">
+                    <div
+                      className="col-span-12 flex w-full flex-col gap-3"
+                      id="events"
+                    >
                       <Tabs
                         selectedIndex={functionIndex}
                         onTabChange={(i) => {
@@ -429,8 +482,12 @@ export default function Reactor() {
                             inputType={input.type}
                             inputIndex={i}
                             inputValue={functionArgs[i]}
-                            onUserInput={(input) => updateArgsAt(i, input, 'function')}
-                            onToggle={() => updateArgsAt(i, !functionArgs[i], 'function')}
+                            onUserInput={(input) =>
+                              updateArgsAt(i, input, 'function')
+                            }
+                            onToggle={() =>
+                              updateArgsAt(i, !functionArgs[i], 'function')
+                            }
                           />
                         </div>
                       ))}
@@ -452,7 +509,11 @@ export default function Reactor() {
 
       <div className=" col-span-12  md:col-span-5 md:row-span-2">
         {eventAbi && selectedEvent && (
-          <EventMonitor contract={eventContract} event={selectedEvent} setEventArgs={setArgs} />
+          <EventMonitor
+            contract={eventContract}
+            event={selectedEvent}
+            setEventArgs={setArgs}
+          />
         )}
       </div>
     </Grid>

@@ -15,14 +15,15 @@ import Button from '../ui/Button'
 import { useEthers } from '@usedapp/core'
 import { useBoolean } from 'react-use'
 import Avatar from '../Avatar'
-import useStore from '../../store/useStore'
-import { CHAIN_ICON } from '../Network'
 import { ZERO_ADDRESS } from '../../constants'
+import Nav from '../Nav'
+import { useUI } from '../../hooks'
+import ChainIcon from '../icons/ChainIcon'
 
-const Header: React.FC = () => {
+export default function Header() {
   const { account, chainId } = useEthers()
   const [viewing, toggle] = useBoolean(false)
-  const setModalView = useStore((state) => state.setModalView)
+  const { setModalView } = useUI()
   return (
     <>
       <header
@@ -49,7 +50,7 @@ const Header: React.FC = () => {
                     className="border border-dark-900"
                     onClick={() => setModalView('network')}
                   >
-                    {chainId && CHAIN_ICON[chainId]}
+                    {chainId && <ChainIcon chainId={chainId} />}
                   </Button>
                   <Button
                     className="border border-dark-900"
@@ -139,7 +140,7 @@ const Header: React.FC = () => {
                             </a>
                           </Link>
 
-                          <Link href={'/tools/mercury'}>
+                          {/* <Link href={'/tools/mercury'}>
                             <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
                               <div className="flex items-center">
                                 <div className="text-base font-medium text-white">
@@ -153,7 +154,7 @@ const Header: React.FC = () => {
                                 chains with advanced metrics
                               </p>
                             </a>
-                          </Link>
+                          </Link> */}
 
                           <Link href={'/tools'}>
                             <a className="-m-3 flow-root rounded-md p-3 hover:bg-dark-900">
@@ -184,7 +185,7 @@ const Header: React.FC = () => {
                       className="border border-dark-900"
                       onClick={() => setModalView('network')}
                     >
-                      {chainId && CHAIN_ICON[chainId]}
+                      {chainId && <ChainIcon chainId={chainId} />}
                     </Button>
                     <Button
                       className="border border-dark-900"
@@ -272,5 +273,3 @@ const Header: React.FC = () => {
     </>
   )
 }
-
-export default Header

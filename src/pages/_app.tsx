@@ -17,18 +17,16 @@ import Layout from '../layouts'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
-  readOnlyUrls: {
-    [HOME_CHAINID]: RPC[HOME_CHAINID],
-  },
-  // multicallAddresses: MULTICALL2_ADDRESS,
+  readOnlyUrls: RPC,
+  multicallAddresses: MULTICALL2_ADDRESS,
   autoConnect: true,
   networks: SUPPORTED_CHAINS,
   pollingInterval: 1000,
   notifications: {
     expirationPeriod: 1,
   },
-  fastMulticallEncoding: false,
-  noMetamaskDeactivate: false,
+  fastMulticallEncoding: true,
+  noMetamaskDeactivate: true,
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
