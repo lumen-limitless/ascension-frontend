@@ -1,5 +1,5 @@
 import '@fontsource/jura/400.css'
-import '../styles/index.css'
+import '../styles/globals.css'
 import { Config, DAppProvider } from '@usedapp/core'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'

@@ -6,7 +6,12 @@ import { useEthers } from '@usedapp/core'
 import { useRequiredBalance } from '../../../hooks/useRequiredBalance'
 import BuyAscend from '../../../components/BuyAscend'
 import { NextPage } from 'next'
-import { CHAIN_SYMBOL, DEX_BY_CHAIN, USDC_ADDRESS, WNATIVE_ADDRESS } from '../../../constants'
+import {
+  CHAIN_SYMBOL,
+  DEX_BY_CHAIN,
+  USDC_ADDRESS,
+  WNATIVE_ADDRESS,
+} from '../../../constants'
 import Swap from '../../../components/Swap'
 import TradingChart from '../../../components/TradingChart'
 import { Token } from '../../../types'
@@ -19,7 +24,9 @@ import ImageComponent from '../../../components/ImageComponent'
 import ExternalLink from '../../../components/ui/ExternalLink'
 import Card from '../../../components/ui/Card'
 
-const Connect = dynamic(() => import('../../../components/Connect'), { ssr: false })
+const Connect = dynamic(() => import('../../../components/Connect'), {
+  ssr: false,
+})
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
 const REQUIRED_BALANCE = 1
 
@@ -29,7 +36,11 @@ const UniversalSwapPage: NextPage = () => {
   const [dex, setDex] = useState<string>('sushiswap')
 
   useEffect(() => {
-    if (chainId && SUPPORTED_CHAINID.includes[chainId] && DEX_BY_CHAIN[chainId]) {
+    if (
+      chainId &&
+      SUPPORTED_CHAINID.includes[chainId] &&
+      DEX_BY_CHAIN[chainId]
+    ) {
       setDex(Object.keys(DEX_BY_CHAIN[chainId])[0])
     }
   }, [chainId])
@@ -79,7 +90,10 @@ const UniversalSwapPage: NextPage = () => {
 
   return (
     <>
-      <NextSeo title="Mercury" description={`Ascension Protocol universal swap tool`} />
+      <NextSeo
+        title="Mercury"
+        description={`Ascension Protocol universal swap tool`}
+      />
 
       <Section fullscreen padding="md" layout="start">
         <Container maxWidth="7xl">

@@ -19,7 +19,8 @@ const COLORS = {
   yellow: 'bg-yellow-500 hover:enabled:shadow-yellow/10',
   pink: 'bg-pink-500 hover:enabled:hadow-pink/10',
   gray: 'bg-gray-800 hover:enabled:shadow-black/10',
-  gradient: 'bg-gradient-to-r from-pink  to-purple  hover:enabled:shadow-pink/10',
+  gradient:
+    'bg-gradient-to-r from-pink  to-purple  hover:enabled:shadow-pink/10',
 }
 
 export type ButtonColor =
@@ -35,7 +36,8 @@ export type ButtonColor =
 
 export type ButtonSize = 'xs' | 'sm' | 'lg' | 'default' | 'none'
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
   className?: string
   color?: ButtonColor
@@ -55,7 +57,7 @@ export default function Button({
       className={cn(
         COLORS[color],
         SIZE[size],
-        ' inline-flex  items-center justify-center gap-1 rounded text-white shadow-md transition focus:outline-none hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:shadow-none ',
+        ' inline-flex  items-center justify-center gap-1 rounded text-white drop-shadow-md transition focus:outline-none hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:drop-shadow-none ',
         className
       )}
       {...rest}

@@ -1,18 +1,17 @@
-import { FC } from 'react'
-import cn from 'clsx'
-export interface BadgeProps {
+interface Props {
+  className?: string
   text?: string
 }
 
-export default function Badge({ text }: BadgeProps) {
+export default function Badge({ className = '', text = 'badge' }: Props) {
   return (
-    <span
-      className={cn(
-        'bg-indigo-100 text-indigo-800',
-        'ml-3 inline-flex items-center rounded-full  px-3 py-0.5 text-xs font-medium leading-5 '
-      )}
+    <div
+      className={
+        className +
+        'ml-3 inline-flex items-center rounded-full bg-indigo-100 px-3  py-0.5 text-xs font-medium leading-5 text-indigo-900 '
+      }
     >
       {text}
-    </span>
+    </div>
   )
 }
