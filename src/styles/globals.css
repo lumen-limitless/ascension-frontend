@@ -53,12 +53,12 @@ a {
     
     background: hsl(243, 5%, 12%);
     border-radius: 100vh;
-    border: 2px solid hsl(0, 0%, 0%);
+    
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(243, 5%, 24%);
+    background: hsl(243, 5%, 18%);
   }
   
 
