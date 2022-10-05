@@ -23,13 +23,23 @@ export default function FlexibleInput({
       {inputType === 'address' ? (
         <Input.Address value={inputValue} onUserInput={onUserInput} />
       ) : startsWith(inputType, 'uint', 0) ? (
-        <Input.Numeric placeholder={inputType} value={inputValue} onUserInput={onUserInput} />
+        <Input.Numeric
+          placeholder={inputType}
+          value={inputValue}
+          onUserInput={onUserInput}
+        />
       ) : inputType === 'bool' ? (
         <Toggle isActive={inputValue ?? false} onToggle={onToggle} />
       ) : inputType === 'string' || startsWith(inputType, 'bytes', 0) ? (
-        <Input.String placeholder={inputType} value={inputValue} onUserInput={onUserInput} />
+        <Input.String
+          placeholder={inputType}
+          value={inputValue}
+          onUserInput={onUserInput}
+        />
       ) : (
-        <Typography as="span">Input of type {inputType} is not supported</Typography>
+        <Typography as="span">
+          Input of type {inputType} is not supported
+        </Typography>
       )}
     </>
   )

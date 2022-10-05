@@ -10,7 +10,6 @@ import { CHAIN_SYMBOL, SCAN_INFO } from '../../constants'
 import { useContract, useToast } from '../../hooks'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 import Tabs from '../ui/Tabs'
-import { Icon } from '@iconify/react'
 import Typography from '../ui/Typography'
 import shallow from 'zustand/shallow'
 import useStore from '../../store/useStore'
@@ -229,7 +228,7 @@ export default function Reactor() {
                         functionArgs.length < selectedFunction.inputs.length
                       }
                     >
-                      <Icon icon="la:atom" height={24} /> Start Reaction
+                      Start Reaction
                     </Button>
                   ) : (
                     <Button color="red" onClick={() => toggleReaction(false)}>
@@ -270,7 +269,6 @@ export default function Reactor() {
                   {eventAbi && (
                     <div>
                       <Button size="none" onClick={() => clearEvent()}>
-                        <Icon icon="fa-solid:file-contract" height={24} />
                         {shortenIfAddress(eventAddress)}
                       </Button>
                     </div>
@@ -402,7 +400,6 @@ export default function Reactor() {
                     {functionAbi && (
                       <div>
                         <Button size="none" onClick={() => clearFunction()}>
-                          <Icon icon="fa-solid:file-contract" height={24} />
                           {shortenIfAddress(functionAddress)}
                         </Button>
                       </div>

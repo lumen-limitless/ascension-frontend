@@ -8,15 +8,9 @@ import {
   Polygon,
 } from '@usedapp/core'
 
-export const SUPPORTED_CHAINS: Chain[] = [
-  Hardhat,
-  Arbitrum,
-  Optimism,
-  Mainnet,
-  Polygon,
-]
+export const SUPPORTED_CHAINS: Chain[] = [Arbitrum, Optimism, Mainnet, Polygon]
+
 export const RPC: { [chainId in ChainId]?: string } = {
-  [ChainId.Hardhat]: 'http://localhost:8545',
   [ChainId.Arbitrum]:
     'https://arb-mainnet.g.alchemy.com/v2/Xpu3xuFHbBEKuScjXwICcPUXBv-JK6Kd',
   [ChainId.Optimism]:
@@ -29,7 +23,6 @@ export const RPC: { [chainId in ChainId]?: string } = {
 
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'Hardhat',
-  [ChainId.ArbitrumRinkeby]: 'Arbtest',
   [ChainId.Arbitrum]: 'Arbitrum',
   [ChainId.Mainnet]: 'Ethereum',
   [ChainId.Goerli]: 'Goerli',
@@ -44,14 +37,10 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
 
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'ETH',
-  [ChainId.ArbitrumRinkeby]: 'ETH',
-  [ChainId.Arbitrum]: 'ETH',
-  [ChainId.Optimism]: 'ETH',
+  [ChainId.Arbitrum]: 'aETH',
+  [ChainId.Optimism]: 'oETH',
   [ChainId.Mainnet]: 'ETH',
-  [ChainId.Ropsten]: 'ETH',
-  [ChainId.Rinkeby]: 'ETH',
   [ChainId.Goerli]: 'ETH',
-  [ChainId.Kovan]: 'ETH',
   [ChainId.Fantom]: 'FTM',
   [ChainId.Polygon]: 'MATIC',
   [ChainId.Gnosis]: 'xDAI',

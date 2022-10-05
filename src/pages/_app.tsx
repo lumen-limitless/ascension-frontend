@@ -18,10 +18,9 @@ import Layout from '../layouts'
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
   readOnlyUrls: RPC,
-  multicallAddresses: MULTICALL2_ADDRESS,
   autoConnect: true,
   networks: SUPPORTED_CHAINS,
-  pollingInterval: 1000,
+  pollingInterval: 5000,
   notifications: {
     expirationPeriod: 1,
   },

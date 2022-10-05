@@ -1,7 +1,11 @@
 import { CubeTransparentIcon, PlusCircleIcon } from '@heroicons/react/outline'
 import { FilterIcon } from '@heroicons/react/solid'
-import { Icon } from '@iconify/react'
-import { shortenIfAddress, useBlockNumber, useEthers, useLogs } from '@usedapp/core'
+import {
+  shortenIfAddress,
+  useBlockNumber,
+  useEthers,
+  useLogs,
+} from '@usedapp/core'
 import { Contract } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
 import { dropRight, startsWith } from 'lodash'
@@ -21,12 +25,18 @@ interface EventMonitorProps {
   event: ContractEvent
   setEventArgs: (args: any[], type: 'event' | 'function') => void
 }
-export default function EventMonitor({ contract, event, setEventArgs }: EventMonitorProps) {
+export default function EventMonitor({
+  contract,
+  event,
+  setEventArgs,
+}: EventMonitorProps) {
   const t = useToast()
   const { chainId } = useEthers()
   const blockNumber = useBlockNumber()
   const logs = useLogs(
-    contract && event && blockNumber && { contract: contract, event: event.name, args: [] },
+    contract &&
+      event &&
+      blockNumber && { contract: contract, event: event.name, args: [] },
     {
       fromBlock: blockNumber - 10,
     }
@@ -73,10 +83,7 @@ export default function EventMonitor({ contract, event, setEventArgs }: EventMon
                       <ExternalLink
                         href={`https://${SCAN_INFO[chainId].name}/tx/${log.transactionHash}`}
                       >
-                        <Button color="blue">
-                          <Icon icon="icon-park-solid:transaction" height={24} />
-                          TX
-                        </Button>
+                        <Button color="blue">TX</Button>
                       </ExternalLink>
                     </div>
                     <div className="col-span-4">
@@ -87,8 +94,9 @@ export default function EventMonitor({ contract, event, setEventArgs }: EventMon
                             dropRight(
                               log.data as any[],
                               log.data.length -
-                                event.inputs.filter((eventInput) => eventInput.indexed === true)
-                                  .length
+                                event.inputs.filter(
+                                  (eventInput) => eventInput.indexed === true
+                                ).length
                             ),
                             'event'
                           )
@@ -106,7 +114,9 @@ export default function EventMonitor({ contract, event, setEventArgs }: EventMon
                           <div className=" p-3">{event.inputs[i].name}</div>
 
                           <div className="rounded-r bg-dark-900 p-3">
-                            {startsWith(event.inputs[i].type, 'uint') ? formatUnits(d, '0') : d}
+                            {startsWith(event.inputs[i].type, 'uint')
+                              ? formatUnits(d, '0')
+                              : d}
                           </div>
                         </div>
                       ))}

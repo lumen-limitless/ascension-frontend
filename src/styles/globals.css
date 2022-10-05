@@ -9,26 +9,18 @@
 }
 
 :root {
---font-sans: "jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+--font-sans: "Jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
 }
 
 html {
-    font-family: var(--font-sans);
-    touch-action: manipulation;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    
+    font-family: var(--font-sans);    
 }
 
 html,
 body {
-    @apply scroll-smooth bg-dark-1000 text-primary h-full box-border overflow-x-hidden overflow-y-auto;
+    @apply m-0 scroll-smooth bg-dark-1000 text-primary h-full box-border overflow-x-hidden overflow-y-auto touch-manipulation antialiased;
 }
 
-body {
-    @apply relative m-0 min-h-full;
-}
 
 a {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -36,7 +28,7 @@ a {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 14px;
+    width: 10px;
     height: 16px;
    
   }
@@ -45,14 +37,14 @@ a {
   ::-webkit-scrollbar-track {
     border-radius: 100vh;
     background: transparent;
-    margin-top: 64px;
+    margin-top: 68px;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
     
     background: hsl(243, 5%, 12%);
-    border-radius: 100vh;
+    border-radius: 100px;
     
   }
   

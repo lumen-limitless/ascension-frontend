@@ -23,8 +23,12 @@ export default function Document() {
         <meta key="twitter:card" name="twitter:card" content="app" />
         <meta key="twitter:title" name="twitter:title" content={APP_NAME} />
         <meta key="twitter:url" name="twitter:url" content={APP_NAME} />
-        <meta key="twitter:description" name="twitter:description" content="" />
-        <meta key="twitter:image" name="twitter:image" content="" />
+        <meta
+          key="twitter:description"
+          name="twitter:description"
+          content={APP_DESCRIPTION}
+        />
+        <meta key="twitter:image" name="twitter:image" content="/og.png" />
         <meta
           key="twitter:creator"
           name="twitter:creator"
@@ -37,11 +41,7 @@ export default function Document() {
           property="og:url"
           content="https://ascensionprotocol.io"
         />
-        <meta
-          key="og:image"
-          property="og:image"
-          content="https://res.cloudinary.com/ascension-protocol/image/upload/v1655238558/OG_IMAGE_zlhrpo.jpg"
-        />
+        <meta key="og:image" property="og:image" content="/og.png" />
         <meta
           key="og:description"
           property="og:description"

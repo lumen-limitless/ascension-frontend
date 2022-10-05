@@ -11,10 +11,6 @@ import HarmonyIcon from './networks/HarmonyIcon'
 import OptimismIcon from './networks/OptimismIcon'
 import PolygonIcon from './networks/PolygonIcon'
 
-interface Props {
-  chainId: ChainId
-}
-
 const CHAIN_ICON = {
   [ChainId.Hardhat]: <HardhatIcon />,
   [ChainId.ArbitrumRinkeby]: <ArbitrumIcon />,
@@ -30,6 +26,6 @@ const CHAIN_ICON = {
   [ChainId.Optimism]: <OptimismIcon />,
 }
 
-export default function ChainIcon({ chainId }: Props) {
+export default function ChainIcon({ chainId }: { chainId: ChainId }) {
   return <>{CHAIN_ICON[chainId]}</>
 }
