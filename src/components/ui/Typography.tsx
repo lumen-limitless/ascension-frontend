@@ -8,7 +8,14 @@ const WEIGHTS = {
   700: 'font-bold',
 }
 
-export type TypographyVariant = 'none' | 'xl' | 'lg' | 'base' | 'sm' | 'xs' | 'xxs'
+export type TypographyVariant =
+  | 'none'
+  | 'xl'
+  | 'lg'
+  | 'base'
+  | 'sm'
+  | 'xs'
+  | 'xxs'
 
 const VARIANTS = {
   none: '',
@@ -20,7 +27,8 @@ const VARIANTS = {
   xxs: 'text-[0.625rem] leading-[1.2]',
 }
 
-export interface TypographyProps extends React.AllHTMLAttributes<React.ReactHTML> {
+export interface TypographyProps
+  extends React.AllHTMLAttributes<React.ReactHTML> {
   variant?: TypographyVariant
   weight?: TypographyWeight
   className?: string

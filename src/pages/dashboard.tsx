@@ -345,170 +345,166 @@ const DashboardPage: NextPage = () => {
                   ) : (
                     data.result.map((nft) => (
                       <Card key={nft.name}>
-                        <div className="flex flex-col items-center  gap-12 md:flex-row">
-                          {JSON.parse(nft.metadata).image ? (
-                            <>
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                'webm'
-                              ) && (
-                                <video
-                                  src={JSON.parse(nft.metadata).image}
-                                  className="h-[160px] w-[160px]"
-                                  controls
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                'mp4'
-                              ) && (
-                                <video
-                                  src={JSON.parse(nft.metadata).image}
-                                  className="h-[160px] w-[160px]"
-                                  controls
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                'jpg'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                'jpg'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                'png'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                'webp'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image,
-                                '/image'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                            </>
-                          ) : JSON.parse(nft.metadata).image_url ? (
-                            <>
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                'webm'
-                              ) && (
-                                <video
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  className="h-[160px] w-[160px]"
-                                  controls
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                'mp4'
-                              ) && (
-                                <video
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  className="h-[160px] w-[160px]"
-                                  controls
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                'jpg'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                'svg'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                'png'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  height={160}
-                                  width={160}
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                'webp'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                              {endsWith(
-                                JSON.parse(nft.metadata).image_url,
-                                '/image'
-                              ) && (
-                                <ImageComponent
-                                  src={JSON.parse(nft.metadata).image_url}
-                                  height={160}
-                                  width={160}
-                                  unoptimized
-                                />
-                              )}
-                            </>
-                          ) : (
-                            <div className="h-[160px] w-[160px]">
-                              <Skeleton />
-                            </div>
-                          )}
-
+                        <div className="flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6">
+                          <div className="flex min-w-max">
+                            {JSON.parse(nft.metadata).image ? (
+                              <>
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  'webm'
+                                ) && (
+                                  <video
+                                    src={JSON.parse(nft.metadata).image}
+                                    className="h-64 w-64"
+                                    controls
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  'mp4'
+                                ) && (
+                                  <video
+                                    src={JSON.parse(nft.metadata).image}
+                                    className="h-64 w-64"
+                                    controls
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  'jpg'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image}
+                                    height={256}
+                                    width={256}
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  'jpg'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image}
+                                    height={256}
+                                    width={256}
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  'png'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image}
+                                    height={256}
+                                    width={256}
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  'webp'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image}
+                                    height={256}
+                                    width={256}
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image,
+                                  '/image'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image}
+                                    height={256}
+                                    width={256}
+                                    unoptimized
+                                  />
+                                )}
+                              </>
+                            ) : JSON.parse(nft.metadata).image_url ? (
+                              <>
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  'webm'
+                                ) && (
+                                  <video
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                    controls
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  'mp4'
+                                ) && (
+                                  <video
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                    controls
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  'jpg'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  'svg'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  'png'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  'webp'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                    unoptimized
+                                  />
+                                )}
+                                {endsWith(
+                                  JSON.parse(nft.metadata).image_url,
+                                  '/image'
+                                ) && (
+                                  <ImageComponent
+                                    src={JSON.parse(nft.metadata).image_url}
+                                    className="h-64 w-64"
+                                    unoptimized
+                                  />
+                                )}
+                              </>
+                            ) : (
+                              <div className="h-64 w-64">
+                                <Skeleton />
+                              </div>
+                            )}
+                          </div>
                           <div className="w-full">
-                            <div className="col-span-12 space-y-1 truncate">
+                            <div className=" max-w-xl space-y-1 truncate">
                               <Typography as="h3" variant="lg">
                                 {nft.name}({nft.symbol}) #{nft.token_id}
                               </Typography>
