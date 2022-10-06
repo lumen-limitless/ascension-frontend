@@ -11,7 +11,11 @@ export function shortenString(string: string, length: number): string {
   if (!string) return ''
   if (length < 5) return string
   if (string.length <= length) return string
-  return string.slice(0, 4) + '...' + string.slice(string.length - length + 5, string.length)
+  return (
+    string.slice(0, 4) +
+    '...' +
+    string.slice(string.length - length + 5, string.length)
+  )
 }
 
 export function escapeRegExp(string: string): string {
@@ -46,7 +50,11 @@ export function formatPercent(percentString: any) {
   }
 }
 
-export const formatBalance = (value: BigNumberish, decimals = 18, maxFraction = 2): string => {
+export const formatBalance = (
+  value: BigNumberish,
+  decimals = 18,
+  maxFraction = 2
+): string => {
   if (!value) return null
   const formatted: string =
     typeof value === 'string'
@@ -65,5 +73,6 @@ export const formatBalance = (value: BigNumberish, decimals = 18, maxFraction = 
 }
 
 export const parseBalance = (value: BigNumberish, decimals = 18) => {
+  if (!value) return null
   return parseFloat(formatUnits(value, decimals))
 }

@@ -1,8 +1,4 @@
-import {
-  AdjustmentsIcon,
-  CurrencyDollarIcon,
-  DocumentTextIcon,
-} from '@heroicons/react/outline'
+import { AdjustmentsIcon, DocumentTextIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import Card from '../components/ui/Card'
 import Container from '../components/ui/Container'
@@ -182,7 +178,7 @@ const HomePage: NextPage = () => {
           </motion.div>
         </Container>
       </Section>
-
+      <></>
       <Section padding="md" className="" id="cta">
         <div className="absolute -inset-1 rounded-lg bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow opacity-70 blur" />
         <Container className="max-w-6xl">

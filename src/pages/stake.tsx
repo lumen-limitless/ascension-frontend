@@ -34,7 +34,9 @@ import { LoginIcon } from '@heroicons/react/outline'
 import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
 
-const Connect = dynamic(() => import('../components/Connect'), { ssr: false })
+const Connect = dynamic(() => import('../components/modals/Connect'), {
+  ssr: false,
+})
 
 const StakePage: NextPage = () => {
   const { setModalView } = useUI()
@@ -118,7 +120,7 @@ const StakePage: NextPage = () => {
   }, [rewardRate, totalStaked])
 
   const handleAmountInput = (input: string) => {
-    parseFloat(input) === NaN ? setAmount('') : setAmount(input)
+    Number.isNaN(parseFloat(input)) ? setAmount('') : setAmount(input)
   }
   return (
     <>

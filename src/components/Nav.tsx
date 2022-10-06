@@ -17,9 +17,9 @@ import { useBoolean } from 'react-use'
 import Avatar from './Avatar'
 import { useUI } from '../hooks'
 import ChainIcon from './icons/ChainIcon'
-import Connect from './Connect'
-import Account from './Account'
-import Network from './Network'
+import Connect from './modals/Connect'
+import Account from './modals/Account'
+import Network from './modals/Network'
 import { ethers } from 'ethers'
 
 export default function Nav() {

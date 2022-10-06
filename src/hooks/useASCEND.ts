@@ -9,7 +9,7 @@ export const useASCENDBalance = (address: string) => {
 }
 
 export const useStakedASCENDBalance = (address: string) => {
-  return useTokenBalance(ASCENSION.AscensionStakedToken.address, address, {
+  return useTokenBalance(ASCENSION.AscensionStaking.address, address, {
     chainId: HOME_CHAINID,
   })
 }

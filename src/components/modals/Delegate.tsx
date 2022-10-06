@@ -7,25 +7,25 @@ import {
   useEthers,
 } from '@usedapp/core'
 
-import { HOME_CHAINID } from '../constants'
-import { formatBalance, isAddress } from '../functions'
+import { HOME_CHAINID } from '../../constants'
+import { formatBalance, isAddress } from '../../functions'
 import {
   useAscendStakedTokenContract,
   useAscendTokenContract,
   useUI,
-} from '../hooks'
+} from '../../hooks'
 
-import ArbitrumIcon from './icons/networks/ArbitrumIcon'
-import TransactionButton from './TransactionButton'
-import Button from './ui/Button'
-import Loader from './ui/Loader'
-import Skeleton from './ui/Skeleton'
-import Tabs from './ui/Tabs'
-import Typography from './ui/Typography'
+import ArbitrumIcon from '../icons/networks/ArbitrumIcon'
+import TransactionButton from '../TransactionButton'
+import Button from '../ui/Button'
+import Loader from '../ui/Loader'
+import Skeleton from '../ui/Skeleton'
+import Tabs from '../ui/Tabs'
+import Typography from '../ui/Typography'
 import { useBoolean } from 'react-use'
 import { useCallback, useMemo, useState } from 'react'
-import Input from './ui/Input'
-import Avatar from './Avatar'
+import Input from '../ui/Input'
+import Avatar from '../Avatar'
 import Account from './Account'
 
 export default function Delegate() {

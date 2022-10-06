@@ -6,7 +6,7 @@ export default function Header() {
     <>
       <header
         className={
-          'fixed z-20 w-full border-b-2 border-dark-700/30 bg-dark-1000/60 backdrop-blur-lg'
+          'fixed z-20 w-full border-b-2 border-dark-700/30 bg-dark-1000/60 drop-shadow backdrop-blur-lg'
         }
       >
         <Nav />

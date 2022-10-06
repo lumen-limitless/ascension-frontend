@@ -135,7 +135,7 @@ export default function Reactor() {
     toggleReaction(true)
     eventContract.once(filter, () => {
       send(...functionArgs, {
-        value: parseEther(functionValue === '' ? '0' : functionValue),
+        value: parseEther(functionValue || '0'),
       }).then(() => {
         state.status === 'Success'
           ? t('success', 'Transaction succeeded')

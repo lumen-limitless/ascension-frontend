@@ -20,7 +20,7 @@ export default function Toggle({
   iconSet,
   className,
   ...rest
-}) {
+}: ToggleProps) {
   return (
     <Switch
       checked={isActive}

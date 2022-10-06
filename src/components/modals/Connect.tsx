@@ -1,10 +1,10 @@
-import React, { FC, useCallback } from 'react'
-import Button from './ui/Button'
-import { RPC } from '../constants'
+import React, { useCallback } from 'react'
+import Button from '../ui/Button'
+import { RPC } from '../../constants'
 import { useEthers } from '@usedapp/core'
-import { useToast, useUI } from '../hooks'
-import WalletConnectIcon from './icons/WalletConnectIcon'
-import MetaMaskIcon from './icons/MetaMaskIcon'
+import { useToast, useUI } from '../../hooks'
+import WalletConnectIcon from '../icons/WalletConnectIcon'
+import MetaMaskIcon from '../icons/MetaMaskIcon'
 
 export default function Connect() {
   const { chainId } = useEthers()
@@ -28,7 +28,7 @@ export default function Connect() {
 
   return (
     <>
-      <div className="my-3 flex flex-col items-center gap-3">
+      <div className="my-3 flex flex-col items-center gap-3 pb-12 md:pb-0">
         <span className="mb-3 text-xl">Select a Wallet</span>
         <Button
           color="gray"

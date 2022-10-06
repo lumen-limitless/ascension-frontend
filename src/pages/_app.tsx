@@ -9,7 +9,6 @@ import {
   APP_DESCRIPTION,
   APP_NAME,
   HOME_CHAINID,
-  MULTICALL2_ADDRESS,
   RPC,
   SUPPORTED_CHAINS,
 } from '../constants'
@@ -18,6 +17,7 @@ import Layout from '../layouts'
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
   readOnlyUrls: RPC,
+  multicallVersion: 2,
   autoConnect: true,
   networks: SUPPORTED_CHAINS,
   pollingInterval: 5000,

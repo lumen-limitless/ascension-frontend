@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
-import Skeleton from './ui/Skeleton'
-import { formatBalance } from '../functions'
+import Skeleton from '../ui/Skeleton'
+import { formatBalance } from '../../functions'
 import { useCopyToClipboard } from 'react-use'
-import Avatar from './Avatar'
-import Button from './ui/Button'
+import Avatar from '../Avatar'
+import Button from '../ui/Button'
 import {
   shortenIfAddress,
   useEtherBalance,
@@ -20,14 +20,14 @@ import {
   useStakedASCENDBalance,
   useToast,
   useUI,
-} from '../hooks'
-import Typography from './ui/Typography'
-import Grid from './ui/Grid'
+} from '../../hooks'
+import Typography from '../ui/Typography'
+import Grid from '../ui/Grid'
 import { commify } from 'ethers/lib/utils'
-import ExternalLink from './ui/ExternalLink'
-import Logo from './ui/Logo'
+import ExternalLink from '../ui/ExternalLink'
+import Logo from '../ui/Logo'
 import Delegate from './Delegate'
-import { CHAIN_SYMBOL } from '../constants'
+import { CHAIN_SYMBOL } from '../../constants'
 import { ethers } from 'ethers'
 
 export default function Account() {

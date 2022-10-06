@@ -1,20 +1,17 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
 import React from 'react'
 
-interface ModalProps {
+export default function Modal({
+  isOpen,
+  onDismiss,
+  children,
+}: {
   isOpen: boolean
   onDismiss: () => void
-  minHeight?: number
-  maxHeight?: number
   initialFocusRef?: React.RefObject<any>
   children?: React.ReactNode
-  padding?: number
-  maxWidth?: number
   className?: string
-}
-
-export default function Modal({ isOpen, onDismiss, children }: ModalProps) {
+}) {
   return (
     <>
       <Transition appear show={isOpen} as={React.Fragment}>
@@ -23,7 +20,10 @@ export default function Modal({ isOpen, onDismiss, children }: ModalProps) {
           onClose={onDismiss}
           className="fixed inset-0 z-20 overflow-y-hidden backdrop-blur-md"
         >
-          <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 backdrop-blur-md" />
+          <div
+            className="fixed inset-0 bg-black opacity-40 backdrop-blur-md"
+            onClick={onDismiss}
+          />
           <div className="flex h-screen items-end justify-center md:items-center md:px-3">
             <Transition.Child
               as={React.Fragment}
@@ -34,15 +34,25 @@ export default function Modal({ isOpen, onDismiss, children }: ModalProps) {
               leaveFrom="opacity-100 "
               leaveTo="opacity-0 "
             >
-              <div className={' w-full transform transition-all md:max-w-xl '}>
-                <div className="flex h-full w-full flex-col overflow-y-auto overflow-x-hidden rounded bg-dark-900  p-3  md:p-6 lg:p-9 ">
-                  <div className="absolute top-3 right-3">
-                    <button onClick={onDismiss}>
-                      <XIcon height={24} />
-                    </button>
-                  </div>
-                  {children}
-                </div>
+              <div className="flex w-full transform flex-col overflow-y-auto overflow-x-hidden rounded  bg-dark-900 p-3 transition-all md:max-w-xl  md:p-6 lg:p-9">
+                <button onClick={onDismiss} className="absolute top-3 right-3">
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+
+                {children}
               </div>
             </Transition.Child>
           </div>

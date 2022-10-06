@@ -12,17 +12,12 @@ import Section from '../../components/ui/Section'
 import UnsupportedChainId from '../../components/UnsupportedChainId'
 import { useRequiredBalance, useUI } from '../../hooks'
 
-const Connect = dynamic(() => import('../../components/Connect'), {
+const Connect = dynamic(() => import('../../components/modals/Connect'), {
   ssr: false,
 })
 
-const REQUIRED_BALANCE = 10
-const SUPPORTED_CHAINIDS = [
-  ChainId.Arbitrum,
-  ChainId.Mainnet,
-  ChainId.BSC,
-  ChainId.Polygon,
-]
+const REQUIRED_BALANCE = 1
+const SUPPORTED_CHAINIDS = [ChainId.Arbitrum, ChainId.Mainnet]
 const ReactorPage: NextPage = () => {
   const { account, chainId } = useEthers()
   const pass = useRequiredBalance(account, REQUIRED_BALANCE)

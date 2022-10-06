@@ -23,7 +23,7 @@ import ImageComponent from '../components/ImageComponent'
 import ExternalLink from '../components/ui/ExternalLink'
 import Card from '../components/ui/Card'
 
-const Connect = dynamic(() => import('../components/Connect'), {
+const Connect = dynamic(() => import('../components/modals/Connect'), {
   ssr: false,
 })
 const SUPPORTED_CHAINID = [1, 137, 56, 42161]
