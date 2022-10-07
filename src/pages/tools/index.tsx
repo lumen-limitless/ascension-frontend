@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Card from '../../components/ui/Card'
 import Container from '../../components/ui/Container'
 import Button from '../../components/ui/Button'
@@ -7,10 +6,9 @@ import Logo from '../../components/ui/Logo'
 import Grid from '../../components/ui/Grid'
 import Section from '../../components/ui/Section'
 import { motion } from 'framer-motion'
-import { VFC } from 'react'
 import { NextSeo } from 'next-seo'
 
-const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
+const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (
     <Card
       header={
@@ -34,14 +32,19 @@ const ToolTile: VFC<{ path: string; name: string }> = ({ path, name }) => {
   )
 }
 
-const tools = [{ name: 'Ascension Reactor', path: '/tools/reactor' }]
+const tools = [
+  { name: 'Ascension Reactor', path: '/tools/reactor' },
+  // { name: 'Ascension Mercury', path: '/tools/mercury' },
+  // { name: 'Ascension Supernova', path: '/tools/supernova' },
+]
+
 export default function ToolsPage() {
   return (
     <>
       <NextSeo title="Tools" description={`Ascension Protocol tools`} />
 
       <Section fullscreen padding="md" layout="start">
-        <Container maxWidth="5xl">
+        <Container>
           <Grid gap={'md'}>
             {tools &&
               tools.map((t, i) => {

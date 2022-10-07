@@ -14,7 +14,7 @@ const LegalPage: NextPage = () => {
       />
       <Section fullscreen>
         {' '}
-        <Container maxWidth="5xl">
+        <Container>
           <Card
             title="Legal Disclaimer"
             header={

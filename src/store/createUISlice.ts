@@ -1,17 +1,15 @@
 import { StateCreator } from 'zustand'
 
-export type UIViewController = 'none' | 'account' | 'connect' | 'network' | 'delegate'
-
 export interface UISlice {
   viewingModal: boolean
-  modalView: UIViewController
+  modalView: JSX.Element | null
   toggleViewingModal: (isViewing?: boolean) => void
-  setModalView: (view: UIViewController) => void
+  setModalView: (view: JSX.Element | null) => void
 }
 
-const initialState: { viewingModal: boolean; modalView: UIViewController } = {
+const initialState: { viewingModal: boolean; modalView: JSX.Element | null } = {
   viewingModal: false,
-  modalView: 'none',
+  modalView: null,
 }
 const createUISlice: StateCreator<
   UISlice,
@@ -26,7 +24,7 @@ const createUISlice: StateCreator<
   setModalView: (view) =>
     set({
       modalView: view,
-      viewingModal: view !== 'none' ? true : false,
+      viewingModal: view !== null ? true : false,
     }),
 })
 

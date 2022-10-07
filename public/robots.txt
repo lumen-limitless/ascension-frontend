@@ -1,3 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
-Disallow:
+Allow: /
+
+# Host
+Host: https://ascensionprotocol.io
+
+# Sitemaps
+Sitemap: https://ascensionprotocol.io/sitemap.xml

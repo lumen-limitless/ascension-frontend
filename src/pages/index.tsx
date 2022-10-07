@@ -1,11 +1,10 @@
-import { AdjustmentsIcon, CurrencyDollarIcon, DocumentTextIcon } from '@heroicons/react/outline'
+import { AdjustmentsIcon, DocumentTextIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import Card from '../components/ui/Card'
 import Container from '../components/ui/Container'
 import Link from 'next/link'
 import Button from '../components/ui/Button'
 import Section from '../components/ui/Section'
-import ImageComponent from '../components/ImageComponent'
 import GovernanceIcon from '../components/icons/GovernanceIcon'
 import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
@@ -18,6 +17,8 @@ import FrensIcon from '../components/icons/FrensIcon'
 import GMXIcon from '../components/icons/GMXIcon'
 import ExternalLink from '../components/ui/ExternalLink'
 import { NextSeo } from 'next-seo'
+import Logo from '../components/ui/Logo'
+
 const features = [
   {
     icon: <ToolsIcon />,
@@ -44,25 +45,25 @@ const HomePage: NextPage = () => {
     <>
       <NextSeo />
 
-      <Section fullscreen className="bg-[#050310] bg-cover bg-center bg-no-repeat" id="hero">
-        <ImageComponent
-          src="/bg-p-3200_dvrwoc.jpg"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          priority
-        />
-        <Container maxWidth="7xl">
+      <Section
+        fullscreen
+        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat"
+        id="hero"
+      >
+        <Container>
           <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
             <Card className="border-transparent">
-              <ImageComponent
+              {/* <ImageComponent
                 src="/ascension-rise"
                 height={128}
                 width={128}
                 priority
                 className="h-[128px] w-[128px]"
                 alt="Rise of Ascension"
-              />
+              /> */}
+              <div className=" flex w-full items-center justify-center ">
+                <Logo size={128} />
+              </div>
               <Typography
                 as="h1"
                 className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl"
@@ -73,8 +74,9 @@ const HomePage: NextPage = () => {
                 </span>
               </Typography>{' '}
               <Typography className="mx-auto py-1 text-base text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
-                Ascension Protocol is a Decentralized Autonomous Organization (DAO) dedicated to
-                providing DeFi tools and opportunities for its constituents.
+                Ascension Protocol is a Decentralized Autonomous Organization
+                (DAO) dedicated to providing DeFi tools and opportunities for
+                it&apos;s constituents.
               </Typography>{' '}
               <motion.div
                 initial={{ opacity: 0 }}
@@ -84,13 +86,13 @@ const HomePage: NextPage = () => {
                 <div className="flex w-full flex-col items-center gap-3 px-6 py-6 lg:flex-row">
                   <Link href="/dashboard">
                     <a className="w-full">
-                      <Button color="gradient">
+                      <Button color="gradient" className="max-w-sm">
                         <AdjustmentsIcon height={24} /> Dashboard
                       </Button>
                     </a>
                   </Link>
                   <a className="w-full" href="#features">
-                    <Button color="blue">
+                    <Button color="blue" className="max-w-sm">
                       Learn more
                       <ArrowRightIcon height={24} />
                     </Button>
@@ -103,7 +105,7 @@ const HomePage: NextPage = () => {
       </Section>
 
       <Section id="features">
-        <Container maxWidth="full">
+        <Container>
           <div className="flex flex-col py-12">
             <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
               {features.map((f, i) => (
@@ -124,7 +126,9 @@ const HomePage: NextPage = () => {
                         </Typography>
                       </div>
 
-                      <Typography className="text-secondary">{f.description}</Typography>
+                      <Typography className="text-secondary">
+                        {f.description}
+                      </Typography>
                     </div>
                   </Card>
                 </motion.div>
@@ -135,7 +139,7 @@ const HomePage: NextPage = () => {
       </Section>
 
       <Section id="partners" padding="xs">
-        <Container maxWidth="7xl">
+        <Container>
           <motion.div
             initial={{ opacity: 0 }}
             viewport={{ once: true }}
@@ -167,15 +171,16 @@ const HomePage: NextPage = () => {
           </motion.div>
         </Container>
       </Section>
-
-      <Section padding="sm" className="  " id="cta">
+      <></>
+      <Section padding="md" className="" id="cta">
         <div className="absolute -inset-1 rounded-lg bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow opacity-70 blur" />
-        <Container maxWidth="3xl" className="z-10">
+        <Container className="max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1 }}
             transition={{ ease: 'easeOut', duration: 1 }}
+            className="z-10"
           >
             <Typography
               as="h4"
@@ -185,8 +190,15 @@ const HomePage: NextPage = () => {
               Join the Ascension
             </Typography>
             <div className="grid grid-cols-1 place-content-center gap-6 md:grid-cols-2">
-              <a href="https://t.me/AscensionProtocolChat" target={'_blank'} rel="noreferrer">
-                <Button className="bg-[#2AABEE] hover:shadow-[#2AABEE]/10" size="lg">
+              <a
+                href="https://t.me/AscensionProtocolChat"
+                target={'_blank'}
+                rel="noreferrer"
+              >
+                <Button
+                  className="bg-[#2AABEE] hover:shadow-[#2AABEE]/10"
+                  size="lg"
+                >
                   {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                     <path
@@ -198,8 +210,15 @@ const HomePage: NextPage = () => {
                   Join Telegram
                 </Button>
               </a>
-              <a href="https://discord.gg/8k2zGuGeAZ" target={'_blank'} rel="noreferrer">
-                <Button className="bg-[#5865F2] hover:shadow-[#5865F2]/10" size="lg">
+              <a
+                href="https://discord.gg/8k2zGuGeAZ"
+                target={'_blank'}
+                rel="noreferrer"
+              >
+                <Button
+                  className="bg-[#5865F2] hover:shadow-[#5865F2]/10"
+                  size="lg"
+                >
                   {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                     <path
@@ -211,27 +230,28 @@ const HomePage: NextPage = () => {
                   Join Discord
                 </Button>
               </a>
-
+              <a
+                href="https://docs.ascensionprotocol.io"
+                target={'_blank'}
+                rel="noreferrer"
+              >
+                <Button
+                  className="bg-ascend-purple hover:shadow-ascend-purple/10"
+                  size="lg"
+                >
+                  {' '}
+                  <DocumentTextIcon height={24} />
+                  View Documentation
+                </Button>
+              </a>
               <a
                 href="https://app.sushi.com/swap?&outputCurrency=0x9e724698051da34994f281bd81c3e7372d1960ae"
                 target={'_blank'}
                 rel="noreferrer"
               >
-                <Button color="gradient" size="lg">
-                  {' '}
-                  <CurrencyDollarIcon height={24} />
-                  Buy on SushiSwap
-                </Button>
-              </a>
-              <a
-                href="https://ascension-group.gitbook.io/ascension-protocol/"
-                target={'_blank'}
-                rel="noreferrer"
-              >
-                <Button className="bg-ascend-purple hover:shadow-ascend-purple/10" size="lg">
-                  {' '}
-                  <DocumentTextIcon height={24} />
-                  View Documentation
+                <Button color="gray" size="lg">
+                  <Logo size={24} />
+                  Purchase ASCEND
                 </Button>
               </a>
             </div>

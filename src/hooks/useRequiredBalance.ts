@@ -1,13 +1,15 @@
 import { useMemo } from 'react'
-import { useAscendSubgraph } from './useSubgraph'
+import { parseBalance } from '../functions'
+import { useASCENDBalance, useStakedASCENDBalance } from './useASCEND'
 
 export const useRequiredBalance = (account: string, amountRequired: number) => {
-  const tokenData = useAscendSubgraph(account)
+  const ascendBalance = useASCENDBalance(account)
+  const stakedBalance = useStakedASCENDBalance(account)
 
   const pass = useMemo(() => {
-    if (!tokenData) return null
-    return parseFloat(tokenData.totalBalance) >= amountRequired
-  }, [tokenData, amountRequired])
+    if (!ascendBalance || !stakedBalance) return null
+    return parseBalance(ascendBalance.add(stakedBalance)) >= amountRequired
+  }, [ascendBalance, stakedBalance, amountRequired])
 
   return pass
 }

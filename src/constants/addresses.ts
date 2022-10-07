@@ -1,9 +1,9 @@
 import { AddressMap } from '../types'
 import { ChainId } from '@usedapp/core'
 
-export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const BURN_ADDRESS = '0x000000000000000000000000000000000000dEaD'
 export const DEAD_ADDRESS = '0x000000000000000000000000000000000000dEaD'
+
 export const ASCENSION_LIQ_ADDRESS =
   '0x10052e51797CC9a018d50D112547347E7951c198'
 export const ASCENSION_TREASURY_MAINNET =
@@ -33,7 +33,6 @@ export const USD_ADDRESS: AddressMap = {
   [ChainId.Fantom]: USDC_ADDRESS[ChainId.Fantom],
   [ChainId.BSC]: USDC_ADDRESS[ChainId.BSC],
   [ChainId.Harmony]: USDC_ADDRESS[ChainId.Harmony],
-
   [ChainId.xDai]: USDC_ADDRESS[ChainId.xDai],
   [ChainId.Arbitrum]: USDC_ADDRESS[ChainId.Arbitrum],
   [ChainId.Avalanche]: USDC_ADDRESS[ChainId.Avalanche],
@@ -144,12 +143,8 @@ export const ENS_REGISTRAR_ADDRESS: AddressMap = {
 
 export const MULTICALL2_ADDRESS: AddressMap = {
   [ChainId.Mainnet]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
-  [ChainId.Ropsten]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
-  [ChainId.Rinkeby]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
   [ChainId.Goerli]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
-  [ChainId.Kovan]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
   [ChainId.Arbitrum]: '0x80C7DD17B01855a6D2347444a0FCC36136a314de',
-  [ChainId.ArbitrumRinkeby]: '0x82790d6D25cF220646a2a10cAfBD607294aA9546',
   [ChainId.Fantom]: '0x22D4cF72C45F8198CfbF4B568dBdB5A85e8DC0B5',
   [ChainId.Polygon]: '0x02817C1e3543c2d908a590F5dB6bc97f933dB4BD',
   [ChainId.xDai]: '0x67dA5f2FfaDDfF067AB9d5F025F8810634d84287',
