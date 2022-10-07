@@ -48,7 +48,7 @@ export default function Account() {
   }, [deactivate, toggleViewingModal, t])
 
   return (
-    <Grid gap="sm" className="pb-9">
+    <Grid gap="md">
       <div className="col-span-12 place-self-center">
         <Avatar size={100} address={account ?? ethers.constants.AddressZero} />
       </div>

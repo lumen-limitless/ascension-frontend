@@ -11,7 +11,7 @@ export default function Network() {
   const { toggleViewingModal } = useUI()
 
   return (
-    <div className="w-full pb-12 md:pb-0">
+    <div className="w-full  md:pb-0">
       <Typography as="h1" variant="xl" centered className="pb-3">
         Choose Network
       </Typography>
