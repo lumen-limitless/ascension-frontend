@@ -5,7 +5,6 @@ import Container from '../components/ui/Container'
 import Link from 'next/link'
 import Button from '../components/ui/Button'
 import Section from '../components/ui/Section'
-import ImageComponent from '../components/ImageComponent'
 import GovernanceIcon from '../components/icons/GovernanceIcon'
 import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
@@ -19,6 +18,7 @@ import GMXIcon from '../components/icons/GMXIcon'
 import ExternalLink from '../components/ui/ExternalLink'
 import { NextSeo } from 'next-seo'
 import Logo from '../components/ui/Logo'
+
 const features = [
   {
     icon: <ToolsIcon />,
@@ -47,16 +47,9 @@ const HomePage: NextPage = () => {
 
       <Section
         fullscreen
-        className="bg-[#050310] bg-cover bg-center bg-no-repeat"
+        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat"
         id="hero"
       >
-        <ImageComponent
-          src="/bg.jpg"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          priority
-        />
         <Container>
           <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
             <Card className="border-transparent">
@@ -83,7 +76,7 @@ const HomePage: NextPage = () => {
               <Typography className="mx-auto py-1 text-base text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
                 Ascension Protocol is a Decentralized Autonomous Organization
                 (DAO) dedicated to providing DeFi tools and opportunities for
-                its constituents.
+                it&apos;s constituents.
               </Typography>{' '}
               <motion.div
                 initial={{ opacity: 0 }}

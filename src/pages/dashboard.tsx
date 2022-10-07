@@ -14,29 +14,16 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import {
-  addressEqual,
-  ChainId,
-  shortenAddress,
-  TypedFilter,
-  useEthers,
-  useLogs,
-} from '@usedapp/core'
+import { addressEqual, ChainId, shortenAddress } from '@usedapp/core'
 import { useMemo } from 'react'
 import {
   ASCENSION,
   ASCENSION_LIQ_ADDRESS,
   ASCENSION_TREASURY_MAINNET,
   DEX_BY_CHAIN,
-  HOME_CHAINID,
 } from '../constants'
 import Loader from '../components/ui/Loader'
-import {
-  useStakingSubgraph,
-  useQuery,
-  useAscendTokenContract,
-  useAscendStakingContract,
-} from '../hooks'
+import { useStakingSubgraph, useQuery } from '../hooks'
 import { gql } from 'graphql-request'
 import Grid from '../components/ui/Grid'
 
@@ -47,8 +34,6 @@ import { endsWith } from 'lodash'
 import Button from '../components/ui/Button'
 import ExternalLink from '../components/ui/ExternalLink'
 import Skeleton from '../components/ui/Skeleton'
-import { parseBalance } from '../functions'
-import { ethers } from 'ethers'
 
 const GET_SWAPS = gql`
   query Swap($pair: String!, $orderBy: BigInt!) {
@@ -355,7 +340,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <video
                                     src={JSON.parse(nft.metadata).image}
-                                    className="h-64 w-64"
+                                    className="h-56 w-56"
                                     controls
                                   />
                                 )}
@@ -365,7 +350,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <video
                                     src={JSON.parse(nft.metadata).image}
-                                    className="h-64 w-64"
+                                    className="h-56 w-56"
                                     controls
                                   />
                                 )}
@@ -375,9 +360,8 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image}
-                                    height={256}
-                                    width={256}
-                                    unoptimized
+                                    height={224}
+                                    width={224}
                                   />
                                 )}
                                 {endsWith(
@@ -386,9 +370,8 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image}
-                                    height={256}
-                                    width={256}
-                                    unoptimized
+                                    height={224}
+                                    width={224}
                                   />
                                 )}
                                 {endsWith(
@@ -397,9 +380,8 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image}
-                                    height={256}
-                                    width={256}
-                                    unoptimized
+                                    height={224}
+                                    width={224}
                                   />
                                 )}
                                 {endsWith(
@@ -408,9 +390,8 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image}
-                                    height={256}
-                                    width={256}
-                                    unoptimized
+                                    height={224}
+                                    width={224}
                                   />
                                 )}
                                 {endsWith(
@@ -419,9 +400,8 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image}
-                                    height={256}
-                                    width={256}
-                                    unoptimized
+                                    height={224}
+                                    width={224}
                                   />
                                 )}
                               </>
@@ -433,7 +413,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <video
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
+                                    className="h-56 w-56"
                                     controls
                                   />
                                 )}
@@ -443,7 +423,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <video
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
+                                    className="h-56 w-56"
                                     controls
                                   />
                                 )}
@@ -453,8 +433,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
-                                    unoptimized
+                                    className="h-56 w-56"
                                   />
                                 )}
                                 {endsWith(
@@ -463,8 +442,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
-                                    unoptimized
+                                    className="h-56 w-56"
                                   />
                                 )}
                                 {endsWith(
@@ -473,7 +451,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
+                                    className="h-56 w-56"
                                   />
                                 )}
                                 {endsWith(
@@ -482,8 +460,7 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
-                                    unoptimized
+                                    className="h-56 w-56"
                                   />
                                 )}
                                 {endsWith(
@@ -492,13 +469,12 @@ const DashboardPage: NextPage = () => {
                                 ) && (
                                   <ImageComponent
                                     src={JSON.parse(nft.metadata).image_url}
-                                    className="h-64 w-64"
-                                    unoptimized
+                                    className="h-56 w-56"
                                   />
                                 )}
                               </>
                             ) : (
-                              <div className="h-64 w-64">
+                              <div className="h-56 w-56">
                                 <Skeleton />
                               </div>
                             )}
