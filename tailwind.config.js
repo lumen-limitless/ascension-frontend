@@ -2,9 +2,9 @@
 
 module.exports = {
   content: [
+    './src/components/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/layouts/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -84,32 +84,25 @@ module.exports = {
         },
 
         orange: {
-          DEFAULT: '#fcb503',
-          100: '#fef0cd',
-          200: '#fee19a',
-          300: '#fdd368',
-          400: '#fdc435',
-          500: '#fcb503',
-          600: '#ca9102',
-          700: '#976d02',
-          800: '#654801',
-          900: '#322401',
+          DEFAULT: '#EF5030',
+          50: '#FCE0DA',
+          100: '#FBD0C7',
+          200: '#F8B0A2',
+          300: '#F5907C',
+          400: '#F27056',
+          500: '#EF5030',
+          600: '#D63211',
+          700: '#A2260D',
+          800: '#6E1A09',
+          900: '#3A0D04',
         },
-        'ascend-purple': '#2D1A62',
-        'ascend-magenta': '#943259',
-        'ascend-orange': '#ef5030',
-        'ascend-yellow': '#fcb503',
-        dark: {
-          1000: '#0B0514',
-          900: '#161522',
-          800: '#202231',
-          700: '#2E3348',
-        },
+        //'ascend-purple': '#2D1A62',
+        //'ascend-magenta': '#943259',
+        //'ascend-orange': '#ef5030',
+        //'ascend-yellow': '#fcb503',
 
         primary: '#F9F9F9',
         secondary: '#9F9F9F',
-        'low-emphesis': '#575757',
-        'high-emphesis': '#E3E3E3',
       },
       lineHeight: {
         '48px': '48px',

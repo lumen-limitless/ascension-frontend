@@ -1,13 +1,17 @@
 import { StateCreator } from 'zustand'
 
+export enum VIEW {
+  CONNECT,
+  DELEGATE,
+}
 export interface UISlice {
   viewingModal: boolean
-  modalView: JSX.Element | null
+  modalView: VIEW | null
   toggleViewingModal: (isViewing?: boolean) => void
-  setModalView: (view: JSX.Element | null) => void
+  setModalView: (view: VIEW | null) => void
 }
 
-const initialState: { viewingModal: boolean; modalView: JSX.Element | null } = {
+const initialState: { viewingModal: boolean; modalView: VIEW | null } = {
   viewingModal: false,
   modalView: null,
 }

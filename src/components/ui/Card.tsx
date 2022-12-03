@@ -1,49 +1,29 @@
-import React, { FC } from 'react'
-import cn from 'clsx'
+import React from 'react'
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  header?: React.ReactChild
-  footer?: React.ReactChild
-  backgroundImage?: string
-  title?: string
-  description?: string
-}
-
-export default function Card({
-  header = undefined,
-  footer = undefined,
-  backgroundImage = '',
-  title = '',
-  description = '',
-  children,
-  className,
-}: CardProps) {
+export default function Card({ children, className = '' }) {
   return (
     <div
-      className={cn(
+      className={[
         className,
-        'relative flex-1 flex-grow  rounded bg-dark-1000/60 shadow-pink-glow ring-2 ring-dark-700/30 backdrop-blur-md transition-all hover:shadow-pink-glow-hovered'
-      )}
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'contain',
-        backgroundPosition: 'center bottom',
-      }}
+        ' flex-1 flex-grow rounded bg-purple-900/60 shadow-pink-glow ring-2 ring-purple-500/30 backdrop-blur transition-all hover:shadow-pink-glow-hovered',
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
-      {header && (
-        <>
-          <div className="w-full rounded-t bg-dark-700/30 ">{header}</div>
-        </>
-      )}
-
-      <div className="h-full px-2 py-4 sm:p-8">
-        {title && <div className="pb-3 text-lg font-medium leading-6 text-primary">{title}</div>}
-        {description && <div className="text-base text-secondary">{description}</div>}
-        {children}
-      </div>
-
-      {footer && <>{footer}</>}
+      {children}
     </div>
   )
 }
+
+const Header = ({ children }) => (
+  <div className="relative rounded-t bg-purple-500/30 p-1">{children}</div>
+)
+Card.Header = Header
+
+const Body = ({ children }) => (
+  <div className="relative p-3 sm:p-9">{children}</div>
+)
+Card.Body = Body
+
+const Footer = (children) => <div className="relative">{children}</div>
+Card.Footer = Footer

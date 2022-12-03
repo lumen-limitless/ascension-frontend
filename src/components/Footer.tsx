@@ -174,8 +174,8 @@ export default function Footer() {
   return (
     <footer
       className={cn(
-        pathname !== '/' && 'border-t-2 border-dark-700/30',
-        ' relative   border-dark-900 text-center'
+        pathname !== '/' && 'border-t-2 border-purple-500/30',
+        ' border-dark-900   relative text-center'
       )}
     >
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">

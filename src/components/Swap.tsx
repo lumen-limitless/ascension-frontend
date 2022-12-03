@@ -1,4 +1,3 @@
-import { CogIcon } from '@heroicons/react/outline'
 import {
   useEtherBalance,
   useEthers,
@@ -84,80 +83,86 @@ export default function Swap({
 
   return (
     <>
-      <Card className="shrink-0" title="Swap">
-        {' '}
-        <div className="absolute top-1 right-1 flex items-center justify-center ">
-          <Dropdown
-            options={Object.keys(DEX_BY_CHAIN[chainId])}
-            title={dex}
-            onSelect={setDex}
-          />
+      <Card className="shrink-0">
+        <Card.Header>Swap</Card.Header>
+        <Card.Body>
+          <div className="absolute top-1 right-1 flex items-center justify-center ">
+            <Dropdown
+              options={Object.keys(DEX_BY_CHAIN[chainId])}
+              title={dex}
+              onSelect={setDex}
+            />
 
-          <Button className="">{<CogIcon width={24} />}</Button>
-        </div>
-        <div className="flex text-sm text-low-emphesis">You Pay:</div>
-        <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6 shadow-md">
-          <div className="absolute top-3 right-3 text-xs">
-            Balance:{' '}
-            {sellTokenBalance
-              ? formatBalance(sellTokenBalance)
-              : balance
-              ? formatBalance(balance)
-              : '0.0'}
+            <Button className=""></Button>
           </div>
-          <Button
-            color="gray"
-            className="w-32"
-            onClick={toggleSettingSellToken}
-          >
-            {sellToken?.symbol}
-          </Button>
-          <Input.Numeric
-            value={sellAmount}
-            onUserInput={(i) => {
-              setSellAmount(i)
-            }}
-          ></Input.Numeric>
-        </div>
-        <div className="flex justify-center">
-          <Button onClick={switchTokens}>
-            <svg
-              width="32px"
-              height="32px"
-              viewBox="0 0 1024 1024"
-              xmlns="http://www.w3.org/2000/svg"
-              className="rotate-90 fill-current text-ascend-magenta"
+          <div className="text-low-emphesis flex text-sm">You Pay:</div>
+          <div className="bg-dark-1000  relative flex w-full flex-col gap-1 rounded-xl p-6 shadow-md">
+            <div className="absolute top-3 right-3 text-xs">
+              Balance:{' '}
+              {sellTokenBalance
+                ? formatBalance(sellTokenBalance)
+                : balance
+                ? formatBalance(balance)
+                : '0.0'}
+            </div>
+            <Button
+              color="gray"
+              className="w-32"
+              onClick={toggleSettingSellToken}
             >
-              <path d="M847.9 592H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h605.2L612.9 851c-4.1 5.2-.4 13 6.3 13h72.5c4.9 0 9.5-2.2 12.6-6.1l168.8-214.1c16.5-21 1.6-51.8-25.2-51.8zM872 356H266.8l144.3-183c4.1-5.2.4-13-6.3-13h-72.5c-4.9 0-9.5 2.2-12.6 6.1L150.9 380.2c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
-            </svg>
-          </Button>
-        </div>
-        <div className="flex text-sm text-low-emphesis">You Receive:</div>
-        <div className="relative flex w-full flex-col gap-1 rounded-xl bg-dark-1000 p-6 shadow-md">
-          <div className="absolute top-3 right-3 text-xs">
-            Balance: {buyTokenBalance && formatUnits(buyTokenBalance)}
+              {sellToken?.symbol}
+            </Button>
+            <Input.Numeric
+              value={sellAmount}
+              onUserInput={(i) => {
+                setSellAmount(i)
+              }}
+            ></Input.Numeric>
           </div>
-          <Button color="gray" className="w-32" onClick={toggleSettingBuyToken}>
-            {buyToken?.symbol}
-          </Button>
-          <Input.Numeric
-            value={buyAmount}
-            onUserInput={(i) => {
-              setBuyAmount(i)
-            }}
-          ></Input.Numeric>
-        </div>
-        <div className="mt-9">
-          <Button
-            color="gradient"
-            disabled
-            onClick={() => {
-              return
-            }}
-          >
-            Swap
-          </Button>
-        </div>
+          <div className="flex justify-center">
+            <Button onClick={switchTokens}>
+              <svg
+                width="32px"
+                height="32px"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-ascend-magenta rotate-90 fill-current"
+              >
+                <path d="M847.9 592H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h605.2L612.9 851c-4.1 5.2-.4 13 6.3 13h72.5c4.9 0 9.5-2.2 12.6-6.1l168.8-214.1c16.5-21 1.6-51.8-25.2-51.8zM872 356H266.8l144.3-183c4.1-5.2.4-13-6.3-13h-72.5c-4.9 0-9.5 2.2-12.6 6.1L150.9 380.2c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
+              </svg>
+            </Button>
+          </div>
+          <div className="text-low-emphesis flex text-sm">You Receive:</div>
+          <div className="bg-dark-1000 relative flex w-full flex-col gap-1 rounded-xl p-6 shadow-md">
+            <div className="absolute top-3 right-3 text-xs">
+              Balance: {buyTokenBalance && formatUnits(buyTokenBalance)}
+            </div>
+            <Button
+              color="gray"
+              className="w-32"
+              onClick={toggleSettingBuyToken}
+            >
+              {buyToken?.symbol}
+            </Button>
+            <Input.Numeric
+              value={buyAmount}
+              onUserInput={(i) => {
+                setBuyAmount(i)
+              }}
+            ></Input.Numeric>
+          </div>
+          <div className="mt-9">
+            <Button
+              color="gradient"
+              disabled
+              onClick={() => {
+                return
+              }}
+            >
+              Swap
+            </Button>
+          </div>
+        </Card.Body>
       </Card>
       {[settingBuyToken, settingSellToken].includes(true) && (
         <Modal

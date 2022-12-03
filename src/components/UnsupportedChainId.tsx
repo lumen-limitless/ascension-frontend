@@ -14,30 +14,32 @@ const UnsupportedChainId: FC<UnsupporteChainIdProps> = ({
 }) => {
   const { switchNetwork } = useEthers()
   return (
-    <Card
-      header={
+    <Card>
+      <Card.Header>
+        {' '}
         <div className="flex w-full justify-center p-3">
           <Typography centered variant="lg" as="h1">
             Please Connect to A Supported Network
           </Typography>
         </div>
-      }
-    >
-      <Grid gap="md">
-        {supportedChainIds.map((supportedChainId) => (
-          <div
-            key={supportedChainId}
-            className="col-span-6 flex place-content-center"
-          >
-            <Button
-              color="blue"
-              onClick={() => switchNetwork(supportedChainId)}
+      </Card.Header>
+      <Card.Body>
+        <Grid gap="md">
+          {supportedChainIds.map((supportedChainId) => (
+            <div
+              key={supportedChainId}
+              className="col-span-6 flex place-content-center"
             >
-              Connect to {CHAIN_NAME[supportedChainId]}
-            </Button>
-          </div>
-        ))}
-      </Grid>
+              <Button
+                color="blue"
+                onClick={() => switchNetwork(supportedChainId)}
+              >
+                Connect to {CHAIN_NAME[supportedChainId]}
+              </Button>
+            </div>
+          ))}
+        </Grid>
+      </Card.Body>
     </Card>
   )
 }

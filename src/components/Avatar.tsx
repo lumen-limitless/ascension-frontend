@@ -1,6 +1,6 @@
 import React from 'react'
 import makeBlockie from 'ethereum-blockies-base64'
-import Image from 'next/image'
+
 import { ethers } from 'ethers'
 
 export default function Avatar({
@@ -11,14 +11,12 @@ export default function Avatar({
   address?: string
 }) {
   return (
-    <Image
+    <img
       src={makeBlockie(address)}
       alt={address}
       width={size}
       height={size}
       className="rounded-full"
-      unoptimized
-      layout="fixed"
     />
   )
 }

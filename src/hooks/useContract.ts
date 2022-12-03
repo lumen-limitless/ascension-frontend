@@ -1,18 +1,18 @@
 import { useMemo } from 'react'
 import IERC20 from '@openzeppelin/contracts/build/contracts/IERC20.json'
 import { ASCENSION } from '../constants'
-import { ChainId } from '@usedapp/core'
+import { ChainId, Falsy } from '@usedapp/core'
 import {
   AscensionStakedToken,
   AscensionStaking,
   AscensionToken,
-} from '../typechain'
+} from '../types/typechain'
 import { Contract, ContractInterface } from 'ethers'
 
 // returns null on errors
 export const useContract = (
-  address: string | undefined,
-  ABI: ContractInterface | undefined
+  address: string | Falsy,
+  ABI: ContractInterface | Falsy
 ): Contract | null => {
   return useMemo(() => {
     if (!address || !ABI) return null

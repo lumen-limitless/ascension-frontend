@@ -1,134 +1,166 @@
 import React, { useEffect, useState } from 'react'
-import Container from '../components/ui/Container'
-import Loader from '../components/ui/Loader'
-import { useEthers } from '@usedapp/core'
-import { useRequiredBalance } from '../hooks/useRequiredBalance'
-import BuyAscend from '../components/BuyAscend'
-import { NextPage } from 'next'
-import {
-  CHAIN_SYMBOL,
-  DEX_BY_CHAIN,
-  USDC_ADDRESS,
-  WNATIVE_ADDRESS,
-} from '../constants'
-import Swap from '../components/Swap'
-import TradingChart from '../components/TradingChart'
-import { Token } from '../types'
-import { useLocalStorage } from 'react-use'
-import Section from '../components/ui/Section'
-import Grid from '../components/ui/Grid'
-import dynamic from 'next/dynamic'
-import { NextSeo } from 'next-seo'
-import ImageComponent from '../components/ImageComponent'
-import ExternalLink from '../components/ui/ExternalLink'
-import Card from '../components/ui/Card'
+// import Container from '../../components/ui/Container'
+// import Loader from '../../components/ui/Loader'
+// import { useEthers } from '@usedapp/core'
+// import { useRequiredBalance } from '../../hooks/useRequiredBalance'
+// import BuyAscend from '../../components/BuyAscend'
+// import { NextPage } from 'next'
+// import {
+//   CHAIN_SYMBOL,
+//   DEX_BY_CHAIN,
+//   USDC_ADDRESS,
+//   WNATIVE_ADDRESS,
+// } from '../../constants'
+// import Swap from '../../components/Swap'
+// import TradingChart from '../../components/TradingChart'
+// import { Token } from '../../types'
+// import { useLocalStorage } from 'react-use'
+// import Section from '../../components/ui/Section'
+// import Grid from '../../components/ui/Grid'
+// import dynamic from 'next/dynamic'
+// import { NextSeo } from 'next-seo'
+// import ImageComponent from '../../components/ImageComponent'
+// import ExternalLink from '../../components/ui/ExternalLink'
+// import Card from '../../components/ui/Card'
+// import Script from 'next/script'
+// import Spinner from '../../components/ui/Spinner'
 
-const Connect = dynamic(() => import('../components/modals/Connect'), {
-  ssr: false,
-})
-const SUPPORTED_CHAINID = [1, 137, 56, 42161]
-const REQUIRED_BALANCE = 1
+// const Connect = dynamic(() => import('../../components/modals/Connect'), {
+//   ssr: false,
+// })
 
-const MercuryPage: NextPage = () => {
-  const { account, chainId } = useEthers()
-  const pass = useRequiredBalance(account, REQUIRED_BALANCE)
-  const [dex, setDex] = useState<string>('sushiswap')
+// const SUPPORTED_CHAINID = [1, 137, 56, 42161]
+// const REQUIRED_BALANCE = 1
 
-  useEffect(() => {
-    if (
-      chainId &&
-      SUPPORTED_CHAINID.includes[chainId] &&
-      DEX_BY_CHAIN[chainId]
-    ) {
-      setDex(Object.keys(DEX_BY_CHAIN[chainId])[0])
-    }
-  }, [chainId])
+// const MercuryPage: NextPage = () => {
+//   const { account, chainId } = useEthers()
+//   const pass = useRequiredBalance(account, REQUIRED_BALANCE)
+//   const [dex, setDex] = useState<string>('sushiswap')
 
-  const [lastSellToken] = useLocalStorage<Token>('LastSellToken')
-  const [sellToken, setSellToken] = useState<Token>(
-    lastSellToken ?? {
-      address: WNATIVE_ADDRESS[chainId],
-      name: 'Wrapped Ether',
-      symbol: 'WETH',
-      decimals: 18,
-      chainId,
-    }
-  )
+//   useEffect(() => {
+//     if (
+//       chainId &&
+//       SUPPORTED_CHAINID.includes[chainId] &&
+//       DEX_BY_CHAIN[chainId]
+//     ) {
+//       setDex(Object.keys(DEX_BY_CHAIN[chainId])[0])
+//     }
+//   }, [chainId])
 
-  const [lastBuyToken] = useLocalStorage<Token>('LastBuyToken')
-  const [buyToken, setBuyToken] = useState<Token>(
-    lastBuyToken ?? {
-      address: USDC_ADDRESS[chainId],
-      name: 'USDC',
-      symbol: 'USDC',
-      decimals: 6,
-      chainId,
-    }
-  )
+//   const handleScriptLoad = (e) => {
+//     const w = window as any
+//     w.trends.embed.renderExploreWidgetTo(
+//       document.getElementById('widget'),
+//       'TIMESERIES',
+//       {
+//         comparisonItem: [
+//           { keyword: 'Ethereum', geo: 'US', time: 'today 12-m' },
+//         ],
+//         category: 0,
+//         property: '',
+//       },
+//       {
+//         exploreQuery:
+//           'geo=US&q=%2Fm%2F0108bn2x,%2Fm%2F0vpj4_b&date=today 12-m,today 12-m',
+//         guestPath: 'https://trends.google.com:443/trends/embed/',
+//       }
+//     )
+//   }
 
-  if (!account)
-    return (
-      <Container>
-        <Connect />
-      </Container>
-    )
+//   const [lastSellToken] = useLocalStorage<Token>('LastSellToken')
+//   const [sellToken, setSellToken] = useState<Token>(
+//     lastSellToken ?? {
+//       address: WNATIVE_ADDRESS[chainId],
+//       name: 'Wrapped Ether',
+//       symbol: 'WETH',
+//       decimals: 18,
+//       chainId,
+//     }
+//   )
 
-  if (!chainId || pass === null)
-    return (
-      <Container>
-        <Loader message="Fetching data from the blockchain..." />
-      </Container>
-    )
-  if (pass === false) return <BuyAscend amount={REQUIRED_BALANCE} />
-  if (!SUPPORTED_CHAINID.includes(chainId))
-    return (
-      <Container>
-        <Loader message="Network not supported!" />
-      </Container>
-    )
+//   const [lastBuyToken] = useLocalStorage<Token>('LastBuyToken')
+//   const [buyToken, setBuyToken] = useState<Token>(
+//     lastBuyToken ?? {
+//       address: USDC_ADDRESS[chainId],
+//       name: 'USDC',
+//       symbol: 'USDC',
+//       decimals: 6,
+//       chainId,
+//     }
+//   )
 
-  return (
-    <>
-      <NextSeo
-        title="Mercury"
-        description={`Ascension Protocol universal swap tool`}
-      />
+//   if (!account)
+//     return (
+//       <Container>
+//         <Connect />
+//       </Container>
+//     )
 
-      <Section fullscreen padding="md" layout="start">
-        <Container>
-          {pass && (
-            <>
-              <Grid gap="md">
-                <div className="col-span-12  flex flex-col gap-3 md:col-span-8">
-                  <TradingChart buyToken={buyToken} dex={dex} />
-                  <Card>
-                    <ExternalLink href="https://cfgi.io/ethereum-fear-greed-index/1d">
-                      <ImageComponent
-                        src={`https://cfgi.io/images/cfgi/dark/${CHAIN_SYMBOL[chainId]}-CFGI-15m.png`}
-                        alt="ETH CFGI analysis"
-                        height="250"
-                        width="260"
-                      />
-                    </ExternalLink>
-                  </Card>
-                </div>
-                <div className="col-span-12 md:col-span-4">
-                  <Swap
-                    sellToken={sellToken}
-                    setSellToken={setSellToken}
-                    buyToken={buyToken}
-                    setBuyToken={setBuyToken}
-                    setDex={setDex}
-                    dex={dex}
-                  />
-                </div>
-              </Grid>
-            </>
-          )}
-        </Container>
-      </Section>
-    </>
-  )
-}
+//   if (!chainId || pass === null)
+//     return (
+//       <Container>
+//         <Loader message="Fetching data from the blockchain..." />
+//       </Container>
+//     )
+//   if (pass === false) return <BuyAscend amount={REQUIRED_BALANCE} />
+//   if (!SUPPORTED_CHAINID.includes(chainId))
+//     return (
+//       <Container>
+//         <Loader message="Network not supported!" />
+//       </Container>
+//     )
 
-export default MercuryPage
+//   return (
+//     <>
+//       <NextSeo
+//         title="Mercury"
+//         description={`Ascension Protocol universal swap tool`}
+//       />
+
+//       <Section fullscreen padding="md" layout="start">
+//         <Container>
+//           {pass ? (
+//             <>
+//               <Grid gap="md">
+//                 <div className="col-span-12  flex flex-col gap-3 md:col-span-8">
+//                   <TradingChart buyToken={buyToken} dex={dex} />
+//                   <Card>
+//                     <Card.Body>
+//                       <ExternalLink href="https://cfgi.io/ethereum-fear-greed-index/1d">
+//                         <ImageComponent
+//                           src={`https://cfgi.io/images/cfgi/dark/${CHAIN_SYMBOL[chainId]}-CFGI-1h.png`}
+//                           alt="ETH CFGI analysis"
+//                           height={250}
+//                           width={260}
+//                         />
+//                       </ExternalLink>
+//                       <Script
+//                         src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"
+//                         onLoad={handleScriptLoad}
+//                       />
+//                       <div id="widget" />
+//                     </Card.Body>
+//                   </Card>
+//                 </div>
+//                 <div className="col-span-12 md:col-span-4">
+//                   <Swap
+//                     sellToken={sellToken}
+//                     setSellToken={setSellToken}
+//                     buyToken={buyToken}
+//                     setBuyToken={setBuyToken}
+//                     setDex={setDex}
+//                     dex={dex}
+//                   />
+//                 </div>
+//               </Grid>
+//             </>
+//           ) : (
+//             <Spinner />
+//           )}
+//         </Container>
+//       </Section>
+//     </>
+//   )
+// }
+
+// export default MercuryPage

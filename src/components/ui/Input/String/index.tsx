@@ -32,7 +32,7 @@ export const Input = React.memo(
           // text-specific options
           type="text"
           className={cn(
-            'relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-ascend-purple focus:ring-ascend-purple sm:text-sm',
+            'focus:ring-ascend-purple relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-purple sm:text-sm',
             className
           )}
           {...rest}

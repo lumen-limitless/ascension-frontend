@@ -1,136 +1,132 @@
 import { StateCreator } from 'zustand'
 import { ContractEvent, ContractFunction } from '../types'
 
+export enum STEPS {
+  SETTING_EVENT,
+  SETTING_FUNCTION,
+  READY,
+}
+
 export interface ReactorSlice {
-  event: {
+  eventInfo: {
     address: string
     index: number
     abi: Array<ContractEvent | ContractFunction> | null
     args: any[]
   }
-  function: {
+  funcInfo: {
     address: string
     index: number
     abi: Array<ContractEvent | ContractFunction> | null
     args: any[]
     value: string
   }
-  reactionActive: boolean
-
+  step: STEPS
+  setStep: (step: STEPS) => void
   reset: () => void
   clearEvent: () => void
   clearFunction: () => void
-  fetchABI: (name: string, address: string, apiKey: string, type?: 'event' | 'function') => void
   setIndex: (index: number, type?: 'event' | 'function') => void
   setAddress: (address: string, type?: 'event' | 'function') => void
+  setABI: (abi: any, type?: 'event' | 'function') => void
   setArgs: (args: any[], type?: 'event' | 'function') => void
   updateArgsAt: (i: number, arg: any, type: 'event' | 'function') => void
   clearArgs: (type?: 'event' | 'function') => void
   setValue: (value: string) => void
-  toggleReaction: (active?: boolean) => void
 }
 
 const initialState = {
-  event: {
+  eventInfo: {
     address: '',
     index: 0,
     abi: null,
     args: [],
   },
-  function: {
+  funcInfo: {
     address: '',
     index: 0,
     abi: null,
     args: [],
     value: '',
   },
-  reactionActive: false,
+  step: STEPS.SETTING_EVENT,
 }
 
+const TYPES = {
+  event: 'eventInfo',
+  function: 'funcInfo',
+}
 const createReactorSlice: StateCreator<
   ReactorSlice,
   [['zustand/devtools', unknown], ['zustand/immer', unknown]],
   []
 > = (set) => ({
   ...initialState,
+  setStep: (step) =>
+    set((state) => {
+      state.step = step
+    }),
   reset: () => set(initialState),
   clearEvent: () =>
     set((state) => {
-      state.event = initialState.event
+      state.eventInfo = initialState.eventInfo
     }),
   clearFunction: () =>
     set((state) => {
-      state.function = initialState.function
+      state.funcInfo = initialState.funcInfo
     }),
-  fetchABI: async (name, address, apiKey, type?) => {
-    const data = await fetch(
-      `https://api.${name}/api?module=contract&action=getabi&address=${address}&apikey=${apiKey}`
-    ).then((res) => res.json())
 
-    if (!data || data?.status === '0') {
-      set((state) => {
-        type != undefined
-          ? (state[type].abi = [])
-          : ((state.function.abi = []), (state.event.abi = []))
-      })
-      return
-    }
-    const abi = JSON.parse(data.result)
-
-    set((state) => {
-      type != undefined
-        ? (state[type].abi = abi)
-        : ((state.function.abi = abi), (state.event.abi = abi))
-    })
-  },
   setIndex: (index, type?) =>
     set((state) => {
       type != undefined
-        ? (state[type].index = index)
-        : ((state.function.index = index), (state.event.index = index))
+        ? (state[TYPES[type]].index = index)
+        : ((state.funcInfo.index = index), (state.eventInfo.index = index))
     }),
   setAddress: (address, type?) =>
     set((state) => {
       type != undefined
-        ? (state[type].address = address)
-        : ((state.function.address = address), (state.event.address = address))
+        ? (state[TYPES[type]].address = address)
+        : ((state.funcInfo.address = address),
+          (state.eventInfo.address = address))
+    }),
+  setABI: (abi, type?) =>
+    set((state) => {
+      type != undefined
+        ? (state[TYPES[type]].abi = abi)
+        : ((state.funcInfo.address = abi), (state.eventInfo.address = abi))
     }),
   setArgs: (args, type?) =>
     set((state) => {
       type != undefined
-        ? (state[type].args = args)
-        : ((state.function.args = args), (state.event.args = args))
+        ? (state[TYPES[type]].args = args)
+        : ((state.funcInfo.args = args), (state.eventInfo.args = args))
     }),
   updateArgsAt: (i, arg, type?) =>
     set((state) => {
       if (type != undefined) {
-        const arr = state[type].args.slice()
+        const arr = state[TYPES[type]].args.slice()
         arr[i] = arg
-        state[type].args = arr
+        state[TYPES[type]].args = arr
       } else {
-        const eventArr = state.event.args.slice()
+        const eventArr = state.eventInfo.args.slice()
         eventArr[i] = arg
-        state.event.args = eventArr
+        state.eventInfo.args = eventArr
 
-        const functionArr = state.function.args.slice()
+        const functionArr = state.funcInfo.args.slice()
         functionArr[i] = arg
-        state.function.args = functionArr
+        state.funcInfo.args = functionArr
       }
     }),
   clearArgs: (type?) =>
     set((state) => {
       type != undefined
-        ? (state[type].args = [])
-        : ((state.function.args = []), (state.event.args = []))
+        ? (state[TYPES[type]].args = [])
+        : ((state.funcInfo.args = []), (state.eventInfo.args = []))
     }),
   setValue: (value) =>
     set((state) => {
-      state.function.value = value
+      state.funcInfo.value = value
     }),
-  toggleReaction: (active: boolean) =>
-    set((state) => ({
-      reactionActive: active === undefined ? !state.reactionActive : active,
-    })),
 })
 
 export default createReactorSlice

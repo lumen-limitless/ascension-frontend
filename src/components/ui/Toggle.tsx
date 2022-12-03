@@ -26,7 +26,7 @@ export default function Toggle({
       checked={isActive}
       onChange={onToggle}
       className={cn(
-        isActive ? 'bg-blue' : 'bg-dark-800',
+        isActive ? 'bg-blue' : 'bg-gray-700',
         'inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
         className
       )}
@@ -36,7 +36,7 @@ export default function Toggle({
         id={id}
         className={cn(
           isActive ? 'translate-x-5' : 'translate-x-0',
-          'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-dark-900 shadow ring-0 transition duration-200 ease-in-out'
+          'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-gray-900 shadow ring-0 transition duration-200 ease-in-out'
         )}
       >
         <span
@@ -50,7 +50,7 @@ export default function Toggle({
         >
           {iconSet?.on ?? (
             <svg
-              className="h-3 w-3 text-low-emphesis"
+              className="h-3 w-3 text-secondary"
               fill="none"
               viewBox="0 0 12 12"
             >
@@ -75,7 +75,7 @@ export default function Toggle({
         >
           {iconSet?.off ?? (
             <svg
-              className="h-3 w-3 text-high-emphesis"
+              className="h-3 w-3 text-primary"
               fill="currentColor"
               viewBox="0 0 12 12"
             >

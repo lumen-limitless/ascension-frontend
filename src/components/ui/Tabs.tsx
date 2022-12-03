@@ -25,8 +25,9 @@ export default function Tabs({
               {({ selected }) => (
                 <div
                   className={cn(
-                    selected && 'bg-purple',
-                    'bg-dark-1000 p-2 hover:brightness-125'
+                    selected &&
+                      'bg-gradient-to-r from-orange-700 to-yellow-700',
+                    'bg-black p-2 hover:brightness-125'
                   )}
                 >
                   {o}

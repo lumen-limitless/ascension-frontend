@@ -2,25 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+:root {
+--font-text: "Jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+}
+
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
-:root {
---font-sans: "Jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
-}
-
-html {
-    font-family: var(--font-sans);    
-}
 
 html,
-body {
-    @apply m-0 scroll-smooth bg-dark-1000 text-primary h-full box-border overflow-x-hidden overflow-y-auto touch-manipulation antialiased;
+body {  
+  font-family: var(--font-text);
+  text-rendering: optimizeLegibility;
+  @apply  box-border touch-manipulation  scroll-smooth bg-purple-900 antialiased text-primary;
 }
 
+#__next {
+  @apply flex min-h-screen flex-col ;
+}
 
 a {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -36,13 +40,11 @@ a {
   /* Track */
   ::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background: transparent;
-    margin-top: 68px;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    
+
     background: hsl(243, 5%, 12%);
     border-radius: 100px;
     

@@ -25,8 +25,8 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
 
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'ETH',
-  [ChainId.Arbitrum]: 'aETH',
-  [ChainId.Optimism]: 'oETH',
+  [ChainId.Arbitrum]: 'ETH',
+  [ChainId.Optimism]: 'ETH',
   [ChainId.Mainnet]: 'ETH',
   [ChainId.Goerli]: 'ETH',
   [ChainId.Fantom]: 'FTM',

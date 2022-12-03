@@ -1,6 +1,12 @@
 import '@fontsource/jura/400.css'
 import '../styles/globals.css'
-import { Config, DAppProvider } from '@usedapp/core'
+import {
+  Config,
+  DAppProvider,
+  MetamaskConnector,
+  CoinbaseWalletConnector,
+} from '@usedapp/core'
+import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -12,7 +18,7 @@ import {
   RPC,
   SUPPORTED_CHAINS,
 } from '../constants'
-import Layout from '../layouts'
+import AppLayout from '../layouts/AppLayout'
 
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
@@ -24,8 +30,12 @@ const config: Config = {
   notifications: {
     expirationPeriod: 1,
   },
+  connectors: {
+    walletConnect: new WalletConnectConnector({ rpc: RPC }),
+    metamask: new MetamaskConnector(),
+    coinbase: new CoinbaseWalletConnector(),
+  },
   fastMulticallEncoding: true,
-  noMetamaskDeactivate: true,
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -43,9 +53,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
       <DAppProvider config={config}>
-        <Layout>
+        <AppLayout>
           <Component {...pageProps} />
-        </Layout>
+        </AppLayout>
       </DAppProvider>
     </>
   )
