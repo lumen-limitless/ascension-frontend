@@ -46,11 +46,11 @@ const HomePage: NextPage = () => {
 
       <Section
         fullscreen
-        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-16"
+        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-3 md:py-9 lg:py-12 xl:py-16"
         id="hero"
       >
         <Container>
-          <div className="space-y-6 text-center xl:mt-12">
+          <div className="space-y-3 text-center xl:mt-12">
             <div className=" flex w-full items-center justify-center ">
               <Logo size={128} />
             </div>
@@ -77,7 +77,7 @@ const HomePage: NextPage = () => {
               transition={{ ease: 'easeOut', delay: 0, duration: 0.99 }}
             >
               <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col items-center gap-3 md:gap-6 lg:flex-row  lg:gap-9">
-                <Link href="/dashboard" passHref>
+                <Link href="/dashboard" className="w-full">
                   <Button full size="lg" color="gradient">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
