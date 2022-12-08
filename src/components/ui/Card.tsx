@@ -5,7 +5,7 @@ export default function Card({ children, className = '' }) {
     <div
       className={[
         className,
-        ' flex-1 flex-grow rounded bg-purple-900/60 shadow-pink-glow ring-2 ring-purple-500/30 backdrop-blur transition-all hover:shadow-pink-glow-hovered',
+        ' flex-1 flex-grow rounded bg-purple-900/60 shadow-pink-glow ring-2 ring-purple-500/50 backdrop-blur transition-all hover:shadow-pink-glow-hovered',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -16,7 +16,7 @@ export default function Card({ children, className = '' }) {
 }
 
 const Header = ({ children }) => (
-  <div className="relative rounded-t bg-purple-500/30 p-1">{children}</div>
+  <div className="relative rounded-t bg-purple-500/50 p-1">{children}</div>
 )
 Card.Header = Header
 
