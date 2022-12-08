@@ -3,24 +3,23 @@ import cn from 'clsx'
 import { ReactNode } from 'react'
 
 const SIZE = {
-  xs: 'p-1 text-xs ',
-  sm: 'p-2 text-sm ',
-  default: 'p-3 text-base',
-  lg: 'p-5 text-lg ',
+  xs: 'p-1 text-xs min-w-xs',
+  sm: 'p-2 text-sm min-w-sm',
+  default: 'p-3 text-base min-mw-md',
+  lg: 'p-5 text-lg min-w-lg',
   none: '',
 }
 
 const COLORS = {
-  transparent: 'border border-dark-900',
+  transparent: 'border border-purple-500/30',
   default: '',
-  blue: 'bg-blue-500 hover:enabled:shadow-blue/10',
-  green: 'bg-green-500 hover:enabled:shadow-green/10',
-  red: 'bg-red-500 hover:enabled:shadow-red/10',
-  yellow: 'bg-yellow-500 hover:enabled:shadow-yellow/10',
-  pink: 'bg-pink-500 hover:enabled:hadow-pink/10',
-  gray: 'bg-gray-800 hover:enabled:shadow-black/10',
-  gradient:
-    'bg-gradient-to-r from-pink  to-purple  hover:enabled:shadow-pink/10',
+  blue: 'bg-blue-500 shadow-blue ',
+  green: 'bg-green-500 shadow-green ',
+  red: 'bg-red-500 shadow-red ',
+  yellow: 'bg-yellow-500 shadow-yellow ',
+  pink: 'bg-pink-500 shadow-pink ',
+  gray: 'bg-gray-800 shadow-black ',
+  gradient: 'bg-gradient-to-r from-pink  to-purple shadow-pink',
 }
 
 export type ButtonColor =
@@ -40,6 +39,7 @@ export interface ButtonProps
   className?: string
   color?: ButtonColor
   size?: 'xs' | 'sm' | 'lg' | 'default' | 'none'
+  full?: boolean
   ref?: React.Ref<HTMLButtonElement>
 }
 export default function Button({
@@ -47,7 +47,7 @@ export default function Button({
   className = undefined,
   color = 'default',
   size = 'default',
-
+  full,
   ...rest
 }: ButtonProps) {
   return (
@@ -55,7 +55,8 @@ export default function Button({
       className={cn(
         COLORS[color],
         SIZE[size],
-        ' inline-flex w-full items-center justify-center gap-1 rounded text-white drop-shadow-md transition focus:outline-none hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 disabled:drop-shadow-none ',
+        full && 'w-full',
+        ' inline-flex items-center justify-center gap-1 rounded text-white transition  focus:outline-none hover:enabled:shadow-xl hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 ',
         className
       )}
       {...rest}

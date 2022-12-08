@@ -1,0 +1,10 @@
+export enum VIEW {
+  CONNECT,
+  DELEGATE,
+}
+
+export enum REACTOR_STEPS {
+  SETTING_EVENT,
+  SETTING_FUNCTION,
+  READY,
+}

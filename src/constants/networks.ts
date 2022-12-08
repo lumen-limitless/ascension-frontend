@@ -1,6 +1,11 @@
-import { Arbitrum, Chain, ChainId, Mainnet } from '@usedapp/core'
+import { Arbitrum, ChainId, Goerli, Hardhat, Mainnet } from '@usedapp/core'
 
-export const SUPPORTED_CHAINS: Chain[] = [Arbitrum, Mainnet]
+const SUPPORTED_CHAINS_DEV = [Arbitrum, Mainnet]
+const SUPPORTED_CHAINS_PROD = [Arbitrum, Mainnet]
+export const SUPPORTED_CHAINS =
+  process.env.NODE_ENV === 'development'
+    ? SUPPORTED_CHAINS_DEV
+    : SUPPORTED_CHAINS_PROD
 
 export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Arbitrum]:
@@ -25,8 +30,8 @@ export const CHAIN_NAME: { [chainId in ChainId]?: string } = {
 
 export const CHAIN_SYMBOL: { [chainId in ChainId]?: string } = {
   [ChainId.Hardhat]: 'ETH',
-  [ChainId.Arbitrum]: 'aETH',
-  [ChainId.Optimism]: 'oETH',
+  [ChainId.Arbitrum]: 'ETH',
+  [ChainId.Optimism]: 'ETH',
   [ChainId.Mainnet]: 'ETH',
   [ChainId.Goerli]: 'ETH',
   [ChainId.Fantom]: 'FTM',

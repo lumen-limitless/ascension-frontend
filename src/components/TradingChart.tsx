@@ -163,10 +163,10 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
 
   return (
     <>
-      <Card
-        className="grow"
-        header={
-          <div className="flex items-center justify-between p-3">
+      <Card className="grow">
+        <Card.Header>
+          {' '}
+          <div className="flex items-center justify-between">
             <Tabs
               options={['15M', '1H', '6H', '1D', '1W']}
               onTabChange={(e) => {
@@ -174,48 +174,57 @@ export default function TradingChart({ buyToken, dex }: TradingChartProps) {
               }}
             />
           </div>
-        }
-      >
-        {!data ? (
-          <Loader message="Loading graph..." />
-        ) : error ? (
-          <Loader message={`Error loading graph`} />
-        ) : graphData?.length === 0 ? (
-          <Loader message="No Data to show." />
-        ) : (
-          <>
-            <ResponsiveContainer height={250} width="100%">
-              <AreaChart
-                data={graphData}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <defs>
-                  <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#943259" stopOpacity={0.66} />
-                    <stop offset="95%" stopColor="#2d1a62" stopOpacity={0.33} />
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Area
-                  type="monotone"
-                  dataKey="priceUSD"
-                  stroke="#943259"
-                  strokeWidth={3}
-                  fillOpacity={1}
-                  fill="url(#colorUv)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </>
-        )}
+        </Card.Header>
+        <Card.Body>
+          {!data ? (
+            <Loader message="Loading graph..." />
+          ) : error ? (
+            <Loader message={`Error loading graph`} />
+          ) : graphData?.length === 0 ? (
+            <Loader message="No Data to show." />
+          ) : (
+            <>
+              <ResponsiveContainer height={250} width="100%">
+                <AreaChart
+                  data={graphData}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor="#943259"
+                        stopOpacity={0.66}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor="#2d1a62"
+                        stopOpacity={0.33}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="time" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Area
+                    type="monotone"
+                    dataKey="priceUSD"
+                    stroke="#943259"
+                    strokeWidth={3}
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </>
+          )}
+        </Card.Body>
       </Card>
     </>
   )

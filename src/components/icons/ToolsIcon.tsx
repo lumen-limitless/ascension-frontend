@@ -1,8 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 
-type Props = {}
-
-const ToolsIcon: FC<Props> = (props) => {
+const ToolsIcon = (props: any) => {
   return (
     <svg
       width="64"
@@ -10,6 +8,7 @@ const ToolsIcon: FC<Props> = (props) => {
       viewBox="0 0 200 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_28)" />
       <path

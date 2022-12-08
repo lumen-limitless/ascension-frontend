@@ -1,16 +1,18 @@
 import { StateCreator } from 'zustand'
+import { VIEW } from '../constants/enums'
 
 export interface UISlice {
   viewingModal: boolean
-  modalView: JSX.Element | null
+  modalView: VIEW | null
   toggleViewingModal: (isViewing?: boolean) => void
-  setModalView: (view: JSX.Element | null) => void
+  setModalView: (view: VIEW | null) => void
 }
 
-const initialState: { viewingModal: boolean; modalView: JSX.Element | null } = {
+const initialState = {
   viewingModal: false,
   modalView: null,
 }
+
 const createUISlice: StateCreator<
   UISlice,
   [['zustand/devtools', unknown], ['zustand/immer', unknown]],
@@ -19,7 +21,7 @@ const createUISlice: StateCreator<
   ...initialState,
   toggleViewingModal: (isViewing) =>
     set((state) => ({
-      viewingModal: isViewing === undefined ? !state.viewingModal : isViewing,
+      viewingModal: isViewing == null ? !state.viewingModal : isViewing,
     })),
   setModalView: (view) =>
     set({

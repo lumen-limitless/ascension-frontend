@@ -1,4 +1,3 @@
-import { AdjustmentsIcon, DocumentTextIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import Card from '../components/ui/Card'
 import Container from '../components/ui/Container'
@@ -9,7 +8,7 @@ import GovernanceIcon from '../components/icons/GovernanceIcon'
 import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
 import Typography from '../components/ui/Typography'
-import { ArrowRightIcon } from '@heroicons/react/solid'
+
 import { motion } from 'framer-motion'
 import CryptoJinglesIcon from '../components/icons/CryptoJinglesIcon'
 import L2DAOIcon from '../components/icons/L2DAOIcon'
@@ -47,59 +46,60 @@ const HomePage: NextPage = () => {
 
       <Section
         fullscreen
-        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat"
+        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-16"
         id="hero"
       >
         <Container>
-          <div className="flex w-full flex-col items-center justify-center gap-3 text-center">
-            <Card className="border-transparent">
-              {/* <ImageComponent
-                src="/ascension-rise"
-                height={128}
-                width={128}
-                priority
-                className="h-[128px] w-[128px]"
-                alt="Rise of Ascension"
-              /> */}
-              <div className=" flex w-full items-center justify-center ">
-                <Logo size={128} />
+          <div className="space-y-6 text-center xl:mt-12">
+            <div className=" flex w-full items-center justify-center ">
+              <Logo size={128} />
+            </div>
+            <Typography
+              as="h1"
+              className=" text-5xl font-bold text-primary drop-shadow-2xl md:text-6xl lg:text-7xl"
+            >
+              Prepare for{' '}
+              <span className="bg-gradient-to-r from-orange-500 to-yellow bg-clip-text font-extrabold text-transparent ">
+                Ascension
+              </span>
+            </Typography>{' '}
+            <Typography
+              as="p"
+              className="mx-auto p-1 text-xl text-primary drop-shadow-2xl md:py-3 md:px-12 md:text-3xl lg:text-4xl"
+            >
+              Ascension Protocol is a Decentralized Autonomous Organization
+              (DAO) dedicated to providing DeFi tools and opportunities for
+              it&apos;s constituents.
+            </Typography>{' '}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ ease: 'easeOut', delay: 0, duration: 0.99 }}
+            >
+              <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col items-center gap-3 md:gap-6 lg:flex-row  lg:gap-9">
+                <Link href="/dashboard" className="w-full" passHref>
+                  <Button full size="lg" color="gradient">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6"
+                      preserveAspectRatio="xMidYMid meet"
+                      viewBox="0 0 2048 2048"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M512 896h384v1152H512V896zm128 1024h128v-896H640v896zm384-768h384v896h-384v-896zm128 768h128v-640h-128v640zM0 1408h384v640H0v-640zm128 512h128v-384H128v384zM1536 640h384v1408h-384V640zm128 1280h128V768h-128v1152zM1389 621q19 41 19 83q0 40-15 75t-41 61t-61 41t-75 15q-40 0-75-15t-61-41t-41-61t-15-75v-12q0-6 1-12l-188-94q-26 26-61 40t-72 14q-42 0-83-19L365 877q19 41 19 83q0 40-15 75t-41 61t-61 41t-75 15q-40 0-75-15t-61-41t-41-61t-15-75q0-40 15-75t41-61t61-41t75-15q42 0 83 19l256-256q-19-41-19-83q0-40 15-75t41-61t61-41t75-15q40 0 75 15t61 41t41 61t15 75v12q0 6-1 12l188 94q26-26 61-40t72-14q42 0 83 19l256-256q-19-41-19-83q0-40 15-75t41-61t61-41t75-15q40 0 75 15t61 41t41 61t15 75q0 40-15 75t-41 61t-61 41t-75 15q-42 0-83-19l-256 256zM192 1024q26 0 45-19t19-45q0-26-19-45t-45-19q-26 0-45 19t-19 45q0 26 19 45t45 19zm1536-896q-26 0-45 19t-19 45q0 26 19 45t45 19q26 0 45-19t19-45q0-26-19-45t-45-19zM704 512q26 0 45-19t19-45q0-26-19-45t-45-19q-26 0-45 19t-19 45q0 26 19 45t45 19zm512 256q26 0 45-19t19-45q0-26-19-45t-45-19q-26 0-45 19t-19 45q0 26 19 45t45 19z"
+                      />
+                    </svg>
+                    Dashboard
+                  </Button>
+                </Link>
+                <a className="w-full" href="#features">
+                  <Button full size="lg" color="blue">
+                    Learn more
+                  </Button>
+                </a>
               </div>
-              <Typography
-                as="h1"
-                className=" text-5xl font-bold text-white drop-shadow-2xl md:text-6xl lg:text-7xl"
-              >
-                Prepare for{' '}
-                <span className="bg-gradient-to-r from-ascend-orange to-ascend-yellow bg-clip-text font-extrabold text-transparent ">
-                  Ascension
-                </span>
-              </Typography>{' '}
-              <Typography className="mx-auto py-1 text-base text-gray-100 drop-shadow-2xl md:py-3 md:px-12 md:text-2xl">
-                Ascension Protocol is a Decentralized Autonomous Organization
-                (DAO) dedicated to providing DeFi tools and opportunities for
-                it&apos;s constituents.
-              </Typography>{' '}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ ease: 'easeOut', delay: 0.33 }}
-              >
-                <div className="flex w-full flex-col items-center gap-3 px-6 py-6 lg:flex-row">
-                  <Link href="/dashboard">
-                    <a className="w-full">
-                      <Button color="gradient" className="max-w-sm">
-                        <AdjustmentsIcon height={24} /> Dashboard
-                      </Button>
-                    </a>
-                  </Link>
-                  <a className="w-full" href="#features">
-                    <Button color="blue" className="max-w-sm">
-                      Learn more
-                      <ArrowRightIcon height={24} />
-                    </Button>
-                  </a>
-                </div>
-              </motion.div>
-            </Card>
+            </motion.div>
           </div>
         </Container>
       </Section>
@@ -107,29 +107,34 @@ const HomePage: NextPage = () => {
       <Section id="features">
         <Container>
           <div className="flex flex-col py-12">
-            <div className="grid w-full grid-cols-1  gap-9 py-12 md:px-9 xl:grid-cols-3 ">
+            <div className=" grid w-full  grid-cols-1 gap-9 py-12 md:px-9 xl:grid-cols-3 ">
               {features.map((f, i) => (
                 <motion.div
                   initial={{ opacity: 0, y: 33 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ type: 'spring', delay: 0.09 * i }}
+                  transition={{
+                    type: 'spring',
+                    delay: 0.12 * i,
+                  }}
                   key={f.title}
                 >
-                  <Card className=" h-full xl:max-h-96 xl:text-lg">
-                    <div className="flex w-full flex-col justify-center gap-3 p-3">
-                      <div className="flex items-center gap-3 ">
-                        {' '}
-                        {f.icon}
-                        <Typography as="h2" className="text-4xl text-primary">
-                          {f.title}
+                  <Card className=" h-full xl:max-h-96 ">
+                    <Card.Body>
+                      <div className="flex w-full flex-col justify-center gap-3 p-3">
+                        <div className="flex items-center gap-3 ">
+                          {' '}
+                          {f.icon}
+                          <Typography as="h2" className="text-4xl text-primary">
+                            {f.title}
+                          </Typography>
+                        </div>
+
+                        <Typography className="text-secondary">
+                          {f.description}
                         </Typography>
                       </div>
-
-                      <Typography className="text-secondary">
-                        {f.description}
-                      </Typography>
-                    </div>
+                    </Card.Body>
                   </Card>
                 </motion.div>
               ))}
@@ -138,42 +143,41 @@ const HomePage: NextPage = () => {
         </Container>
       </Section>
 
-      <Section id="partners" padding="xs">
+      <Section id="partners" className="py-12">
         <Container>
           <motion.div
             initial={{ opacity: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1 }}
             transition={{ ease: 'easeOut', duration: 1 }}
+            className="w-full py-6 text-center lg:py-9"
           >
-            <div className="w-full py-6 text-center lg:py-9">
-              <Typography
-                as="h3"
-                className="text-shadow text-5xl text-primary md:text-6xl lg:text-7xl"
-              >
-                Partners & Investments
-              </Typography>
-              <div className="my-6 flex w-full flex-wrap items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
-                <ExternalLink href="https://gmx.io/#/?ref=ascension">
-                  <GMXIcon />
-                </ExternalLink>
-                <ExternalLink href="https://frens.ventures/">
-                  <FrensIcon />
-                </ExternalLink>
-                <ExternalLink href="https://cryptojingles.app/">
-                  <CryptoJinglesIcon />
-                </ExternalLink>
-                <ExternalLink href="https://www.layer2dao.org/#/">
-                  <L2DAOIcon />
-                </ExternalLink>
-              </div>
+            <Typography
+              as="h3"
+              className="text-shadow text-5xl text-primary md:text-6xl lg:text-7xl"
+            >
+              Partners & Investments
+            </Typography>
+            <div className="my-6 flex w-full flex-wrap items-center justify-evenly gap-3 md:gap-6 lg:my-12 lg:gap-9">
+              <ExternalLink href="https://gmx.io/#/?ref=ascension">
+                <GMXIcon />
+              </ExternalLink>
+              <ExternalLink href="https://frens.ventures/">
+                <FrensIcon />
+              </ExternalLink>
+              <ExternalLink href="">
+                <CryptoJinglesIcon />
+              </ExternalLink>
+              <ExternalLink href="https://www.layer2dao.org/#/">
+                <L2DAOIcon />
+              </ExternalLink>
             </div>
           </motion.div>
         </Container>
       </Section>
       <></>
-      <Section padding="md" className="" id="cta">
-        <div className="absolute -inset-1 rounded-lg bg-gradient-to-tr from-ascend-purple via-ascend-magenta to-ascend-yellow opacity-70 blur" />
+      <Section className="py-24" id="cta">
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-purple via-pink to-yellow opacity-70 blur" />
         <Container className="max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
@@ -196,8 +200,9 @@ const HomePage: NextPage = () => {
                 rel="noreferrer"
               >
                 <Button
-                  className="bg-[#2AABEE] hover:shadow-[#2AABEE]/10"
                   size="lg"
+                  full
+                  className="bg-[#2AABEE] hover:shadow-[#2AABEE]/10"
                 >
                   {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
@@ -216,8 +221,9 @@ const HomePage: NextPage = () => {
                 rel="noreferrer"
               >
                 <Button
-                  className="bg-[#5865F2] hover:shadow-[#5865F2]/10"
                   size="lg"
+                  full
+                  className="bg-[#5865F2] hover:shadow-[#5865F2]/10"
                 >
                   {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
@@ -236,11 +242,23 @@ const HomePage: NextPage = () => {
                 rel="noreferrer"
               >
                 <Button
-                  className="bg-ascend-purple hover:shadow-ascend-purple/10"
                   size="lg"
+                  full
+                  className="bg-purple hover:shadow-purple/10"
                 >
                   {' '}
-                  <DocumentTextIcon height={24} />
+                  <svg
+                    className="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                   View Documentation
                 </Button>
               </a>
@@ -249,7 +267,7 @@ const HomePage: NextPage = () => {
                 target={'_blank'}
                 rel="noreferrer"
               >
-                <Button color="gray" size="lg">
+                <Button size="lg" full color="gray">
                   <Logo size={24} />
                   Purchase ASCEND
                 </Button>

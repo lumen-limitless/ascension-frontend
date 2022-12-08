@@ -34,7 +34,7 @@ export default function Modal({
               leaveFrom="opacity-100 "
               leaveTo="opacity-0 "
             >
-              <div className="flex h-[75%] w-full transform flex-col overflow-y-auto overflow-x-hidden rounded  bg-dark-900 p-3 transition-all md:h-auto md:max-w-xl  md:p-6 lg:p-9">
+              <div className="flex h-[80%] w-full transform flex-col overflow-y-auto overflow-x-hidden rounded  bg-purple-800 p-3 transition-all md:h-auto md:max-w-xl  md:p-6 lg:p-9">
                 <button onClick={onDismiss} className="absolute top-3 right-3">
                   <svg
                     className="h-6 w-6"

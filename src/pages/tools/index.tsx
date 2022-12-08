@@ -10,30 +10,29 @@ import { NextSeo } from 'next-seo'
 
 const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (
-    <Card
-      header={
+    <Card>
+      <Card.Header>
         <div className="flex place-content-center py-3">
           <Logo size={32} />
         </div>
-      }
-    >
-      <div className="flex flex-col  gap-3">
-        <h1 className="text-center text-xl">{name}</h1>
-        <div className="flex place-content-center">
-          {' '}
-          <Link href={path}>
-            <a>
+      </Card.Header>
+      <Card.Body>
+        <div className="flex flex-col  gap-3">
+          <h1 className="text-center text-xl">{name}</h1>
+          <div className="flex place-content-center">
+            <Link href={path} passHref>
               <Button color="blue">Launch</Button>
-            </a>
-          </Link>
+            </Link>
+          </div>
         </div>
-      </div>
+      </Card.Body>
     </Card>
   )
 }
 
 const tools = [
   { name: 'Ascension Reactor', path: '/tools/reactor' },
+  // { name: 'Ascension BatchSender', path: '/tools/batchsender' },
   // { name: 'Ascension Mercury', path: '/tools/mercury' },
   // { name: 'Ascension Supernova', path: '/tools/supernova' },
 ]
@@ -43,7 +42,7 @@ export default function ToolsPage() {
     <>
       <NextSeo title="Tools" description={`Ascension Protocol tools`} />
 
-      <Section fullscreen padding="md" layout="start">
+      <Section className="py-12">
         <Container>
           <Grid gap={'md'}>
             {tools &&
@@ -54,7 +53,7 @@ export default function ToolsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', delay: i * 0.09 }}
                     key={i}
-                    className="col-span-12  "
+                    className="col-span-12 "
                   >
                     <ToolTile name={t.name} path={t.path} />
                   </motion.div>

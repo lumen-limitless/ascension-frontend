@@ -8,7 +8,9 @@ export const useRequiredBalance = (account: string, amountRequired: number) => {
 
   const pass = useMemo(() => {
     if (!ascendBalance || !stakedBalance) return null
-    return parseBalance(ascendBalance.add(stakedBalance)) >= amountRequired
+    return process.env.NODE_ENV === 'production'
+      ? parseBalance(ascendBalance.add(stakedBalance)) >= amountRequired
+      : true
   }, [ascendBalance, stakedBalance, amountRequired])
 
   return pass

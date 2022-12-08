@@ -1,6 +1,5 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Skeleton from './Skeleton'
-import Card from './Card'
 import { formatBalance, formatPercent } from '../../functions'
 import { BigNumberish } from 'ethers'
 import Typography from './Typography'
@@ -8,9 +7,9 @@ import { commify } from 'ethers/lib/utils'
 
 type Stat = {
   name?: string
-  stat?: string | number | BigNumberish
-  before?: string | JSX.Element
-  after?: string | JSX.Element
+  stat?: BigNumberish
+  before?: React.ReactNode
+  after?: React.ReactNode
   isBalance?: boolean
   isPercent?: boolean
 }
@@ -19,7 +18,7 @@ export interface StatProps {
   maxCols?: number
   stats?: Stat[]
 }
-export default function Stat({ title, stats, maxCols }: StatProps) {
+export default function Stat({ title, stats }: StatProps) {
   return (
     <div>
       <Typography as="h3" className="text-lg font-medium leading-6 ">
@@ -29,7 +28,10 @@ export default function Stat({ title, stats, maxCols }: StatProps) {
       <dl className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3 ">
         {stats &&
           stats.map((item, i) => (
-            <Card key={i}>
+            <div
+              className="relative h-full flex-1  flex-grow rounded bg-purple-900/60 p-4 shadow-pink-glow ring-2 ring-purple-500/30 backdrop-blur transition-all hover:shadow-pink-glow-hovered "
+              key={i}
+            >
               <dt className="truncate text-sm font-medium text-secondary">
                 {item?.name && item.name}
               </dt>
@@ -50,7 +52,7 @@ export default function Stat({ title, stats, maxCols }: StatProps) {
                   <Skeleton />
                 )}
               </dd>
-            </Card>
+            </div>
           ))}
       </dl>
     </div>
