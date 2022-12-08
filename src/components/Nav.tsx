@@ -84,11 +84,14 @@ const Connection = ({
       ) : (
         <>
           <Popover>
-            <Popover.Button as="div">
+            <Popover.Button
+              className={
+                'inline-flex rounded border border-purple-500/30 p-3 hover:brightness-125'
+              }
+            >
               <span className="sr-only">change network</span>
-              <Button className="border border-purple-500/30">
-                {chainId && <ChainIcon chainId={chainId} />}
-              </Button>
+
+              {chainId && <ChainIcon chainId={chainId} />}
             </Popover.Button>
             <Popover.Panel
               className={
@@ -100,14 +103,17 @@ const Connection = ({
           </Popover>
 
           <Popover>
-            <Popover.Button as="div">
+            <Popover.Button
+              className={
+                'inline-flex rounded border border-purple-500/30 p-3 hover:brightness-125'
+              }
+            >
               <span className="sr-only">view account</span>
-              <Button className="border border-purple-500/30">
-                <Avatar
-                  size={24}
-                  address={account ?? ethers.constants.AddressZero}
-                />
-              </Button>
+
+              <Avatar
+                size={24}
+                address={account ?? ethers.constants.AddressZero}
+              />
             </Popover.Button>
             <Popover.Panel
               className={
@@ -146,25 +152,28 @@ export default function Nav() {
             switchNetwork={switchNetwork}
           />
 
-          <Popover.Button as="div">
+          <Popover.Button
+            className={
+              'inline-flex rounded border border-purple-500/30 p-3 hover:brightness-125'
+            }
+          >
             <span className="sr-only">Open menu</span>
-            <Button color="transparent">
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden={true}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h7"
-                />
-              </svg>
-            </Button>
+
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden={true}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
           </Popover.Button>
         </div>
         <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
