@@ -77,7 +77,7 @@ const HomePage: NextPage = () => {
               transition={{ ease: 'easeOut', delay: 0, duration: 0.99 }}
             >
               <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col items-center gap-3 md:gap-6 lg:flex-row  lg:gap-9">
-                <Link href="/dashboard" className="w-full" passHref>
+                <Link href="/dashboard" passHref>
                   <Button full size="lg" color="gradient">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

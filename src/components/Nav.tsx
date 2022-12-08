@@ -178,24 +178,21 @@ export default function Nav() {
         </div>
         <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
           <Popover.Group as="div" className="flex space-x-10">
-            <Link
-              href="/"
-              className=" text-base font-medium text-secondary transition hover:text-primary"
-            >
-              Home
+            <Link href="/">
+              <a className=" text-base font-medium text-secondary transition hover:text-primary">
+                Home
+              </a>
             </Link>
-            <Link
-              href="/dashboard"
-              className="text-base font-medium text-secondary transition hover:text-primary"
-            >
-              Dashboard
+            <Link href="/dashboard">
+              <a className="text-base font-medium text-secondary transition hover:text-primary">
+                Dashboard
+              </a>
             </Link>
 
-            <Link
-              href="/stake"
-              className="text-base font-medium text-secondary transition hover:text-primary"
-            >
-              Stake
+            <Link href="/stake">
+              <a className="text-base font-medium text-secondary transition hover:text-primary">
+                Stake
+              </a>
             </Link>
 
             <Popover>
@@ -247,11 +244,8 @@ export default function Nav() {
                 >
                   <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="bg-purple-1000 p-5">
-                      <Link
-                        href={'/tools/reactor'}
-                        className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700"
-                      >
-                        <>
+                      <Link href={'/tools/reactor'}>
+                        <a className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700">
                           <div className="flex items-center">
                             <div className="text-base font-medium text-primary">
                               Ascension Reactor
@@ -261,7 +255,7 @@ export default function Nav() {
                           <p className="mt-1 text-sm text-gray-500">
                             Watch and react instantly to blockchain events
                           </p>
-                        </>
+                        </a>
                       </Link>
 
                       {/* <Link href={'/tools/batchsender'} legacyBehavior>
@@ -279,7 +273,7 @@ export default function Nav() {
                         </a>
                       </Link> */}
 
-                      <Link href={'/tools'} legacyBehavior>
+                      <Link href={'/tools'}>
                         <a className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700">
                           <div className="flex items-center">
                             <div className="text-base font-medium text-primary">
@@ -349,37 +343,41 @@ export default function Nav() {
             </div>
             <div className="py-6">
               <div className="flex flex-col gap-6 text-center">
-                <Link
-                  href="/"
-                  className=" text-base font-medium text-primary   "
-                >
-                  <Popover.Button className={'w-full'}>Home</Popover.Button>
+                <Link href="/" passHref>
+                  <Popover.Button
+                    className={
+                      '  className=" w-full text-base font-medium   text-primary'
+                    }
+                  >
+                    Home
+                  </Popover.Button>
                 </Link>
 
                 <Divider />
 
-                <Link
-                  href="/dashboard"
-                  className="text-base font-medium text-primary  "
-                >
-                  <Popover.Button className={'w-full '}>
+                <Link href="/dashboard" passHref>
+                  <Popover.Button
+                    className={'w-fulltext-base font-medium text-primary  '}
+                  >
                     Dashboard
                   </Popover.Button>
                 </Link>
 
                 <Divider />
-                <Link
-                  href="/stake"
-                  className="text-base font-medium text-primary  "
-                >
-                  <Popover.Button className={'w-full'}>Stake</Popover.Button>
+                <Link href="/stake" passHref>
+                  <Popover.Button
+                    className={'w-full text-base font-medium text-primary'}
+                  >
+                    Stake
+                  </Popover.Button>
                 </Link>
                 <Divider />
-                <Link
-                  href="/tools"
-                  className="text-base font-medium text-primary"
-                >
-                  <Popover.Button className={'w-full'}>Tools</Popover.Button>
+                <Link href="/tools" passHref>
+                  <Popover.Button
+                    className={'w-full text-base font-medium text-primary'}
+                  >
+                    Tools
+                  </Popover.Button>
                 </Link>
                 <Divider />
               </div>
