@@ -13,7 +13,7 @@ const { withSentryConfig } = require('@sentry/nextjs')
 
 const moduleExports = {
   reactStrictMode: true,
-
+  trailingSlash: true,
   sentry: {
     // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`
     // for client-side builds. (This will be the default starting in
