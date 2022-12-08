@@ -7,11 +7,11 @@ const Custom404Page: NextPage = () => {
     <div className="flex min-h-full flex-grow flex-col pt-8 pb-12">
       <div className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-4 sm:px-6 lg:px-8">
         <div className="flex flex-shrink-0 justify-center">
-          <Link href="/">
-            <a className="inline-flex">
+          <Link href="/" className="inline-flex">
+            <>
               <span className="sr-only">Your Company</span>
               <Logo size={64} />
-            </a>
+            </>
           </Link>
         </div>
         <div className="py-16">
@@ -24,10 +24,13 @@ const Custom404Page: NextPage = () => {
               Sorry, we couldn’t find the page you’re looking for.
             </p>
             <div className="mt-6">
-              <Link href="/">
-                <a className="text-base font-medium text-indigo-600 hover:text-indigo-500">
+              <Link
+                href="/"
+                className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                <>
                   Go back home <span aria-hidden="true"> &rarr;</span>
-                </a>
+                </>
               </Link>
             </div>
           </div>

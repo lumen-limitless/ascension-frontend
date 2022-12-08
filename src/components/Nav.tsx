@@ -86,7 +86,7 @@ const Connection = ({
           <Popover>
             <Popover.Button
               className={
-                'inline-flex rounded border border-purple-500/30 p-3 hover:brightness-125'
+                'inline-flex rounded border border-purple-500/50 p-3 hover:brightness-125'
               }
             >
               <span className="sr-only">change network</span>
@@ -95,7 +95,7 @@ const Connection = ({
             </Popover.Button>
             <Popover.Panel
               className={
-                'absolute z-20  mt-3 -ml-12  min-w-max   transform rounded border-2 border-purple-500/30 bg-purple-900 p-3 lg:max-w-3xl'
+                'absolute z-20  mt-3 -ml-12  min-w-max   transform rounded border-2 border-purple-500/50 bg-purple-900 p-3 lg:max-w-3xl'
               }
             >
               <Network />
@@ -105,7 +105,7 @@ const Connection = ({
           <Popover>
             <Popover.Button
               className={
-                'inline-flex rounded border border-purple-500/30 p-3 hover:brightness-125'
+                'inline-flex rounded border border-purple-500/50 p-3 hover:brightness-125'
               }
             >
               <span className="sr-only">view account</span>
@@ -117,7 +117,7 @@ const Connection = ({
             </Popover.Button>
             <Popover.Panel
               className={
-                'absolute left-0 z-20 w-screen transform rounded border-2 border-purple-500/30 bg-purple-900 p-3 md:left-auto md:mt-3 md:-ml-64 md:w-auto'
+                'absolute left-0 z-20 w-screen transform rounded border-2 border-purple-500/50 bg-purple-900 p-3 md:left-auto md:mt-3 md:-ml-64 md:w-auto'
               }
             >
               <Account />
@@ -154,7 +154,7 @@ export default function Nav() {
 
           <Popover.Button
             className={
-              'inline-flex rounded border border-purple-500/30 p-3 hover:brightness-125'
+              'inline-flex rounded border border-purple-500/50 p-3 hover:brightness-125'
             }
           >
             <span className="sr-only">Open menu</span>
@@ -243,7 +243,7 @@ export default function Nav() {
               >
                 <Popover.Panel
                   static
-                  className="absolute z-20 -ml-4 min-w-max  max-w-md transform rounded border-2 border-purple-500/30 bg-purple-900 lg:max-w-3xl "
+                  className="absolute z-20 -ml-4 min-w-max  max-w-md transform rounded border-2 border-purple-500/50 bg-purple-900 lg:max-w-3xl "
                 >
                   <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="bg-purple-1000 p-5">
