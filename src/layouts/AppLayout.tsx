@@ -52,7 +52,7 @@ export default function AppLayout({ children }) {
       <header
         id="header"
         className={
-          'sticky top-0 z-20 border-b-2 border-purple-500/30 bg-purple-900/60 backdrop-blur'
+          'sticky top-0 z-20 border-b-2 border-purple-500/50 bg-purple-900/60 backdrop-blur'
         }
       >
         <Nav />
