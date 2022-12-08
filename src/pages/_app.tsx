@@ -36,6 +36,7 @@ const config: Config = {
     coinbase: new CoinbaseWalletConnector(),
   },
   fastMulticallEncoding: true,
+  noMetamaskDeactivate: true,
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

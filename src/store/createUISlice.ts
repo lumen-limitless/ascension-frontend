@@ -1,9 +1,6 @@
 import { StateCreator } from 'zustand'
+import { VIEW } from '../constants/enums'
 
-export enum VIEW {
-  CONNECT,
-  DELEGATE,
-}
 export interface UISlice {
   viewingModal: boolean
   modalView: VIEW | null
@@ -11,10 +8,11 @@ export interface UISlice {
   setModalView: (view: VIEW | null) => void
 }
 
-const initialState: { viewingModal: boolean; modalView: VIEW | null } = {
+const initialState = {
   viewingModal: false,
   modalView: null,
 }
+
 const createUISlice: StateCreator<
   UISlice,
   [['zustand/devtools', unknown], ['zustand/immer', unknown]],
@@ -23,7 +21,7 @@ const createUISlice: StateCreator<
   ...initialState,
   toggleViewingModal: (isViewing) =>
     set((state) => ({
-      viewingModal: isViewing === undefined ? !state.viewingModal : isViewing,
+      viewingModal: isViewing == null ? !state.viewingModal : isViewing,
     })),
   setModalView: (view) =>
     set({

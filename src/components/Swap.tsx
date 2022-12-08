@@ -15,7 +15,7 @@ import {
   HOME_CHAINID,
   USDC_ADDRESS,
 } from '../constants'
-import Dropdown from './ui/Drowdown'
+import Dropdown from './ui/Dropdown'
 import { formatBalance, isAddress } from '../functions'
 import { Token } from '../types'
 import Button from './ui/Button'

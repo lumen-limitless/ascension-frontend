@@ -16,7 +16,7 @@ export const Input = React.memo(
   } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) => {
     return (
       <>
-        <div className="relative flex w-full items-center justify-center">
+        <div className="relative flex w-full max-w-3xl items-center justify-center">
           <input
             value={value}
             onChange={(event) => {

@@ -3,13 +3,25 @@ import Home from '../src/pages/index'
 import '@testing-library/jest-dom'
 
 describe('Home', () => {
-  it('renders a heading', () => {
+  it('renders the Homepage', () => {
     render(<Home />)
 
-    const heading = screen.getByRole('heading', {
-      name: 'Prepare for Ascension',
-    })
+    expect(
+      screen.getByRole('heading', {
+        name: 'Prepare for Ascension',
+      })
+    ).toBeInTheDocument()
 
-    expect(heading).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', {
+        name: 'Partners & Investments',
+      })
+    ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('heading', {
+        name: 'Join the Ascension',
+      })
+    ).toBeInTheDocument()
   })
 })

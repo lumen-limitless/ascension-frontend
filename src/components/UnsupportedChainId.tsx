@@ -1,22 +1,19 @@
 import { ChainId, useEthers } from '@usedapp/core'
-import { FC } from 'react'
 import { CHAIN_NAME } from '../constants'
+import ChainIcon from './icons/ChainIcon'
 import Button from './ui/Button'
 import Card from './ui/Card'
-import Grid from './ui/Grid'
 import Typography from './ui/Typography'
 
-interface UnsupporteChainIdProps {
-  supportedChainIds?: ChainId[]
-}
-const UnsupportedChainId: FC<UnsupporteChainIdProps> = ({
+export default function UnsupportedChainId({
   supportedChainIds,
-}) => {
+}: {
+  supportedChainIds: ChainId[]
+}) {
   const { switchNetwork } = useEthers()
   return (
     <Card>
       <Card.Header>
-        {' '}
         <div className="flex w-full justify-center p-3">
           <Typography centered variant="lg" as="h1">
             Please Connect to A Supported Network
@@ -24,24 +21,19 @@ const UnsupportedChainId: FC<UnsupporteChainIdProps> = ({
         </div>
       </Card.Header>
       <Card.Body>
-        <Grid gap="md">
-          {supportedChainIds.map((supportedChainId) => (
-            <div
+        <div className="flex flex-col gap-3">
+          {supportedChainIds.map((supportedChainId: ChainId) => (
+            <Button
               key={supportedChainId}
-              className="col-span-6 flex place-content-center"
+              color="blue"
+              onClick={() => switchNetwork(supportedChainId)}
             >
-              <Button
-                color="blue"
-                onClick={() => switchNetwork(supportedChainId)}
-              >
-                Connect to {CHAIN_NAME[supportedChainId]}
-              </Button>
-            </div>
+              <ChainIcon chainId={supportedChainId} />
+              Connect to {CHAIN_NAME[supportedChainId]}
+            </Button>
           ))}
-        </Grid>
+        </div>
       </Card.Body>
     </Card>
   )
 }
-
-export default UnsupportedChainId

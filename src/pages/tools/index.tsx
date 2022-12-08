@@ -12,7 +12,6 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (
     <Card>
       <Card.Header>
-        {' '}
         <div className="flex place-content-center py-3">
           <Logo size={32} />
         </div>
@@ -21,7 +20,6 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
         <div className="flex flex-col  gap-3">
           <h1 className="text-center text-xl">{name}</h1>
           <div className="flex place-content-center">
-            {' '}
             <Link href={path} passHref>
               <Button color="blue">Launch</Button>
             </Link>
@@ -34,7 +32,7 @@ const ToolTile = ({ path, name }: { path: string; name: string }) => {
 
 const tools = [
   { name: 'Ascension Reactor', path: '/tools/reactor' },
-  { name: 'Ascension BatchSender', path: '/tools/batchsender' },
+  // { name: 'Ascension BatchSender', path: '/tools/batchsender' },
   // { name: 'Ascension Mercury', path: '/tools/mercury' },
   // { name: 'Ascension Supernova', path: '/tools/supernova' },
 ]
@@ -55,7 +53,7 @@ export default function ToolsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', delay: i * 0.09 }}
                     key={i}
-                    className="col-span-12 md:col-span-6 "
+                    className="col-span-12 "
                   >
                     <ToolTile name={t.name} path={t.path} />
                   </motion.div>

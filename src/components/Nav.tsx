@@ -15,7 +15,7 @@ import Account from './views/Account'
 import Network from './views/Network'
 import { ethers } from 'ethers'
 import { HOME_CHAINID } from '../constants'
-import { VIEW } from '../store/createUISlice'
+import { VIEW } from '../constants/enums'
 
 const Connection = ({
   chainId,
@@ -26,7 +26,7 @@ const Connection = ({
   switchNetwork,
 }) => {
   return (
-    <>
+    <div className="flex gap-1">
       {!account ? (
         <Button color="blue" onClick={() => setModalView(VIEW.CONNECT)}>
           <svg
@@ -82,7 +82,7 @@ const Connection = ({
           )}
         </>
       ) : (
-        <Popover.Group className={'flex gap-1'}>
+        <>
           <Popover>
             <Popover.Button as="div">
               <span className="sr-only">change network</span>
@@ -117,9 +117,9 @@ const Connection = ({
               <Account />
             </Popover.Panel>
           </Popover>
-        </Popover.Group>
+        </>
       )}
-    </>
+    </div>
   )
 }
 
@@ -247,7 +247,6 @@ export default function Nav() {
                             <div className="text-base font-medium text-primary">
                               Ascension Reactor
                             </div>
-                            <Badge text="new" />
                             <Badge text="beta" />
                           </div>
                           <p className="mt-1 text-sm text-gray-500">
@@ -256,7 +255,7 @@ export default function Nav() {
                         </>
                       </Link>
 
-                      <Link href={'/tools/batchsender'} legacyBehavior>
+                      {/* <Link href={'/tools/batchsender'} legacyBehavior>
                         <a className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700">
                           <div className="flex items-center">
                             <div className="text-base font-medium text-primary">
@@ -269,7 +268,7 @@ export default function Nav() {
                             Batch asset transfers into one transaction
                           </p>
                         </a>
-                      </Link>
+                      </Link> */}
 
                       <Link href={'/tools'} legacyBehavior>
                         <a className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700">

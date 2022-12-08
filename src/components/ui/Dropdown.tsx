@@ -18,7 +18,7 @@ export default function Dropdown({
   ...rest
 }: DropdownProps) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block min-w-max text-left">
       <div>
         <Menu.Button as={Fragment}>
           <button className="inline-flex rounded p-3 ring-2 ring-purple-500/50">

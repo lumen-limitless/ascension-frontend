@@ -2,8 +2,8 @@ import dynamic from 'next/dynamic'
 import Footer from '../components/Footer'
 import Modal from '../components/ui/Modal'
 import Spinner from '../components/ui/Spinner'
+import { VIEW } from '../constants/enums'
 import { useNetworkNotifications, useUI } from '../hooks'
-import { VIEW } from '../store/createUISlice'
 
 const Toaster = dynamic(
   () => import('react-hot-toast').then((mod) => mod.Toaster),
@@ -46,9 +46,9 @@ export default function AppLayout({ children }) {
       </a>
       <Toaster position="bottom-right" containerClassName=" mb-3 md:mb-9" />
       <ModalUI />
-      <div className="flex hidden items-center justify-center bg-blue text-center">
+      {/* <div className="flex items-center justify-center bg-blue text-center">
         Banner
-      </div>
+      </div> */}
       <header
         id="header"
         className={

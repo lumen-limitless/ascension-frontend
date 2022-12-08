@@ -31,8 +31,8 @@ import ChainIcon from '../components/icons/ChainIcon'
 import Toggle from '../components/ui/Toggle'
 import { useBoolean } from 'react-use'
 import { NextSeo } from 'next-seo'
-import { VIEW } from '../store/createUISlice'
 import { motion } from 'framer-motion'
+import { VIEW } from '../constants/enums'
 
 const useStakingCalls = () => {
   const { account } = useEthers()
@@ -124,7 +124,7 @@ const StakePage: NextPage = () => {
     if (!totalStaked) return null
     const r = parseBalance(rewardRate)
     const t = parseBalance(totalStaked)
-    return ((r * 31557600) / t) * 100
+    return ((r * Math.floor(31557600)) / t) * 100
   }, [rewardRate, totalStaked])
 
   const handleAmountInput = (input: string) => {

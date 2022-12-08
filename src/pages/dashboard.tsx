@@ -76,6 +76,7 @@ const DashboardPage: NextPage = () => {
 
   const { data, error } = useMoralisNFT(ASCENSION_TREASURY_MAINNET)
   console.debug(data)
+
   const stakingData = useStakingSubgraph()
 
   const priceData = useQuery(

@@ -1,11 +1,6 @@
 import { StateCreator } from 'zustand'
+import { REACTOR_STEPS } from '../constants/enums'
 import { ContractEvent, ContractFunction } from '../types'
-
-export enum STEPS {
-  SETTING_EVENT,
-  SETTING_FUNCTION,
-  READY,
-}
 
 export interface ReactorSlice {
   eventInfo: {
@@ -21,8 +16,8 @@ export interface ReactorSlice {
     args: any[]
     value: string
   }
-  step: STEPS
-  setStep: (step: STEPS) => void
+  step: REACTOR_STEPS
+  setStep: (step: REACTOR_STEPS) => void
   reset: () => void
   clearEvent: () => void
   clearFunction: () => void
@@ -49,7 +44,7 @@ const initialState = {
     args: [],
     value: '',
   },
-  step: STEPS.SETTING_EVENT,
+  step: REACTOR_STEPS.SETTING_EVENT,
 }
 
 const TYPES = {

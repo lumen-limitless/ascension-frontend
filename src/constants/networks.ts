@@ -1,6 +1,11 @@
-import { Arbitrum, Chain, ChainId, Mainnet } from '@usedapp/core'
+import { Arbitrum, ChainId, Goerli, Hardhat, Mainnet } from '@usedapp/core'
 
-export const SUPPORTED_CHAINS: Chain[] = [Arbitrum, Mainnet]
+const SUPPORTED_CHAINS_DEV = [Arbitrum, Mainnet]
+const SUPPORTED_CHAINS_PROD = [Arbitrum, Mainnet]
+export const SUPPORTED_CHAINS =
+  process.env.NODE_ENV === 'development'
+    ? SUPPORTED_CHAINS_DEV
+    : SUPPORTED_CHAINS_PROD
 
 export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Arbitrum]:
