@@ -8,10 +8,8 @@ export const SUPPORTED_CHAINS =
     : SUPPORTED_CHAINS_PROD
 
 export const RPC: { [chainId in ChainId]?: string } = {
-  [ChainId.Arbitrum]:
-    'https://arb-mainnet.g.alchemy.com/v2/Xpu3xuFHbBEKuScjXwICcPUXBv-JK6Kd',
-  [ChainId.Mainnet]:
-    'https://eth-mainnet.g.alchemy.com/v2/U_UAKx6kDChbizvp1_WVIWRCcXbZy8nI',
+  [ChainId.Arbitrum]: `https://arb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY_ARB}`,
+  [ChainId.Mainnet]: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY_MAINNET}`,
 }
 
 export const CHAIN_NAME: { [chainId in ChainId]?: string } = {

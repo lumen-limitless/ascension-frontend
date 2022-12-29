@@ -29,7 +29,7 @@ export default function Stat({ title, stats }: StatProps) {
         {stats &&
           stats.map((item, i) => (
             <div
-              className="relative h-full flex-1  flex-grow rounded bg-purple-900/60 p-4 shadow-pink-glow ring-2 ring-purple-500/30 backdrop-blur transition-all hover:shadow-pink-glow-hovered "
+              className="relative h-full flex-1  flex-grow rounded bg-purple-900/60 p-4 shadow-pink-glow ring-2 ring-purple-500/50 backdrop-blur transition-all hover:shadow-pink-glow-hovered "
               key={i}
             >
               <dt className="truncate text-sm font-medium text-secondary">

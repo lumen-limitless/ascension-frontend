@@ -4,12 +4,12 @@ import Logo from '../components/ui/Logo'
 
 const Custom404Page: NextPage = () => {
   return (
-    <div className="flex min-h-full flex-grow flex-col pt-8 pb-12">
+    <div className="flex min-h-full flex-grow flex-col py-24">
       <div className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-4 sm:px-6 lg:px-8">
         <div className="flex flex-shrink-0 justify-center">
           <Link href="/" className="inline-flex">
             <>
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">Ascension Protocol</span>
               <Logo size={64} />
             </>
           </Link>

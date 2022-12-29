@@ -39,17 +39,18 @@ export function useAscendSubgraph(account: string): {
   return data.users[0]
 }
 
+const GET_STAKING_DATA = gql`
+  query StakingMetric {
+    stakingMetrics {
+      id
+      totalStaked
+    }
+  }
+`
 export const useStakingSubgraph = () => {
   const stakingData = useQuery(
     'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
-    gql`
-      query StakingMetric {
-        stakingMetrics {
-          id
-          totalStaked
-        }
-      }
-    `
+    GET_STAKING_DATA
   )
 
   return stakingData

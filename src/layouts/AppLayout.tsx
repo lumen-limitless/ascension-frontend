@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic'
 import Footer from '../components/Footer'
+import Nav from '../components/Nav'
 import Modal from '../components/ui/Modal'
 import Spinner from '../components/ui/Spinner'
+import Connect from '../components/views/Connect'
 import { VIEW } from '../constants/enums'
 import { useNetworkNotifications, useUI } from '../hooks'
 
@@ -9,13 +11,7 @@ const Toaster = dynamic(
   () => import('react-hot-toast').then((mod) => mod.Toaster),
   { ssr: false }
 )
-const Nav = dynamic(() => import('../components/Nav'), {
-  ssr: false,
-})
-const Connect = dynamic(() => import('../components/views/Connect'), {
-  ssr: false,
-  loading: () => <Spinner />,
-})
+
 const Delegate = dynamic(() => import('../components/views/Delegate'), {
   ssr: false,
   loading: () => <Spinner />,
@@ -52,7 +48,7 @@ export default function AppLayout({ children }) {
       <header
         id="header"
         className={
-          'sticky top-0 z-20 border-b-2 border-purple-500/50 bg-purple-900/60 backdrop-blur'
+          'fixed w-full top-0 z-20 border-b-2 border-purple-500/50  bg-purple-900/80 backdrop-blur'
         }
       >
         <Nav />

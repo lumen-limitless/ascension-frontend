@@ -26,7 +26,7 @@ export default function ToolLayout({
     <>
       <NextSeo title={title} description={description} />
 
-      <Section className="py-20">
+      <Section className="py-24">
         <Container>
           {' '}
           {!account ? (

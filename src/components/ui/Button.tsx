@@ -1,12 +1,11 @@
-import React from 'react'
 import cn from 'clsx'
 import { ReactNode } from 'react'
 
 const SIZE = {
-  xs: 'p-1 text-xs min-w-xs',
-  sm: 'p-2 text-sm min-w-sm',
-  default: 'p-3 text-base min-mw-md',
-  lg: 'p-5 text-lg min-w-lg',
+  xs: 'p-1 text-xs ',
+  sm: 'p-2 text-sm ',
+  default: 'p-3 text-base ',
+  lg: 'p-5 text-lg ',
   none: '',
 }
 
@@ -18,7 +17,7 @@ const COLORS = {
   red: 'bg-red-500 shadow-red ',
   yellow: 'bg-yellow-500 shadow-yellow ',
   pink: 'bg-pink-500 shadow-pink ',
-  gray: 'bg-gray-800 shadow-black ',
+  gray: 'bg-gray-900 shadow-black ',
   gradient: 'bg-gradient-to-r from-pink  to-purple shadow-pink',
 }
 

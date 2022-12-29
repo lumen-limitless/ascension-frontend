@@ -2,47 +2,33 @@ import Card from '../../components/ui/Card'
 import Container from '../../components/ui/Container'
 import Button from '../../components/ui/Button'
 import Link from 'next/link'
-import Logo from '../../components/ui/Logo'
 import Grid from '../../components/ui/Grid'
 import Section from '../../components/ui/Section'
 import { motion } from 'framer-motion'
 import { NextSeo } from 'next-seo'
+import ReactorIcon from '../../components/icons/ReactorIcon'
 
 const ToolTile = ({ path, name }: { path: string; name: string }) => {
   return (
-    <Card>
-      <Card.Header>
-        <div className="flex place-content-center py-3">
-          <Logo size={32} />
+    <>
+      <Link href={path} passHref>
+        <div className="flex flex-col gap-3 items-center justify-center p-6 bg-gradient-to-br from-gray-800 to-gray-900 ring ring-black shadow hover:brightness-125 rounded-xl max-w-max mx-auto">
+          <ReactorIcon size={64} />
+          <span className="text-center">{name}</span>
         </div>
-      </Card.Header>
-      <Card.Body>
-        <div className="flex flex-col  gap-3">
-          <h1 className="text-center text-xl">{name}</h1>
-          <div className="flex place-content-center">
-            <Link href={path} passHref>
-              <Button color="blue">Launch</Button>
-            </Link>
-          </div>
-        </div>
-      </Card.Body>
-    </Card>
+      </Link>
+    </>
   )
 }
 
-const tools = [
-  { name: 'Ascension Reactor', path: '/tools/reactor' },
-  // { name: 'Ascension BatchSender', path: '/tools/batchsender' },
-  // { name: 'Ascension Mercury', path: '/tools/mercury' },
-  // { name: 'Ascension Supernova', path: '/tools/supernova' },
-]
+const tools = [{ name: 'Ascension Reactor', path: '/tools/reactor' }]
 
 export default function ToolsPage() {
   return (
     <>
       <NextSeo title="Tools" description={`Ascension Protocol tools`} />
 
-      <Section className="py-12">
+      <Section className="py-24">
         <Container>
           <Grid gap={'md'}>
             {tools &&
@@ -53,7 +39,7 @@ export default function ToolsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', delay: i * 0.09 }}
                     key={i}
-                    className="col-span-12 "
+                    className="col-span-12 place-content-center"
                   >
                     <ToolTile name={t.name} path={t.path} />
                   </motion.div>

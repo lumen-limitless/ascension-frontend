@@ -1,7 +1,3 @@
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Container({
   children,
   className = '',
@@ -13,7 +9,9 @@ export default function Container({
 }) {
   return (
     <div
-      className={cn(className, 'container z-10 mx-auto px-3 md:px-6 lg:px-9')}
+      className={[className, 'container z-10 mx-auto px-3 md:px-9 lg:px-27']
+        .filter(Boolean)
+        .join(' ')}
       id={id}
     >
       {children}

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import IERC20 from '@openzeppelin/contracts/build/contracts/IERC20.json'
+import IERC20 from '../json/erc20.abi.json'
 import { ASCENSION } from '../constants'
 import { ChainId, Falsy } from '@usedapp/core'
 import {
@@ -29,7 +29,7 @@ export const useTokenContract = (
   tokenAddress: string,
   chainId?: ChainId
 ): Contract | null => {
-  return useContract(tokenAddress, IERC20.abi)
+  return useContract(tokenAddress, IERC20)
 }
 
 export const useAscendTokenContract = () => {

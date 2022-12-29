@@ -13,7 +13,6 @@ const { withSentryConfig } = require('@sentry/nextjs')
 
 const moduleExports = {
   reactStrictMode: true,
-  trailingSlash: true,
 
   sentry: {
     // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`
@@ -23,7 +22,6 @@ const moduleExports = {
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#use-hidden-source-map
     // for more information.
     hideSourceMaps: true,
-    disableServerWebpackPlugin: true,
   },
 }
 
@@ -41,6 +39,6 @@ const sentryWebpackPluginOptions = {
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withBundleAnalyzer(
-  withSentryConfig(moduleExports, sentryWebpackPluginOptions)
-)
+module.exports = process.env.ANALYZE
+  ? withBundleAnalyzer(moduleExports)
+  : withSentryConfig(moduleExports, sentryWebpackPluginOptions)

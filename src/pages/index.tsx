@@ -46,7 +46,7 @@ const HomePage: NextPage = () => {
 
       <Section
         fullscreen
-        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-3 md:py-9 lg:py-12 xl:py-16"
+        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-24 "
         id="hero"
       >
         <Container>
@@ -62,7 +62,7 @@ const HomePage: NextPage = () => {
               <span className="bg-gradient-to-r from-orange-500 to-yellow bg-clip-text font-extrabold text-transparent ">
                 Ascension
               </span>
-            </Typography>{' '}
+            </Typography>
             <Typography
               as="p"
               className="mx-auto p-1 text-xl text-primary drop-shadow-2xl md:py-3 md:px-12 md:text-3xl lg:text-4xl"
@@ -70,7 +70,7 @@ const HomePage: NextPage = () => {
               Ascension Protocol is a Decentralized Autonomous Organization
               (DAO) dedicated to providing DeFi tools and opportunities for
               it&apos;s constituents.
-            </Typography>{' '}
+            </Typography>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -104,41 +104,39 @@ const HomePage: NextPage = () => {
         </Container>
       </Section>
 
-      <Section id="features">
+      <Section id="features" className="py-12">
         <Container>
-          <div className="flex flex-col py-12">
-            <div className=" grid w-full  grid-cols-1 gap-9 py-12 md:px-9 xl:grid-cols-3 ">
-              {features.map((f, i) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 33 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    type: 'spring',
-                    delay: 0.12 * i,
-                  }}
-                  key={f.title}
-                >
-                  <Card className=" h-full xl:max-h-96 ">
-                    <Card.Body>
-                      <div className="flex w-full flex-col justify-center gap-3 p-3">
-                        <div className="flex items-center gap-3 ">
-                          {' '}
-                          {f.icon}
-                          <Typography as="h2" className="text-4xl text-primary">
-                            {f.title}
-                          </Typography>
-                        </div>
-
-                        <Typography className="text-secondary">
-                          {f.description}
+          <div className="flex flex-col md:flex-row gap-9">
+            {features.map((f, i) => (
+              <motion.div
+                initial={{ opacity: 0, y: 33 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  type: 'spring',
+                  delay: 0.12 * i,
+                }}
+                key={f.title}
+                className="w-full"
+              >
+                <Card className="h-full ">
+                  <Card.Body>
+                    <div className="flex w-full flex-col justify-center gap-3 p-3">
+                      <div className="flex items-center gap-3 ">
+                        {f.icon}
+                        <Typography as="h2" className="text-4xl text-primary">
+                          {f.title}
                         </Typography>
                       </div>
-                    </Card.Body>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+
+                      <Typography className="text-secondary">
+                        {f.description}
+                      </Typography>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </Container>
       </Section>
@@ -204,7 +202,6 @@ const HomePage: NextPage = () => {
                   full
                   className="bg-[#2AABEE] hover:shadow-[#2AABEE]/10"
                 >
-                  {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                     <path
                       fillRule="evenodd"
@@ -225,7 +222,6 @@ const HomePage: NextPage = () => {
                   full
                   className="bg-[#5865F2] hover:shadow-[#5865F2]/10"
                 >
-                  {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                     <path
                       fillRule="evenodd"
@@ -246,7 +242,6 @@ const HomePage: NextPage = () => {
                   full
                   className="bg-purple hover:shadow-purple/10"
                 >
-                  {' '}
                   <svg
                     className="h-6 w-6"
                     fill="currentColor"
@@ -276,6 +271,7 @@ const HomePage: NextPage = () => {
           </motion.div>
         </Container>
       </Section>
+      <Section className="py-12"></Section>
     </>
   )
 }
