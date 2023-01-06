@@ -4,7 +4,6 @@ import Nav from '../components/Nav'
 import Container from '../components/ui/Container'
 import Loader from '../components/ui/Loader'
 import Modal from '../components/ui/Modal'
-import Spinner from '../components/ui/Spinner'
 import Connect from '../components/views/Connect'
 import { VIEW } from '../constants/enums'
 import { useNetworkNotifications, useUI } from '../hooks'
@@ -48,7 +47,7 @@ export default function AppLayout({ children }) {
       <header
         id="header"
         className={
-          'fixed top-0 z-20 w-full border-b-2 border-purple-500/50  bg-purple-900/80 backdrop-blur'
+          'fixed top-0 z-20 w-full border-b-2 border-purple-500/50  bg-purple-900'
         }
       >
         <Container>
@@ -59,8 +58,8 @@ export default function AppLayout({ children }) {
         className=" relative flex h-full w-full flex-grow flex-col overflow-clip"
         id="main"
       >
-        <div className=" absolute -top-40 -right-40  h-[600px] w-[600px] bg-gradient-radial  from-purple-500/10 to-transparent blur-3xl" />
-        <div className=" absolute -bottom-40 -left-40  h-[600px] w-[600px] bg-gradient-radial  from-purple-500/10 to-transparent blur-3xl" />
+        <div className=" absolute -top-40 -right-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
+        <div className=" absolute -bottom-40 -left-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
         {children}
       </main>
       <Footer />

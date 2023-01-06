@@ -139,21 +139,21 @@ const Connection = ({
 
 export default function Nav() {
   const { account, chainId, error, deactivate, switchNetwork } = useEthers()
-  const [viewing, toggle] = useBoolean(false)
+  const [viewing, toggleViewing] = useBoolean(false)
   const { setModalView } = useUI()
 
   return (
     <Popover as="nav">
       {({ open, close }) => (
         <>
-          <div className=" z-20 flex h-16 items-center justify-between md:justify-start md:space-x-10 ">
+          <div className="flex h-16 items-center justify-between md:justify-start md:space-x-10  ">
             <Link href="/" className="p-3">
               <>
                 <span className="sr-only">Ascension Protocol</span>
                 <Logo size={24} />
               </>
             </Link>
-            <div className="-my-2 -mr-2 flex gap-1 md:hidden">
+            <div className="flex gap-1 md:hidden">
               <Connection
                 account={account}
                 chainId={chainId}
@@ -231,9 +231,9 @@ export default function Nav() {
 
                 <Popover>
                   <Popover.Button
-                    onClick={toggle}
-                    onMouseEnter={() => toggle(true)}
-                    onMouseLeave={() => toggle(false)}
+                    onClick={toggleViewing}
+                    onMouseEnter={() => toggleViewing(true)}
+                    onMouseLeave={() => toggleViewing(false)}
                     className={clsx(
                       viewing ? 'text-primary' : 'text-secondary',
                       'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-primary'
@@ -262,8 +262,8 @@ export default function Nav() {
 
                   <Transition
                     show={viewing}
-                    onMouseEnter={() => toggle(true)}
-                    onMouseLeave={() => toggle(false)}
+                    onMouseEnter={() => toggleViewing(true)}
+                    onMouseLeave={() => toggleViewing(false)}
                     as={'div'}
                     enter="transition ease-out duration-200"
                     enterFrom="opacity-0 translate-y-1"

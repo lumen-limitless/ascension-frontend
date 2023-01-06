@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { ASCENSION, HOME_CHAINID } from '../constants'
-import { formatBalance, parseBalance } from '../functions'
+import { formatBalance, formatPercent, parseBalance } from '../functions'
 import {
   Arbitrum,
   useCalls,
@@ -33,6 +33,7 @@ import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
 import { VIEW } from '../constants/enums'
 import { commify, formatUnits, parseUnits } from 'ethers/lib/utils'
+import { AscensionToken } from '../types/typechain'
 
 const useStakingCalls = () => {
   const { account } = useEthers()
@@ -124,7 +125,7 @@ const StakePage: NextPage = () => {
     if (!totalStaked) return null
     const r = parseBalance(rewardRate)
     const t = parseBalance(totalStaked)
-    return (((r * 31557600) / t) * 100).toFixed(1)
+    return formatPercent(((r * 31557600) / t) * 100)
   }, [rewardRate, totalStaked])
 
   const handleAmountInput = (input: string) => {
@@ -145,7 +146,7 @@ const StakePage: NextPage = () => {
             >
               <Stat
                 stats={[
-                  { name: 'APR', stat: apy ? `${apy}%` : <Skeleton /> },
+                  { name: 'APR', stat: apy || <Skeleton /> },
                   {
                     name: 'Total Staked',
                     stat: totalStaked ? (

@@ -18,6 +18,7 @@ import {
   ASCENSION,
   ASCENSION_LIQ_ADDRESS,
   ASCENSION_TREASURY_ADDRESS,
+  WETH9_ADDRESS,
 } from '../constants'
 import Loader from '../components/ui/Loader'
 import { useStakingSubgraph, useDEXSubgraph, useTokenData } from '../hooks'
@@ -29,7 +30,7 @@ import { endsWith, truncate } from 'lodash'
 import Button from '../components/ui/Button'
 import ExternalLink from '../components/ui/ExternalLink'
 import Logo from '../components/ui/Logo'
-import ChainIcon from '../components/icons/ChainIcon'
+
 import { ethers } from 'ethers'
 import { useMemo } from 'react'
 import Skeleton from '../components/ui/Skeleton'
@@ -51,17 +52,19 @@ const useTreasuryTokenData = () => {
     if (!ethTokens || !arbTokens || !ethBalance || !arbBalance) {
       return null
     }
-
-    return [
+    const tokens = [
       {
         tokenBalance: parseFloat(formatEther(arbBalance)),
         contractAddress: ethers.constants.AddressZero,
         owner: ASCENSION_TREASURY_ADDRESS[42161],
-        priceUsd: 0,
+        priceUSD:
+          ethTokens.find(
+            (token) => token.contractAddress === WETH9_ADDRESS[1].toLowerCase()
+          )?.priceUSD ?? 0,
         chainId: 42161,
         tokenMetadata: {
-          name: 'Ether',
-          symbol: 'ETH',
+          name: 'Arbitrum Ether',
+          symbol: 'AETH',
           decimals: 18,
           logo: null,
         },
@@ -70,7 +73,10 @@ const useTreasuryTokenData = () => {
         tokenBalance: parseFloat(formatEther(ethBalance)),
         contractAddress: ethers.constants.AddressZero,
         owner: ASCENSION_TREASURY_ADDRESS[1],
-        priceUsd: 0,
+        priceUSD:
+          ethTokens.find(
+            (token) => token.contractAddress === WETH9_ADDRESS[1].toLowerCase()
+          )?.priceUSD ?? 0,
         chainId: 1,
         tokenMetadata: {
           name: 'Ether',
@@ -82,6 +88,14 @@ const useTreasuryTokenData = () => {
     ]
       .concat([...ethTokens, ...arbTokens])
       .filter((t) => t.tokenBalance !== 0)
+    const totalValueUSD = tokens.reduce(
+      (sum, token) => sum + token.priceUSD * token.tokenBalance,
+      0
+    )
+    return {
+      tokens: tokens,
+      totalValueUSD: totalValueUSD,
+    }
   }, [arbBalance, ethBalance, arbTokens, ethTokens])
 }
 const DashboardPage: NextPage = () => {
@@ -129,7 +143,7 @@ const DashboardPage: NextPage = () => {
                       `$${commify(
                         (
                           priceData[priceData.length - 1].priceUSD * 14400000
-                        ).toFixed(0)
+                        ).toFixed(2)
                       )}`
                     ) : (
                       <Skeleton />
@@ -159,7 +173,7 @@ const DashboardPage: NextPage = () => {
             >
               <Card>
                 <Card.Header>
-                  <p className="text-lg">Total Staked</p>
+                  <h2 className="text-lg">Total Staked</h2>
                 </Card.Header>
                 <Card.Body>
                   <div className="h-[500px] w-full">
@@ -222,7 +236,7 @@ const DashboardPage: NextPage = () => {
             >
               <Card>
                 <Card.Header>
-                  <p className="text-lg">ASCEND Price</p>
+                  <h2 className="text-lg">ASCEND Price</h2>
                 </Card.Header>
                 <Card.Body>
                   <div className="h-[500px] w-full">
@@ -292,42 +306,53 @@ const DashboardPage: NextPage = () => {
                 <Card.Body>
                   {tokenData ? (
                     <>
-                      {tokenData.map((t, i) => (
+                      {tokenData.tokens.map((t, i) => (
                         <div
-                          className="flex w-full flex-row items-center justify-between gap-3  py-3 pr-6 "
+                          className="mr-3 flex w-full flex-row items-center  gap-1 py-3 md:mr-6 lg:mr-9"
                           key={i}
                         >
-                          <div className="flex items-center gap-3">
-                            {t.tokenMetadata.logo ? (
-                              <img
-                                className=""
-                                src={t.tokenMetadata.logo}
-                                alt={t.tokenMetadata.name}
-                              />
-                            ) : getAddress(t.contractAddress) ===
-                              ASCENSION.AscensionToken.address ? (
-                              <Logo size={48} />
-                            ) : (
-                              <div className="before flex h-12 w-12 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
-                                {t.tokenMetadata.symbol}
-                              </div>
-                            )}
-                            <ChainIcon
-                              className="absolute right-0 bottom-0 "
-                              chainId={t.chainId}
-                            />
+                          <div className="flex items-center gap-1">
+                            <div className="flex items-center gap-1">
+                              {t.tokenMetadata.logo ? (
+                                <img
+                                  className=""
+                                  src={t.tokenMetadata.logo}
+                                  alt={t.tokenMetadata.name}
+                                />
+                              ) : getAddress(t.contractAddress) ===
+                                ASCENSION.AscensionToken.address ? (
+                                <Logo size={40} />
+                              ) : (
+                                <div className="before flex h-10 w-10 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
+                                  {t.tokenMetadata.symbol}
+                                </div>
+                              )}
+                              {/* <ChainIcon
+                                className="absolute top-0 right-0 "
+                                chainId={t.chainId}
+                              /> */}
+                            </div>
 
-                            <p className="text-sm md:text-base">
-                              {`${t.tokenMetadata.name}`}
-                            </p>
-                            {/* <p className="text-sm md:text-base">
-                                {`(${t.tokenMetadata.symbol})`}
-                              </p> */}
+                            <div className="flex flex-col">
+                              <p className=" truncate text-sm md:text-base">
+                                {`${t.tokenMetadata.name}`}
+                              </p>
+                              <span className="text-xs text-secondary md:text-sm">
+                                {commify(t.tokenBalance.toFixed(2))}
+                              </span>
+                            </div>
+
+                            {/* <p className="text-sm md:hidden md:text-base">
+                              {`${t.tokenMetadata.symbol}`}
+                            </p> */}
                           </div>
 
-                          <p className="truncate text-sm md:text-base">
-                            {commify(t.tokenBalance.toFixed(2))}{' '}
-                            {`${t.tokenMetadata.symbol}`}
+                          <p className="ml-auto truncate text-sm md:text-base">
+                            {t.priceUSD &&
+                              t.tokenBalance &&
+                              `$${commify(
+                                (t.priceUSD * t.tokenBalance).toFixed(2)
+                              )}`}
                           </p>
                         </div>
                       ))}
@@ -338,13 +363,13 @@ const DashboardPage: NextPage = () => {
                         .fill(true)
                         .map((_, i) => (
                           <div key={i} className="w-full">
-                            <div className="flex  items-center  gap-3 py-3 pr-6">
-                              <div className="h-12 w-12 animate-pulse rounded-full  bg-gray-200/30 backdrop-blur" />
+                            <div className="mr-3  flex  items-center gap-1 py-3 md:mr-6 lg:mr-9">
+                              <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200/30 backdrop-blur" />
 
                               <div className="w-1/4">
                                 <Skeleton />
                               </div>
-                              <div className="ml-auto w-1/12">
+                              <div className="ml-auto ">
                                 <Skeleton />
                               </div>
                             </div>
@@ -353,6 +378,18 @@ const DashboardPage: NextPage = () => {
                     </>
                   )}
                 </Card.Body>
+                <Card.Footer>
+                  <h2 className="ml-auto flex gap-1  text-xl">
+                    Total Value:{' '}
+                    <span className="text-green">
+                      {tokenData ? (
+                        `$${commify(tokenData.totalValueUSD.toFixed(2))}`
+                      ) : (
+                        <Skeleton />
+                      )}
+                    </span>{' '}
+                  </h2>
+                </Card.Footer>
               </Card>
             </motion.div>
             <motion.div
@@ -386,7 +423,7 @@ const DashboardPage: NextPage = () => {
                                     ) && (
                                       <video
                                         src={JSON.parse(nft.metadata).image}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                         controls
                                       />
                                     )}
@@ -396,7 +433,7 @@ const DashboardPage: NextPage = () => {
                                     ) && (
                                       <video
                                         src={JSON.parse(nft.metadata).image}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                         controls
                                       />
                                     )}
@@ -407,8 +444,8 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
-                                        height={224}
-                                        width={224}
+                                        height={192}
+                                        width={192}
                                       />
                                     )}
 
@@ -419,8 +456,8 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
-                                        height={224}
-                                        width={224}
+                                        height={192}
+                                        width={192}
                                       />
                                     )}
                                     {endsWith(
@@ -430,8 +467,8 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
-                                        height={224}
-                                        width={224}
+                                        height={192}
+                                        width={192}
                                       />
                                     )}
                                     {endsWith(
@@ -441,8 +478,8 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
-                                        height={224}
-                                        width={224}
+                                        height={192}
+                                        width={192}
                                       />
                                     )}
                                   </>
@@ -454,7 +491,7 @@ const DashboardPage: NextPage = () => {
                                     ) && (
                                       <video
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                         controls
                                       />
                                     )}
@@ -464,7 +501,7 @@ const DashboardPage: NextPage = () => {
                                     ) && (
                                       <video
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                         controls
                                       />
                                     )}
@@ -475,7 +512,7 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                       />
                                     )}
                                     {endsWith(
@@ -485,7 +522,7 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                       />
                                     )}
                                     {endsWith(
@@ -495,7 +532,7 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                       />
                                     )}
                                     {endsWith(
@@ -505,7 +542,7 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                       />
                                     )}
                                     {endsWith(
@@ -515,12 +552,12 @@ const DashboardPage: NextPage = () => {
                                       <img
                                         alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
-                                        className="h-56 w-56"
+                                        className="h-48 w-48"
                                       />
                                     )}
                                   </>
                                 ) : (
-                                  <div className="h-56 w-56">
+                                  <div className="h-48 w-48">
                                     <Skeleton />
                                   </div>
                                 )}

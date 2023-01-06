@@ -47,7 +47,6 @@
     "@ethersproject/units": "^5.7.0",
     "@fontsource/jura": "^4.5.6",
     "@headlessui/react": "^1.7.4",
-    "@sentry/nextjs": "^7.27.0",
     "@tailwindcss/forms": "^0.5.3",
     "@usedapp/coingecko": "^1.1.8",
     "@usedapp/core": "^1.2.2",

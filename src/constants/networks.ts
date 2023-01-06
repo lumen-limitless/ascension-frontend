@@ -1,11 +1,11 @@
-import { Arbitrum, ChainId, Mainnet } from '@usedapp/core'
+import { Arbitrum, ChainId, Hardhat, Mainnet } from '@usedapp/core'
 
-const SUPPORTED_CHAINS_DEV = [Arbitrum, Mainnet]
+const SUPPORTED_CHAINS_DEV = [Arbitrum, Mainnet, Hardhat]
 const SUPPORTED_CHAINS_PROD = [Arbitrum, Mainnet]
 export const SUPPORTED_CHAINS =
-  process.env.NODE_ENV === 'development'
-    ? SUPPORTED_CHAINS_DEV
-    : SUPPORTED_CHAINS_PROD
+  process.env.NODE_ENV === 'production'
+    ? SUPPORTED_CHAINS_PROD
+    : SUPPORTED_CHAINS_DEV
 
 export const RPC: { [chainId in ChainId]?: string } = {
   [ChainId.Arbitrum]: `https://arb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY_ARB}`,

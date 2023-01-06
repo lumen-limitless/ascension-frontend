@@ -4,11 +4,12 @@ import { BigNumber } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
 import { useSessionStorage } from 'react-use'
 import { useAlchemySDK } from './useAlchemy'
+import axios from 'axios'
 
 interface TokenData {
   contractAddress: string
   tokenBalance: number
-  priceUsd: number
+  priceUSD: number
   owner: string
   chainId: number
   tokenMetadata: {
@@ -19,7 +20,7 @@ interface TokenData {
   }
 }
 
-const COINGECKO_PLATFORM_BY_CHAIN = {
+const COINGECKO_PLATFORM_BY_CHAINID = {
   1: 'ethereum',
   42161: 'arbitrum-one',
 }
@@ -35,12 +36,23 @@ export const useTokenData = (address: string, chainId: ChainId) => {
   const alchemy = useAlchemySDK(chainId)
 
   useEffect(() => {
-    if (lastUpdated > Date.now() - 240000) return
+    if (lastUpdated > Date.now() - 300000) return
     console.debug('running useTokenData')
     const getData = async () => {
       const d: TokenData[] = []
 
       const balances = await alchemy.core.getTokenBalances(address)
+      const prices = await axios
+        .get<{ [address: string]: { usd: number } }>(
+          `https://api.coingecko.com/api/v3/simple/token_price/${
+            COINGECKO_PLATFORM_BY_CHAINID[chainId]
+          }?contract_addresses=${
+            balances.tokenBalances[0].contractAddress
+          }%2C${balances.tokenBalances
+            .map((bal) => bal.contractAddress)
+            .join('%2C')}&vs_currencies=usd`
+        )
+        .then((res) => res.data)
 
       for (const balance of balances.tokenBalances) {
         if (balance.error) return
@@ -53,7 +65,7 @@ export const useTokenData = (address: string, chainId: ChainId) => {
           tokenBalance: parseFloat(
             formatUnits(BigNumber.from(balance.tokenBalance), metadata.decimals)
           ),
-          priceUsd: 0,
+          priceUSD: prices[balance.contractAddress]?.usd ?? 0,
           owner: address,
           chainId: chainId,
           tokenMetadata: metadata,

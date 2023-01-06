@@ -269,7 +269,7 @@ const HomePage: NextPage = () => {
           </motion.div>
         </Container>
       </Section>
-      <Section className="py-12"></Section>
+      <div className="py-12" />
     </>
   )
 }
