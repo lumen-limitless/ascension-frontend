@@ -9,7 +9,7 @@ import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
 import Typography from '../components/ui/Typography'
 
-import { motion } from 'framer-motion'
+import { motion, useTime } from 'framer-motion'
 import CryptoJinglesIcon from '../components/icons/CryptoJinglesIcon'
 import L2DAOIcon from '../components/icons/L2DAOIcon'
 import FrensIcon from '../components/icons/FrensIcon'
@@ -40,23 +40,25 @@ const features = [
 ]
 
 const HomePage: NextPage = () => {
+  const time = useTime()
+
   return (
     <>
       <NextSeo />
 
       <Section
         fullscreen
-        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-24 "
+        className=" overflow-x-clip bg-[url('/bg.jpg')]  bg-cover bg-center bg-no-repeat py-24"
         id="hero"
       >
         <Container>
-          <div className="space-y-3 text-center xl:mt-12">
-            <div className=" flex w-full items-center justify-center ">
+          <div className="relative space-y-3 text-center xl:mt-12 ">
+            <div className=" flex w-full  items-center justify-center">
               <Logo size={128} />
             </div>
             <Typography
               as="h1"
-              className=" text-5xl font-bold text-primary drop-shadow-2xl md:text-6xl lg:text-7xl"
+              className=" text-5xl font-bold  text-primary drop-shadow-2xl md:text-6xl lg:text-7xl"
             >
               Prepare for{' '}
               <span className="bg-gradient-to-r from-orange-500 to-yellow bg-clip-text font-extrabold text-transparent ">
@@ -104,9 +106,9 @@ const HomePage: NextPage = () => {
         </Container>
       </Section>
 
-      <Section id="features" className="py-12">
+      <Section id="features" className="py-32">
         <Container>
-          <div className="flex flex-col md:flex-row gap-9">
+          <div className="flex flex-col justify-evenly gap-9 xl:flex-row">
             {features.map((f, i) => (
               <motion.div
                 initial={{ opacity: 0, y: 33 }}
@@ -117,22 +119,18 @@ const HomePage: NextPage = () => {
                   delay: 0.12 * i,
                 }}
                 key={f.title}
-                className="w-full"
+                className="xl:w-1/3"
               >
-                <Card className="h-full ">
+                <Card className="h-full">
                   <Card.Body>
-                    <div className="flex w-full flex-col justify-center gap-3 p-3">
-                      <div className="flex items-center gap-3 ">
-                        {f.icon}
-                        <Typography as="h2" className="text-4xl text-primary">
-                          {f.title}
-                        </Typography>
-                      </div>
-
-                      <Typography className="text-secondary">
-                        {f.description}
-                      </Typography>
+                    <div className="flex items-center gap-3 ">
+                      {f.icon}
+                      <h2 className="text-4xl text-primary">{f.title}</h2>
                     </div>
+
+                    <Typography className="mt-3 text-secondary">
+                      {f.description}
+                    </Typography>
                   </Card.Body>
                 </Card>
               </motion.div>
@@ -175,14 +173,14 @@ const HomePage: NextPage = () => {
       </Section>
       <></>
       <Section className="py-24" id="cta">
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-purple via-pink to-yellow opacity-70 blur" />
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-purple via-pink to-yellow opacity-70 blur-2xl" />
         <Container className="max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1 }}
             transition={{ ease: 'easeOut', duration: 1 }}
-            className="z-10"
+            className=""
           >
             <Typography
               as="h4"

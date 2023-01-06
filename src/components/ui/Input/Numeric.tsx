@@ -1,6 +1,5 @@
+import clsx from 'clsx'
 import React from 'react'
-import Button from '../../Button'
-import cn from 'clsx'
 
 export const Input = React.memo(
   ({
@@ -46,7 +45,7 @@ export const Input = React.memo(
           minLength={1}
           maxLength={79}
           spellCheck="false"
-          className={cn(
+          className={clsx(
             ' relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-purple focus:ring-purple sm:text-sm',
             className
           )}

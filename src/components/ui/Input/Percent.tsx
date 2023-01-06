@@ -1,6 +1,6 @@
+import clsx from 'clsx'
 import React from 'react'
-import { escapeRegExp } from '../../../../functions'
-import cn from 'clsx'
+import { escapeRegExp } from '../../../functions'
 const inputRegex = RegExp(`^\\d*$`) // match escaped "." characters via in a non-capturing group
 
 export const Input = React.memo(
@@ -48,7 +48,7 @@ export const Input = React.memo(
           pattern="^[0-9]*$"
           placeholder={placeholder || '100'}
           maxLength={3}
-          className={cn(
+          className={clsx(
             ' relative block w-full rounded-md border-gray-300 bg-transparent shadow-sm  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
             className
           )}

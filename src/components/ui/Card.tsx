@@ -1,12 +1,12 @@
-export default function Card({ children, className = '' }) {
+export default function Card({ children, className = "" }) {
   return (
     <div
       className={[
         className,
-        ' flex flex-col rounded bg-purple-900 shadow-pink-glow ring-2 ring-purple-500/50 transition-all hover:shadow-pink-glow-hovered',
+        " flex flex-col rounded bg-purple-900 shadow-pink-glow ring-2 ring-purple-500/50 transition-all hover:shadow-pink-glow-hovered",
       ]
         .filter(Boolean)
-        .join(' ')}
+        .join(" ")}
     >
       {children}
     </div>

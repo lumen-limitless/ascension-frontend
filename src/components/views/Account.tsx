@@ -22,7 +22,7 @@ import Typography from '../ui/Typography'
 import { commify } from 'ethers/lib/utils'
 import ExternalLink from '../ui/ExternalLink'
 import Logo from '../ui/Logo'
-import { ASCENSION, CHAIN_SYMBOL } from '../../constants'
+import { ASCENSION, CHAIN_SYMBOL, HOME_CHAINID } from '../../constants'
 import { ethers } from 'ethers'
 import { VIEW } from '../../constants/enums'
 
@@ -110,22 +110,27 @@ export default function Account() {
       </div>
 
       <div className=" flex h-full w-full items-center  justify-center   py-3 ">
-        <p className="w-full text-center text-3xl">
-          {formatBalance(balance) || <Skeleton />} {CHAIN_SYMBOL[chainId]}
-        </p>
+        <div className="mx-auto w-36 text-center text-3xl">
+          {balance ? (
+            <p>{`${formatBalance(balance)} ${CHAIN_SYMBOL[chainId]}`}</p>
+          ) : (
+            <Skeleton />
+          )}
+        </div>
       </div>
 
       <div className=" flex flex-col gap-1 sm:flex-row">
         <button
           className="flex w-full  items-center justify-start gap-3 rounded  bg-gradient-to-r from-purple to-pink p-3 shadow-md  "
-          onClick={() =>
+          onClick={() => {
+            if (chainId !== HOME_CHAINID) return
             watchAsset(
               ASCENSION.AscensionToken.address,
               'ASCEND',
               18,
               'https://ipfs.io/ipfs/QmX6sXb4QuYoFsuBwox9ZCfCbXbxHaeHL9vYeYFt6qGr1y?filename=ascension.svg'
             )
-          }
+          }}
         >
           <div className="rounded-full bg-zinc-100 p-1">
             <Logo size={24} />
@@ -143,14 +148,15 @@ export default function Account() {
         </button>
         <button
           className="flex w-full   items-center justify-start gap-3  rounded bg-gradient-to-r from-purple to-pink p-3 shadow-md "
-          onClick={() =>
+          onClick={() => {
+            if (chainId !== HOME_CHAINID) return
             watchAsset(
               ASCENSION.AscensionStakedToken.address,
               'sASCEND',
               18,
               'https://ipfs.io/ipfs/QmX6sXb4QuYoFsuBwox9ZCfCbXbxHaeHL9vYeYFt6qGr1y?filename=ascension.svg'
             )
-          }
+          }}
         >
           <div className="rounded-full bg-zinc-100 p-1">
             <svg

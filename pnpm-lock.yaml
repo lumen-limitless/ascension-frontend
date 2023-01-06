@@ -2,6 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.20.2
+  '@ethersproject/abstract-provider': ^5.7.0
+  '@ethersproject/address': ^5.7.0
+  '@ethersproject/bignumber': ^5.7.0
+  '@ethersproject/contracts': ^5.7.0
+  '@ethersproject/hash': ^5.7.0
+  '@ethersproject/providers': ^5.7.2
+  '@ethersproject/units': ^5.7.0
   '@fontsource/jura': ^4.5.6
   '@headlessui/react': ^1.7.4
   '@next/bundle-analyzer': ^13.0.2
@@ -10,9 +17,11 @@ specifiers:
   '@tailwindcss/forms': ^0.5.3
   '@testing-library/jest-dom': ^5.16.5
   '@testing-library/react': ^13.4.0
+  '@types/jest': ^29.2.5
   '@types/lodash': ^4.14.188
   '@types/papaparse': ^5.3.5
   '@types/react': ^18.0.25
+  '@types/testing-library__jest-dom': ^5.14.5
   '@typescript-eslint/eslint-plugin': ^5.42.1
   '@typescript-eslint/parser': ^5.42.1
   '@usedapp/coingecko': ^1.1.8
@@ -37,14 +46,14 @@ specifiers:
   jest: ^29.3.1
   jest-environment-jsdom: ^29.3.1
   lodash: ^4.17.21
-  next: ^13.0.6
+  next: ^13.1.1
   next-seo: ^5.14.1
   next-sitemap: ^3.1.30
   papaparse: ^5.3.2
   postcss: ^8.4.18
   postcss-cli: ^10.0.0
-  prettier: ^2.5.1
-  prettier-plugin-tailwindcss: ^0.1.10
+  prettier: ^2.8.1
+  prettier-plugin-tailwindcss: ^0.2.1
   prop-types: ^15.6.0
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -59,6 +68,13 @@ specifiers:
   zustand: ^4.1.4
 
 dependencies:
+  '@ethersproject/abstract-provider': 5.7.0
+  '@ethersproject/address': 5.7.0
+  '@ethersproject/bignumber': 5.7.0
+  '@ethersproject/contracts': 5.7.0
+  '@ethersproject/hash': 5.7.0
+  '@ethersproject/providers': 5.7.2
+  '@ethersproject/units': 5.7.0
   '@fontsource/jura': 4.5.12
   '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@sentry/nextjs': 7.28.1_2cq33iptvuz7xxvba6r2epidty
@@ -101,9 +117,11 @@ devDependencies:
   '@next/env': 13.1.1
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
+  '@types/jest': 29.2.5
   '@types/lodash': 4.14.191
   '@types/papaparse': 5.3.5
   '@types/react': 18.0.26
+  '@types/testing-library__jest-dom': 5.14.5
   '@typescript-eslint/eslint-plugin': 5.47.1_gk7ek7k7haoogtbru7fpa5a4uy
   '@typescript-eslint/parser': 5.47.1_rmayb2veg2btbq6mbmnyivgasy
   eslint: 8.27.0
@@ -114,7 +132,7 @@ devDependencies:
   jest-environment-jsdom: 29.3.1
   next-sitemap: 3.1.43_syentjjt63dukspj2zj7hzem6y
   prettier: 2.8.1
-  prettier-plugin-tailwindcss: 0.1.13_prettier@2.8.1
+  prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
   typescript: 4.8.4
   webpack: 5.75.0
 
@@ -1156,7 +1174,7 @@ packages:
       '@motionone/easing': 10.15.1
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/dom/10.15.3:
@@ -1167,14 +1185,14 @@ packages:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
       hey-listen: 1.0.8
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/easing/10.15.1:
     resolution: {integrity: sha512-6hIHBSV+ZVehf9dcKZLT7p5PEKHGhDwky2k8RKkmOvUoYP3S+dXsKupyZpqx5apjd9f+php4vXk4LuS+ADsrWw==}
     dependencies:
       '@motionone/utils': 10.15.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/generators/10.15.1:
@@ -1182,7 +1200,7 @@ packages:
     dependencies:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/types/10.15.1:
@@ -1194,7 +1212,7 @@ packages:
     dependencies:
       '@motionone/types': 10.15.1
       hey-listen: 1.0.8
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@next/bundle-analyzer/13.1.1:
@@ -1725,8 +1743,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/29.2.4:
-    resolution: {integrity: sha512-PipFB04k2qTRPePduVLTRiPzQfvMeLwUN3Z21hsAKaB/W9IIzgB2pizCL466ftJlcyZqnHoC9ZHpxLGl3fS86A==}
+  /@types/jest/29.2.5:
+    resolution: {integrity: sha512-H2cSxkKgVmqNHXP7TC2L/WUorrZu8ZigyRywfVzv6EyBlxj39n4C00hjXYQWsbwqgElaj/CiAeSRmk5GoaKTgw==}
     dependencies:
       expect: 29.3.1
       pretty-format: 29.3.1
@@ -1801,7 +1819,7 @@ packages:
   /@types/testing-library__jest-dom/5.14.5:
     resolution: {integrity: sha512-SBwbxYoyPIvxHbeHxTZX2Pe/74F/tX2/D3mMvzabdeJ25bBojfW0TyB8BHrbq/9zaaKICJZjLP+8r6AeZMFCuQ==}
     dependencies:
-      '@types/jest': 29.2.4
+      '@types/jest': 29.2.5
     dev: true
 
   /@types/tough-cookie/4.0.2:
@@ -6249,8 +6267,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-tailwindcss/0.1.13_prettier@2.8.1:
-    resolution: {integrity: sha512-/EKQURUrxLu66CMUg4+1LwGdxnz8of7IDvrSLqEtDqhLH61SAlNNUSr90UTvZaemujgl3OH/VHg+fyGltrNixw==}
+  /prettier-plugin-tailwindcss/0.2.1_prettier@2.8.1:
+    resolution: {integrity: sha512-aIO8IguumORyRsmT+E7JfJ3A9FEoyhqZR7Au7TBOege3VZkgMvHJMkufeYp4zjnDK2iq4ktkvGMNOQR9T8lisQ==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
       prettier: '>=2.2.0'
@@ -7675,7 +7693,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: false
 
   /word-wrap/1.2.3:

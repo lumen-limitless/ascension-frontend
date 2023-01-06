@@ -4,8 +4,7 @@ import Section from '../components/ui/Section'
 import { NextSeo } from 'next-seo'
 import Card from '../components/ui/Card'
 import Stat from '../components/ui/Stat'
-import { useCoingeckoTokenPrice } from '@usedapp/coingecko'
-import { commify, getAddress } from 'ethers/lib/utils'
+import { commify, formatEther, getAddress } from 'ethers/lib/utils'
 import {
   Area,
   AreaChart,
@@ -14,17 +13,14 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { addressEqual, ChainId, shortenAddress } from '@usedapp/core'
-import { useMemo } from 'react'
+import { ChainId, shortenAddress, useEtherBalance } from '@usedapp/core'
 import {
   ASCENSION,
   ASCENSION_LIQ_ADDRESS,
   ASCENSION_TREASURY_ADDRESS,
-  DEX_BY_CHAIN,
 } from '../constants'
 import Loader from '../components/ui/Loader'
-import { useStakingSubgraph, useQuery, useAlchemyTokenData } from '../hooks'
-import { gql } from 'graphql-request'
+import { useStakingSubgraph, useDEXSubgraph, useTokenData } from '../hooks'
 import Grid from '../components/ui/Grid'
 import { motion } from 'framer-motion'
 import { useMoralisNFT } from '../hooks/useMoralis'
@@ -32,147 +28,81 @@ import Typography from '../components/ui/Typography'
 import { endsWith, truncate } from 'lodash'
 import Button from '../components/ui/Button'
 import ExternalLink from '../components/ui/ExternalLink'
-import Skeleton from '../components/ui/Skeleton'
 import Logo from '../components/ui/Logo'
-import Divider from '../components/ui/Divider'
 import ChainIcon from '../components/icons/ChainIcon'
+import { ethers } from 'ethers'
+import { useMemo } from 'react'
+import Skeleton from '../components/ui/Skeleton'
 
-const GET_SWAPS = gql`
-  query Swap($pair: String!, $orderBy: BigInt!) {
-    swaps(
-      orderBy: $orderBy
-      orderDirection: asc
-      first: 1000
-      where: { pair: $pair }
-    ) {
-      timestamp
-      transaction {
-        id
-      }
-      pair {
-        token0 {
-          id
-          symbol
-        }
-        token1 {
-          id
-          symbol
-        }
-      }
-      sender
-      to
-      amount0In
-      amount0Out
-      amount1In
-      amount1Out
-      amountUSD
+const useTreasuryTokenData = () => {
+  const ethTokens = useTokenData(ASCENSION_TREASURY_ADDRESS[1], ChainId.Mainnet)
+  const arbTokens = useTokenData(
+    ASCENSION_TREASURY_ADDRESS[42161],
+    ChainId.Arbitrum
+  )
+  const ethBalance = useEtherBalance(ASCENSION_TREASURY_ADDRESS[1], {
+    chainId: 1,
+  })
+  const arbBalance = useEtherBalance(ASCENSION_TREASURY_ADDRESS[42161], {
+    chainId: 42161,
+  })
+
+  return useMemo(() => {
+    if (!ethTokens || !arbTokens || !ethBalance || !arbBalance) {
+      return null
     }
-  }
-`
 
+    return [
+      {
+        tokenBalance: parseFloat(formatEther(arbBalance)),
+        contractAddress: ethers.constants.AddressZero,
+        owner: ASCENSION_TREASURY_ADDRESS[42161],
+        priceUsd: 0,
+        chainId: 42161,
+        tokenMetadata: {
+          name: 'Ether',
+          symbol: 'ETH',
+          decimals: 18,
+          logo: null,
+        },
+      },
+      {
+        tokenBalance: parseFloat(formatEther(ethBalance)),
+        contractAddress: ethers.constants.AddressZero,
+        owner: ASCENSION_TREASURY_ADDRESS[1],
+        priceUsd: 0,
+        chainId: 1,
+        tokenMetadata: {
+          name: 'Ether',
+          symbol: 'ETH',
+          decimals: 18,
+          logo: null,
+        },
+      },
+    ]
+      .concat([...ethTokens, ...arbTokens])
+      .filter((t) => t.tokenBalance !== 0)
+  }, [arbBalance, ethBalance, arbTokens, ethTokens])
+}
 const DashboardPage: NextPage = () => {
-  const ascendPrice = useCoingeckoTokenPrice(
-    ASCENSION.AscensionToken.address,
-    'usd',
-    'arbitrum-one'
-  )
-
   const nft = useMoralisNFT(ASCENSION_TREASURY_ADDRESS[1])
-  const tokenData = useAlchemyTokenData([
-    { address: ASCENSION_TREASURY_ADDRESS[1], chainId: 1 },
-    { address: ASCENSION_TREASURY_ADDRESS[42161], chainId: 42161 },
-  ])
 
-  const staking = useStakingSubgraph()
+  const tokenData = useTreasuryTokenData()
 
-  const priceData = useQuery(
-    DEX_BY_CHAIN[ChainId.Arbitrum]['sushiswap'].subgraphUrl,
-    GET_SWAPS,
-    {
-      pair: ASCENSION_LIQ_ADDRESS.toLowerCase(),
-      orderBy: 'timestamp',
-    }
+  const stakingData = useStakingSubgraph()
+
+  const priceData = useDEXSubgraph(
+    ChainId.Arbitrum,
+    'sushiswap',
+    ASCENSION_LIQ_ADDRESS,
+    ASCENSION.AscensionToken.address
   )
 
-  const priceGraphData = useMemo(() => {
-    if (!priceData.data) return null
-    if (priceData.error) return null
-    let graphData = []
-
-    for (let i = 0; i < priceData.data.swaps.length; i++) {
-      const buyAmountNum = addressEqual(
-        priceData.data.swaps[i].pair.token0.id,
-        ASCENSION.AscensionToken.address
-      )
-        ? 'amount0'
-        : 'amount1'
-      const sellAmountNum = buyAmountNum === 'amount0' ? 'amount1' : 'amount0'
-      if (parseFloat(priceData.data.swaps[i][`${buyAmountNum}In`]) > 0) {
-        const amountUSD = parseFloat(priceData.data.swaps[i].amountUSD)
-        const priceUSD =
-          amountUSD / parseFloat(priceData.data.swaps[i][`${buyAmountNum}In`])
-        const amountETH = parseFloat(
-          priceData.data.swaps[i][`${sellAmountNum}Out`]
-        )
-        const priceETH =
-          amountETH / parseFloat(priceData.data.swaps[i][`${buyAmountNum}In`])
-        graphData.push({
-          priceUSD,
-          priceETH,
-          amountUSD,
-          amountETH,
-          type: 'sell',
-          time: new Date(
-            Math.floor(priceData.data.swaps[i].timestamp * 1000)
-          ).toLocaleDateString(),
-          timestamp: priceData.data.swaps[i].timestamp,
-        })
-      } else {
-        const amountUSD = parseFloat(priceData.data.swaps[i].amountUSD)
-        const priceUSD =
-          amountUSD / parseFloat(priceData.data.swaps[i][`${buyAmountNum}Out`])
-        const amountETH = parseFloat(
-          priceData.data.swaps[i][`${sellAmountNum}In`]
-        )
-        const priceETH =
-          amountETH / parseFloat(priceData.data.swaps[i][`${buyAmountNum}Out`])
-        graphData.push({
-          priceUSD,
-          priceETH,
-          amountUSD,
-          amountETH,
-          type: 'buy',
-          time: new Date(
-            priceData.data.swaps[i].timestamp * 1000
-          ).toLocaleDateString(),
-          timestamp: priceData.data.swaps[i].timestamp,
-        })
-      }
-    }
-
-    return graphData
-  }, [priceData])
-
-  const stakingGraphData = useMemo(() => {
-    if (!staking.data) return null
-    if (staking.error) return null
-    let stakingGraphData = []
-
-    for (let i = 0; i < staking.data.stakingMetrics.length; i++) {
-      const metrics = staking.data.stakingMetrics[i]
-      stakingGraphData.push({
-        totalStaked: metrics.totalStaked,
-        time: new Date(metrics.id * 1000).toLocaleDateString(),
-      })
-    }
-
-    return stakingGraphData
-  }, [staking])
   return (
     <>
       <NextSeo title="Dashboard" description="Ascension Protocol Dashboard" />
 
-      <Section fullscreen className="py-24">
+      <Section className="py-24">
         <Container>
           <Grid gap="md">
             <motion.div
@@ -182,34 +112,40 @@ const DashboardPage: NextPage = () => {
               className="col-span-12"
             >
               <Stat
-                title="Protocol Stats"
                 stats={[
                   {
                     name: 'Price',
-                    stat:
-                      ascendPrice &&
-                      commify(parseFloat(ascendPrice).toFixed(3)),
-                    before: '$',
+                    stat: priceData ? (
+                      `$${commify(
+                        priceData[priceData.length - 1].priceUSD.toFixed(3)
+                      )}`
+                    ) : (
+                      <Skeleton />
+                    ),
                   },
                   {
                     name: 'Market Cap',
-                    stat:
-                      ascendPrice &&
-                      commify((parseFloat(ascendPrice) * 14400000).toFixed(3)),
-                    before: '$',
+                    stat: priceData ? (
+                      `$${commify(
+                        (
+                          priceData[priceData.length - 1].priceUSD * 14400000
+                        ).toFixed(0)
+                      )}`
+                    ) : (
+                      <Skeleton />
+                    ),
                   },
                   {
                     name: 'Staked Supply',
-                    stat:
-                      staking?.data &&
-                      (
-                        (staking.data.stakingMetrics[
-                          staking.data.stakingMetrics.length - 1
-                        ]?.totalStaked /
+                    stat: stakingData ? (
+                      `${(
+                        (stakingData[stakingData.length - 1].totalStaked /
                           14400000) *
                         100
-                      ).toFixed(0),
-                    after: '%',
+                      ).toFixed(0)}%`
+                    ) : (
+                      <Skeleton />
+                    ),
                   },
                 ]}
               />
@@ -227,14 +163,12 @@ const DashboardPage: NextPage = () => {
                 </Card.Header>
                 <Card.Body>
                   <div className="h-[500px] w-full">
-                    {!staking?.data ||
-                    staking?.error ||
-                    stakingGraphData.length === 0 ? (
+                    {!stakingData || stakingData.length === 0 ? (
                       <Loader />
                     ) : (
                       <ResponsiveContainer height={500}>
                         <AreaChart
-                          data={stakingGraphData}
+                          data={stakingData}
                           margin={{
                             top: 10,
                             right: 20,
@@ -292,15 +226,13 @@ const DashboardPage: NextPage = () => {
                 </Card.Header>
                 <Card.Body>
                   <div className="h-[500px] w-full">
-                    {!priceData?.data ||
-                    priceData?.error ||
-                    priceGraphData?.length === 0 ? (
+                    {!priceData || priceData?.length === 0 ? (
                       <Loader />
                     ) : (
                       <>
                         <ResponsiveContainer height={500}>
                           <AreaChart
-                            data={priceGraphData}
+                            data={priceData}
                             margin={{
                               top: 10,
                               right: 20,
@@ -360,52 +292,65 @@ const DashboardPage: NextPage = () => {
                 <Card.Body>
                   {tokenData ? (
                     <>
-                      {tokenData
-                        .filter((t) => t.tokenBalance !== 0)
-                        .map((t) => (
-                          <>
-                            <div
-                              className="flex w-full items-center justify-between  gap-3  py-2 pr-6 "
-                              key={t.contractAddress}
-                            >
-                              <div className="flex items-center gap-3">
-                                {t.tokenMetadata.logo ? (
-                                  <img
-                                    className=""
-                                    src={t.tokenMetadata.logo}
-                                    alt={t.tokenMetadata.name}
-                                  />
-                                ) : getAddress(t.contractAddress) ===
-                                  ASCENSION.AscensionToken.address ? (
-                                  <Logo size={48} />
-                                ) : (
-                                  <div className="before flex h-12 w-12 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
-                                    {t.tokenMetadata.symbol}
-                                  </div>
-                                )}
-                                <ChainIcon
-                                  className="absolute right-0 bottom-0"
-                                  chainId={t.chainId}
-                                />
-
-                                <p className="text-sm md:text-base">
-                                  {t.tokenMetadata.name}{' '}
-                                  {`(${t.tokenMetadata.symbol})`}
-                                </p>
+                      {tokenData.map((t, i) => (
+                        <div
+                          className="flex w-full flex-row items-center justify-between gap-3  py-3 pr-6 "
+                          key={i}
+                        >
+                          <div className="flex items-center gap-3">
+                            {t.tokenMetadata.logo ? (
+                              <img
+                                className=""
+                                src={t.tokenMetadata.logo}
+                                alt={t.tokenMetadata.name}
+                              />
+                            ) : getAddress(t.contractAddress) ===
+                              ASCENSION.AscensionToken.address ? (
+                              <Logo size={48} />
+                            ) : (
+                              <div className="before flex h-12 w-12 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
+                                {t.tokenMetadata.symbol}
                               </div>
+                            )}
+                            <ChainIcon
+                              className="absolute right-0 bottom-0 "
+                              chainId={t.chainId}
+                            />
 
-                              <span className="text-sm md:text-base">
-                                {commify(t.tokenBalance.toFixed(2))}
-                              </span>
-                            </div>
-                            <div className="last:hidden">
-                              <Divider />
-                            </div>
-                          </>
-                        ))}
+                            <p className="text-sm md:text-base">
+                              {`${t.tokenMetadata.name}`}
+                            </p>
+                            {/* <p className="text-sm md:text-base">
+                                {`(${t.tokenMetadata.symbol})`}
+                              </p> */}
+                          </div>
+
+                          <p className="truncate text-sm md:text-base">
+                            {commify(t.tokenBalance.toFixed(2))}{' '}
+                            {`${t.tokenMetadata.symbol}`}
+                          </p>
+                        </div>
+                      ))}
                     </>
                   ) : (
-                    <Loader />
+                    <>
+                      {Array(7)
+                        .fill(true)
+                        .map((_, i) => (
+                          <div key={i} className="w-full">
+                            <div className="flex  items-center  gap-3 py-3 pr-6">
+                              <div className="h-12 w-12 animate-pulse rounded-full  bg-gray-200/30 backdrop-blur" />
+
+                              <div className="w-1/4">
+                                <Skeleton />
+                              </div>
+                              <div className="ml-auto w-1/12">
+                                <Skeleton />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </>
                   )}
                 </Card.Body>
               </Card>
@@ -422,17 +367,13 @@ const DashboardPage: NextPage = () => {
                 </Card.Header>
                 <Card.Body>
                   <div className="flex h-full flex-col gap-3  p-3">
-                    {!nft.data ? (
+                    {!nft ? (
                       <Loader />
-                    ) : nft.error ? (
-                      <Loader message="error" />
-                    ) : nft.data?.result.length === 0 ? (
-                      <></>
                     ) : (
                       <Grid gap="sm">
-                        {nft.data.result.map((nft) => (
+                        {nft.result.map((nft) => (
                           <div
-                            className=" col-span-12 rounded bg-gradient-to-br from-gray-900 to-gray-800 p-3 xl:col-span-6"
+                            className=" col-span-12 rounded bg-gradient-to-br from-gray-800 to-gray-900 p-3 ring ring-black drop-shadow xl:col-span-6"
                             key={nft.name}
                           >
                             <div className="flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6">
@@ -464,26 +405,19 @@ const DashboardPage: NextPage = () => {
                                       'jpg'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
                                         height={224}
                                         width={224}
                                       />
                                     )}
-                                    {endsWith(
-                                      JSON.parse(nft.metadata).image,
-                                      'jpg'
-                                    ) && (
-                                      <img
-                                        src={JSON.parse(nft.metadata).image}
-                                        height={224}
-                                        width={224}
-                                      />
-                                    )}
+
                                     {endsWith(
                                       JSON.parse(nft.metadata).image,
                                       'png'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
                                         height={224}
                                         width={224}
@@ -494,6 +428,7 @@ const DashboardPage: NextPage = () => {
                                       'webp'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
                                         height={224}
                                         width={224}
@@ -504,6 +439,7 @@ const DashboardPage: NextPage = () => {
                                       '/image'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image}
                                         height={224}
                                         width={224}
@@ -537,6 +473,7 @@ const DashboardPage: NextPage = () => {
                                       'jpg'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
                                         className="h-56 w-56"
                                       />
@@ -546,6 +483,7 @@ const DashboardPage: NextPage = () => {
                                       'svg'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
                                         className="h-56 w-56"
                                       />
@@ -555,6 +493,7 @@ const DashboardPage: NextPage = () => {
                                       'png'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
                                         className="h-56 w-56"
                                       />
@@ -564,6 +503,7 @@ const DashboardPage: NextPage = () => {
                                       'webp'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
                                         className="h-56 w-56"
                                       />
@@ -573,6 +513,7 @@ const DashboardPage: NextPage = () => {
                                       '/image'
                                     ) && (
                                       <img
+                                        alt={nft.name}
                                         src={JSON.parse(nft.metadata).image_url}
                                         className="h-56 w-56"
                                       />

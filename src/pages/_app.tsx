@@ -6,7 +6,6 @@ import {
   MetamaskConnector,
   CoinbaseWalletConnector,
 } from '@usedapp/core'
-// import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -24,14 +23,13 @@ const config: Config = {
   readOnlyChainId: HOME_CHAINID,
   readOnlyUrls: RPC,
   multicallVersion: 2,
-  autoConnect: false,
+  autoConnect: true,
   networks: SUPPORTED_CHAINS,
   pollingInterval: 15000,
   notifications: {
     expirationPeriod: 1,
   },
   connectors: {
-    // walletConnect: new WalletConnectConnector({ rpc: RPC }),
     metamask: new MetamaskConnector(),
     coinbase: new CoinbaseWalletConnector(),
   },

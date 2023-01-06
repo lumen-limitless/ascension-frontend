@@ -1,8 +1,10 @@
-export default function Spinner() {
+export default function Spinner({ size = 24 }: { size?: number }) {
   return (
     <svg
       role="status"
-      className=" mx-auto h-6 w-6 animate-spin fill-transparent text-gray-300"
+      className=" mx-auto animate-spin fill-transparent text-gray-300"
+      height={size}
+      width={size}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

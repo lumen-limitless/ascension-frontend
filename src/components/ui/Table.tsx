@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 const people = [
   {
     name: 'Jane Cooper',
@@ -72,7 +71,10 @@ export default function Table() {
                       {person.role}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                      <a
+                        href="#"
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
                         Edit
                       </a>
                     </td>

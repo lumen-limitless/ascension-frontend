@@ -1,4 +1,4 @@
-import { Arbitrum, ChainId, Goerli, Hardhat, Mainnet } from '@usedapp/core'
+import { Arbitrum, ChainId, Mainnet } from '@usedapp/core'
 
 const SUPPORTED_CHAINS_DEV = [Arbitrum, Mainnet]
 const SUPPORTED_CHAINS_PROD = [Arbitrum, Mainnet]

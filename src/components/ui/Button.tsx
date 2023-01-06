@@ -1,4 +1,4 @@
-import cn from 'clsx'
+import { clsx } from 'clsx'
 import { ReactNode } from 'react'
 
 const SIZE = {
@@ -17,7 +17,7 @@ const COLORS = {
   red: 'bg-red-500 shadow-red ',
   yellow: 'bg-yellow-500 shadow-yellow ',
   pink: 'bg-pink-500 shadow-pink ',
-  gray: 'bg-gray-900 shadow-black ',
+  gray: 'bg-gray-800 shadow-black ',
   gradient: 'bg-gradient-to-r from-pink  to-purple shadow-pink',
 }
 
@@ -51,11 +51,11 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={cn(
+      className={clsx(
         COLORS[color],
         SIZE[size],
         full && 'w-full',
-        ' inline-flex items-center justify-center gap-1 rounded text-white transition  focus:outline-none hover:enabled:shadow-xl hover:enabled:brightness-125 disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 ',
+        ' inline-flex items-center justify-center gap-1 rounded text-white  transition focus:outline-none hover:enabled:brightness-125 hover:enabled:drop-shadow-xl disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 ',
         className
       )}
       {...rest}

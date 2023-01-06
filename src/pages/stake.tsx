@@ -32,7 +32,7 @@ import { useBoolean } from 'react-use'
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
 import { VIEW } from '../constants/enums'
-import { commify, parseUnits } from 'ethers/lib/utils'
+import { commify, formatUnits, parseUnits } from 'ethers/lib/utils'
 
 const useStakingCalls = () => {
   const { account } = useEthers()
@@ -124,7 +124,7 @@ const StakePage: NextPage = () => {
     if (!totalStaked) return null
     const r = parseBalance(rewardRate)
     const t = parseBalance(totalStaked)
-    return ((r * Math.floor(31557600)) / t) * 100
+    return (((r * 31557600) / t) * 100).toFixed(1)
   }, [rewardRate, totalStaked])
 
   const handleAmountInput = (input: string) => {
@@ -135,7 +135,7 @@ const StakePage: NextPage = () => {
       <NextSeo title="Stake" description={`Ascension Protocol staking`} />
 
       <Section className="py-24">
-        <Container className="max-w-7xl">
+        <Container>
           <Grid gap="md">
             <motion.div
               initial={{ opacity: 0 }}
@@ -145,15 +145,18 @@ const StakePage: NextPage = () => {
             >
               <Stat
                 stats={[
-                  { name: 'APR', stat: apy, isPercent: true },
+                  { name: 'APR', stat: apy ? `${apy}%` : <Skeleton /> },
                   {
                     name: 'Total Staked',
-                    stat: totalStaked || '',
-                    isBalance: true,
+                    stat: totalStaked ? (
+                      commify(formatBalance(totalStaked))
+                    ) : (
+                      <Skeleton />
+                    ),
                   },
                   {
                     name: 'Rewards End',
-                    stat: rewardsEndAt || '',
+                    stat: rewardsEndAt || <Skeleton />,
                   },
                 ]}
               />

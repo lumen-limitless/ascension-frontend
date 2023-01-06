@@ -259,7 +259,7 @@ const ReactorPage: NextPage = () => {
 
   return (
     <ToolLayout
-      title="Ascension Reactor"
+      title="Reactor"
       description={`Ascension Reactor is a tool that allows users to interact with smart contract events through a convenient user interface. It is intended to allow users to easily execute transactions once an event is emitted from the specified contract. `}
       requiredBalance={1}
       supportedNetworks={[ChainId.Arbitrum, ChainId.Mainnet]}
@@ -321,7 +321,7 @@ const ReactorPage: NextPage = () => {
           >
             <Card>
               <Card.Header>
-                <div className="flex justify-between w-full">
+                <div className="flex w-full justify-between">
                   {' '}
                   <Typography as="h2" variant="lg">
                     Select Event

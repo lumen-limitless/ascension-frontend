@@ -4,7 +4,7 @@ import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Divider from './ui/Divider'
 import Badge from './ui/Badge'
-import cn from 'clsx'
+import { clsx } from 'clsx'
 import Button from './ui/Button'
 import { useEthers } from '@usedapp/core'
 import { useBoolean, useLockBodyScroll } from 'react-use'
@@ -146,7 +146,7 @@ export default function Nav() {
     <Popover as="nav">
       {({ open, close }) => (
         <>
-          <div className=" z-20 flex h-16 items-center justify-between px-6  sm:px-12 md:justify-start md:space-x-10 lg:px-24 xl:px-36">
+          <div className=" z-20 flex h-16 items-center justify-between md:justify-start md:space-x-10 ">
             <Link href="/" className="p-3">
               <>
                 <span className="sr-only">Ascension Protocol</span>
@@ -211,20 +211,20 @@ export default function Nav() {
               <Popover.Group as="div" className="flex space-x-10">
                 <Link
                   href="/"
-                  className=" text-base font-medium text-secondary transition hover:text-primary"
+                  className="  text-base font-medium text-secondary transition hover:text-primary"
                 >
                   Home
                 </Link>
                 <Link
                   href="/dashboard"
-                  className="text-base font-medium text-secondary transition hover:text-primary"
+                  className=" text-base font-medium text-secondary transition hover:text-primary"
                 >
                   Dashboard
                 </Link>
 
                 <Link
                   href="/stake"
-                  className="text-base font-medium text-secondary transition hover:text-primary"
+                  className=" text-base font-medium text-secondary transition hover:text-primary"
                 >
                   Stake
                 </Link>
@@ -234,14 +234,14 @@ export default function Nav() {
                     onClick={toggle}
                     onMouseEnter={() => toggle(true)}
                     onMouseLeave={() => toggle(false)}
-                    className={cn(
+                    className={clsx(
                       viewing ? 'text-primary' : 'text-secondary',
                       'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-primary'
                     )}
                   >
-                    <span>Tools</span>
+                    <p>Tools</p>
                     <svg
-                      className={cn(
+                      className={clsx(
                         viewing ? 'rotate-180 text-primary' : 'text-secondary',
                         'ml-2 h-5 w-5 transition group-hover:text-primary'
                       )}
@@ -359,7 +359,7 @@ export default function Nav() {
                     <Link
                       href="/"
                       onClick={close}
-                      className="text-base font-medium text-primary text-center w-full  "
+                      className="w-full text-center text-base font-medium text-primary  "
                     >
                       Home
                     </Link>
@@ -369,7 +369,7 @@ export default function Nav() {
                     <Link
                       href="/dashboard"
                       onClick={close}
-                      className="text-base font-medium text-primary text-center w-full  "
+                      className="w-full text-center text-base font-medium text-primary  "
                     >
                       Dashboard
                     </Link>
@@ -378,7 +378,7 @@ export default function Nav() {
                     <Link
                       href="/stake"
                       onClick={close}
-                      className="text-base font-medium text-primary text-center w-full  "
+                      className="w-full text-center text-base font-medium text-primary  "
                     >
                       Stake
                     </Link>
@@ -386,7 +386,7 @@ export default function Nav() {
                     <Link
                       href="/tools"
                       onClick={close}
-                      className="text-base font-medium text-primary text-center w-full  "
+                      className="w-full text-center text-base font-medium text-primary  "
                     >
                       Tools
                     </Link>

@@ -1,4 +1,7 @@
+import { addressEqual, ChainId } from '@usedapp/core'
 import { gql } from 'graphql-request'
+import { useMemo } from 'react'
+import { ASCENSION_LIQ_ADDRESS, DEX_BY_CHAIN } from '../constants'
 import { useQuery } from './useQuery'
 
 const GET_TOKEN_DATA = gql`
@@ -48,10 +51,131 @@ const GET_STAKING_DATA = gql`
   }
 `
 export const useStakingSubgraph = () => {
-  const stakingData = useQuery(
+  const res = useQuery(
     'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
     GET_STAKING_DATA
   )
 
-  return stakingData
+  return useMemo(() => {
+    if (!res.data) return null
+    if (res.error) return null
+    let stakingGraphData = []
+
+    for (let i = 0; i < res.data.stakingMetrics.length; i++) {
+      const metrics = res.data.stakingMetrics[i]
+      stakingGraphData.push({
+        totalStaked: metrics.totalStaked,
+        time: new Date(metrics.id * 1000).toLocaleDateString(),
+      })
+    }
+
+    return stakingGraphData
+  }, [res])
+}
+
+const GET_SWAPS = gql`
+  query Swap($pair: String!, $orderBy: BigInt!) {
+    swaps(
+      orderBy: $orderBy
+      orderDirection: asc
+      first: 1000
+      where: { pair: $pair }
+    ) {
+      timestamp
+      transaction {
+        id
+      }
+      pair {
+        token0 {
+          id
+          symbol
+        }
+        token1 {
+          id
+          symbol
+        }
+      }
+      sender
+      to
+      amount0In
+      amount0Out
+      amount1In
+      amount1Out
+      amountUSD
+    }
+  }
+`
+
+export const useDEXSubgraph = (
+  chainId: ChainId,
+  dex: string,
+  pair: string,
+  token: string
+):
+  | {
+      priceUSD: number
+      priceETH: number
+      amountUSD: number
+      amountETH: number
+      type: 'Buy' | 'Sell'
+      time: Date
+      timestamp: number
+    }[]
+  | null => {
+  const res = useQuery(DEX_BY_CHAIN[chainId][dex].subgraphUrl, GET_SWAPS, {
+    pair: pair.toLowerCase(),
+    orderBy: 'timestamp',
+  })
+
+  return useMemo(() => {
+    if (!res.data) return null
+    if (res.error) return null
+    let graphData = []
+
+    for (let i = 0; i < res.data.swaps.length; i++) {
+      const buyAmountNum = addressEqual(res.data.swaps[i].pair.token0.id, token)
+        ? 'amount0'
+        : 'amount1'
+      const sellAmountNum = buyAmountNum === 'amount0' ? 'amount1' : 'amount0'
+      if (parseFloat(res.data.swaps[i][`${buyAmountNum}In`]) > 0) {
+        const amountUSD = parseFloat(res.data.swaps[i].amountUSD)
+        const priceUSD =
+          amountUSD / parseFloat(res.data.swaps[i][`${buyAmountNum}In`])
+        const amountETH = parseFloat(res.data.swaps[i][`${sellAmountNum}Out`])
+        const priceETH =
+          amountETH / parseFloat(res.data.swaps[i][`${buyAmountNum}In`])
+        graphData.push({
+          priceUSD,
+          priceETH,
+          amountUSD,
+          amountETH,
+          type: 'sell',
+          time: new Date(
+            res.data.swaps[i].timestamp * 1000
+          ).toLocaleDateString(),
+          timestamp: res.data.swaps[i].timestamp,
+        })
+      } else {
+        const amountUSD = parseFloat(res.data.swaps[i].amountUSD)
+        const priceUSD =
+          amountUSD / parseFloat(res.data.swaps[i][`${buyAmountNum}Out`])
+        const amountETH = parseFloat(res.data.swaps[i][`${sellAmountNum}In`])
+        const priceETH =
+          amountETH / parseFloat(res.data.swaps[i][`${buyAmountNum}Out`])
+        graphData.push({
+          priceUSD,
+          priceETH,
+          amountUSD,
+          amountETH,
+          type: 'buy',
+          time: new Date(
+            res.data.swaps[i].timestamp * 1000
+          ).toLocaleDateString(),
+          timestamp: res.data.swaps[i].timestamp,
+        })
+      }
+    }
+
+    return graphData
+  }, [res, token])
 }
