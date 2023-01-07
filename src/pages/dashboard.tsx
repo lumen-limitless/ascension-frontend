@@ -304,84 +304,88 @@ const DashboardPage: NextPage = () => {
                   <h2 className="text-xl">Treasury Token Portfolio</h2>
                 </Card.Header>
                 <Card.Body>
-                  {tokenData ? (
-                    <>
-                      {tokenData.tokens.map((t, i) => (
-                        <div
-                          className="mr-3 flex w-full flex-row items-center  gap-1 py-3 md:mr-6 lg:mr-9"
-                          key={i}
-                        >
-                          <div className="flex items-center gap-1">
+                  <div className="max-h-[500px] overflow-x-hidden overflow-y-scroll ">
+                    {tokenData ? (
+                      <>
+                        {tokenData.tokens.map((t, i) => (
+                          <div
+                            className="mr-3 flex w-full flex-row items-center  gap-1 py-3 md:mr-6 lg:mr-9"
+                            key={i}
+                          >
                             <div className="flex items-center gap-1">
-                              {t.tokenMetadata.logo ? (
-                                <img
-                                  className=""
-                                  src={t.tokenMetadata.logo}
-                                  alt={t.tokenMetadata.name}
-                                />
-                              ) : getAddress(t.contractAddress) ===
-                                ASCENSION.AscensionToken.address ? (
-                                <Logo size={40} />
-                              ) : (
-                                <div className="before flex h-10 w-10 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
-                                  {t.tokenMetadata.symbol}
-                                </div>
-                              )}
-                              {/* <ChainIcon
+                              <div className="flex items-center gap-1">
+                                {t.tokenMetadata.logo ? (
+                                  <img
+                                    className=""
+                                    src={t.tokenMetadata.logo}
+                                    alt={t.tokenMetadata.name}
+                                  />
+                                ) : getAddress(t.contractAddress) ===
+                                  ASCENSION.AscensionToken.address ? (
+                                  <Logo size={40} />
+                                ) : (
+                                  <div className="before flex h-10 w-10 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
+                                    {t.tokenMetadata.symbol}
+                                  </div>
+                                )}
+                                {/* <ChainIcon
                                 className="absolute top-0 right-0 "
                                 chainId={t.chainId}
                               /> */}
-                            </div>
+                              </div>
 
-                            <div className="flex flex-col">
-                              <ExternalLink
-                                href={`https://${
-                                  SCAN_INFO[t.chainId].name
-                                }/token/${t.contractAddress}`}
-                                className=" truncate text-sm after:content-['_↗'] md:text-base"
-                              >
-                                {`${t.tokenMetadata.name}`}
-                              </ExternalLink>
-                              <span className="text-xs text-secondary md:text-sm">
-                                {commify(t.tokenBalance.toFixed(2))}
-                              </span>
-                            </div>
+                              <div className="flex flex-col">
+                                <ExternalLink
+                                  href={`https://${
+                                    SCAN_INFO[t.chainId].name
+                                  }/token/${t.contractAddress}`}
+                                  className=" truncate text-sm after:content-['_↗'] md:text-base"
+                                >
+                                  {`${t.tokenMetadata.name}`}
+                                </ExternalLink>
+                                <span className="text-xs text-secondary md:text-sm">
+                                  {commify(t.tokenBalance.toFixed(2))}
+                                </span>
+                              </div>
 
-                            {/* <p className="text-sm md:hidden md:text-base">
+                              {/* <p className="text-sm md:hidden md:text-base">
                               {`${t.tokenMetadata.symbol}`}
                             </p> */}
-                          </div>
-
-                          <p className="ml-auto truncate text-sm md:text-base">
-                            {t.priceUSD &&
-                              t.tokenBalance &&
-                              `$${commify(
-                                (t.priceUSD * t.tokenBalance).toFixed(2)
-                              )}`}
-                          </p>
-                        </div>
-                      ))}
-                    </>
-                  ) : (
-                    <>
-                      {Array(7)
-                        .fill(true)
-                        .map((_, i) => (
-                          <div key={i} className="w-full">
-                            <div className="mr-3  flex  items-center gap-1 py-3 md:mr-6 lg:mr-9">
-                              <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200/30 backdrop-blur" />
-
-                              <div className="w-1/4">
-                                <Skeleton />
-                              </div>
-                              <div className="ml-auto ">
-                                <Skeleton />
-                              </div>
                             </div>
+
+                            <p className="ml-auto truncate text-sm md:text-base">
+                              {t.priceUSD === 0
+                                ? '$-'
+                                : t.priceUSD &&
+                                  t.tokenBalance &&
+                                  `$${commify(
+                                    (t.priceUSD * t.tokenBalance).toFixed(2)
+                                  )}`}
+                            </p>
                           </div>
                         ))}
-                    </>
-                  )}
+                      </>
+                    ) : (
+                      <>
+                        {Array(7)
+                          .fill(true)
+                          .map((_, i) => (
+                            <div key={i} className="w-full">
+                              <div className="mr-3  flex  items-center gap-1 py-3 md:mr-6 lg:mr-9">
+                                <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200/30 backdrop-blur" />
+
+                                <div className="w-1/4">
+                                  <Skeleton />
+                                </div>
+                                <div className="ml-auto ">
+                                  <Skeleton />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </>
+                    )}
+                  </div>
                 </Card.Body>
                 <Card.Footer>
                   <h2 className="ml-auto flex gap-1  text-xl">
