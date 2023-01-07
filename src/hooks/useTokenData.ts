@@ -75,12 +75,10 @@ export const useTokenData = (address: string, chainId: ChainId) => {
       setData(d)
     }
 
-    setLastUpdated(Date.now())
-    getData().catch((err) => {
-      console.error(err)
-      setLastUpdated(0)
-    })
-  })
+    getData()
+      .catch((err) => console.error(err))
+      .finally(() => setLastUpdated(Date.now()))
+  }, [address, alchemy, chainId, lastUpdated, setData, setLastUpdated])
 
   return data
 }
