@@ -1,15 +1,14 @@
 import useStore from '../store/useStore'
+import shallow from 'zustand/shallow'
 
 export const useUI = () => {
-  const setModalView = useStore((state) => state.setModalView)
-  const toggleViewingModal = useStore((state) => state.toggleViewingModal)
-  const viewingModal = useStore((state) => state.viewingModal)
-  const modalView = useStore((state) => state.modalView)
-
-  return {
-    setModalView,
-    toggleViewingModal,
-    modalView,
-    viewingModal,
-  }
+  return useStore(
+    (state) => ({
+      setModalView: state.setModalView,
+      toggleViewingModal: state.toggleViewingModal,
+      modalView: state.modalView,
+      viewingModal: state.viewingModal,
+    }),
+    shallow
+  )
 }

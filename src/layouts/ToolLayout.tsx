@@ -1,4 +1,4 @@
-import { ChainId, useEthers } from '@usedapp/core'
+import { Arbitrum, ChainId, useEthers } from '@usedapp/core'
 import { NextSeo } from 'next-seo'
 import BuyAscend from '../components/BuyAscend'
 import Container from '../components/ui/Container'
@@ -8,10 +8,10 @@ import UnsupportedChainId from '../components/UnsupportedChainId'
 import { useRequiredBalance } from '../hooks'
 
 export default function ToolLayout({
-  requiredBalance,
-  supportedNetworks,
-  title,
-  description,
+  requiredBalance = 0,
+  supportedNetworks = [Arbitrum.chainId],
+  title = '',
+  description = '',
   children,
 }: {
   requiredBalance?: number
@@ -26,13 +26,12 @@ export default function ToolLayout({
     <>
       <NextSeo title={title} description={description} />
 
-      <Section className="py-20">
+      <Section className="py-24">
         <Container>
-          {' '}
           {!account ? (
             <Loader message="Connect a wallet to continue" />
           ) : pass === false ? (
-            <BuyAscend amount={1} />
+            <BuyAscend amount={requiredBalance} />
           ) : pass == null ? (
             <Loader message="Loading" />
           ) : !supportedNetworks.includes(chainId) ? (

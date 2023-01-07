@@ -41,7 +41,7 @@ export function formatPercent(percentString: any) {
     if (Number(fixedPercent) > 100000) {
       return `> 100,000%`
     } else if (Number(fixedPercent) > 100) {
-      return `${commify(percent?.toFixed(0).toLocaleString())}%`
+      return `${commify(percent?.toFixed(0))}%`
     } else {
       return `${fixedPercent}%`
     }

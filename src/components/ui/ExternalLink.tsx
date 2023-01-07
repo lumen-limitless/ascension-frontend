@@ -1,15 +1,16 @@
-import { HTMLProps } from 'react'
+import { HTMLProps } from "react"
 
-interface ExternalLinkProps extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> {
+interface ExternalLinkProps
+  extends Omit<HTMLProps<HTMLAnchorElement>, "as" | "ref" | "onClick"> {
   href: string
 }
 
 export default function ExternalLink({
   children,
   href,
-  target = '_blank',
-  rel = 'noopener noreferrer',
-  className = '',
+  target = "_blank",
+  rel = "noopener noreferrer",
+  className = "",
   ...rest
 }: ExternalLinkProps) {
   return (

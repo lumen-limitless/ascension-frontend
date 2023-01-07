@@ -19,7 +19,7 @@ html,
 body {  
   font-family: var(--font-text);
   text-rendering: optimizeLegibility;
-  @apply  box-border touch-manipulation  scroll-smooth bg-purple-900 antialiased text-primary;
+  @apply  box-border touch-manipulation scroll-smooth bg-purple-900 antialiased text-primary;
 }
 
 #__next {
@@ -52,7 +52,7 @@ a {
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(243, 5%, 18%);
+    background: hsl(0, 0, 0);
   }
   
 

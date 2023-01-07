@@ -14,9 +14,9 @@ export default function Section({
   return (
     <section
       className={[
-        'relative flex h-full w-full flex-col',
+        'relative flex h-full w-full flex-grow flex-col items-center',
         fullscreen && 'min-h-screen',
-        centered ? 'items-center justify-center' : 'justify-start',
+        centered ? ' justify-center' : 'justify-start',
         className,
       ]
         .filter(Boolean)

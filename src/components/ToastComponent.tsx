@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import toast, { ErrorIcon, Toast } from 'react-hot-toast'
-import cn from 'clsx'
+import { clsx } from 'clsx'
 
 interface ToastComponentProps {
   t: Toast
@@ -26,8 +26,8 @@ export default function ToastComponent({
         leaveTo="opacity-0"
       >
         <div
-          className={cn(
-            ' pointer-events-auto w-72 overflow-hidden rounded  border-l  bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5',
+          className={clsx(
+            ' pointer-events-auto w-80 overflow-hidden rounded  border-l  bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5',
             type === 'success'
               ? 'border-green-500'
               : type === 'info'

@@ -1,7 +1,10 @@
 import dynamic from 'next/dynamic'
 import Footer from '../components/Footer'
+import Nav from '../components/Nav'
+import Container from '../components/ui/Container'
+import Loader from '../components/ui/Loader'
 import Modal from '../components/ui/Modal'
-import Spinner from '../components/ui/Spinner'
+import Connect from '../components/views/Connect'
 import { VIEW } from '../constants/enums'
 import { useNetworkNotifications, useUI } from '../hooks'
 
@@ -9,16 +12,10 @@ const Toaster = dynamic(
   () => import('react-hot-toast').then((mod) => mod.Toaster),
   { ssr: false }
 )
-const Nav = dynamic(() => import('../components/Nav'), {
-  ssr: false,
-})
-const Connect = dynamic(() => import('../components/views/Connect'), {
-  ssr: false,
-  loading: () => <Spinner />,
-})
+
 const Delegate = dynamic(() => import('../components/views/Delegate'), {
   ssr: false,
-  loading: () => <Spinner />,
+  loading: () => <Loader />,
 })
 
 function ModalUI() {
@@ -46,18 +43,23 @@ export default function AppLayout({ children }) {
       </a>
       <Toaster position="bottom-right" containerClassName=" mb-3 md:mb-9" />
       <ModalUI />
-      {/* <div className="flex items-center justify-center bg-blue text-center">
-        Banner
-      </div> */}
+
       <header
         id="header"
         className={
-          'sticky top-0 z-20 border-b-2 border-purple-500/50 bg-purple-900/60 backdrop-blur'
+          'fixed top-0 z-20 w-full border-b-2 border-purple-500/50  bg-purple-900'
         }
       >
-        <Nav />
+        <Container>
+          <Nav />
+        </Container>
       </header>
-      <main className="flex h-full w-full flex-grow flex-col" id="main">
+      <main
+        className=" relative flex h-full w-full flex-grow flex-col overflow-clip"
+        id="main"
+      >
+        <div className=" absolute -top-40 -right-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
+        <div className=" absolute -bottom-40 -left-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
         {children}
       </main>
       <Footer />

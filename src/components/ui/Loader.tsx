@@ -102,12 +102,30 @@ export default function Loader({ size = 48, message }: LoaderProps) {
             <stop offset="0.57" stopColor="#943259" />
           </linearGradient>
         </defs>
-        <polygon className="cls-1" points="542.48 259.8 211.52 259.8 377 199.82 542.48 259.8" />
-        <polygon className="cls-2" points="377 199.82 377 0 211.52 259.8 377 199.82" />
-        <polygon className="cls-3" points="377 199.82 377 0 542.48 259.8 377 199.82" />
-        <polygon className="cls-4" points="593.71 340.17 160.39 340.17 377 399.68 593.71 340.17" />
-        <polygon className="cls-5" points="0 591.6 377 754 377 399.68 160.39 340.17 0 591.6" />
-        <polygon className="cls-6" points="754 591.6 377 754 377 399.68 593.71 340.17 754 591.6" />
+        <polygon
+          className="cls-1"
+          points="542.48 259.8 211.52 259.8 377 199.82 542.48 259.8"
+        />
+        <polygon
+          className="cls-2"
+          points="377 199.82 377 0 211.52 259.8 377 199.82"
+        />
+        <polygon
+          className="cls-3"
+          points="377 199.82 377 0 542.48 259.8 377 199.82"
+        />
+        <polygon
+          className="cls-4"
+          points="593.71 340.17 160.39 340.17 377 399.68 593.71 340.17"
+        />
+        <polygon
+          className="cls-5"
+          points="0 591.6 377 754 377 399.68 160.39 340.17 0 591.6"
+        />
+        <polygon
+          className="cls-6"
+          points="754 591.6 377 754 377 399.68 593.71 340.17 754 591.6"
+        />
       </svg>
       {message && <strong>{message}</strong>}
     </div>

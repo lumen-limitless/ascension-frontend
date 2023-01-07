@@ -1,10 +1,6 @@
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Container({
   children,
-  className = '',
+  className = "",
   id,
 }: {
   children: React.ReactNode
@@ -13,7 +9,12 @@ export default function Container({
 }) {
   return (
     <div
-      className={cn(className, 'container z-10 mx-auto px-3 md:px-6 lg:px-9')}
+      className={[
+        className,
+        "container z-10 mx-auto px-3 md:px-6 lg:px-9 xl:px-12",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       id={id}
     >
       {children}

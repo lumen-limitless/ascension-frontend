@@ -1,24 +1,51 @@
 import React from 'react'
 import Button from '../ui/Button'
 import { useEthers } from '@usedapp/core'
-import { useUI } from '../../hooks'
+import { useToast, useUI } from '../../hooks'
+import ExternalLink from '../ui/ExternalLink'
+import { RPC } from '../../constants'
 
 export default function Connect() {
-  const { activateBrowserWallet } = useEthers()
+  const { activateBrowserWallet, activate } = useEthers()
   const { toggleViewingModal } = useUI()
+  const t = useToast()
+  const onWalletConnect = async () => {
+    try {
+      const WalletConnectConnector = await import(
+        '@web3-react/walletconnect-connector'
+      ).then((mod) => mod.WalletConnectConnector)
+      const walletconnect = new WalletConnectConnector({
+        rpc: RPC,
+        qrcode: true,
+      })
+      await activate(walletconnect).then(() => toggleViewingModal(false))
+    } catch (err) {
+      console.error(err)
+      t('error', 'Failed to connect wallet')
+      return
+    }
+  }
+
+  const onBrowserWallet = (type: string) => {
+    try {
+      activateBrowserWallet({ type: type })
+      toggleViewingModal(false)
+    } catch (err) {
+      console.error(err)
+      t('error', 'Failed to connect wallet')
+      return
+    }
+  }
 
   return (
     <>
       <div className="my-3 flex flex-col items-center gap-3">
-        <span className="mb-3 text-xl">Select a Wallet</span>
+        <h2 className="mb-3 text-xl">Select a Wallet</h2>
         <Button
           full
           size="lg"
           color="gray"
-          onClick={() => {
-            activateBrowserWallet({ type: 'metamask' })
-            toggleViewingModal(false)
-          }}
+          onClick={() => onBrowserWallet('metamask')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -77,12 +104,7 @@ export default function Connect() {
           </svg>
           MetaMask
         </Button>
-        <Button
-          full
-          size="lg"
-          color="gray"
-          onClick={() => activateBrowserWallet({ type: 'walletConnect' })}
-        >
+        <Button full size="lg" color="gray" onClick={onWalletConnect}>
           <svg
             width={24}
             height={24}
@@ -115,10 +137,7 @@ export default function Connect() {
           full
           size="lg"
           color="gray"
-          onClick={() => {
-            activateBrowserWallet({ type: 'coinbase' })
-            toggleViewingModal(false)
-          }}
+          onClick={() => onBrowserWallet('coinbase')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -133,6 +152,18 @@ export default function Connect() {
           </svg>
           Coinbase Wallet
         </Button>
+
+        <p>
+          By connecting a wallet, you confirm that you have read and agreed to
+          Ascension Protocol&apos;s{' '}
+          <ExternalLink href={''} className="text-blue-300">
+            Terms of Service
+          </ExternalLink>{' '}
+          and consented to it&apos;s{' '}
+          <ExternalLink href="" className="text-blue-300">
+            Privacy Policy
+          </ExternalLink>
+        </p>
       </div>
     </>
   )

@@ -1,56 +1,27 @@
-import React from 'react'
-import Skeleton from './Skeleton'
-import { formatBalance, formatPercent } from '../../functions'
-import { BigNumberish } from 'ethers'
-import Typography from './Typography'
-import { commify } from 'ethers/lib/utils'
+import { ReactNode } from 'react'
 
-type Stat = {
-  name?: string
-  stat?: BigNumberish
-  before?: React.ReactNode
-  after?: React.ReactNode
-  isBalance?: boolean
-  isPercent?: boolean
-}
-export interface StatProps {
-  title?: string
-  maxCols?: number
-  stats?: Stat[]
-}
-export default function Stat({ title, stats }: StatProps) {
+export default function Stat({
+  stats,
+}: {
+  stats: {
+    name?: string
+    stat?: ReactNode
+  }[]
+}) {
   return (
     <div>
-      <Typography as="h3" className="text-lg font-medium leading-6 ">
-        {title}
-      </Typography>
-
       <dl className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3 ">
         {stats &&
           stats.map((item, i) => (
             <div
-              className="relative h-full flex-1  flex-grow rounded bg-purple-900/60 p-4 shadow-pink-glow ring-2 ring-purple-500/30 backdrop-blur transition-all hover:shadow-pink-glow-hovered "
+              className="relative h-full flex-1  flex-grow rounded bg-purple-900 p-4 shadow-pink-glow ring-2 ring-purple-500/50  "
               key={i}
             >
-              <dt className="truncate text-sm font-medium text-secondary">
-                {item?.name && item.name}
+              <dt className=" truncate text-sm font-medium text-secondary">
+                {item.name || ''}
               </dt>
-              <dd className="mt-1 flex items-center text-2xl font-semibold text-primary">
-                {item.stat ? (
-                  <>
-                    {item.before}
-
-                    {item.isBalance
-                      ? commify(formatBalance(item.stat))
-                      : item.isPercent
-                      ? formatPercent(item.stat)
-                      : item.stat}
-
-                    {item.after}
-                  </>
-                ) : (
-                  <Skeleton />
-                )}
+              <dd className=" mt-1 flex max-w-[66%] items-center text-2xl font-semibold text-primary">
+                {item.stat}
               </dd>
             </div>
           ))}

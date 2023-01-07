@@ -1,7 +1,7 @@
-import React from 'react'
-import makeBlockie from 'ethereum-blockies-base64'
+import React from "react"
+import makeBlockie from "ethereum-blockies-base64"
 
-import { ethers } from 'ethers'
+import { ethers } from "ethers"
 
 export default function Avatar({
   size = 64,

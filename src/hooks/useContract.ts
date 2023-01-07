@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import IERC20 from '@openzeppelin/contracts/build/contracts/IERC20.json'
+import IERC20 from '../json/erc20.abi.json'
 import { ASCENSION } from '../constants'
-import { ChainId, Falsy } from '@usedapp/core'
+import { ChainId } from '@usedapp/core'
 import {
   AscensionStakedToken,
   AscensionStaking,
@@ -11,8 +11,8 @@ import { Contract, ContractInterface } from 'ethers'
 
 // returns null on errors
 export const useContract = (
-  address: string | Falsy,
-  ABI: ContractInterface | Falsy
+  address?: string,
+  ABI?: ContractInterface
 ): Contract | null => {
   return useMemo(() => {
     if (!address || !ABI) return null
@@ -29,7 +29,7 @@ export const useTokenContract = (
   tokenAddress: string,
   chainId?: ChainId
 ): Contract | null => {
-  return useContract(tokenAddress, IERC20.abi)
+  return useContract(tokenAddress, IERC20)
 }
 
 export const useAscendTokenContract = () => {

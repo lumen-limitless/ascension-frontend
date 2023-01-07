@@ -1,4 +1,4 @@
-import cn from 'clsx'
+import { clsx } from 'clsx'
 import React from 'react'
 
 export const Input = React.memo(
@@ -34,7 +34,7 @@ export const Input = React.memo(
           placeholder={placeholder}
           // text-specific options
           type="text"
-          className={cn(
+          className={clsx(
             'relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-purple focus:ring-purple sm:text-sm',
             className
           )}

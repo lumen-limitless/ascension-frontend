@@ -19,7 +19,7 @@ export default function Document() {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="theme-color" content="#0B0514" />
+        <meta name="theme-color" content="#090514" />
         <meta key="twitter:card" name="twitter:card" content="app" />
         <meta key="twitter:title" name="twitter:title" content={APP_NAME} />
         <meta key="twitter:url" name="twitter:url" content={APP_NAME} />
@@ -28,7 +28,7 @@ export default function Document() {
           name="twitter:description"
           content={APP_DESCRIPTION}
         />
-        <meta key="twitter:image" name="twitter:image" content="/og.png" />
+        <meta key="twitter:image" name="twitter:image" content="/og.img" />
         <meta
           key="twitter:creator"
           name="twitter:creator"
@@ -41,7 +41,7 @@ export default function Document() {
           property="og:url"
           content="https://ascensionprotocol.io"
         />
-        <meta key="og:image" property="og:image" content="/og.png" />
+        <meta key="og:image" property="og:image" content="/og.jpg" />
         <meta
           key="og:description"
           property="og:description"

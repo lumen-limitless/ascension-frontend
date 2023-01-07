@@ -1,4 +1,4 @@
-import cn from 'clsx'
+import { clsx } from 'clsx'
 import React, { FC, forwardRef } from 'react'
 
 export type TypographyWeight = 400 | 500 | 700
@@ -54,7 +54,7 @@ const Typography: FC<TypographyProps> = forwardRef(
     return React.createElement(
       as,
       {
-        className: cn(
+        className: clsx(
           VARIANTS[variant],
           // @ts-ignore TYPE NEEDS FIXING
           WEIGHTS[weight],

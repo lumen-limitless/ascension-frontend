@@ -28,11 +28,11 @@ export default function Modal({
             <Transition.Child
               as={React.Fragment}
               enter="ease-out duration-300"
-              enterFrom="opacity-0 "
-              enterTo="opacity-100 "
-              leave="ease-in duration-200 "
-              leaveFrom="opacity-100 "
-              leaveTo="opacity-0 "
+              enterFrom="opacity-0 translate-y-[20%] "
+              enterTo="opacity-100 translate-y-0"
+              leave="ease-in duration-150 "
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-[20%]"
             >
               <div className="flex h-[80%] w-full transform flex-col overflow-y-auto overflow-x-hidden rounded  bg-purple-800 p-3 transition-all md:h-auto md:max-w-xl  md:p-6 lg:p-9">
                 <button onClick={onDismiss} className="absolute top-3 right-3">

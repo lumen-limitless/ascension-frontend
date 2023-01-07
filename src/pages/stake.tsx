@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { ASCENSION, HOME_CHAINID } from '../constants'
-import { parseUnits, commify } from '@ethersproject/units'
-import { formatBalance, parseBalance } from '../functions'
+import { formatBalance, formatPercent, parseBalance } from '../functions'
 import {
   Arbitrum,
   useCalls,
@@ -33,6 +32,8 @@ import { useBoolean } from 'react-use'
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
 import { VIEW } from '../constants/enums'
+import { commify, formatUnits, parseUnits } from 'ethers/lib/utils'
+import { AscensionToken } from '../types/typechain'
 
 const useStakingCalls = () => {
   const { account } = useEthers()
@@ -124,7 +125,7 @@ const StakePage: NextPage = () => {
     if (!totalStaked) return null
     const r = parseBalance(rewardRate)
     const t = parseBalance(totalStaked)
-    return ((r * Math.floor(31557600)) / t) * 100
+    return formatPercent(((r * 31557600) / t) * 100)
   }, [rewardRate, totalStaked])
 
   const handleAmountInput = (input: string) => {
@@ -134,8 +135,8 @@ const StakePage: NextPage = () => {
     <>
       <NextSeo title="Stake" description={`Ascension Protocol staking`} />
 
-      <Section className="py-12">
-        <Container className="max-w-7xl">
+      <Section className="py-24">
+        <Container>
           <Grid gap="md">
             <motion.div
               initial={{ opacity: 0 }}
@@ -145,15 +146,18 @@ const StakePage: NextPage = () => {
             >
               <Stat
                 stats={[
-                  { name: 'APR', stat: apy, isPercent: true },
+                  { name: 'APR', stat: apy || <Skeleton /> },
                   {
                     name: 'Total Staked',
-                    stat: totalStaked || '',
-                    isBalance: true,
+                    stat: totalStaked ? (
+                      commify(formatBalance(totalStaked))
+                    ) : (
+                      <Skeleton />
+                    ),
                   },
                   {
                     name: 'Rewards End',
-                    stat: rewardsEndAt || '',
+                    stat: rewardsEndAt || <Skeleton />,
                   },
                 ]}
               />
@@ -166,47 +170,44 @@ const StakePage: NextPage = () => {
             >
               <Card>
                 <Card.Header>
-                  {' '}
-                  <div className="flex items-center  gap-3 p-3">
-                    <Toggle
-                      className="absolute top-3 right-3"
-                      iconSet={{
-                        on: (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={16}
-                            height={16}
-                            preserveAspectRatio="xMidYMid meet"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              fill="currentColor"
-                              fillRule="evenodd"
-                              d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"
-                            />
-                          </svg>
-                        ),
-                        off: (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={16}
-                            height={16}
-                            preserveAspectRatio="xMidYMid meet"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              fill="currentColor"
-                              fillRule="evenodd"
-                              d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"
-                            />
-                          </svg>
-                        ),
-                      }}
-                      onToggle={() => toggle()}
-                      isActive={isWithdrawing}
-                    />
-                    <h1>{`${isWithdrawing ? 'Withdraw' : 'Stake'} ASCEND`}</h1>
-                  </div>
+                  <Toggle
+                    className="absolute top-3 right-3"
+                    iconSet={{
+                      on: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={16}
+                          height={16}
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill="currentColor"
+                            fillRule="evenodd"
+                            d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"
+                          />
+                        </svg>
+                      ),
+                      off: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={16}
+                          height={16}
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill="currentColor"
+                            fillRule="evenodd"
+                            d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"
+                          />
+                        </svg>
+                      ),
+                    }}
+                    onToggle={() => toggle()}
+                    isActive={isWithdrawing}
+                  />
+                  <h1>{`${isWithdrawing ? 'Withdraw' : 'Stake'} ASCEND`}</h1>
                 </Card.Header>
                 <Card.Body>
                   {!account ? (
@@ -355,7 +356,7 @@ const StakePage: NextPage = () => {
                               )}
                             </li>
                           </ul>
-                          <div className="flex w-full flex-col  items-center justify-center gap-3 lg:flex-row">
+                          <div className="flex w-full flex-col  items-center justify-center  gap-3 lg:flex-row">
                             {balanceOf &&
                               parseBalance(balanceOf || '0') > 0 && (
                                 <TransactionButton

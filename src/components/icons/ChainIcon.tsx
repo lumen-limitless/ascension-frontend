@@ -489,12 +489,18 @@ const CHAIN_ICON = {
   ),
 }
 
-export default function ChainIcon({ chainId }: { chainId: number }) {
+export default function ChainIcon({
+  chainId,
+  className = '',
+}: {
+  chainId: number
+  className?: string
+}) {
   return (
     <>
       {CHAIN_ICON[chainId] ?? (
         <svg
-          className="h-12 w-12"
+          className={className}
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"

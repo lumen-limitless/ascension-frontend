@@ -1,4 +1,4 @@
-import cn from 'clsx'
+import clsx from 'clsx'
 import React from 'react'
 
 export const Input = React.memo(
@@ -33,7 +33,7 @@ export const Input = React.memo(
             pattern="^(0x[a-fA-F0-9]{40})$"
             // text-specific options
             type="text"
-            className={cn(
+            className={clsx(
               'focus:ring-ascend-purple relative block w-full rounded-md border-gray-500 bg-transparent shadow-sm hover:border-gray-400 focus:border-purple sm:text-sm',
               className
             )}

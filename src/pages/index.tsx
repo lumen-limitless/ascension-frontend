@@ -9,7 +9,7 @@ import RewardsIcon from '../components/icons/RewardsIcon'
 import ToolsIcon from '../components/icons/ToolsIcon'
 import Typography from '../components/ui/Typography'
 
-import { motion } from 'framer-motion'
+import { motion, useTime } from 'framer-motion'
 import CryptoJinglesIcon from '../components/icons/CryptoJinglesIcon'
 import L2DAOIcon from '../components/icons/L2DAOIcon'
 import FrensIcon from '../components/icons/FrensIcon'
@@ -40,29 +40,31 @@ const features = [
 ]
 
 const HomePage: NextPage = () => {
+  const time = useTime()
+
   return (
     <>
       <NextSeo />
 
       <Section
         fullscreen
-        className="bg-[#050310] bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat py-3 md:py-9 lg:py-12 xl:py-16"
+        className=" overflow-x-clip bg-[url('/bg.jpg')]  bg-cover bg-center bg-no-repeat py-24"
         id="hero"
       >
         <Container>
-          <div className="space-y-3 text-center xl:mt-12">
-            <div className=" flex w-full items-center justify-center ">
+          <div className="relative space-y-3 text-center xl:mt-12 ">
+            <div className=" flex w-full  items-center justify-center">
               <Logo size={128} />
             </div>
             <Typography
               as="h1"
-              className=" text-5xl font-bold text-primary drop-shadow-2xl md:text-6xl lg:text-7xl"
+              className=" text-5xl font-bold  text-primary drop-shadow-2xl md:text-6xl lg:text-7xl"
             >
               Prepare for{' '}
               <span className="bg-gradient-to-r from-orange-500 to-yellow bg-clip-text font-extrabold text-transparent ">
                 Ascension
               </span>
-            </Typography>{' '}
+            </Typography>
             <Typography
               as="p"
               className="mx-auto p-1 text-xl text-primary drop-shadow-2xl md:py-3 md:px-12 md:text-3xl lg:text-4xl"
@@ -70,7 +72,7 @@ const HomePage: NextPage = () => {
               Ascension Protocol is a Decentralized Autonomous Organization
               (DAO) dedicated to providing DeFi tools and opportunities for
               it&apos;s constituents.
-            </Typography>{' '}
+            </Typography>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -104,41 +106,35 @@ const HomePage: NextPage = () => {
         </Container>
       </Section>
 
-      <Section id="features">
+      <Section id="features" className="py-32">
         <Container>
-          <div className="flex flex-col py-12">
-            <div className=" grid w-full  grid-cols-1 gap-9 py-12 md:px-9 xl:grid-cols-3 ">
-              {features.map((f, i) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 33 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    type: 'spring',
-                    delay: 0.12 * i,
-                  }}
-                  key={f.title}
-                >
-                  <Card className=" h-full xl:max-h-96 ">
-                    <Card.Body>
-                      <div className="flex w-full flex-col justify-center gap-3 p-3">
-                        <div className="flex items-center gap-3 ">
-                          {' '}
-                          {f.icon}
-                          <Typography as="h2" className="text-4xl text-primary">
-                            {f.title}
-                          </Typography>
-                        </div>
+          <div className="flex flex-col justify-evenly gap-9 xl:flex-row">
+            {features.map((f, i) => (
+              <motion.div
+                initial={{ opacity: 0, y: 33 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  type: 'spring',
+                  delay: 0.12 * i,
+                }}
+                key={f.title}
+                className="xl:w-1/3"
+              >
+                <Card className="h-full">
+                  <Card.Body>
+                    <div className="flex items-center gap-3 ">
+                      {f.icon}
+                      <h2 className="text-4xl text-primary">{f.title}</h2>
+                    </div>
 
-                        <Typography className="text-secondary">
-                          {f.description}
-                        </Typography>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                    <Typography className="mt-3 text-secondary">
+                      {f.description}
+                    </Typography>
+                  </Card.Body>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </Container>
       </Section>
@@ -177,14 +173,14 @@ const HomePage: NextPage = () => {
       </Section>
       <></>
       <Section className="py-24" id="cta">
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-purple via-pink to-yellow opacity-70 blur" />
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-purple via-pink to-yellow opacity-70 blur-2xl" />
         <Container className="max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1 }}
             transition={{ ease: 'easeOut', duration: 1 }}
-            className="z-10"
+            className=""
           >
             <Typography
               as="h4"
@@ -204,7 +200,6 @@ const HomePage: NextPage = () => {
                   full
                   className="bg-[#2AABEE] hover:shadow-[#2AABEE]/10"
                 >
-                  {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                     <path
                       fillRule="evenodd"
@@ -225,7 +220,6 @@ const HomePage: NextPage = () => {
                   full
                   className="bg-[#5865F2] hover:shadow-[#5865F2]/10"
                 >
-                  {' '}
                   <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                     <path
                       fillRule="evenodd"
@@ -246,7 +240,6 @@ const HomePage: NextPage = () => {
                   full
                   className="bg-purple hover:shadow-purple/10"
                 >
-                  {' '}
                   <svg
                     className="h-6 w-6"
                     fill="currentColor"
@@ -276,6 +269,7 @@ const HomePage: NextPage = () => {
           </motion.div>
         </Container>
       </Section>
+      <div className="py-12" />
     </>
   )
 }
