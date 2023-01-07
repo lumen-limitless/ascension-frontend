@@ -19,6 +19,7 @@ import {
   ASCENSION_LIQ_ADDRESS,
   ASCENSION_TREASURY_ADDRESS,
   WETH9_ADDRESS,
+  SCAN_INFO,
 } from '../constants'
 import Loader from '../components/ui/Loader'
 import { useStakingSubgraph, useDEXSubgraph, useTokenData } from '../hooks'
@@ -30,7 +31,6 @@ import { endsWith, truncate } from 'lodash'
 import Button from '../components/ui/Button'
 import ExternalLink from '../components/ui/ExternalLink'
 import Logo from '../components/ui/Logo'
-
 import { ethers } from 'ethers'
 import { useMemo } from 'react'
 import Skeleton from '../components/ui/Skeleton'
@@ -334,9 +334,14 @@ const DashboardPage: NextPage = () => {
                             </div>
 
                             <div className="flex flex-col">
-                              <p className=" truncate text-sm md:text-base">
+                              <ExternalLink
+                                href={`https://${
+                                  SCAN_INFO[t.chainId].name
+                                }/token/${t.contractAddress}`}
+                                className=" truncate text-sm after:content-['_↗'] md:text-base"
+                              >
                                 {`${t.tokenMetadata.name}`}
-                              </p>
+                              </ExternalLink>
                               <span className="text-xs text-secondary md:text-sm">
                                 {commify(t.tokenBalance.toFixed(2))}
                               </span>
