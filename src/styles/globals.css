@@ -22,7 +22,8 @@ body {
   @apply  box-border touch-manipulation scroll-smooth bg-purple-900 antialiased text-primary;
 }
 
-#__next {
+
+#__next, [data-rk] {
   @apply flex min-h-screen flex-col ;
 }
 
@@ -55,4 +56,3 @@ a {
     background: hsl(0, 0, 0);
   }
   
-

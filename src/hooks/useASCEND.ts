@@ -1,15 +1,17 @@
-import { useTokenBalance } from '@usedapp/core'
+import { useBalance } from 'wagmi'
+import { ASCENSION } from '../constants'
 
-import { ASCENSION, HOME_CHAINID } from '../constants'
-
-export const useASCENDBalance = (address: string) => {
-  return useTokenBalance(ASCENSION.AscensionToken.address, address, {
-    chainId: HOME_CHAINID,
+export const useASCENDBalance = (address: `0x${string}`) => {
+  return useBalance({
+    address: address,
+    token: ASCENSION.AscensionToken.address as `0x${string}`,
+    chainId: 42161,
   })
 }
-
-export const useStakedASCENDBalance = (address: string) => {
-  return useTokenBalance(ASCENSION.AscensionStaking.address, address, {
-    chainId: HOME_CHAINID,
+export const useStakedASCENDBalance = (address: `0x${string}`) => {
+  return useBalance({
+    address: address,
+    token: ASCENSION.AscensionStakedToken.address as `0x${string}`,
+    chainId: 42161,
   })
 }

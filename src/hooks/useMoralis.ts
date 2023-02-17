@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 import axios from 'axios'
-import { useMemo } from 'react'
 
 interface MoralisNFTData {
   amount: string

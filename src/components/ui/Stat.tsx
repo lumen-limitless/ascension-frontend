@@ -10,7 +10,7 @@ export default function Stat({
 }) {
   return (
     <div>
-      <dl className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3 ">
+      <dl className="mt-3 grid grid-cols-1 gap-3  sm:grid-cols-3 ">
         {stats &&
           stats.map((item, i) => (
             <div

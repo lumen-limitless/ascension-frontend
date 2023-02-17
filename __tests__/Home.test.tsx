@@ -14,7 +14,7 @@ describe('Home', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: 'Partners & Investments',
+        name: 'Our Partners',
       })
     ).toBeInTheDocument()
 

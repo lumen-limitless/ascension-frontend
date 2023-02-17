@@ -1,8 +1,10 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import Logo from '../components/ui/Logo'
+import Layout from '../layouts/Layout'
+import { NextPageWithLayout } from '../types'
 
-const Custom404Page: NextPage = () => {
+const Custom404Page: NextPageWithLayout = () => {
   return (
     <div className="flex min-h-full flex-grow flex-col py-24">
       <div className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -10,7 +12,7 @@ const Custom404Page: NextPage = () => {
           <Link href="/" className="inline-flex">
             <>
               <span className="sr-only">Ascension Protocol</span>
-              <Logo size={64} />
+              <Logo className="h-32" />
             </>
           </Link>
         </div>
@@ -40,4 +42,7 @@ const Custom404Page: NextPage = () => {
   )
 }
 
+Custom404Page.getLayout = (page) => {
+  return <Layout>{page}</Layout>
+}
 export default Custom404Page

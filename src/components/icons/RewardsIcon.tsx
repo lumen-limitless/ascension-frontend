@@ -2,14 +2,13 @@ import React, { FC } from 'react'
 
 type Props = {}
 
-const RewardsIcon: FC<Props> = (props) => {
+export default function RewardsIcon(props: JSX.IntrinsicElements['svg']) {
   return (
     <svg
-      width="64"
-      height="64"
       viewBox="0 0 200 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_46)" />
       <path
@@ -32,5 +31,3 @@ const RewardsIcon: FC<Props> = (props) => {
     </svg>
   )
 }
-
-export default RewardsIcon

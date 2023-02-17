@@ -1,6 +1,7 @@
 import { Popover } from '@headlessui/react'
+import { ReactNode } from 'react'
 
-export default function Tooltip({ children }) {
+export default function Tooltip({ children }: { children?: ReactNode }) {
   return (
     <Popover>
       <Popover.Button className="inline-flex p-3">

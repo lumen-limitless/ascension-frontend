@@ -1,84 +1,43 @@
-import {
-  useEtherBalance,
-  useEthers,
-  useToken,
-  useTokenAllowance,
-  useTokenBalance,
-  useTokenList,
-} from '@usedapp/core'
 import { formatUnits } from 'ethers/lib/utils'
-import { SetStateAction, useState } from 'react'
-import { useLocalStorage, useToggle } from 'react-use'
-import {
-  ASCENSION,
-  DEX_BY_CHAIN,
-  HOME_CHAINID,
-  USDC_ADDRESS,
-} from '../constants'
-import Dropdown from './ui/Dropdown'
-import { formatBalance, isAddress } from '../functions'
-import { Token } from '../types'
+import { useState } from 'react'
+import { useSessionStorage, useToggle } from 'react-use'
+import { formatBalance } from '../functions'
 import Button from './ui/Button'
 import Card from './ui/Card'
 import Input from './ui/Input'
 import Modal from './ui/Modal'
+import tokenList from '../json/tokenList.json'
+import { useAccount } from 'wagmi'
+import { Token } from '../types'
+import { use0xQuote } from '../hooks'
 
-interface SwapProps {
-  sellToken: Token
-  setSellToken: React.Dispatch<SetStateAction<Token>>
-  buyToken: Token
-  setBuyToken: React.Dispatch<SetStateAction<Token>>
-  dex: string
-  setDex: React.Dispatch<SetStateAction<string>>
-}
-export default function Swap({
-  sellToken,
-  setSellToken,
-  buyToken,
-  setBuyToken,
-  dex,
-  setDex,
-}: SwapProps) {
-  const { chainId, account } = useEthers()
-  const balance = useEtherBalance(account)
-  const [, setLastSellToken] = useLocalStorage('LastSellToken')
-  const [, setLastBuyToken] = useLocalStorage('LastBuyToken')
-  const allowance = useTokenAllowance(
-    sellToken.address,
-    account,
-    DEX_BY_CHAIN[chainId][dex].router
-  )
-  const sellTokenBalance = useTokenBalance(sellToken.address, account)
-  const buyTokenBalance = useTokenBalance(buyToken.address, account)
+export default function Swap() {
+  const { address } = useAccount()
+  const balance = 0
+  const [tokenIn, setTokenIn] = useSessionStorage<Token>('mercury_tokenIn')
+  const [tokenOut, setTokenOut] = useSessionStorage<Token>('mercury_tokenOut')
+
+  const quote = use0xQuote({
+    sellToken: 'WETH',
+    buyToken: 'DAI',
+    sellAmount: '100000000000000000',
+    takerAddress: address as string,
+  })
+  console.debug(quote)
+  const allowance = 0
+
+  const sellTokenBalance = 0
+  const buyTokenBalance = 0
   const [sellAmount, setSellAmount] = useState('')
   const [buyAmount, setBuyAmount] = useState('')
 
-  const [settingBuyToken, toggleSettingBuyToken] = useToggle(false)
-  const [settingSellToken, toggleSettingSellToken] = useToggle(false)
+  const [settingTokenIn, toggleSettingTokenIn] = useToggle(false)
+  const [settingTokenOut, toggleSettingTokenOut] = useToggle(false)
   const [input, setInput] = useState('')
-  const inputMeta = useToken(USDC_ADDRESS[chainId])
-  const tokenList = useTokenList(
-    'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
-  )
 
   const switchTokens = () => {
-    setSellToken(buyToken)
-    setBuyToken(sellToken)
-  }
-
-  const handleTokenInput = (t: Token) => {
-    if (settingSellToken) {
-      setSellToken(t)
-      setInput('')
-      setLastSellToken(t)
-      toggleSettingSellToken()
-    }
-    if (settingBuyToken) {
-      setBuyToken(t)
-      setInput('')
-      setLastBuyToken(t)
-      toggleSettingBuyToken()
-    }
+    setTokenIn(tokenOut)
+    setTokenOut(tokenIn)
   }
 
   return (
@@ -86,17 +45,8 @@ export default function Swap({
       <Card className="shrink-0">
         <Card.Header>Swap</Card.Header>
         <Card.Body>
-          <div className="absolute top-1 right-1 flex items-center justify-center ">
-            <Dropdown
-              options={Object.keys(DEX_BY_CHAIN[chainId])}
-              title={dex}
-              onSelect={setDex}
-            />
-
-            <Button className=""></Button>
-          </div>
           <div className="text-low-emphesis flex text-sm">You Pay:</div>
-          <div className="bg-dark-1000  relative flex w-full flex-col gap-1 rounded-xl p-6 shadow-md">
+          <div className="relative  flex w-full flex-col gap-1 rounded-xl bg-purple-900 p-6 shadow-md">
             <div className="absolute top-3 right-3 text-xs">
               Balance:{' '}
               {sellTokenBalance
@@ -108,16 +58,16 @@ export default function Swap({
             <Button
               color="gray"
               className="w-32"
-              onClick={toggleSettingSellToken}
+              onClick={toggleSettingTokenIn}
             >
-              {sellToken?.symbol}
+              {tokenIn.symbol}
             </Button>
             <Input.Numeric
               value={sellAmount}
               onUserInput={(i) => {
                 setSellAmount(i)
               }}
-            ></Input.Numeric>
+            />
           </div>
           <div className="flex justify-center">
             <Button onClick={switchTokens}>
@@ -133,43 +83,37 @@ export default function Swap({
             </Button>
           </div>
           <div className="text-low-emphesis flex text-sm">You Receive:</div>
-          <div className="bg-dark-1000 relative flex w-full flex-col gap-1 rounded-xl p-6 shadow-md">
+          <div className="relative flex w-full flex-col gap-1 rounded-xl bg-purple-900 p-6 shadow-md">
             <div className="absolute top-3 right-3 text-xs">
               Balance: {buyTokenBalance && formatUnits(buyTokenBalance)}
             </div>
             <Button
               color="gray"
               className="w-32"
-              onClick={toggleSettingBuyToken}
+              onClick={toggleSettingTokenOut}
             >
-              {buyToken?.symbol}
+              {tokenOut.symbol}
             </Button>
             <Input.Numeric
               value={buyAmount}
               onUserInput={(i) => {
                 setBuyAmount(i)
               }}
-            ></Input.Numeric>
+            />
           </div>
           <div className="mt-9">
-            <Button
-              color="gradient"
-              disabled
-              onClick={() => {
-                return
-              }}
-            >
+            <Button full color="gradient">
               Swap
             </Button>
           </div>
         </Card.Body>
       </Card>
-      {[settingBuyToken, settingSellToken].includes(true) && (
+      {[settingTokenIn, settingTokenOut].includes(true) && (
         <Modal
-          isOpen={settingBuyToken || settingSellToken ? true : false}
+          isOpen={settingTokenIn || settingTokenOut ? true : false}
           onDismiss={() => {
-            toggleSettingBuyToken(false)
-            toggleSettingSellToken(false)
+            toggleSettingTokenIn(false)
+            toggleSettingTokenOut(false)
             setInput('')
           }}
         >
@@ -179,34 +123,23 @@ export default function Swap({
               placeholder="Enter contract address..."
               value={input}
               onUserInput={(input) => setInput(input)}
-            ></Input.Address>
-            {isAddress(input) && inputMeta && (
-              <Button
-                disabled={isAddress(input) ? false : true}
-                color="gray"
-                onClick={() =>
-                  handleTokenInput({
-                    address: input,
-                    name: inputMeta.name,
-                    symbol: inputMeta.symbol,
-                    decimals: inputMeta.decimals,
-                    chainId: chainId,
-                  })
-                }
-              >
-                {inputMeta.name}({inputMeta.symbol})
-              </Button>
-            )}
+            />
 
             <h2>Token List</h2>
             <div className=" h-64 overflow-y-scroll">
-              {tokenList.tokens.map((t) => {
-                return (
-                  <Button key={t.address} onClick={() => handleTokenInput(t)}>
-                    {t.name}({t.symbol})
-                  </Button>
-                )
-              })}
+              {tokenList.map((token) => (
+                <button
+                  onClick={() =>
+                    settingTokenIn ? setTokenIn(token) : setTokenOut(token)
+                  }
+                  key={token.address + token.chainId}
+                  className="flex gap-3 p-3"
+                >
+                  <img className="h-6 w-6" src={token.logoURI} />
+                  <span>{token.name}</span>
+                  <span>{token.symbol}</span>
+                </button>
+              ))}
             </div>
           </div>
         </Modal>

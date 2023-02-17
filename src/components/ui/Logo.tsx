@@ -1,10 +1,8 @@
 import React from 'react'
 
-export default function Logo({ size = 48, className = '' }) {
+export default function Logo({ className = 'h-12 w-12' }) {
   return (
     <svg
-      height={size}
-      width={size}
       id="Vrstva_1"
       data-name="Vrstva 1"
       xmlns="http://www.w3.org/2000/svg"

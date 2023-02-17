@@ -12,13 +12,13 @@ const SIZE = {
 const COLORS = {
   transparent: 'border border-purple-500/30',
   default: '',
-  blue: 'bg-blue-500 shadow-blue ',
-  green: 'bg-green-500 shadow-green ',
-  red: 'bg-red-500 shadow-red ',
-  yellow: 'bg-yellow-500 shadow-yellow ',
-  pink: 'bg-pink-500 shadow-pink ',
-  gray: 'bg-gray-800 shadow-black ',
-  gradient: 'bg-gradient-to-r from-pink  to-purple shadow-pink',
+  blue: 'bg-blue-500 shadow-blue ring-blue/30',
+  green: 'bg-green-500 shadow-green ring-green/30 ',
+  red: 'bg-red-500 shadow-red ring-red/30 ',
+  yellow: 'bg-yellow-500 shadow-yellow ring-yellow/30 ',
+  pink: 'bg-pink-500 shadow-pink ring-pink/30',
+  gray: 'bg-gray-800 shadow-black ring-gray/30',
+  gradient: 'bg-gradient-to-r from-pink  to-purple shadow-pink ring-pink/30',
 }
 
 export type ButtonColor =
@@ -55,7 +55,7 @@ export default function Button({
         COLORS[color],
         SIZE[size],
         full && 'w-full',
-        ' inline-flex items-center justify-center gap-1 rounded text-white  transition focus:outline-none hover:enabled:brightness-125 hover:enabled:drop-shadow-xl disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 ',
+        ' inline-flex items-center justify-center gap-1 rounded text-white  transition focus:outline-none  hover:enabled:brightness-125 hover:enabled:drop-shadow-xl disabled:cursor-not-allowed disabled:bg-opacity-20 disabled:text-opacity-60 ',
         className
       )}
       {...rest}

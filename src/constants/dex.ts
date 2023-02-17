@@ -4,7 +4,6 @@ import {
   UNI_FACTORYV2_ADDRESS,
   UNI_ROUTERV2_ADDRESS,
 } from '.'
-import { Avalanche, ChainId } from '@usedapp/core'
 
 export const SUSHI_INIT_HASH =
   '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303'
@@ -22,61 +21,52 @@ export const DEX_BY_CHAIN: {
     }
   }
 } = {
-  [ChainId.Mainnet]: {
+  [1]: {
     sushiswap: {
       initHash: SUSHI_INIT_HASH,
-      router: SUSHI_ROUTER_ADDRESS[ChainId.Mainnet],
-      factory: SUSHI_FACTORY_ADDRESS[ChainId.Mainnet],
+      router: SUSHI_ROUTER_ADDRESS[1],
+      factory: SUSHI_FACTORY_ADDRESS[1],
       subgraphUrl: 'https://api.thegraph.com/subgraphs/name/sushiswap/exchange',
     },
     uniswapV2: {
       initHash: UNI_INIT_HASH,
-      router: UNI_ROUTERV2_ADDRESS[ChainId.Mainnet],
-      factory: UNI_FACTORYV2_ADDRESS[ChainId.Mainnet],
+      router: UNI_ROUTERV2_ADDRESS[1],
+      factory: UNI_FACTORYV2_ADDRESS[1],
       subgraphUrl: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2',
     },
     uniswapV3: {
-      initHash: null,
+      initHash: '',
       router: '',
       factory: '',
       subgraphUrl:
         'https://api.thegraph.com/subgraphs/name/kalinbas/uniswap-v3-mainnet',
     },
   },
-  [ChainId.Arbitrum]: {
+  [42161]: {
     sushiswap: {
       initHash: SUSHI_INIT_HASH,
-      router: SUSHI_ROUTER_ADDRESS[ChainId.Arbitrum],
-      factory: SUSHI_FACTORY_ADDRESS[ChainId.Arbitrum],
+      router: SUSHI_ROUTER_ADDRESS[42161],
+      factory: SUSHI_FACTORY_ADDRESS[42161],
       subgraphUrl:
         'https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange',
     },
   },
-  [ChainId.BSC]: {
+  [56]: {
     sushiswap: {
       initHash: SUSHI_INIT_HASH,
-      router: SUSHI_ROUTER_ADDRESS[ChainId.BSC],
-      factory: SUSHI_FACTORY_ADDRESS[ChainId.BSC],
+      router: SUSHI_ROUTER_ADDRESS[56],
+      factory: SUSHI_FACTORY_ADDRESS[56],
       subgraphUrl:
         'https://api.thegraph.com/subgraphs/name/sushiswap/bsc-exchange',
     },
   },
-  [ChainId.Polygon]: {
+  [137]: {
     sushiswap: {
       initHash: SUSHI_INIT_HASH,
-      router: SUSHI_ROUTER_ADDRESS[ChainId.Polygon],
-      factory: SUSHI_FACTORY_ADDRESS[ChainId.Polygon],
+      router: SUSHI_ROUTER_ADDRESS[137],
+      factory: SUSHI_FACTORY_ADDRESS[137],
       subgraphUrl:
         'https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange',
-    },
-  },
-  [ChainId.Avalanche]: {
-    sushiswap: {
-      initHash: SUSHI_INIT_HASH,
-      router: SUSHI_ROUTER_ADDRESS[ChainId.Avalanche],
-      factory: SUSHI_FACTORY_ADDRESS[ChainId.Avalanche],
-      subgraphUrl:
-        'https://api.thegraph.com/subgraphs/name/sushiswap/avalanche-exchange',
     },
   },
 }

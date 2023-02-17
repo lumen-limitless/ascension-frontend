@@ -2,24 +2,44 @@ import React, { FC } from 'react'
 
 type Props = {}
 
-export default function GovernanceIcon() {
+export default function GovernanceIcon(props: JSX.IntrinsicElements['svg']) {
   return (
     <svg
-      width="64"
-      height="64"
+      {...props}
       viewBox="0 0 200 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_216_6)" />
       <path d="M38.25 83H161.75V91.5121H38.25V83Z" fill="white" />
-      <path d="M39.3333 93.6376H49.0833V126.794H39.3333V93.6376Z" fill="white" />
-      <path d="M149.833 93.6376H159.583V126.794H149.833V93.6376Z" fill="white" />
-      <path d="M133.583 93.6376H143.333V126.794H133.583V93.6376Z" fill="white" />
-      <path d="M114.083 93.6376H123.833V126.794H114.083V93.6376Z" fill="white" />
-      <path d="M75.0833 93.6376H84.8333V126.794H75.0833V93.6376Z" fill="white" />
-      <path d="M94.5833 93.6376H104.333V126.794H94.5833V93.6376Z" fill="white" />
-      <path d="M55.5833 93.6376H65.3333V126.794H55.5833V93.6376Z" fill="white" />
+      <path
+        d="M39.3333 93.6376H49.0833V126.794H39.3333V93.6376Z"
+        fill="white"
+      />
+      <path
+        d="M149.833 93.6376H159.583V126.794H149.833V93.6376Z"
+        fill="white"
+      />
+      <path
+        d="M133.583 93.6376H143.333V126.794H133.583V93.6376Z"
+        fill="white"
+      />
+      <path
+        d="M114.083 93.6376H123.833V126.794H114.083V93.6376Z"
+        fill="white"
+      />
+      <path
+        d="M75.0833 93.6376H84.8333V126.794H75.0833V93.6376Z"
+        fill="white"
+      />
+      <path
+        d="M94.5833 93.6376H104.333V126.794H94.5833V93.6376Z"
+        fill="white"
+      />
+      <path
+        d="M55.5833 93.6376H65.3333V126.794H55.5833V93.6376Z"
+        fill="white"
+      />
       <path d="M38.25 129.345H161.75V137.847H38.25V129.345Z" fill="white" />
       <path d="M35 139.547H165V154H35V139.547Z" fill="white" />
       <path
