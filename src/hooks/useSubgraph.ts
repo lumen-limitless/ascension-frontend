@@ -5,7 +5,7 @@ import { useQuery } from './useQuery'
 const GET_STAKING_DATA = gql`
   query StakingMetric {
     stakingMetrics(first: 1000, orderDirection: asc, where:{id_gt: ${Math.floor(
-      Date.now() / 1000 - 31556926
+      Date.now() / 1000 - 2629743
     )}}) {
       id
       totalStaked
@@ -31,6 +31,8 @@ export const useStakingSubgraph = () => {
       })
     }
 
+    console.debug('STAKING GRAPH DATA:')
+    console.debug(stakingGraphData)
     return stakingGraphData
   }, [res])
 }

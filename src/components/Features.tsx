@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import FancyButton from '../FancyButton'
+import FancyButton from './FancyButton'
 import Container from './ui/Container'
 import Divider from './ui/Divider'
 import Section from './ui/Section'
@@ -96,7 +96,10 @@ export default function Features() {
                         )}
                       />
                       <ExternalLink href={f.href || ''}>
-                        <FancyButton className={f.buttonGradient}>
+                        <FancyButton
+                          backgroundClassName={f.buttonGradient}
+                          buttonClassName={'w-48'}
+                        >
                           {f.buttonText}
                         </FancyButton>
                       </ExternalLink>

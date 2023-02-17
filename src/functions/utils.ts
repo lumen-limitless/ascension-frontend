@@ -1,5 +1,6 @@
 import crypto from 'crypto'
-export function generateGradientFromAddress(address: string): string {
+export function generateGradientFromAddress(address?: string): string {
+  if (!address) return ''
   // Hash the address using SHA-256
   const hash = crypto.createHash('sha256').update(address).digest('hex')
   // Take the first 6 characters of the hash

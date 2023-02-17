@@ -14,7 +14,7 @@ export default function Banner({ children }: { children?: ReactNode }) {
           {children}
           <button
             onClick={() => setViewing(false)}
-            className="absolute right-3 hover:brightness-125"
+            className="absolute right-1 hover:brightness-125"
           >
             <svg
               className="h-5 w-5"

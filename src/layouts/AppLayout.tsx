@@ -83,19 +83,6 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         >
           <Toaster position="bottom-right" containerClassName=" mb-3 md:mb-9" />
           <ModalUI />
-          <Banner>
-            <p className="text-xs md:text-sm lg:text-base">
-              Ascension staking has ended.
-            </p>
-
-            <Link
-              href="/stake"
-              className="ml-3 text-xs font-extrabold underline md:text-sm lg:text-base"
-            >
-              {' '}
-              Remove Stake & Rewards
-            </Link>
-          </Banner>
 
           <header
             id="header"
@@ -105,7 +92,18 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           >
             <Nav />
           </header>
+          <Banner>
+            <p className="text-xs md:text-sm lg:text-base">
+              Ascension staking has ended.
+            </p>
 
+            <Link
+              href="/stake"
+              className="ml-3 text-xs font-extrabold underline md:text-sm lg:text-base"
+            >
+              Withdraw Assets
+            </Link>
+          </Banner>
           <main
             className=" relative flex h-full w-full flex-grow flex-col overflow-clip"
             id="main"

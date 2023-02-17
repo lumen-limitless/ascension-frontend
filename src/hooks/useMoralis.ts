@@ -26,26 +26,26 @@ interface MoralisNFTResponse {
   total: number
 }
 
-export const useMoralisNFT = (address: string) => {
-  const { data, error } = useSWR<MoralisNFTResponse>(
-    `https://deep-index.moralis.io/api/v2/${address}/nft?chain=eth&format=decimal`,
-    (url) =>
-      axios
-        .get(url, {
-          headers: {
-            accept: 'application/json',
-            'X-API-KEY': process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-          },
-        })
-        .then((res) => res.data)
-  )
-  if (error) {
-    console.error(error)
-    return null
-  }
-  if (!data) return null
-  return data
-}
+// export const useMoralisNFT = (address: string) => {
+//   const { data, error } = useSWR<MoralisNFTResponse>(
+//     `https://deep-index.moralis.io/api/v2/${address}/nft?chain=eth&format=decimal`,
+//     (url) =>
+//       axios
+//         .get(url, {
+//           headers: {
+//             accept: 'application/json',
+//             'X-API-KEY': process.env.NEXT_PUBLIC_MORALIS_API_KEY,
+//           },
+//         })
+//         .then((res) => res.data)
+//   )
+//   if (error) {
+//     console.error(error)
+//     return null
+//   }
+//   if (!data) return null
+//   return data
+// }
 
 // export const useMoralisTokenBalances = (address: string) => {
 //   return useSWR(

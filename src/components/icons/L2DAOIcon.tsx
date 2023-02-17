@@ -4,7 +4,7 @@ export default function L2DAOIcon() {
       <svg
         id="l2daoicon"
         key="l2daoicon"
-        className="h-[50x] w-[50px] md:h-[100px] md:w-[100px]"
+        className="h-16 md:h-24 lg:h-32 "
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +12,12 @@ export default function L2DAOIcon() {
       >
         <rect width="100" height="100" fill="url(#l2daopattern)" />
         <defs>
-          <pattern id="l2daopattern" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <pattern
+            id="l2daopattern"
+            patternContentUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
             <use xlinkHref="#l2daopng" transform="scale(0.00420168)" />
           </pattern>
           <image

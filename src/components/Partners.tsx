@@ -6,7 +6,7 @@ import GMXIcon from './icons/GMXIcon'
 import FrensIcon from './icons/FrensIcon'
 import CryptoJinglesIcon from './icons/CryptoJinglesIcon'
 import L2DAOIcon from './icons/L2DAOIcon'
-export default function Partners({}: {}) {
+export default function Partners() {
   return (
     <>
       <Section id="partners" className="bg-purple-900 py-32">
@@ -35,7 +35,11 @@ export default function Partners({}: {}) {
                 <L2DAOIcon />
               </ExternalLink>
               <ExternalLink href="https://factor.fi/">
-                <img src={'partners/factor.svg'} alt="" className="h-24" />
+                <img
+                  src={'partners/factor.svg'}
+                  alt=""
+                  className="h-16 md:h-24 lg:h-32 "
+                />
               </ExternalLink>
             </div>
           </motion.div>

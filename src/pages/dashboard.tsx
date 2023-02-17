@@ -41,6 +41,11 @@ import { NextPageWithLayout } from '../types'
 import AppLayout from '../layouts/AppLayout'
 import { ascensionTokenAddress } from '../wagmi/generated'
 
+// TODO: automatically filter out scam tokens
+const FILTERED_TOKENS = [
+  getAddress('0xed12AE3Af6b21Be01788Ec84C6BD213d31364988'),
+]
+
 const useTreasuryData = () => {
   const ethNFTData = useNFTData(ASCENSION_TREASURY_ADDRESS[1], 1)
   const arbNFTData = useNFTData(ASCENSION_TREASURY_ADDRESS[42161], 42161)
@@ -101,7 +106,11 @@ const useTreasuryData = () => {
       } as TokenData,
     ]
       .concat([...ethTokens, ...arbTokens])
-      .filter((t) => t.tokenBalance !== 0)
+      .filter(
+        (t) =>
+          t.tokenBalance !== 0 &&
+          !FILTERED_TOKENS.includes(getAddress(t.contractAddress))
+      )
     const totalValueUSD = tokens.reduce(
       (sum, token) => sum + token.priceUSD * token.tokenBalance,
       0

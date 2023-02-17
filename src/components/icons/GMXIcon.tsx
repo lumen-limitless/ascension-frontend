@@ -1,7 +1,7 @@
 export default function GMXIcon() {
   return (
     <svg
-      className="h-[50px] w-[174px] md:h-[100px] md:w-[348px] "
+      className="h-16 md:h-24 lg:h-32 "
       viewBox="0 0 348 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

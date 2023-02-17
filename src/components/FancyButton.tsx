@@ -1,12 +1,14 @@
 import clsx from 'clsx'
 import { ReactNode } from 'react'
-import Button from './components/ui/Button'
+import Button from './ui/Button'
 
 export default function FancyButton({
-  className,
+  buttonClassName,
+  backgroundClassName,
   children,
 }: {
-  className?: string
+  buttonClassName?: string
+  backgroundClassName?: string
   children?: ReactNode
 }) {
   return (
@@ -15,10 +17,10 @@ export default function FancyButton({
         <div
           className={clsx(
             'absolute inset-0 bg-gradient-to-r p-px blur',
-            className
+            backgroundClassName
           )}
         ></div>
-        <Button color="gray" className="z-10 w-48">
+        <Button color="gray" className={clsx('z-10', buttonClassName)}>
           {children}
         </Button>
       </div>
