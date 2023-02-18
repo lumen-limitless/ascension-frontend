@@ -24,8 +24,9 @@ body {
 
 
 #__next, [data-rk] {
-  @apply flex min-h-screen flex-col ;
+  @apply flex min-h-screen flex-col;
 }
+
 
 a {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
