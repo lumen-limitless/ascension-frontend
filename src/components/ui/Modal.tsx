@@ -26,7 +26,7 @@ export default function Modal({
           />
           <div className="flex h-screen items-end justify-center md:items-center md:px-3">
             <Transition.Child
-              // as={React.Fragment} /
+              as={React.Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-[20%] "
               enterTo="opacity-100 translate-y-0"

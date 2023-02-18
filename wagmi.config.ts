@@ -1,5 +1,5 @@
 import { defineConfig } from '@wagmi/cli'
-import { react, foundry, blockExplorer } from '@wagmi/cli/plugins'
+import { react, foundry } from '@wagmi/cli/plugins'
 
 export default defineConfig({
   out: 'src/wagmi/generated.ts',

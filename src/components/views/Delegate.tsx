@@ -1,4 +1,4 @@
-import { isAddress, shortenString } from '../../functions'
+import { formatBalance, isAddress, shortenString } from '../../functions'
 import Button from '../ui/Button'
 import Loader from '../ui/Loader'
 import Skeleton from '../ui/Skeleton'
@@ -44,7 +44,7 @@ export default function Delegate() {
     })
   return (
     <>
-      <div className=" space-y-3">
+      <div className=" my-3 space-y-3">
         {' '}
         <h1 className="mb-2 text-2xl">Delegate {token} Voting Power</h1>
         <div className="inline-flex rounded bg-black">
@@ -57,6 +57,7 @@ export default function Delegate() {
             ASCEND
           </Button>
           <Button
+            disabled
             className={
               token === 'xASCEND'
                 ? 'bg-gradient-to-r from-orange to-yellow'
@@ -101,15 +102,17 @@ export default function Delegate() {
               <div className=" ">
                 <h2 className="text-secondary">{token} voting power: </h2>{' '}
                 {isVotesFetched ? (
-                  <p>{commify(formatUnits(votes as BigNumberish))}</p>
+                  <p>
+                    {commify(formatBalance(votes as BigNumberish) as string)}
+                  </p>
                 ) : (
                   <Skeleton />
                 )}
               </div>
               <div className="">
                 <h2 className="text-secondary">{token} delegate address:</h2>
-                {isCurrentDelegateFetched ? (
-                  <p>{currentDelegate}</p>
+                {isCurrentDelegateFetched && currentDelegate ? (
+                  <p>{shortenString(currentDelegate, 10)}</p>
                 ) : (
                   <Skeleton />
                 )}

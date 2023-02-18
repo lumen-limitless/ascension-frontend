@@ -126,15 +126,21 @@ const useTreasuryData = () => {
 }
 const DashboardPage: NextPageWithLayout = () => {
   const treasuryData = useTreasuryData()
+  console.debug('TREASURY DATA')
+  console.debug(treasuryData)
 
   const stakingData = useStakingSubgraph()
-  // console.debug(stakingData)
+  console.debug('STAKING DATA')
+  console.debug(stakingData)
+
   const priceData = useDefiLlamaPriceChart(
     ascensionTokenAddress[42161],
     42161,
     1643432260,
     1000
   )
+  console.debug('PRICE DATA')
+  console.debug(priceData)
 
   return (
     <>
