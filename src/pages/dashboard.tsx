@@ -32,7 +32,7 @@ import Logo from '../components/ui/Logo'
 import { ethers } from 'ethers'
 import { ReactElement, useMemo } from 'react'
 import Skeleton from '../components/ui/Skeleton'
-import { useBalance } from 'wagmi'
+import { mainnet, useBalance } from 'wagmi'
 import NFTImage from '../components/NFTImage'
 import Divider from '../components/ui/Divider'
 import { useNFTData } from '../hooks/useNFTData'
@@ -40,6 +40,7 @@ import { useDefiLlamaPriceChart } from '../hooks'
 import { NextPageWithLayout } from '../types'
 import AppLayout from '../layouts/AppLayout'
 import { ascensionTokenAddress } from '../wagmi/generated'
+import { arbitrum } from 'wagmi/chains'
 
 // TODO: automatically filter out scam tokens
 const FILTERED_TOKENS = [
@@ -47,17 +48,29 @@ const FILTERED_TOKENS = [
 ]
 
 const useTreasuryData = () => {
-  const ethNFTData = useNFTData(ASCENSION_TREASURY_ADDRESS[1], 1)
-  const arbNFTData = useNFTData(ASCENSION_TREASURY_ADDRESS[42161], 42161)
-  const ethTokens = useTokenData(ASCENSION_TREASURY_ADDRESS[1], 1)
-  const arbTokens = useTokenData(ASCENSION_TREASURY_ADDRESS[42161], 42161)
+  const ethNFTData = useNFTData(
+    ASCENSION_TREASURY_ADDRESS[mainnet.id],
+    mainnet.id
+  )
+  const arbNFTData = useNFTData(
+    ASCENSION_TREASURY_ADDRESS[arbitrum.id],
+    arbitrum.id
+  )
+  const ethTokens = useTokenData(
+    ASCENSION_TREASURY_ADDRESS[mainnet.id],
+    mainnet.id
+  )
+  const arbTokens = useTokenData(
+    ASCENSION_TREASURY_ADDRESS[arbitrum.id],
+    arbitrum.id
+  )
   const ethBalance = useBalance({
     address: ASCENSION_TREASURY_ADDRESS[1] as `0x${string}`,
     chainId: 1,
   })
   const arbBalance = useBalance({
-    address: ASCENSION_TREASURY_ADDRESS[42161] as `0x${string}`,
-    chainId: 42161,
+    address: ASCENSION_TREASURY_ADDRESS[arbitrum.id] as `0x${string}`,
+    chainId: arbitrum.id,
   })
 
   return useMemo(() => {
@@ -75,12 +88,12 @@ const useTreasuryData = () => {
       {
         tokenBalance: parseFloat(arbBalance?.data?.formatted || '0'),
         contractAddress: ethers.constants.AddressZero,
-        owner: ASCENSION_TREASURY_ADDRESS[42161],
+        owner: ASCENSION_TREASURY_ADDRESS[arbitrum.id],
         priceUSD:
           ethTokens.find(
             (token) => token.contractAddress === WETH9_ADDRESS[1].toLowerCase()
           )?.priceUSD ?? 0,
-        chainId: 42161,
+        chainId: arbitrum.id,
         tokenMetadata: {
           name: 'Arbitrum Ether',
           symbol: 'AETH',
@@ -134,8 +147,8 @@ const DashboardPage: NextPageWithLayout = () => {
   console.debug(stakingData)
 
   const priceData = useDefiLlamaPriceChart(
-    ascensionTokenAddress[42161],
-    42161,
+    ascensionTokenAddress[arbitrum.id],
+    arbitrum.id,
     1643432260,
     1000
   )
@@ -168,7 +181,9 @@ const DashboardPage: NextPageWithLayout = () => {
                             (
                               last(
                                 priceData.data.coins[
-                                  `${CHAIN_NAME[42161]}:${ASCENSION.AscensionToken.address}`
+                                  `${CHAIN_NAME[arbitrum.id]}:${
+                                    ASCENSION.AscensionToken.address
+                                  }`
                                 ].prices
                               ) as any
                             ).price
@@ -186,7 +201,9 @@ const DashboardPage: NextPageWithLayout = () => {
                               (
                                 last(
                                   priceData.data.coins[
-                                    `${CHAIN_NAME[42161]}:${ASCENSION.AscensionToken.address}`
+                                    `${CHAIN_NAME[arbitrum.id]}:${
+                                      ASCENSION.AscensionToken.address
+                                    }`
                                   ].prices
                                 ) as any
                               ).price * 14400000
@@ -290,7 +307,9 @@ const DashboardPage: NextPageWithLayout = () => {
                             <AreaChart
                               data={
                                 priceData.data.coins[
-                                  `${CHAIN_NAME[42161]}:${ASCENSION.AscensionToken.address}`
+                                  `${CHAIN_NAME[arbitrum.id]}:${
+                                    ASCENSION.AscensionToken.address
+                                  }`
                                 ].prices
                               }
                               margin={{

@@ -15,7 +15,6 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import {
   connectorsForWallets,
   darkTheme,
-  getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
 import {
@@ -39,15 +38,13 @@ const { chains, provider } = configureChains(
   [arbitrum],
   [
     alchemyProvider({
+      priority: 0,
       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY_ARB || '',
     }),
-    publicProvider(),
+    publicProvider({ priority: 1 }),
   ]
 )
-// const { connectors } = getDefaultWallets({
-//   appName: APP_NAME,
-//   chains,
-// })
+
 const connectors = connectorsForWallets([
   {
     groupName: 'Suggested',
