@@ -1,7 +1,7 @@
 export default function CryptoJinglesIcon() {
   return (
     <svg
-      className="h-[50px] w-[145p] md:h-[100px] md:w-[270px]"
+      className="h-16 md:h-24 lg:h-32 "
       viewBox="0 0 1023 378"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

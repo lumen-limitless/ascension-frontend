@@ -22,9 +22,11 @@ body {
   @apply  box-border touch-manipulation scroll-smooth bg-purple-900 antialiased text-primary;
 }
 
-#__next {
-  @apply flex min-h-screen flex-col ;
+
+#__next, [data-rk] {
+  @apply flex min-h-screen flex-col;
 }
+
 
 a {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -32,7 +34,7 @@ a {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 12px;
     height: 16px;
    
   }
@@ -52,7 +54,7 @@ a {
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(0, 0, 0);
+    background: hsl(243, 5%, 24%);
+    
   }
   
-

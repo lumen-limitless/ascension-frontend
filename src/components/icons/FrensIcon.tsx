@@ -3,7 +3,7 @@ export default function FrensIcon() {
     <svg
       id="frensicon"
       key="frensicon"
-      className="h-[50p] w-[158px] md:h-[100px] md:w-[316px]"
+      className="h-16 md:h-24 lg:h-32 "
       viewBox="0 0 316 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -11,8 +11,16 @@ export default function FrensIcon() {
     >
       <rect width="315.902" height="100" fill="url(#frenspattern)" />
       <defs>
-        <pattern id="frenspattern" patternContentUnits="objectBoundingBox" width="1" height="1">
-          <use xlinkHref="#frenspng" transform="scale(0.000484027 0.00152905)" />
+        <pattern
+          id="frenspattern"
+          patternContentUnits="objectBoundingBox"
+          width="1"
+          height="1"
+        >
+          <use
+            xlinkHref="#frenspng"
+            transform="scale(0.000484027 0.00152905)"
+          />
         </pattern>
         <image
           id="frenspng"

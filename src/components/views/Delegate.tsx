@@ -1,95 +1,78 @@
-import {
-  shortenIfAddress,
-  useCalls,
-  useContractFunction,
-  useEthers,
-} from '@usedapp/core'
-
-import { HOME_CHAINID } from '../../constants'
-import { formatBalance, isAddress } from '../../functions'
-import {
-  useAscendStakedTokenContract,
-  useAscendTokenContract,
-} from '../../hooks'
-import TransactionButton from '../TransactionButton'
+import { formatBalance, isAddress, shortenString } from '../../functions'
 import Button from '../ui/Button'
 import Loader from '../ui/Loader'
 import Skeleton from '../ui/Skeleton'
 import Typography from '../ui/Typography'
 import { useBoolean } from 'react-use'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Input from '../ui/Input'
 import Avatar from '../Avatar'
 import ChainIcon from '../icons/ChainIcon'
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
+import { arbitrum } from 'wagmi/chains'
+import {
+  useAscensionTokenDelegates,
+  useAscensionTokenGetVotes,
+  usePrepareAscensionTokenDelegate,
+} from '../../wagmi/generated'
+import WagmiTransactionButton from '../WagmiTransactionButton'
+import { commify, formatUnits } from '@ethersproject/units'
+import { BigNumberish } from 'ethers'
 
 export default function Delegate() {
-  enum TOKEN {
-    'ASCEND',
-    'STAKED_ASCEND',
-  }
   const [delegating, toggleDelegating] = useBoolean(false)
-  const [token, setToken] = useState<TOKEN>(TOKEN.ASCEND)
+  const [token, setToken] = useState<'ASCEND' | 'xASCEND'>('ASCEND')
   const [delegateAddress, setDelegateAddress] = useState<string>('')
-  const { account, chainId, switchNetwork } = useEthers()
-  const stakedAscend = useAscendStakedTokenContract()
-  const ascend = useAscendTokenContract()
+  const { switchNetwork } = useSwitchNetwork()
+  const { chain } = useNetwork()
+  const { address, isConnected } = useAccount()
 
-  const [ascendVotes, ascendDelegate, stakedAscendVotes, stakedAscendDelegate] =
-    useCalls(
-      account
-        ? [
-            { contract: ascend, method: 'getVotes', args: [account] },
-            { contract: ascend, method: 'delegates', args: [account] },
-            { contract: stakedAscend, method: 'getVotes', args: [account] },
-            { contract: stakedAscend, method: 'delegates', args: [account] },
-          ]
-        : [],
-      { chainId: HOME_CHAINID }
-    )
-
-  const contract = useMemo(() => {
-    return token === TOKEN.ASCEND ? ascend : stakedAscend
-  }, [token, ascend, stakedAscend, TOKEN])
-
-  const delegate = useContractFunction(contract, 'delegate', {
-    transactionName: `Delegate ${['ASCEND', 'sASCEND'][token]}`,
+  const { config } = usePrepareAscensionTokenDelegate({
+    args: [
+      delegating
+        ? (delegateAddress as `0x${string}`)
+        : (address as `0x${string}`),
+    ],
   })
 
+  const { data: votes, isFetched: isVotesFetched } = useAscensionTokenGetVotes({
+    args: [address as `0x${string}`],
+  })
+  const { data: currentDelegate, isFetched: isCurrentDelegateFetched } =
+    useAscensionTokenDelegates({
+      args: [address as `0x${string}`],
+    })
   return (
     <>
-      <div className=" my-6 space-y-3">
+      <div className=" my-3 space-y-3">
         {' '}
-        <Typography as="h1" variant="xl">
-          Delegate {['ASCEND', 'sASCEND'][token]} Voting Power
-        </Typography>
+        <h1 className="mb-2 text-2xl">Delegate {token} Voting Power</h1>
         <div className="inline-flex rounded bg-black">
           <Button
             className={
-              token === TOKEN.ASCEND
-                ? 'bg-gradient-to-r from-orange to-yellow'
-                : ''
+              token === 'ASCEND' ? 'bg-gradient-to-r from-orange to-yellow' : ''
             }
-            onClick={() => setToken(TOKEN.ASCEND)}
+            onClick={() => setToken('ASCEND')}
           >
             ASCEND
           </Button>
           <Button
+            disabled
             className={
-              token === TOKEN.STAKED_ASCEND
+              token === 'xASCEND'
                 ? 'bg-gradient-to-r from-orange to-yellow'
                 : ''
             }
-            onClick={() => setToken(TOKEN.STAKED_ASCEND)}
+            onClick={() => setToken('xASCEND')}
           >
-            sASCEND
+            xASCEND
           </Button>
         </div>
-        {!chainId ? (
+        {!isConnected || !chain ? (
           <Loader />
-        ) : chainId !== HOME_CHAINID ? (
+        ) : chain.id !== arbitrum.id ? (
           <div className="flex justify-center">
-            {' '}
-            <Button color="blue" onClick={() => switchNetwork(HOME_CHAINID)}>
+            <Button color="blue" onClick={() => switchNetwork?.(42161)}>
               <ChainIcon chainId={42161} />
               Switch to Arbitrum
             </Button>
@@ -109,34 +92,30 @@ export default function Delegate() {
                   clipRule="evenodd"
                 />
               </svg>
-              <Typography as="p" variant="sm">
+              <p className="text-sm">
                 {delegating
                   ? 'Delegate all your voting power to this address.You can always re-delegate to yourself or someone else.'
                   : 'To activate your voting power in the DAO, you must delegate your tokens to yourself or someone else.'}
-              </Typography>
+              </p>
             </div>
-            <div className="rounded bg-black p-3 shadow">
-              <div className="flex flex-col ">
-                {' '}
-                <Typography className="text-secondary">
-                  {['ASCEND', 'sASCEND'][token]} voting power:{' '}
-                </Typography>{' '}
-                {formatBalance(
-                  token === TOKEN.ASCEND
-                    ? ascendVotes?.value[0]
-                    : stakedAscendVotes?.value[0]
-                ) || <Skeleton />}
+            <div className="space-y-3  rounded border-2 border-purple/50 p-3">
+              <div className=" ">
+                <h2 className="text-secondary">{token} voting power: </h2>{' '}
+                {isVotesFetched ? (
+                  <p>
+                    {commify(formatBalance(votes as BigNumberish) as string)}
+                  </p>
+                ) : (
+                  <Skeleton />
+                )}
               </div>
-              <div className="flex flex-col">
-                {' '}
-                <Typography className="text-secondary">
-                  {['ASCEND', 'sASCEND'][token]} delegate address:
-                </Typography>
-                {shortenIfAddress(
-                  token === TOKEN.STAKED_ASCEND
-                    ? ascendDelegate?.value[0]
-                    : stakedAscendDelegate?.value[0]
-                ) || <Skeleton />}
+              <div className="">
+                <h2 className="text-secondary">{token} delegate address:</h2>
+                {isCurrentDelegateFetched && currentDelegate ? (
+                  <p>{shortenString(currentDelegate, 10)}</p>
+                ) : (
+                  <Skeleton />
+                )}
               </div>
             </div>
             {delegating ? (
@@ -152,29 +131,18 @@ export default function Delegate() {
               </div>
             ) : null}{' '}
             <div className="flex flex-col items-center gap-3 py-3">
-              {' '}
-              <TransactionButton
-                full
-                size="lg"
-                method={delegate}
-                args={delegating ? [delegateAddress] : [account]}
-                color="blue"
-                requirements={{
-                  requirement: delegating
+              <WagmiTransactionButton
+                config={config}
+                name={
+                  delegating
                     ? isAddress(delegateAddress)
-                      ? true
-                      : false
-                    : true,
-                  message: 'Invalid address',
-                }}
-                name={`Delegate to ${
-                  !delegating
-                    ? 'self'
-                    : !isAddress(delegateAddress)
-                    ? ''
-                    : shortenIfAddress(delegateAddress)
-                }`}
+                      ? `Delegate to ${shortenString(delegateAddress, 9)}`
+                      : 'Enter delegate address'
+                    : 'Delegate to self'
+                }
+                className="w-full rounded bg-blue p-3"
               />
+
               {!delegating && (
                 <Button color="gray" full onClick={toggleDelegating}>
                   Delegate to different address
@@ -183,7 +151,7 @@ export default function Delegate() {
             </div>
           </>
         )}
-      </div>{' '}
+      </div>
     </>
   )
 }

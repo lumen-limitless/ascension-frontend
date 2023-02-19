@@ -2,170 +2,55 @@ import React, { Fragment } from 'react'
 import Logo from './ui/Logo'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import Divider from './ui/Divider'
 import Badge from './ui/Badge'
 import { clsx } from 'clsx'
-import Button from './ui/Button'
-import { useEthers } from '@usedapp/core'
-import { useBoolean, useLockBodyScroll } from 'react-use'
-import Avatar from './Avatar'
-import { useUI } from '../hooks'
-import ChainIcon from './icons/ChainIcon'
-import Account from './views/Account'
-import Network from './views/Network'
-import { ethers } from 'ethers'
-import { HOME_CHAINID } from '../constants'
-import { VIEW } from '../constants/enums'
+import { useBoolean } from 'react-use'
+import CustomConnectButton from './CustomConnectButton'
 
-const Connection = ({
-  chainId,
-  account,
-  setModalView,
-  error,
-  deactivate,
-  switchNetwork,
-}) => {
-  return (
-    <div className="flex gap-1">
-      {!account ? (
-        <Button
-          color="blue"
-          size="sm"
-          onClick={() => setModalView(VIEW.CONNECT)}
-        >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-            />
-          </svg>
-          Connect Wallet
-        </Button>
-      ) : error ? (
-        <>
-          {error.name === 'ChainIdError' ? (
-            <Button
-              size="sm"
-              color="yellow"
-              onClick={() => switchNetwork(HOME_CHAINID)}
-            >
-              <svg
-                className="h-6 w-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Switch Network
-            </Button>
-          ) : (
-            <Button color="red" size="sm" onClick={deactivate}>
-              <svg
-                className="h-6 w-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Error
-            </Button>
-          )}
-        </>
-      ) : (
-        <>
-          <Popover>
-            <Popover.Button
-              className={
-                'inline-flex rounded border border-purple-500/50 p-3 hover:brightness-125'
-              }
-            >
-              <span className="sr-only">change network</span>
-
-              {chainId && <ChainIcon chainId={chainId} />}
-            </Popover.Button>
-            <Popover.Panel
-              className={
-                'absolute z-20  mt-3 -ml-12  min-w-max   transform rounded border-2 border-purple-500/50 bg-purple-900 p-3 lg:max-w-3xl'
-              }
-            >
-              <Network />
-            </Popover.Panel>
-          </Popover>
-
-          <Popover>
-            <Popover.Button
-              className={
-                'inline-flex rounded border border-purple-500/50 p-3 hover:brightness-125'
-              }
-            >
-              <span className="sr-only">view account</span>
-
-              <Avatar
-                size={24}
-                address={account ?? ethers.constants.AddressZero}
-              />
-            </Popover.Button>
-            <Popover.Panel
-              className={
-                'absolute left-0 z-20 w-screen transform rounded border-2 border-purple-500/50 bg-purple-900 p-3 md:left-auto md:mt-3 md:-ml-64 md:w-auto'
-              }
-            >
-              <Account />
-            </Popover.Panel>
-          </Popover>
-        </>
-      )}
-    </div>
-  )
-}
+const links = [
+  { title: 'Dashboard', href: '/dashboard' },
+  { title: 'Stake', href: '/stake' },
+]
+const tools = [
+  // {
+  //   title: 'Ascension Supernova',
+  //   href: '/tools/supernova/',
+  //   description: 'Suite of DeFi tools.',
+  //   badges: ['Beta', 'New'],
+  // },
+  {
+    title: 'Ascension Reactor',
+    href: 'https://reactor.ascensionprotocol.io/',
+    description: 'View and react to smart contract events.',
+    badges: ['Beta'],
+  },
+  {
+    title: 'All Tools',
+    href: '/tools/',
+    description: 'View all tools.',
+    badges: [],
+  },
+]
 
 export default function Nav() {
-  const { account, chainId, error, deactivate, switchNetwork } = useEthers()
   const [viewing, toggleViewing] = useBoolean(false)
-  const { setModalView } = useUI()
 
   return (
     <Popover as="nav">
       {({ open, close }) => (
         <>
-          <div className="flex h-16 items-center justify-between md:justify-start md:space-x-10  ">
-            <Link href="/" className="p-3">
+          <div className=" flex h-20 items-center justify-between px-3 md:space-x-10  md:px-12 lg:justify-start  lg:px-24 xl:px-32">
+            <Link href="/" className="z-30 p-3">
               <>
                 <span className="sr-only">Ascension Protocol</span>
-                <Logo size={24} />
+                <Logo className="h-8 " />
               </>
             </Link>
-            <div className="flex gap-1 md:hidden">
-              <Connection
-                account={account}
-                chainId={chainId}
-                setModalView={setModalView}
-                error={error}
-                deactivate={deactivate}
-                switchNetwork={switchNetwork}
-              />
-
+            <div className=" ml-auto flex items-center gap-3 lg:hidden">
+              <CustomConnectButton />
               <Popover.Button
                 className={
-                  'inline-flex rounded border border-purple-500/50 p-3 hover:brightness-125'
+                  'z-30 inline-flex rounded border border-purple-500/50 p-2 text-sm hover:brightness-125'
                 }
               >
                 {!open ? (
@@ -207,27 +92,17 @@ export default function Nav() {
                 )}
               </Popover.Button>
             </div>
-            <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
+            <div className="hidden md:flex-1 md:items-center md:justify-between lg:flex">
               <Popover.Group as="div" className="flex space-x-10">
-                <Link
-                  href="/"
-                  className="  text-base font-medium text-secondary transition hover:text-primary"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/dashboard"
-                  className=" text-base font-medium text-secondary transition hover:text-primary"
-                >
-                  Dashboard
-                </Link>
-
-                <Link
-                  href="/stake"
-                  className=" text-base font-medium text-secondary transition hover:text-primary"
-                >
-                  Stake
-                </Link>
+                {links.map((link) => (
+                  <Link
+                    key={link.title}
+                    href={link.href}
+                    className="  text-base font-medium text-secondary transition hover:text-primary"
+                  >
+                    {link.title}
+                  </Link>
+                ))}
 
                 <Popover>
                   <Popover.Button
@@ -278,65 +153,35 @@ export default function Nav() {
                     >
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="bg-purple-1000 p-5">
-                          <Link
-                            href={'/tools/reactor'}
-                            className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700"
-                          >
-                            <>
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-primary">
-                                  Ascension Reactor
+                          {tools.map((tool) => (
+                            <Link
+                              key={tool.title}
+                              href={tool.href}
+                              className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700"
+                            >
+                              <>
+                                <div className="flex items-center">
+                                  <div className="">{tool.title}</div>
+                                  {tool.badges &&
+                                    tool.badges.map((badge, i) => (
+                                      <Badge key={i} text={badge} />
+                                    ))}
                                 </div>
-                                <Badge text="beta" />
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">
-                                Watch and react instantly to blockchain events
-                              </p>
-                            </>
-                          </Link>
-
-                          {/* <Link href={'/tools/batchsender'} legacyBehavior>
-                 <a className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700">
-                   <div className="flex items-center">
-                     <div className="text-base font-medium text-primary">
-                       Ascension BatchSender
-                     </div>
-                     <Badge text="new" />
-                     <Badge text="beta" />
-                   </div>
-                   <p className="mt-1 text-sm text-gray-500">
-                     Batch asset transfers into one transaction
-                   </p>
-                 </a>
-               </Link> */}
-
-                          <Link href={'/tools'} legacyBehavior>
-                            <a className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700">
-                              <div className="flex items-center">
-                                <div className="text-base font-medium text-primary">
-                                  All Tools
-                                </div>
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">
-                                View all Ascension tools
-                              </p>
-                            </a>
-                          </Link>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  {tool.description}
+                                </p>
+                              </>
+                            </Link>
+                          ))}
                         </div>
                       </div>
                     </Popover.Panel>
                   </Transition>
                 </Popover>
               </Popover.Group>
-
-              <Connection
-                account={account}
-                chainId={chainId}
-                setModalView={setModalView}
-                error={error}
-                deactivate={deactivate}
-                switchNetwork={switchNetwork}
-              />
+              <div className="flex items-center gap-3">
+                <CustomConnectButton />
+              </div>
             </div>
           </div>
 
@@ -344,54 +189,48 @@ export default function Nav() {
             as={Fragment}
             enter="duration-200 ease-out transition-all"
             enterFrom="opacity-0 h-0"
-            enterTo="opacity-100 h-[calc(100vh-64px)]"
+            enterTo="opacity-100 h-screen"
             leave="duration-200 ease-in transition-all"
-            leaveFrom="opacity-100  h-[calc(100vh-64px)]"
+            leaveFrom="opacity-100  h-screen"
             leaveTo="opacity-0  h-0"
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0 top-16 z-20   origin-top-right transform overflow-hidden border-t-2 border-purple-500/50 bg-purple-900 transition md:hidden"
+              className="fixed inset-x-0  top-20   origin-top-right transform overflow-hidden border-t-2 border-purple-500/50 bg-purple-900 transition lg:hidden"
             >
-              <div className="divide-y-2 divide-purple-900 rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="py-6">
-                  <div className="flex flex-col gap-6 text-center">
-                    <Link
-                      href="/"
-                      onClick={close}
-                      className="w-full text-center text-base font-medium text-primary  "
-                    >
-                      Home
-                    </Link>
+              <div className=" divide-purple-900 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="flex flex-col items-center text-center">
+                  <Link
+                    href="/"
+                    onClick={close}
+                    className="w-full border-b-2 border-purple/50 py-9 text-center  "
+                  >
+                    Home
+                  </Link>
 
-                    <Divider />
+                  <Link
+                    href="/dashboard"
+                    onClick={close}
+                    className="w-full  border-b-2 border-purple/50 py-9 text-center "
+                  >
+                    Dashboard
+                  </Link>
 
-                    <Link
-                      href="/dashboard"
-                      onClick={close}
-                      className="w-full text-center text-base font-medium text-primary  "
-                    >
-                      Dashboard
-                    </Link>
+                  <Link
+                    href="/stake"
+                    onClick={close}
+                    className="w-full border-b-2 border-purple/50 py-9 text-center  "
+                  >
+                    Stake
+                  </Link>
 
-                    <Divider />
-                    <Link
-                      href="/stake"
-                      onClick={close}
-                      className="w-full text-center text-base font-medium text-primary  "
-                    >
-                      Stake
-                    </Link>
-                    <Divider />
-                    <Link
-                      href="/tools"
-                      onClick={close}
-                      className="w-full text-center text-base font-medium text-primary  "
-                    >
-                      Tools
-                    </Link>
-                    <Divider />
-                  </div>
+                  <Link
+                    href="/tools"
+                    onClick={close}
+                    className="w-full border-b-2 border-purple/50 py-9 text-center  "
+                  >
+                    Tools
+                  </Link>
                 </div>
               </div>
             </Popover.Panel>

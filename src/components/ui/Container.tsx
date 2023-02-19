@@ -1,6 +1,6 @@
 export default function Container({
   children,
-  className = "",
+  className = '',
   id,
 }: {
   children: React.ReactNode
@@ -11,10 +11,10 @@ export default function Container({
     <div
       className={[
         className,
-        "container z-10 mx-auto px-3 md:px-6 lg:px-9 xl:px-12",
+        'container z-10 mx-auto px-3 md:px-6 lg:px-9 xl:px-12',
       ]
         .filter(Boolean)
-        .join(" ")}
+        .join(' ')}
       id={id}
     >
       {children}

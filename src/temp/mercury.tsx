@@ -1,114 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 // import Container from '../../components/ui/Container'
-// import Loader from '../../components/ui/Loader'
-// import { useEthers } from '@usedapp/core'
-// import { useRequiredBalance } from '../../hooks/useRequiredBalance'
-// import BuyAscend from '../../components/BuyAscend'
-// import { NextPage } from 'next'
-// import {
-//   CHAIN_SYMBOL,
-//   DEX_BY_CHAIN,
-//   USDC_ADDRESS,
-//   WNATIVE_ADDRESS,
-// } from '../../constants'
 // import Swap from '../../components/Swap'
-// import TradingChart from '../../components/TradingChart'
-// import { Token } from '../../types'
-// import { useLocalStorage } from 'react-use'
+// import { NextPageWithLayout, Token } from '../../types'
 // import Section from '../../components/ui/Section'
 // import Grid from '../../components/ui/Grid'
-// import dynamic from 'next/dynamic'
 // import { NextSeo } from 'next-seo'
 // import ImageComponent from '../../components/ImageComponent'
-// import ExternalLink from '../../components/ui/ExternalLink'
-// import Card from '../../components/ui/Card'
-// import Script from 'next/script'
-// import Spinner from '../../components/ui/Spinner'
+// import { ReactElement } from 'react'
+// import { useAccount, useNetwork } from 'wagmi'
+// import AppLayout from '../../layouts/AppLayout'
+// import { useSessionStorage } from 'react-use'
+// import { ascensionTokenAddress } from '../../wagmi/generated'
+// import tokenList from '../../json/tokenList.json'
+// import { WETH9_ADDRESS } from '../../constants'
 
-// const Connect = dynamic(() => import('../../components/modals/Connect'), {
-//   ssr: false,
-// })
+// const MercuryPage: NextPageWithLayout = () => {
+//   const { address } = useAccount()
+//   const { chain } = useNetwork()
 
-// const SUPPORTED_CHAINID = [1, 137, 56, 42161]
-// const REQUIRED_BALANCE = 1
-
-// const MercuryPage: NextPage = () => {
-//   const { account, chainId } = useEthers()
-//   const pass = useRequiredBalance(account, REQUIRED_BALANCE)
-//   const [dex, setDex] = useState<string>('sushiswap')
-
-//   useEffect(() => {
-//     if (
-//       chainId &&
-//       SUPPORTED_CHAINID.includes[chainId] &&
-//       DEX_BY_CHAIN[chainId]
-//     ) {
-//       setDex(Object.keys(DEX_BY_CHAIN[chainId])[0])
-//     }
-//   }, [chainId])
-
-//   const handleScriptLoad = (e) => {
-//     const w = window as any
-//     w.trends.embed.renderExploreWidgetTo(
-//       document.getElementById('widget'),
-//       'TIMESERIES',
-//       {
-//         comparisonItem: [
-//           { keyword: 'Ethereum', geo: 'US', time: 'today 12-m' },
-//         ],
-//         category: 0,
-//         property: '',
-//       },
-//       {
-//         exploreQuery:
-//           'geo=US&q=%2Fm%2F0108bn2x,%2Fm%2F0vpj4_b&date=today 12-m,today 12-m',
-//         guestPath: 'https://trends.google.com:443/trends/embed/',
-//       }
-//     )
-//   }
-
-//   const [lastSellToken] = useLocalStorage<Token>('LastSellToken')
-//   const [sellToken, setSellToken] = useState<Token>(
-//     lastSellToken ?? {
-//       address: WNATIVE_ADDRESS[chainId],
-//       name: 'Wrapped Ether',
-//       symbol: 'WETH',
-//       decimals: 18,
-//       chainId,
-//     }
-//   )
-
-//   const [lastBuyToken] = useLocalStorage<Token>('LastBuyToken')
-//   const [buyToken, setBuyToken] = useState<Token>(
-//     lastBuyToken ?? {
-//       address: USDC_ADDRESS[chainId],
-//       name: 'USDC',
-//       symbol: 'USDC',
-//       decimals: 6,
-//       chainId,
-//     }
-//   )
-
-//   if (!account)
-//     return (
-//       <Container>
-//         <Connect />
-//       </Container>
-//     )
-
-//   if (!chainId || pass === null)
-//     return (
-//       <Container>
-//         <Loader message="Fetching data from the blockchain..." />
-//       </Container>
-//     )
-//   if (pass === false) return <BuyAscend amount={REQUIRED_BALANCE} />
-//   if (!SUPPORTED_CHAINID.includes(chainId))
-//     return (
-//       <Container>
-//         <Loader message="Network not supported!" />
-//       </Container>
-//     )
+//   const [tokenIn, setTokenIn] = useSessionStorage<Token>('mercury_tokenIn', {
+//     address: WETH9_ADDRESS[42161],
+//     chainId: 42161,
+//     name: 'Wrapped Ether',
+//     symbol: 'WETH',
+//     decimals: 18,
+//   })
+//   const [tokenOut, setTokenOut] = useSessionStorage<Token>('mercury_tokenOut', {
+//     address: ascensionTokenAddress[42161],
+//     chainId: 42161,
+//     name: 'Ascension Token',
+//     symbol: 'ASCEND',
+//     decimals: 18,
+//   })
 
 //   return (
 //     <>
@@ -117,50 +40,51 @@ import React, { useEffect, useState } from 'react'
 //         description={`Ascension Protocol universal swap tool`}
 //       />
 
-//       <Section fullscreen padding="md" layout="start">
-//         <Container>
-//           {pass ? (
-//             <>
-//               <Grid gap="md">
-//                 <div className="col-span-12  flex flex-col gap-3 md:col-span-8">
-//                   <TradingChart buyToken={buyToken} dex={dex} />
-//                   <Card>
-//                     <Card.Body>
-//                       <ExternalLink href="https://cfgi.io/ethereum-fear-greed-index/1d">
-//                         <ImageComponent
-//                           src={`https://cfgi.io/images/cfgi/dark/${CHAIN_SYMBOL[chainId]}-CFGI-1h.png`}
-//                           alt="ETH CFGI analysis"
-//                           height={250}
-//                           width={260}
-//                         />
-//                       </ExternalLink>
-//                       <Script
-//                         src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"
-//                         onLoad={handleScriptLoad}
-//                       />
-//                       <div id="widget" />
-//                     </Card.Body>
-//                   </Card>
-//                 </div>
-//                 <div className="col-span-12 md:col-span-4">
-//                   <Swap
-//                     sellToken={sellToken}
-//                     setSellToken={setSellToken}
-//                     buyToken={buyToken}
-//                     setBuyToken={setBuyToken}
-//                     setDex={setDex}
-//                     dex={dex}
-//                   />
-//                 </div>
-//               </Grid>
-//             </>
-//           ) : (
-//             <Spinner />
-//           )}
+//       <Section className="py-12">
+//         <Container className="max-w-7xl">
+//           <Grid gap="md">
+//             {' '}
+//             <div className="col-span-12 md:col-span-4">
+//               <Swap />
+//             </div>
+//             <div className="col-span-12  flex flex-col gap-3 md:col-span-8">
+//               {/* <TradingChart buyToken={buyToken} dex={dex} /> */}
+
+//               <ImageComponent
+//                 src={`https://cfgi.io/images/cfgi/dark/ETH-CFGI-1h.png`}
+//                 alt="ETH CFGI analysis"
+//                 height={250}
+//                 width={260}
+//               />
+//             </div>
+//           </Grid>
 //         </Container>
 //       </Section>
 //     </>
 //   )
 // }
 
+// MercuryPage.getLayout = (page: ReactElement) => {
+//   return <AppLayout>{page}</AppLayout>
+// }
 // export default MercuryPage
+
+// const handleScriptLoad = (e: any) => {
+//   const w = window as any
+//   w.trends.embed.renderExploreWidgetTo(
+//     document.getElementById('widget'),
+//     'TIMESERIES',
+//     {
+//       comparisonItem: [
+//         { keyword: 'Ethereum', geo: 'US', time: 'today 12-m' },
+//       ],
+//       category: 0,
+//       property: '',
+//     },
+//     {
+//       exploreQuery:
+//         'geo=US&q=%2Fm%2F0108bn2x,%2Fm%2F0vpj4_b&date=today 12-m,today 12-m',
+//       guestPath: 'https://trends.google.com:443/trends/embed/',
+//     }
+//   )
+// }

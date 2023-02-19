@@ -1,4 +1,5 @@
-import { ChainId } from '@usedapp/core'
+import { NextPage } from 'next'
+import { ReactElement, ReactNode } from 'react'
 
 export type AddressMap = { [chainId: number]: string }
 
@@ -7,7 +8,8 @@ export type Token = {
   name: string
   symbol: string
   decimals: number
-  chainId: ChainId
+  chainId: number
+  logoURI?: string
 }
 
 export type ContractEventInput = {
@@ -34,4 +36,8 @@ export type ContractFunction = {
   payable: boolean
   stateMutability: 'view' | 'nonpayable' | 'payable'
   type: 'function'
+}
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
 }

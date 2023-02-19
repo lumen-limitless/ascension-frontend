@@ -1,4 +1,3 @@
-import { ChainId } from '@usedapp/core'
 import ascension from '../json/ascension.json'
 export const APP_NAME = 'Ascension Protocol'
 export const APP_DESCRIPTION =
@@ -25,5 +24,3 @@ export const ASCENSION: {
     abi: ascension.contracts.AscensionStaking.abi,
   },
 }
-
-export const HOME_CHAINID: ChainId = parseInt(ascension.chainId)

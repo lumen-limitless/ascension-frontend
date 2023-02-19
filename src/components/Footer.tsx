@@ -1,9 +1,5 @@
-import { formatUnits } from '@ethersproject/units'
-import { useBlockNumber, useGasPrice } from '@usedapp/core'
 import { clsx } from 'clsx'
 import AscensionMonoIcon from './icons/AscensionMonoIcon'
-import Skeleton from './ui/Skeleton'
-import Spinner from './ui/Spinner'
 
 const navigation = {
   main: [
@@ -23,7 +19,7 @@ const navigation = {
     {
       name: 'Twitter',
       href: 'https://mobile.twitter.com/AscendProtocol',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg viewBox="0 0 24 24" {...props}>
           <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
         </svg>
@@ -32,7 +28,7 @@ const navigation = {
     {
       name: 'GitHub',
       href: 'https://github.com/Ascension-group',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -45,7 +41,7 @@ const navigation = {
     {
       name: 'Discord',
       href: 'https://discord.gg/8k2zGuGeAZ',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -58,7 +54,7 @@ const navigation = {
     {
       name: 'Telegram',
       href: 'https://t.me/AscensionProtocolChat',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -71,7 +67,7 @@ const navigation = {
     {
       name: 'Medium',
       href: 'https://ascensionprotocolofficial.medium.com/',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg viewBox="0 0 1043.63 592.71" {...props}>
           <g data-name="Layer 2">
             <g data-name="Layer 1">
@@ -84,7 +80,7 @@ const navigation = {
     {
       name: 'Email',
       href: 'mailto:admin@ascensionprotocol.io',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg viewBox="0 0 28 24" {...props}>
           <path
             fillRule="evenodd"
@@ -97,7 +93,7 @@ const navigation = {
     {
       name: 'CoinGecko',
       href: 'https://www.coingecko.com/en/coins/ascension-protocol',
-      icon: (props) => (
+      icon: (props: JSX.IntrinsicElements['svg']) => (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" {...props}>
           <circle
             cx="24"
@@ -155,48 +151,12 @@ const navigation = {
 }
 
 export default function Footer() {
-  const blockNumber = useBlockNumber()
-  const gasPrice = useGasPrice()
   return (
     <footer
-      className={clsx('relative border-t-2 border-purple-500/50 text-center')}
+      className={clsx(
+        'relative border-t-2 border-purple-500/50 bg-purple-900 text-center'
+      )}
     >
-      <div className="absolute top-3 right-3 flex items-center gap-1 text-secondary">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          role="img"
-          className="h-5 w-5 text-blue"
-          preserveAspectRatio="xMidYMid meet"
-          viewBox="0 0 32 32"
-        >
-          <path fill="currentColor" d="M8 10h7v2H8z" />
-          <path
-            fill="currentColor"
-            d="m28.414 8l-5-5L22 4.414l3 3V12a2.002 2.002 0 0 0 2 2v10.5a1.5 1.5 0 0 1-3 0V16a1 1 0 0 0-1-1h-4V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v21H2v2h19v-2h-2v-9h3v7.4a3.564 3.564 0 0 0 2.765 3.525A3.506 3.506 0 0 0 29 24.5V9.414A2 2 0 0 0 28.414 8ZM17 26H6V6h11Z"
-          />
-        </svg>{' '}
-        {gasPrice ? (
-          parseFloat(formatUnits(gasPrice, 'gwei')).toFixed(1) + ' Gwei'
-        ) : (
-          <Skeleton />
-        )}
-        <svg
-          className="h-5 w-5 text-green"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-          />
-        </svg>{' '}
-        {blockNumber || <Skeleton />}
-      </div>
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
         <div className="flex w-full  items-center justify-center">
           <AscensionMonoIcon />

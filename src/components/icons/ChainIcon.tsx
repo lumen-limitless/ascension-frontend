@@ -1,4 +1,4 @@
-const CHAIN_ICON = {
+const CHAIN_ICON: { [chainId: number]: JSX.IntrinsicElements['svg'] } = {
   [31337]: (
     <svg
       xmlns="http://www.w3.org/2000/svg"

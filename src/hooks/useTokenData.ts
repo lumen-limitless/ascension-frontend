@@ -1,31 +1,30 @@
 import { useEffect } from 'react'
-import { ChainId } from '@usedapp/core'
 import { BigNumber } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
 import { useSessionStorage } from 'react-use'
 import { useAlchemySDK } from './useAlchemy'
 import axios from 'axios'
 
-interface TokenData {
+export interface TokenData {
   contractAddress: string
   tokenBalance: number
   priceUSD: number
   owner: string
   chainId: number
   tokenMetadata: {
-    decimals: number
-    logo: string
-    name: string
-    symbol: string
+    decimals: number | null
+    logo: string | null
+    name: string | null
+    symbol: string | null
   }
 }
 
-const COINGECKO_PLATFORM_BY_CHAINID = {
+const COINGECKO_PLATFORM_BY_CHAINID: { [chainId: number]: string } = {
   1: 'ethereum',
   42161: 'arbitrum-one',
 }
 
-export const useTokenData = (address: string, chainId: ChainId) => {
+export const useTokenData = (address: string, chainId: number) => {
   const [data, setData] = useSessionStorage<TokenData[]>(
     `TokenData_${address}_${chainId}`
   )
@@ -37,7 +36,7 @@ export const useTokenData = (address: string, chainId: ChainId) => {
 
   useEffect(() => {
     if (lastUpdated > Date.now() - 300000) return
-    console.debug('running useTokenData')
+    console.debug(`running useTokenData for ${address} on chainId ${chainId}`)
     const getData = async () => {
       const d: TokenData[] = []
 
@@ -63,9 +62,12 @@ export const useTokenData = (address: string, chainId: ChainId) => {
         d.push({
           contractAddress: balance.contractAddress,
           tokenBalance: parseFloat(
-            formatUnits(BigNumber.from(balance.tokenBalance), metadata.decimals)
+            formatUnits(
+              BigNumber.from(balance.tokenBalance),
+              metadata?.decimals || 18
+            )
           ),
-          priceUSD: prices[balance.contractAddress]?.usd ?? 0,
+          priceUSD: prices[balance.contractAddress]?.usd || 0,
           owner: address,
           chainId: chainId,
           tokenMetadata: metadata,
@@ -76,8 +78,8 @@ export const useTokenData = (address: string, chainId: ChainId) => {
     }
 
     getData()
+      .then(() => setLastUpdated(Date.now()))
       .catch((err) => console.error(err))
-      .finally(() => setLastUpdated(Date.now()))
   }, [address, alchemy, chainId, lastUpdated, setData, setLastUpdated])
 
   return data

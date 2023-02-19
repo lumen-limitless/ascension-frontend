@@ -1,43 +1,27 @@
+import '@rainbow-me/rainbowkit/styles.css'
 import '@fontsource/jura/400.css'
 import '../styles/globals.css'
-import {
-  Config,
-  DAppProvider,
-  MetamaskConnector,
-  CoinbaseWalletConnector,
-} from '@usedapp/core'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import React from 'react'
-import {
-  APP_DESCRIPTION,
-  APP_NAME,
-  HOME_CHAINID,
-  RPC,
-  SUPPORTED_CHAINS,
-} from '../constants'
-import AppLayout from '../layouts/AppLayout'
+import React, { useEffect, useState } from 'react'
+import { APP_DESCRIPTION, APP_NAME } from '../constants'
+import { NextPageWithLayout } from '../types'
+import Layout from '../layouts/Layout'
 
-const config: Config = {
-  readOnlyChainId: HOME_CHAINID,
-  readOnlyUrls: RPC,
-  multicallVersion: 2,
-  autoConnect: true,
-  networks: SUPPORTED_CHAINS,
-  pollingInterval: 15000,
-  notifications: {
-    expirationPeriod: 1,
-  },
-  connectors: {
-    metamask: new MetamaskConnector(),
-    coinbase: new CoinbaseWalletConnector(),
-  },
-  fastMulticallEncoding: true,
-  noMetamaskDeactivate: true,
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
 }
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => page)
+
+  //https://github.com/vercel/next.js/discussions/35773#discussioncomment-2622885
+  const [mounted, setMounted] = useState<boolean>(false)
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return null
+
   return (
     <>
       <DefaultSeo
@@ -51,11 +35,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
       </Head>
-      <DAppProvider config={config}>
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
-      </DAppProvider>
+
+      <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
     </>
   )
 }

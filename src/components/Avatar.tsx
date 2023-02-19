@@ -1,22 +1,26 @@
-import React from "react"
-import makeBlockie from "ethereum-blockies-base64"
+import { AvatarComponent } from '@rainbow-me/rainbowkit'
+import { generateGradientFromAddress } from '../functions'
 
-import { ethers } from "ethers"
-
-export default function Avatar({
-  size = 64,
-  address = ethers.constants.AddressZero,
-}: {
-  size?: number
-  address?: string
-}) {
-  return (
+const Avatar: AvatarComponent = ({ address, ensImage, size }) => {
+  const color = generateGradientFromAddress(address)
+  return ensImage ? (
     <img
-      src={makeBlockie(address)}
-      alt={address}
+      alt="avatar"
+      src={ensImage}
       width={size}
       height={size}
-      className="rounded-full"
+      style={{ borderRadius: 999 }}
     />
+  ) : (
+    <div
+      style={{
+        backgroundImage: color,
+        borderRadius: 999,
+        height: size,
+        width: size,
+      }}
+    ></div>
   )
 }
+
+export default Avatar
