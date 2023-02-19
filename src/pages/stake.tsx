@@ -148,7 +148,10 @@ const StakePage: NextPageWithLayout = () => {
     chainId: arbitrum.id,
   })
 
-  if (stakingData?.periodFinish.lt(Math.floor(Date.now() / 1000))) {
+  if (!stakingData) {
+    return <Loader />
+  }
+  if (stakingData?.periodFinish?.lt(Math.floor(Date.now() / 1000))) {
     return (
       <>
         <NextSeo title="Stake" description="Ascension Protocol staking" />
@@ -158,18 +161,19 @@ const StakePage: NextPageWithLayout = () => {
             <Logo className="h-12" />
             <h2 className="text-xl">ASCEND staking is currently inactive</h2>
 
-            {stakingData?.balanceOf.gt(0) && (
+            {(stakingData?.balanceOf.gt(0) || stakingData?.earned.gt(0)) && (
               <WagmiTransactionButton
-                color="red"
+                color="gradient"
                 full
                 config={exitConfig?.config}
                 name="Exit Staking"
                 onTransactionSuccess={() =>
                   t('success', 'Exit Staking successful')
                 }
+                onTransactionError={() => t('error', 'Exit Staking failed')}
               />
             )}
-            {stakingData?.earned.gt(0) && (
+            {/* {stakingData?.earned.gt(0) && (
               <WagmiTransactionButton
                 color="green"
                 full
@@ -179,7 +183,7 @@ const StakePage: NextPageWithLayout = () => {
                   t('success', 'Collect Rewards successful')
                 }
               />
-            )}
+            )} */}
           </div>
         </Section>
       </>

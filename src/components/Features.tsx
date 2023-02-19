@@ -34,7 +34,7 @@ const features = [
     alignment: 'left',
     icon: <RewardsIcon className="h-48 lg:h-56" />,
     title: 'Rewards',
-    href: 'https://discord.gg/EJ7hXuhGKQ',
+    href: 'https://discord.com/channels/954952786041258004/955526077994905600',
     buttonText: 'Join DAO',
     buttonGradient: 'from-purple to-pink',
     description:

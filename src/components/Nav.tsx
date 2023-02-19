@@ -12,12 +12,12 @@ const links = [
   { title: 'Stake', href: '/stake' },
 ]
 const tools = [
-  {
-    title: 'Ascension Supernova',
-    href: '/tools/supernova/',
-    description: 'Suite of DeFi tools.',
-    badges: ['Beta', 'New'],
-  },
+  // {
+  //   title: 'Ascension Supernova',
+  //   href: '/tools/supernova/',
+  //   description: 'Suite of DeFi tools.',
+  //   badges: ['Beta', 'New'],
+  // },
   {
     title: 'Ascension Reactor',
     href: 'https://reactor.ascensionprotocol.io/',

@@ -2,11 +2,10 @@ import { gql } from 'graphql-request'
 import { useMemo } from 'react'
 import { useQuery } from './useQuery'
 
+// Jan 1st 2023 epock timestamp: 1672531200
 const GET_STAKING_DATA = gql`
   query StakingMetric {
-    stakingMetrics(first: 1000, orderDirection: asc, where:{id_gt: ${Math.floor(
-      Date.now() / 1000 - 2629743
-    )}}) {
+    stakingMetrics(first: 1000, orderDirection: asc, where:{id_gt: ${1672531200}}) {
       id
       totalStaked
     }

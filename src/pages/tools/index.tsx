@@ -31,11 +31,11 @@ const ToolTile = ({
 }
 
 const tools = [
-  {
-    name: 'Ascension Supernova',
-    path: '/tools/supernova',
-    icon: <SupernovaLogo className="h-32" />,
-  },
+  // {
+  //   name: 'Ascension Supernova',
+  //   path: '/tools/supernova',
+  //   icon: <SupernovaLogo className="h-32" />,
+  // },
   {
     name: 'Ascension Reactor',
     path: 'https://reactor.ascensionprotocol.io',
@@ -59,7 +59,7 @@ const ToolsPage: NextPageWithLayout = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', delay: i * 0.09 }}
                     key={i}
-                    className="col-span-12 place-content-center py-3 md:col-span-6 md:py-9"
+                    className="col-span-12 place-content-center py-3 md:col-span-12 md:py-9"
                   >
                     <ToolTile name={t.name} path={t.path} icon={t.icon} />
                   </motion.div>

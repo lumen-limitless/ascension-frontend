@@ -1,10 +1,11 @@
-import { Popover } from '@headlessui/react'
+import { Popover, Transition } from '@headlessui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Avatar from './Avatar'
 import Button from './ui/Button'
 import Account from './Account'
 import { ErrorIcon } from 'react-hot-toast'
 import Skeleton from './ui/Skeleton'
+import { Fragment } from 'react'
 
 export default function CustomConnectButton() {
   return (
@@ -147,9 +148,19 @@ export default function CustomConnectButton() {
                         </svg>
                       </div>
                     </Popover.Button>
-                    <Popover.Panel className="absolute left-0  z-20 mt-3 w-full min-w-max transform rounded border-2 border-purple-500/50 bg-purple-900 lg:left-auto lg:-ml-12 lg:w-auto">
-                      <Account />
-                    </Popover.Panel>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 translate-y-1"
+                      enterTo="opacity-100 translate-y-0"
+                      leave="transition ease-in duration-150"
+                      leaveFrom="opacity-100 translate-y-0"
+                      leaveTo="opacity-0 translate-y-1"
+                    >
+                      <Popover.Panel className="absolute left-0  z-20 mt-3 w-full min-w-max transform rounded border-2 border-purple-500/50 bg-purple-900 lg:left-auto lg:-ml-12 lg:w-auto">
+                        <Account />
+                      </Popover.Panel>
+                    </Transition>
                   </Popover>
                 </div>
               )

@@ -13,10 +13,22 @@ import { arbitrum } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import {
+  connectorsForWallets,
   darkTheme,
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
+import {
+  injectedWallet,
+  rainbowWallet,
+  metaMaskWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+  trustWallet,
+  braveWallet,
+  ledgerWallet,
+  argentWallet,
+} from '@rainbow-me/rainbowkit/wallets'
 import { APP_NAME } from '../constants'
 import Avatar from '../components/Avatar'
 import Disclaimer from '../components/Disclaimer'
@@ -29,15 +41,29 @@ const { chains, provider } = configureChains(
     alchemyProvider({
       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY_ARB || '',
     }),
-
     publicProvider(),
   ]
 )
-const { connectors } = getDefaultWallets({
-  appName: APP_NAME,
-  chains,
-})
-
+// const { connectors } = getDefaultWallets({
+//   appName: APP_NAME,
+//   chains,
+// })
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Suggested',
+    wallets: [
+      injectedWallet({ chains }),
+      metaMaskWallet({ chains }),
+      braveWallet({ chains }),
+      walletConnectWallet({ chains }),
+      ledgerWallet({ chains }),
+      rainbowWallet({ chains }),
+      trustWallet({ chains }),
+      coinbaseWallet({ chains, appName: APP_NAME }),
+      argentWallet({ chains }),
+    ],
+  },
+])
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
@@ -75,6 +101,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         <RainbowKitProvider
           avatar={Avatar}
           appInfo={{
+            appName: APP_NAME,
             disclaimer: Disclaimer,
           }}
           initialChain={arbitrum}
@@ -93,6 +120,21 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             <Nav />
           </header>
           <Banner>
+            <svg
+              className="mr-1 h-3 md:h-4 lg:h-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+              />
+            </svg>
             <p className="text-xs md:text-sm lg:text-base">
               Ascension staking has ended.
             </p>

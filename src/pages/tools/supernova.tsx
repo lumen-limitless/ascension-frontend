@@ -17,8 +17,6 @@ const SupernovaPage: NextPageWithLayout = () => {
 
       <Section centered>
         <div className="flex items-center justify-center gap-6 text-3xl font-extrabold text-secondary">
-          {' '}
-          <Logo className="h-24 md:h-48" /> x{' '}
           <SupernovaLogo className="h-24 md:h-48" />
         </div>
 

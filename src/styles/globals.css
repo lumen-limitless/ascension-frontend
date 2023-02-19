@@ -34,7 +34,7 @@ a {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 12px;
     height: 16px;
    
   }
@@ -54,6 +54,7 @@ a {
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(0, 0, 0);
+    background: hsl(243, 5%, 24%);
+    
   }
   
