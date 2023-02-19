@@ -11,18 +11,19 @@ import LandingLayout from '../layouts/LandingLayout'
 import Partners from '../components/Partners'
 import CTA from '../components/CTA'
 import Features from '../components/Features'
+import Script from 'next/script'
 
 const HomePage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo />
-
+      <Script src="https://platform.twitter.com/widgets.js" async />
       <Section
         fullscreen
         className="bg-purple-900 bg-[url('/bg.jpg')] bg-cover bg-center "
         id="hero"
       >
-        <Container className="mt-12 md:mt-24 lg:mt-32">
+        <Container className="mt-9 md:mt-24 lg:mt-32">
           <motion.div
             initial={{ opacity: 0, translateY: 33 }}
             animate={{ opacity: 1, translateY: 0 }}
@@ -60,14 +61,25 @@ const HomePage: NextPageWithLayout = () => {
           </motion.div>
         </Container>
       </Section>
-
       <Features />
-
       <Partners />
+      <Section centered className="pb-48">
+        <Container>
+          <a
+            className="twitter-timeline"
+            // data-width="1200"
+            data-height="500"
+            data-dnt="true"
+            data-theme="dark"
+            href="https://twitter.com/AscendProtocol?ref_src=twsrc%5Etfw"
+          >
+            Tweets by AscendProtocol
+          </a>
+        </Container>
+      </Section>
 
       <CTA />
-
-      <div className="  bg-purple-900 py-12" />
+      <div className="bg-purple-900 py-12" />
     </>
   )
 }
