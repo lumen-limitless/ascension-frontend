@@ -3,9 +3,7 @@ import { NextSeo } from 'next-seo'
 import Section from '../../components/ui/Section'
 import { NextPageWithLayout } from '../../types'
 import AppLayout from '../../layouts/AppLayout'
-import { motion } from 'framer-motion'
-import Logo from '../../components/ui/Logo'
-import SupernovaLogo from '../../components/icons/SupernovaLogo'
+import SupernovaLogo from 'public/assets/supernova.svg'
 
 const SupernovaPage: NextPageWithLayout = () => {
   return (

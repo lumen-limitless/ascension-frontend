@@ -4,7 +4,6 @@ import Button from '../components/ui/Button'
 import Section from '../components/ui/Section'
 import { m } from 'framer-motion'
 import { NextSeo } from 'next-seo'
-import Logo from '../components/ui/Logo'
 import { ReactElement } from 'react'
 import { NextPageWithLayout } from '../types'
 import LandingLayout from '../layouts/LandingLayout'
@@ -12,7 +11,7 @@ import Partners from '../components/home/Partners'
 import CTA from '../components/home/CTA'
 import Features from '../components/home/Features'
 import Script from 'next/script'
-import LogoSVG from 'public/assets/logo.svg'
+import Logo from 'public/assets/logo.svg'
 
 const HomePage: NextPageWithLayout = () => {
   return (
@@ -33,7 +32,7 @@ const HomePage: NextPageWithLayout = () => {
             className="relative  space-y-3  text-center"
           >
             <div className=" flex w-full  items-center justify-center">
-              <LogoSVG className="h-32" />
+              <Logo className="h-32" />
             </div>
             <h1 className=" text-5xl font-bold  text-primary drop-shadow-2xl md:text-6xl lg:text-7xl">
               Prepare for{' '}
@@ -41,7 +40,7 @@ const HomePage: NextPageWithLayout = () => {
                 Ascension
               </span>
             </h1>
-            <p className="mx-auto p-1 text-xl text-primary drop-shadow-2xl md:py-3 md:px-12 md:text-3xl lg:text-4xl">
+            <p className="mx-auto p-1 text-xl text-primary drop-shadow-2xl md:px-12 md:py-3 md:text-3xl lg:text-4xl">
               Ascension Protocol is a Decentralized Autonomous Organization
               (DAO) dedicated to providing DeFi tools and opportunities for
               it&apos;s constituents.

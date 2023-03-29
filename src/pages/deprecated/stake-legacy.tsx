@@ -6,7 +6,7 @@ import { usePrepareContractWrite } from 'wagmi'
 import AppLayout from '../../layouts/AppLayout'
 import { NextPageWithLayout } from '../../types'
 import { useToast } from '../../hooks'
-import Logo from '../../components/ui/Logo'
+import Logo from 'public/assets/logo.svg'
 
 const StakeLegacyPage: NextPageWithLayout = () => {
   const t = useToast()

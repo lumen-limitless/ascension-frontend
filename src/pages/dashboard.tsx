@@ -250,15 +250,18 @@ const DashboardPage: NextPageWithLayout = () => {
                               }/${nft.contract.address}/${nft.tokenId}`}
                               className="col-span-12 w-full md:col-span-6 xl:col-span-3"
                               key={nft.title}
+                              title={`View ${nft.title} on OpenSea`}
                             >
                               <div className="flex h-full  flex-col items-center justify-center gap-3 overflow-clip rounded border-2 border-purple bg-purple-900 text-center ring  ring-black drop-shadow transition-colors hover:border-yellow">
                                 <NFTImage nft={nft} />
 
-                                <div className="h-14 w-full ">
+                                <div className="h-14 w-full px-1 text-left ">
                                   <p className="text-lg">
-                                    {nft.contract.name}{' '}
+                                    {nft.contract.name || '--'}{' '}
                                   </p>
-                                  <p>#{truncate(nft.tokenId, { length: 5 })}</p>
+                                  <p className="text-yellow-300">
+                                    #{truncate(nft.tokenId, { length: 5 })}
+                                  </p>
                                 </div>
                               </div>
                             </ExternalLink>

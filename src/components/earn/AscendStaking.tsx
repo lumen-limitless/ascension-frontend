@@ -51,7 +51,7 @@ export default function AscendStaking() {
 
   const { data: stakedBalance } =
     useAscensionRevenueDistributionTokenBalanceOfAssets({
-      args: [address as `0x${string}`],
+      args: [address || '0x'],
       watch: true,
       enabled: !!address,
       chainId: CHAIN_ID,
@@ -88,7 +88,7 @@ export default function AscendStaking() {
     }
   )
 
-  const apy = useMemo(() => {
+  const apr = useMemo(() => {
     if (!issuanceRate) return null
     if (!totalAssets) return null
 
@@ -96,9 +96,9 @@ export default function AscendStaking() {
     console.debug('r', r)
     const t = parseBalance(totalAssets) as number
     console.debug('t', t)
-    const apy = ((r * 31557600) / t) * 100
-    console.debug('apy', apy)
-    return formatPercent(apy)
+    const apr = ((r * 31557600) / t) * 100
+    console.debug('apr', apr)
+    return formatPercent(apr)
   }, [issuanceRate, totalAssets])
 
   const {
@@ -149,25 +149,41 @@ export default function AscendStaking() {
       enabled: !!amount && !!permit && !isWithdrawing,
     })
 
-  const withdrawConfig = usePrepareAscensionRevenueDistributionTokenWithdraw({
-    args: [
-      parseUnits(amount || '0'),
-      address as `0x${string}`,
-      address as `0x${string}`,
-    ],
-    enabled: !!amount && isWithdrawing,
-  })
+  const { data: withdrawConfig } =
+    usePrepareAscensionRevenueDistributionTokenWithdraw({
+      args: [
+        parseUnits(amount || '0'),
+        address as `0x${string}`,
+        address as `0x${string}`,
+      ],
+      enabled: !!amount && isWithdrawing,
+    })
 
   const handleAmountInput = (input: string) => {
-    Number.isNaN(parseFloat(input))
-      ? setAmount('')
-      : setAmount(input.replace(/[^0-9.]/g, ''))
+    // Ensure input is a number
+    if (Number.isNaN(parseFloat(input))) {
+      setAmount('')
+      resetSig()
+      return
+    }
+
+    // Some currencies have more than 2 decimal places. Remove any
+    // extra decimals from input.
+    const decimals = input.split('.')[1]
+    if (decimals && decimals.length > 2) {
+      setAmount(input.replace(/[^0-9.]/g, ''))
+      resetSig()
+      return
+    }
+
+    // Replace any non-digit characters from input
+    setAmount(input.replace(/[^0-9.]/g, ''))
     resetSig()
   }
 
   return (
     <>
-      <Section className="mb-32 py-9 md:mb-0">
+      <Section className="mb-32 py-8 md:mb-0">
         <Container className="max-w-5xl">
           <m.div
             initial={{ opacity: 0 }}
@@ -178,7 +194,7 @@ export default function AscendStaking() {
               <div className="col-span-12 md:col-span-8">
                 <StatGrid
                   stats={[
-                    { name: 'APY', stat: apy ?? <Skeleton /> },
+                    { name: 'APR', stat: apr ?? <Skeleton /> },
                     {
                       name: 'Total Staked',
                       stat: totalAssets ? (
@@ -246,7 +262,7 @@ export default function AscendStaking() {
               <div className="col-span-12 md:col-span-8 ">
                 <Card>
                   <Card.Header>
-                    <div className="mx-3 inline-flex w-full justify-center rounded bg-black p-3 md:mx-6">
+                    <div className="mx-3 inline-flex w-full justify-center rounded bg-black p-2 md:mx-6">
                       <Button
                         variant={!isWithdrawing ? 'gray' : 'default'}
                         full
@@ -319,7 +335,7 @@ export default function AscendStaking() {
                       <WagmiTransactionButton
                         full
                         variant="green"
-                        config={withdrawConfig?.config}
+                        config={withdrawConfig}
                         name={`Withdraw ${commify(amount)} ASCEND`}
                         onTransactionSuccess={(receipt) => {
                           resetSig()
