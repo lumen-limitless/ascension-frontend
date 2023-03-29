@@ -1,23 +1,17 @@
 import React, { Fragment } from 'react'
-import Logo from './ui/Logo'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Badge from './ui/Badge'
 import { clsx } from 'clsx'
 import { useBoolean } from 'react-use'
 import CustomConnectButton from './CustomConnectButton'
+import LogoSVG from 'public/assets/logo.svg'
 
 const links = [
   { title: 'Dashboard', href: '/dashboard' },
-  { title: 'Stake', href: '/stake' },
+  { title: 'Earn', href: '/earn' },
 ]
 const tools = [
-  // {
-  //   title: 'Ascension Supernova',
-  //   href: '/tools/supernova/',
-  //   description: 'Suite of DeFi tools.',
-  //   badges: ['Beta', 'New'],
-  // },
   {
     title: 'Ascension Reactor',
     href: 'https://reactor.ascensionprotocol.io/',
@@ -43,7 +37,7 @@ export default function Nav() {
             <Link href="/" className="z-30 p-3">
               <>
                 <span className="sr-only">Ascension Protocol</span>
-                <Logo className="h-8 " />
+                <LogoSVG className="h-8 " />
               </>
             </Link>
             <div className=" ml-auto flex items-center gap-3 lg:hidden">
@@ -217,11 +211,11 @@ export default function Nav() {
                   </Link>
 
                   <Link
-                    href="/stake"
+                    href="/earn"
                     onClick={close}
                     className="w-full border-b-2 border-purple/50 py-9 text-center  "
                   >
-                    Stake
+                    Earn
                   </Link>
 
                   <Link

@@ -2,13 +2,12 @@ import Container from '../../components/ui/Container'
 import Link from 'next/link'
 import Grid from '../../components/ui/Grid'
 import Section from '../../components/ui/Section'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { NextSeo } from 'next-seo'
 import { ReactNode } from 'react'
 import { NextPageWithLayout } from '../../types'
 import AppLayout from '../../layouts/AppLayout'
-import SupernovaLogo from '../../components/icons/SupernovaLogo'
-
+import ReactorSVG from 'public/assets/reactor.svg'
 const ToolTile = ({
   path,
   name,
@@ -31,15 +30,10 @@ const ToolTile = ({
 }
 
 const tools = [
-  // {
-  //   name: 'Ascension Supernova',
-  //   path: '/tools/supernova',
-  //   icon: <SupernovaLogo className="h-32" />,
-  // },
   {
     name: 'Ascension Reactor',
     path: 'https://reactor.ascensionprotocol.io',
-    icon: <img src="/reactor.svg" className="h-32" alt="reactor" />,
+    icon: <ReactorSVG className="h-32" alt="reactor" />,
   },
 ]
 
@@ -54,7 +48,7 @@ const ToolsPage: NextPageWithLayout = () => {
             {tools &&
               tools.map((t, i) => {
                 return (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 33 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: 'spring', delay: i * 0.09 }}
@@ -62,7 +56,7 @@ const ToolsPage: NextPageWithLayout = () => {
                     className="col-span-12 place-content-center py-3 md:col-span-12 md:py-9"
                   >
                     <ToolTile name={t.name} path={t.path} icon={t.icon} />
-                  </motion.div>
+                  </m.div>
                 )
               })}
           </Grid>

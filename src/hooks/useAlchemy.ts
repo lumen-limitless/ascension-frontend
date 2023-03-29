@@ -9,6 +9,10 @@ const NETWORK_BY_CHAINID: { [chainId: number]: Network } = {
   1: Network.ETH_MAINNET,
   42161: Network.ARB_MAINNET,
 }
+/**
+ * Returns an instance of the Alchemy SDK for the specified chain.
+ * @param chainId The chain id for which the user wants an Alchemy SDK instance
+ */
 export const useAlchemySDK = (chainId: number) => {
   return useMemo(() => {
     return new Alchemy({

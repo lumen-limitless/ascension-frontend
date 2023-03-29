@@ -2,16 +2,17 @@ import Container from '../components/ui/Container'
 import Link from 'next/link'
 import Button from '../components/ui/Button'
 import Section from '../components/ui/Section'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { NextSeo } from 'next-seo'
 import Logo from '../components/ui/Logo'
 import { ReactElement } from 'react'
 import { NextPageWithLayout } from '../types'
 import LandingLayout from '../layouts/LandingLayout'
-import Partners from '../components/Partners'
-import CTA from '../components/CTA'
-import Features from '../components/Features'
+import Partners from '../components/home/Partners'
+import CTA from '../components/home/CTA'
+import Features from '../components/home/Features'
 import Script from 'next/script'
+import LogoSVG from 'public/assets/logo.svg'
 
 const HomePage: NextPageWithLayout = () => {
   return (
@@ -20,18 +21,19 @@ const HomePage: NextPageWithLayout = () => {
       <Script src="https://platform.twitter.com/widgets.js" async />
       <Section
         fullscreen
-        className="bg-purple-900 bg-[url('/bg.jpg')] bg-cover bg-center "
+        col
+        className="bg-purple-900 bg-[url('/assets/bg.jpg')] bg-cover bg-center "
         id="hero"
       >
         <Container className="mt-9 md:mt-24 lg:mt-32">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, translateY: 33 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ ease: 'easeOut', delay: 0, duration: 1 }}
             className="relative  space-y-3  text-center"
           >
             <div className=" flex w-full  items-center justify-center">
-              <Logo className="h-32" />
+              <LogoSVG className="h-32" />
             </div>
             <h1 className=" text-5xl font-bold  text-primary drop-shadow-2xl md:text-6xl lg:text-7xl">
               Prepare for{' '}
@@ -44,21 +46,21 @@ const HomePage: NextPageWithLayout = () => {
               (DAO) dedicated to providing DeFi tools and opportunities for
               it&apos;s constituents.
             </p>
-            <motion.div>
+            <m.div>
               <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col items-center gap-3 md:gap-6 lg:flex-row  lg:gap-9">
                 <Link href="/dashboard" className="w-full">
-                  <Button full size="lg" color="gradient">
+                  <Button full size="lg" variant="gradient">
                     Launch App
                   </Button>
                 </Link>
                 <a className="w-full" href="#features">
-                  <Button full size="lg" color="blue">
+                  <Button full size="lg" variant="blue">
                     Learn more
                   </Button>
                 </a>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </Container>
       </Section>
       <Features />

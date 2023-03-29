@@ -1,4 +1,4 @@
-// CONVENTION isFoo -> boolean
+/// @dev CONVENTION isFoo -> boolean
 
 import { BigNumber } from '@ethersproject/bignumber'
 import { getAddress } from '@ethersproject/address'

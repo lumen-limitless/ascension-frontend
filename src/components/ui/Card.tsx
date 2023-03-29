@@ -29,7 +29,7 @@ const Header = ({ children }: { children?: ReactNode }) => (
 Card.Header = Header
 
 const Body = ({ children }: { children?: ReactNode }) => (
-  <div className="relative p-3 md:p-6 lg:p-9">{children}</div>
+  <div className="relative flex-grow p-3 md:p-6 lg:p-9">{children}</div>
 )
 Card.Body = Body
 

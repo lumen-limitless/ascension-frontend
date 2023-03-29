@@ -9,17 +9,17 @@ const Avatar: AvatarComponent = ({ address, ensImage, size }) => {
       src={ensImage}
       width={size}
       height={size}
-      style={{ borderRadius: 999 }}
+      className="overflow-clip rounded-full ring"
     />
   ) : (
     <div
       style={{
         backgroundImage: color,
-        borderRadius: 999,
         height: size,
         width: size,
       }}
-    ></div>
+      className="overflow-clip rounded-full ring"
+    />
   )
 }
 

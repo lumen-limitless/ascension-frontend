@@ -1,7 +1,9 @@
+/// @dev CONVENTION formatFoo -> string
+
 import { BigNumberish } from '@ethersproject/bignumber'
 import { commify, formatUnits } from '@ethersproject/units'
 
-export const capitalize = (s: string) => {
+export function capitalize(s: string) {
   if (typeof s !== 'string') return ''
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
@@ -28,10 +30,10 @@ export function formatPercent(percentString: any) {
     return '0%'
   }
   if (percent < 0.0001 && percent > 0) {
-    return '< 0.0001%'
+    return '<0.0001%'
   }
   if (percent < 0 && percent > -0.0001) {
-    return '< 0.0001%'
+    return '<0.0001%'
   }
   const fixedPercent = percent.toFixed(2)
   if (fixedPercent === '0.00') {
@@ -39,7 +41,7 @@ export function formatPercent(percentString: any) {
   }
   if (Number(fixedPercent) > 0) {
     if (Number(fixedPercent) > 100000) {
-      return `> 100,000%`
+      return `>100,000%`
     } else if (Number(fixedPercent) > 100) {
       return `${commify(percent?.toFixed(0))}%`
     } else {
@@ -50,11 +52,11 @@ export function formatPercent(percentString: any) {
   }
 }
 
-export const formatBalance = (
+export function formatBalance(
   value: BigNumberish,
   decimals = 18,
   maxFraction = 2
-) => {
+) {
   if (!value) return null
   const formatted: string =
     typeof value === 'string'
@@ -70,9 +72,4 @@ export const formatBalance = (
     }
   }
   return formatted === '0' ? '0.0' : formatted
-}
-
-export const parseBalance = (value: BigNumberish, decimals = 18) => {
-  if (!value) return null
-  return parseFloat(formatUnits(value, decimals))
 }

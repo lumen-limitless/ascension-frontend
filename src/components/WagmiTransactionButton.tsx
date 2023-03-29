@@ -3,7 +3,7 @@ import {
   TransactionResponse,
 } from '@ethersproject/providers'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
-import Button, { ButtonColor } from './ui/Button'
+import Button, { ButtonProps } from './ui/Button'
 
 const Spinner = () => {
   return (
@@ -25,12 +25,9 @@ const Spinner = () => {
     </svg>
   )
 }
-interface WagmiTransactionButtonProps {
+interface WagmiTransactionButtonProps extends ButtonProps {
   className?: string
   config: any
-  color?: ButtonColor
-  full?: boolean
-  size?: 'default' | 'none' | 'xs' | 'sm' | 'lg'
   onWriteSuccess?: (data: TransactionResponse) => void
   onWriteError?: (data: TransactionResponse) => void
   onWriteSettled?: (data: TransactionResponse) => void
@@ -41,7 +38,6 @@ interface WagmiTransactionButtonProps {
     data: TransactionReceipt | undefined,
     error: Error | null
   ) => void
-
   name?: string
 }
 
@@ -74,7 +70,6 @@ export default function WagmiTransactionButton({
   })
   return (
     <Button
-      className={[className].filter(Boolean).join(' ')}
       {...props}
       disabled={
         !contractWrite?.write ||
@@ -94,7 +89,7 @@ export default function WagmiTransactionButton({
           <Spinner />
         </>
       ) : (
-        name
+        <span>{name}</span>
       )}
     </Button>
   )

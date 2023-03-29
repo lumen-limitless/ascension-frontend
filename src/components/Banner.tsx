@@ -7,7 +7,7 @@ export default function Banner({ children }: { children?: ReactNode }) {
     <>
       {viewing && (
         <div
-          className="relative flex w-full items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 px-3 py-1"
+          className="relative flex w-full items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 p-3"
           id="banner"
           aria-label="banner"
         >

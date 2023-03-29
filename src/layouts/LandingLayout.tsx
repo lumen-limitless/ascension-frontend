@@ -1,3 +1,4 @@
+import { domAnimation, LazyMotion } from 'framer-motion'
 import { ReactNode } from 'react'
 import Footer from '../components/Footer'
 

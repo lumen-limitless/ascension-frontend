@@ -3,7 +3,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Avatar from './Avatar'
 import Button from './ui/Button'
 import Account from './Account'
-import { ErrorIcon } from 'react-hot-toast'
 import Skeleton from './ui/Skeleton'
 import { Fragment } from 'react'
 
@@ -29,7 +28,7 @@ export default function CustomConnectButton() {
               if (!connected) {
                 return (
                   <Button
-                    color="blue"
+                    variant="blue"
                     size="sm"
                     onClick={openConnectModal}
                     type="button"
@@ -56,7 +55,7 @@ export default function CustomConnectButton() {
               if (chain.unsupported) {
                 return (
                   <Button
-                    color="red"
+                    variant="red"
                     size="sm"
                     onClick={openChainModal}
                     type="button"
@@ -83,7 +82,7 @@ export default function CustomConnectButton() {
 
               return (
                 <div className="flex gap-3">
-                  <Button color="gray" size="sm" type="button">
+                  <Button variant="gray" size="sm" type="button">
                     {chain.hasIcon && (
                       <div
                         className="h-6 w-6 overflow-hidden rounded-full"

@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import AscensionMonoIcon from './icons/AscensionMonoIcon'
+import LogoMonoWhiteSVG from 'public/assets/logomonowhite.svg'
 
 const navigation = {
   main: [
@@ -159,7 +159,7 @@ export default function Footer() {
     >
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
         <div className="flex w-full  items-center justify-center">
-          <AscensionMonoIcon />
+          <LogoMonoWhiteSVG className="h-32" />
         </div>
         <nav
           className="-mx-5 -my-2 flex flex-wrap justify-center"

@@ -1,16 +1,16 @@
 import clsx from 'clsx'
 import { ReactNode } from 'react'
-import Button from './ui/Button'
+import Button, { ButtonProps } from './ui/Button'
 
+interface FancyButtonProps extends ButtonProps {
+  backgroundClassName?: string
+}
 export default function FancyButton({
-  buttonClassName,
+  className,
   backgroundClassName,
   children,
-}: {
-  buttonClassName?: string
-  backgroundClassName?: string
-  children?: ReactNode
-}) {
+  ...props
+}: FancyButtonProps) {
   return (
     <>
       <div className="relative flex">
@@ -20,7 +20,7 @@ export default function FancyButton({
             backgroundClassName
           )}
         ></div>
-        <Button color="gray" className={clsx('z-10', buttonClassName)}>
+        <Button {...props} className={clsx('z-10', className)}>
           {children}
         </Button>
       </div>
