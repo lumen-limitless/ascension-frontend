@@ -42,7 +42,12 @@ const DashboardPage: NextPageWithLayout = () => {
   console.debug('STAKING METRICS', stakingMetrics)
 
   const { data: priceData, isFetched: isFetchedPriceData } =
-    useDefiLlamaPriceChart(ascensionTokenAddress, arbitrum.id, 1638234087, 1000)
+    useDefiLlamaPriceChart(
+      ascensionTokenAddress,
+      arbitrum.id,
+      1638234087, //timestamp of ascend launch
+      1000 //max data points
+    )
   console.debug('PRICE DATA', priceData)
 
   return (
@@ -255,12 +260,10 @@ const DashboardPage: NextPageWithLayout = () => {
                               <div className="flex h-full  flex-col items-center justify-center gap-3 overflow-clip rounded border-2 border-purple bg-purple-900 text-center ring  ring-black drop-shadow transition-colors hover:border-yellow">
                                 <NFTImage nft={nft} />
 
-                                <div className="h-14 w-full px-1 text-left ">
+                                <div className="h-10 w-full px-2 text-left ">
                                   <p className="text-lg">
-                                    {nft.contract.name || '--'}{' '}
-                                  </p>
-                                  <p className="text-yellow-300">
-                                    #{truncate(nft.tokenId, { length: 5 })}
+                                    {nft.contract.name || '--'} #
+                                    {truncate(nft.tokenId, { length: 10 })}
                                   </p>
                                 </div>
                               </div>

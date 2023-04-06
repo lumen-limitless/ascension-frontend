@@ -8,13 +8,13 @@ import Loader from '../components/ui/Loader'
 import Modal from '../components/ui/Modal'
 import { VIEW } from '../constants/enums'
 import { useUI } from '../hooks'
-import { configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
+import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { arbitrum, foundry } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import {
   connectorsForWallets,
-  darkTheme,
+  midnightTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
 import {
@@ -125,7 +125,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               process.env.NODE_ENV === 'production' ? arbitrum.id : foundry.id
             }
             chains={chains}
-            theme={darkTheme({ overlayBlur: 'large' })}
+            theme={midnightTheme({ overlayBlur: 'large' })}
           >
             <Toaster
               position="top-right"
@@ -172,7 +172,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               className=" relative flex h-full w-full flex-grow flex-col overflow-clip"
               id="main"
             >
-              <div className=" absolute -top-40 -right-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
+              <div className=" absolute -right-40 -top-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
               <div className=" absolute -bottom-40 -left-40  h-[700px] w-[700px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
               {children}
             </main>

@@ -1,9 +1,9 @@
 import { commify } from '@ethersproject/units'
 import { BigNumber } from 'ethers'
-import { formatBalance } from '../../functions'
-import Card from '../ui/Card'
-import Divider from '../ui/Divider'
-import Skeleton from '../ui/Skeleton'
+import { formatBalance } from '../../../functions'
+import Card from '../../ui/Card'
+import Divider from '../../ui/Divider'
+import Skeleton from '../../ui/Skeleton'
 import AscendTokenSVG from 'public/assets/ascendtoken.svg'
 
 export default function BalanceCard({

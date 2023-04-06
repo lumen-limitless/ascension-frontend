@@ -6,12 +6,6 @@ export default defineConfig({
   contracts: [],
   plugins: [
     react(),
-    blockExplorer({
-      baseUrl: 'https://api.arbiscan.io/api',
-      contracts: [
-        { address: '0xc7831178793868a75122EAaFF634ECe07a2ecAAA', name: 'roul' },
-      ],
-    }),
 
     foundry({
       project: '../ascension-token',
@@ -33,7 +27,7 @@ export default defineConfig({
       project: '../ascension-staking',
       deployments: {
         AscensionRevenueDistributionToken:
-          '0xa869a48490c73d61deba667e916ca98ca6bd1f5e',
+          '0x42F5A9B27a60a7558D196747cb43e14cBe13B398',
       },
       include: ['AscensionRevenueDistributionToken.json'],
     }),

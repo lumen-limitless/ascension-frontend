@@ -2,7 +2,6 @@ import { formatBalance, isAddress, shortenString } from '../functions'
 import Button from '../components/ui/Button'
 import Loader from '../components/ui/Loader'
 import Skeleton from '../components/ui/Skeleton'
-import Typography from '../components/ui/Typography'
 import { useBoolean } from 'react-use'
 import { useState } from 'react'
 import Input from '../components/ui/Input'
@@ -10,27 +9,49 @@ import Avatar from '../components/Avatar'
 import ChainIcon from '../components/ChainIcon'
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
 import {
+  useAscensionRevenueDistributionTokenBalanceOf,
+  useAscensionRevenueDistributionTokenDelegates,
+  useAscensionRevenueDistributionTokenGetAssetVotes,
+  useAscensionTokenBalanceOf,
   useAscensionTokenDelegates,
   useAscensionTokenGetVotes,
+  usePrepareAscensionRevenueDistributionTokenDelegate,
   usePrepareAscensionTokenDelegate,
 } from '../wagmi/generated'
 import WagmiTransactionButton from '../components/WagmiTransactionButton'
-import { commify, formatUnits } from '@ethersproject/units'
+import { commify } from '@ethersproject/units'
 import { CHAIN_ID } from '../constants'
 
 export default function Delegate() {
+  const [token, setToken] = useState<'ASCEND' | 'xASCEND'>('ASCEND')
   const [delegating, toggleDelegating] = useBoolean(false)
   const [delegateAddress, setDelegateAddress] = useState<string>('')
   const { switchNetwork } = useSwitchNetwork()
   const { chain } = useNetwork()
   const { address, isConnected } = useAccount()
 
-  const { config: delegateVotesConfig } = usePrepareAscensionTokenDelegate({
+  const { config: delegateConfig } = usePrepareAscensionTokenDelegate({
     args: [
       delegating
         ? (delegateAddress as `0x${string}`)
         : (address as `0x${string}`),
     ],
+  })
+
+  const { config: stakedDelegateConfig } =
+    usePrepareAscensionRevenueDistributionTokenDelegate({
+      args: [
+        delegating
+          ? (delegateAddress as `0x${string}`)
+          : (address as `0x${string}`),
+      ],
+    })
+
+  const { data: balance } = useAscensionTokenBalanceOf({
+    args: [address as `0x${string}`],
+    enabled: !!address,
+    watch: true,
+    chainId: CHAIN_ID,
   })
 
   const { data: votes } = useAscensionTokenGetVotes({
@@ -40,16 +61,41 @@ export default function Delegate() {
     chainId: CHAIN_ID,
   })
 
-  const { data: currentDelegate } = useAscensionTokenDelegates({
+  const { data: delegates } = useAscensionTokenDelegates({
     args: [address as `0x${string}`],
     enabled: !!address,
     watch: true,
     chainId: CHAIN_ID,
   })
 
+  const { data: stakedBalance } = useAscensionRevenueDistributionTokenBalanceOf(
+    {
+      args: [address as `0x${string}`],
+      enabled: !!address,
+      watch: true,
+      chainId: CHAIN_ID,
+    }
+  )
+
+  const { data: stakedVotes } =
+    useAscensionRevenueDistributionTokenGetAssetVotes({
+      args: [address as `0x${string}`],
+      enabled: !!address,
+      watch: true,
+      chainId: CHAIN_ID,
+    })
+
+  const { data: stakedDelegates } =
+    useAscensionRevenueDistributionTokenDelegates({
+      args: [address as `0x${string}`],
+      enabled: !!address,
+      watch: true,
+      chainId: CHAIN_ID,
+    })
+
   return (
     <>
-      <div className=" my-3 space-y-3">
+      <div className=" my-6 space-y-3">
         {' '}
         <h1 className="mb-2 text-2xl">Delegate ASCEND Voting Power</h1>
         {!isConnected || !chain ? (
@@ -63,6 +109,22 @@ export default function Delegate() {
           </div>
         ) : (
           <>
+            <div className="flex rounded bg-black p-2">
+              <Button
+                full
+                variant={token === 'ASCEND' ? 'blue' : 'default'}
+                onClick={() => setToken('ASCEND')}
+              >
+                ASCEND
+              </Button>
+              <Button
+                full
+                variant={token === 'xASCEND' ? 'blue' : 'default'}
+                onClick={() => setToken('xASCEND')}
+              >
+                xASCEND
+              </Button>
+            </div>
             <div className="flex items-center gap-3 rounded bg-gray-900 p-1 shadow">
               <svg
                 className="h-20 text-blue"
@@ -82,19 +144,44 @@ export default function Delegate() {
                   : 'To activate your voting power in the DAO, you must delegate your tokens to yourself or someone else.'}
               </p>
             </div>
-            <div className="space-y-3  rounded border-2 border-purple/50 p-3">
+            <div className="space-y-3 rounded border-2 border-purple/50 p-3">
               <div className=" ">
-                <h2 className="text-secondary">ASCEND voting power: </h2>{' '}
-                {votes ? (
-                  <p>{commify(formatBalance(votes) as string)}</p>
+                <h2 className="text-secondary">{token} balance: </h2>{' '}
+                {balance && stakedBalance ? (
+                  <p>
+                    {commify(
+                      formatBalance(
+                        token === 'ASCEND' ? balance : stakedBalance
+                      ) as string
+                    )}
+                  </p>
+                ) : (
+                  <Skeleton />
+                )}
+              </div>
+              <div className=" ">
+                <h2 className="text-secondary">{token} voting power: </h2>{' '}
+                {votes && stakedVotes ? (
+                  <p>
+                    {commify(
+                      formatBalance(
+                        token === 'ASCEND' ? votes : stakedVotes
+                      ) as string
+                    )}
+                  </p>
                 ) : (
                   <Skeleton />
                 )}
               </div>
               <div className="">
-                <h2 className="text-secondary">ASCEND delegate address:</h2>
-                {currentDelegate ? (
-                  <p>{shortenString(currentDelegate, 10)}</p>
+                <h2 className="text-secondary">{token} delegate address:</h2>
+                {delegates && stakedDelegates ? (
+                  <p>
+                    {shortenString(
+                      token === 'ASCEND' ? delegates : stakedDelegates,
+                      10
+                    )}
+                  </p>
                 ) : (
                   <Skeleton />
                 )}
@@ -116,7 +203,9 @@ export default function Delegate() {
               <WagmiTransactionButton
                 variant="blue"
                 full
-                config={delegateVotesConfig}
+                config={
+                  token === 'ASCEND' ? delegateConfig : stakedDelegateConfig
+                }
                 name={
                   delegating
                     ? isAddress(delegateAddress)

@@ -4,7 +4,7 @@ import Grid from '../../components/ui/Grid'
 import Card from '../../components/ui/Card'
 import Button from '../../components/ui/Button'
 import Divider from '../../components/ui/Divider'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Input from '../../components/ui/Input'
 import {
   ascensionTokenAddress,
@@ -18,6 +18,7 @@ import {
   useAscensionRevenueDistributionTokenVestingPeriodFinish,
   usePrepareAscensionRevenueDistributionTokenWithdraw,
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
+  useAscensionRevenueDistributionTokenTotalSupply,
 } from '../../wagmi/generated'
 import { useAccount, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'
@@ -32,9 +33,9 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useToast } from '../../hooks'
 import { CHAIN_ID } from '../../constants'
 import StatGrid from '../../components/ui/StatGrid'
-import PermitSVG from 'public/assets/permit.svg'
+import PermitButton from '../PermitButton'
 
-export default function AscendStaking() {
+export default function SingleStaking() {
   const t = useToast()
   const [amount, setAmount] = useState('')
   const [isWithdrawing, toggleWithdrawing] = useBoolean(false)
@@ -88,18 +89,25 @@ export default function AscendStaking() {
     }
   )
 
+  const { data: totalSupply } = useAscensionRevenueDistributionTokenTotalSupply(
+    {
+      chainId: CHAIN_ID,
+      watch: true,
+    }
+  )
+
   const apr = useMemo(() => {
     if (!issuanceRate) return null
-    if (!totalAssets) return null
+    if (!totalSupply) return null
 
     const r = (parseBalance(issuanceRate) as number) / 1e30
     console.debug('r', r)
-    const t = parseBalance(totalAssets) as number
+    const t = parseBalance(totalSupply) as number
     console.debug('t', t)
     const apr = ((r * 31557600) / t) * 100
     console.debug('apr', apr)
     return formatPercent(apr)
-  }, [issuanceRate, totalAssets])
+  }, [issuanceRate, totalSupply])
 
   const {
     data: sig,
@@ -163,7 +171,6 @@ export default function AscendStaking() {
     // Ensure input is a number
     if (Number.isNaN(parseFloat(input))) {
       setAmount('')
-      resetSig()
       return
     }
 
@@ -172,13 +179,11 @@ export default function AscendStaking() {
     const decimals = input.split('.')[1]
     if (decimals && decimals.length > 2) {
       setAmount(input.replace(/[^0-9.]/g, ''))
-      resetSig()
       return
     }
 
     // Replace any non-digit characters from input
     setAmount(input.replace(/[^0-9.]/g, ''))
-    resetSig()
   }
 
   return (
@@ -268,7 +273,7 @@ export default function AscendStaking() {
                         full
                         onClick={() => toggleWithdrawing(false)}
                       >
-                        Stake
+                        Deposit
                       </Button>
                       <Button
                         variant={isWithdrawing ? 'gray' : 'default'}
@@ -283,7 +288,7 @@ export default function AscendStaking() {
                     <div className="space-y-5">
                       <div className="flex w-full flex-col items-center justify-between gap-3 md:flex-row">
                         <h2 className="text-xl">
-                          {isWithdrawing ? 'Withdraw' : 'Stake'} ASCEND
+                          {isWithdrawing ? 'Withdraw' : 'Deposit'} ASCEND
                         </h2>
                         <div className="relative flex">
                           <div
@@ -305,7 +310,10 @@ export default function AscendStaking() {
                       </div>
                       <Input.Numeric
                         value={amount}
-                        onUserInput={handleAmountInput}
+                        onUserInput={(input) => {
+                          handleAmountInput(input)
+                          resetSig()
+                        }}
                         max={
                           ascendBalance
                             ? isWithdrawing
@@ -344,23 +352,12 @@ export default function AscendStaking() {
                         }}
                       />
                     ) : !permit ? (
-                      <>
-                        <Button
-                          full
-                          disabled={isLoadingSig}
-                          onClick={signTypedData}
-                          variant="blue"
-                        >
-                          {isLoadingSig ? (
-                            <Spinner />
-                          ) : (
-                            <>
-                              <PermitSVG className="h-4" />
-                              Permit Deposit
-                            </>
-                          )}
-                        </Button>
-                      </>
+                      <PermitButton
+                        isLoadingSig={isLoadingSig}
+                        signTypedData={signTypedData}
+                      >
+                        Permit Deposit{' '}
+                      </PermitButton>
                     ) : (
                       <WagmiTransactionButton
                         full

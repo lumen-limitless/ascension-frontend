@@ -1,21 +1,21 @@
 import React from 'react'
-import Section from '../../components/ui/Section'
-import Container from '../../components/ui/Container'
-import Grid from '../../components/ui/Grid'
-import Card from '../../components/ui/Card'
-import Button from '../../components/ui/Button'
+import Section from '../../../components/ui/Section'
+import Container from '../../../components/ui/Container'
+import Grid from '../../../components/ui/Grid'
+import Card from '../../../components/ui/Card'
+import Button from '../../../components/ui/Button'
 import { useMemo, useRef, useState } from 'react'
-import Input from '../../components/ui/Input'
+import Input from '../../../components/ui/Input'
 import { useAccount, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'
 import { BigNumber, ethers } from 'ethers'
 import { useAsync, useBoolean } from 'react-use'
-import WagmiTransactionButton from '../../components/WagmiTransactionButton'
-import Spinner from '../../components/ui/Spinner'
+import WagmiTransactionButton from '../../../components/WagmiTransactionButton'
+import Spinner from '../../../components/ui/Spinner'
 import { m } from 'framer-motion'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useToast } from '../../hooks'
-import { CHAIN_ID } from '../../constants'
+import { useToast } from '../../../hooks'
+import { CHAIN_ID } from '../../../constants'
 import {
   ascensionPolyStakingPoolABI,
   ascensionPolyStakingPoolAddress,
@@ -26,10 +26,10 @@ import {
   usePrepareAscensionPolyStakingPoolMulticall,
   usePrepareAscensionPolyStakingPoolSelfPermitIfNecessary,
   usePrepareAscensionPolyStakingPoolWithdraw,
-} from '../../wagmi/generated'
-import RewardsCard from '../../components/earn/RewardsCard'
-import BalanceCard from '../../components/earn/BalanceCard'
-import EarnStats from '../../components/earn/EarnStats'
+} from '../../../wagmi/generated'
+import RewardsCard from './RewardsCard'
+import BalanceCard from './BalanceCard'
+import EarnStats from './EarnStats'
 import PermitSVG from 'public/assets/permit.svg'
 import { clsx } from 'clsx'
 

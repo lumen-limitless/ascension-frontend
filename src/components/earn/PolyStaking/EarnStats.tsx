@@ -1,15 +1,15 @@
 import { commify } from '@ethersproject/units'
 import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
-import { CHAIN_ID } from '../../constants'
-import { formatBalance, formatPercent, parseBalance } from '../../functions'
+import { CHAIN_ID } from '../../../constants'
+import { formatBalance, formatPercent, parseBalance } from '../../../functions'
 import {
   ascensionTokenAddress,
   useAscensionPolyStakingPoolPoolInfo,
   useAscensionPolyStakingPoolTotalAssets,
-} from '../../wagmi/generated'
-import Skeleton from '../ui/Skeleton'
-import StatGrid from '../ui/StatGrid'
+} from '../../../wagmi/generated'
+import Skeleton from '../../ui/Skeleton'
+import StatGrid from '../../ui/StatGrid'
 
 export default function EarnStats() {
   const { address } = useAccount()
