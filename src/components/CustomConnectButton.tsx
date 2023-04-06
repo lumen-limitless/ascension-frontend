@@ -32,6 +32,7 @@ export default function CustomConnectButton() {
                     size="sm"
                     onClick={openConnectModal}
                     type="button"
+                    id="connect-wallet-button"
                   >
                     <svg
                       className="h-6 w-6"
@@ -121,7 +122,7 @@ export default function CustomConnectButton() {
                       }
                     >
                       {' '}
-                      <div className="hidden rounded-l py-2 px-2 md:inline-flex">
+                      <div className="hidden rounded-l px-2 py-2 md:inline-flex">
                         {account.displayBalance ? (
                           ` ${account.displayBalance}`
                         ) : (

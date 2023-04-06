@@ -48,7 +48,12 @@ const HomePage: NextPageWithLayout = () => {
             <m.div>
               <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col items-center gap-3 md:gap-6 lg:flex-row  lg:gap-9">
                 <Link href="/dashboard" className="w-full">
-                  <Button full size="lg" variant="gradient">
+                  <Button
+                    full
+                    size="lg"
+                    variant="gradient"
+                    id="launch-app-button"
+                  >
                     Launch App
                   </Button>
                 </Link>
@@ -74,7 +79,7 @@ const HomePage: NextPageWithLayout = () => {
             data-theme="dark"
             href="https://twitter.com/AscendProtocol?ref_src=twsrc%5Etfw"
           >
-            Tweets by AscendProtocol
+            <span className="sr-only">Tweets by AscendProtocol</span>
           </a>
         </Container>
       </Section>
