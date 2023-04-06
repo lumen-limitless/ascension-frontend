@@ -6,7 +6,6 @@
     "predev": "wagmi generate && graphql-codegen",
     "dev": "NODE_ENV=development next dev ",
     "analyze": "ANALYZE=true next build",
-    "prebuild": "wagmi generate && graphql-codegen",
     "build": "next build",
     "postbuild": "next-sitemap",
     "generate": "wagmi generate && graphql-codegen",

@@ -27,6 +27,8 @@ import {
   braveWallet,
   ledgerWallet,
   argentWallet,
+  safeWallet,
+  zerionWallet,
 } from '@rainbow-me/rainbowkit/wallets'
 import { APP_NAME } from '../constants'
 import Avatar from '../components/Avatar'
@@ -84,6 +86,8 @@ const connectors = connectorsForWallets([
       trustWallet({ chains }),
       coinbaseWallet({ chains, appName: APP_NAME }),
       argentWallet({ chains }),
+      safeWallet({ chains }),
+      zerionWallet({ chains }),
     ],
   },
 ])
@@ -125,7 +129,10 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               process.env.NODE_ENV === 'production' ? arbitrum.id : foundry.id
             }
             chains={chains}
-            theme={midnightTheme({ overlayBlur: 'large' })}
+            theme={midnightTheme({
+              overlayBlur: 'large',
+              accentColor: '#0346a2',
+            })}
           >
             <Toaster
               position="top-right"

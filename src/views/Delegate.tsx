@@ -102,7 +102,7 @@ export default function Delegate() {
           <Loader />
         ) : chain.id !== CHAIN_ID ? (
           <div className="flex justify-center">
-            <Button color="blue" onClick={() => switchNetwork?.(CHAIN_ID)}>
+            <Button variant="blue" onClick={() => switchNetwork?.(CHAIN_ID)}>
               <ChainIcon chainId={CHAIN_ID} />
               Switch to Arbitrum
             </Button>

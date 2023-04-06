@@ -22,6 +22,8 @@ const StakeLegacyPage: NextPageWithLayout = () => {
       <NextSeo
         title="Stake Legacy"
         description="Ascension Protocol legacy staking"
+        nofollow={true}
+        noindex={true}
       />
 
       <Section centered>

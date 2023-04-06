@@ -87,7 +87,11 @@ import { useToast } from '../../hooks'
 // }
 
 const StakePage: NextPageWithLayout = () => {
-  return <></>
+  return (
+    <>
+      <NextSeo nofollow={true} noindex={true} />
+    </>
+  )
 
   // const [amount, setAmount] = useState<string>('')
   // const [isWithdrawing, toggle] = useBoolean(false)

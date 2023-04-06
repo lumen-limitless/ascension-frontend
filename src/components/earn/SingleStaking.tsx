@@ -4,7 +4,7 @@ import Grid from '../../components/ui/Grid'
 import Card from '../../components/ui/Card'
 import Button from '../../components/ui/Button'
 import Divider from '../../components/ui/Divider'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Input from '../../components/ui/Input'
 import {
   ascensionTokenAddress,
@@ -27,7 +27,6 @@ import { formatBalance, parseBalance, formatPercent } from '../../functions'
 import Skeleton from '../../components/ui/Skeleton'
 import { useBoolean } from 'react-use'
 import WagmiTransactionButton from '../../components/WagmiTransactionButton'
-import Spinner from '../../components/ui/Spinner'
 import { m } from 'framer-motion'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useToast } from '../../hooks'
@@ -50,6 +49,12 @@ export default function SingleStaking() {
     chainId: CHAIN_ID,
   })
 
+  const { data: nonces } = useAscensionTokenNonces({
+    watch: true,
+    args: [address as `0x${string}`],
+    chainId: CHAIN_ID,
+  })
+
   const { data: stakedBalance } =
     useAscensionRevenueDistributionTokenBalanceOfAssets({
       args: [address || '0x'],
@@ -69,12 +74,6 @@ export default function SingleStaking() {
     useAscensionRevenueDistributionTokenVestingPeriodFinish({
       chainId: CHAIN_ID,
     })
-
-  const { data: nonces } = useAscensionTokenNonces({
-    watch: true,
-    args: [address as `0x${string}`],
-    chainId: CHAIN_ID,
-  })
 
   const { data: issuanceRate } =
     useAscensionRevenueDistributionTokenIssuanceRate({
@@ -141,7 +140,12 @@ export default function SingleStaking() {
 
   const permit: ethers.Signature | null = useMemo(() => {
     if (!sig) return null
-    return ethers.utils.splitSignature(sig)
+    try {
+      return ethers.utils.splitSignature(sig)
+    } catch (e) {
+      console.error(e)
+      return null
+    }
   }, [sig])
 
   const { config: depositWithPermitConfig } =

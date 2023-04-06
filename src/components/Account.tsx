@@ -52,7 +52,10 @@ export default function Account() {
       watch: true,
     }
   )
-  const { data: ens } = useEnsName(address)
+  const { data: ens } = useEnsName({
+    address,
+    enabled: !!address,
+  })
   const watchAsset = useWatchAsset()
 
   return (
