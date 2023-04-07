@@ -1,23 +1,3 @@
-describe('Ethereum', () => {
-  beforeAll(async () => {
-    await page.goto('https://ethereum.org/en/')
-  })
-
-  it('should be titled "Home | ethereum.org"', async () => {
-    await expect(page.title()).resolves.toMatch('Home | ethereum.org')
-  })
-})
-
-describe('Ascension Protocol', () => {
-  beforeAll(async () => {
-    await page.goto('https://ascensionprotocol.io/')
-  })
-
-  it("should be titled 'Ascension Protocol'", async () => {
-    await expect(page.title()).resolves.toMatch('Ascension Protocol')
-  })
-})
-
 describe('localhost:3000', () => {
   describe('homepage', () => {
     beforeAll(async () => {
@@ -47,6 +27,12 @@ describe('localhost:3000', () => {
     })
     it('should be titled "Earn | Ascension Protocol" when Earn page is loaded', async () => {
       await expect(page.title()).resolves.toMatch('Earn | Ascension Protocol')
+    })
+
+    it('should have a button with text "Connect Wallet"', async () => {
+      await expect(page.matchElement()).toMatchElement('button', {
+        text: 'Connect Wallet',
+      })
     })
   })
 })
