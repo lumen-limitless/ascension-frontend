@@ -14,7 +14,7 @@ export default function StatGrid({
         {stats &&
           stats.map((item, i) => (
             <div
-              className="relative h-full flex-1  flex-grow rounded bg-purple-900 p-4 shadow-pink-glow ring-2 ring-purple-500/50  "
+              className="relative h-full flex-1  flex-grow rounded bg-purple-900 p-4 shadow-pink-glow ring-2 ring-purple-500 "
               key={i}
             >
               <dt className=" truncate text-sm font-medium text-secondary">

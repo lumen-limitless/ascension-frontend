@@ -112,14 +112,14 @@ export default function Delegate() {
             <div className="flex rounded bg-black p-2">
               <Button
                 full
-                variant={token === 'ASCEND' ? 'blue' : 'default'}
+                variant={token === 'ASCEND' ? 'blue' : 'none'}
                 onClick={() => setToken('ASCEND')}
               >
                 ASCEND
               </Button>
               <Button
                 full
-                variant={token === 'xASCEND' ? 'blue' : 'default'}
+                variant={token === 'xASCEND' ? 'blue' : 'none'}
                 onClick={() => setToken('xASCEND')}
               >
                 xASCEND

@@ -23,10 +23,11 @@ import PriceChart from '../components/dashboard/PriceChart'
 import TotalStakedChart from '../components/dashboard/TotalStakedChart'
 import { useQuery } from '@tanstack/react-query'
 import request from 'graphql-request'
-import stakingMetricQueryDocument from '../queries/stakingMetricQueryDocument'
+import dailySnapshotDocument from '../queries/dailySnapshotDocument'
 import StatGrid from '../components/ui/StatGrid'
 import LogoSVG from 'public/assets/logo.svg'
 import { isAddressEqual } from 'viem'
+import { formatPercent } from '../functions'
 
 const DashboardPage: NextPageWithLayout = () => {
   const treasuryData = useTreasuryData()
@@ -34,8 +35,8 @@ const DashboardPage: NextPageWithLayout = () => {
 
   const { data: dailySnapshots } = useQuery(['dailySnapshots'], async () => {
     const { dailySnapshots } = await request(
-      'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
-      stakingMetricQueryDocument
+      'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
+      dailySnapshotDocument
     )
     return dailySnapshots
   })
@@ -74,7 +75,7 @@ const DashboardPage: NextPageWithLayout = () => {
                         parseFloat(
                           (
                             last(
-                              priceData.coins[
+                              priceData?.coins[
                                 `${
                                   CHAIN_NAME[arbitrum.id]
                                 }:${ascensionTokenAddress}`
@@ -93,7 +94,7 @@ const DashboardPage: NextPageWithLayout = () => {
                           (
                             (
                               last(
-                                priceData.coins[
+                                priceData?.coins[
                                   `${
                                     CHAIN_NAME[arbitrum.id]
                                   }:${ascensionTokenAddress}`
@@ -107,13 +108,11 @@ const DashboardPage: NextPageWithLayout = () => {
                     {
                       name: 'Staked Supply',
                       stat: dailySnapshots ? (
-                        `${(
-                          (parseFloat(
-                            (last(dailySnapshots) as any).totalAssets
-                          ) /
+                        `${formatPercent(
+                          (parseFloat(last(dailySnapshots)?.totalAssets) /
                             14400000) *
-                          100
-                        ).toFixed(0)}%`
+                            100
+                        )}`
                       ) : (
                         <Skeleton />
                       ),
@@ -142,23 +141,34 @@ const DashboardPage: NextPageWithLayout = () => {
                   </Card.Body>
                 </Card>
               </div>
+
               <div className="col-span-12">
                 <div className="w-full py-12">
                   <h2 className="mb-3 text-2xl">Treasury Token Portfolio</h2>
                   <Divider />
-                  <div className=" max-h-[2400px] overflow-x-hidden overflow-y-scroll">
+                  <div className="max-h-[2400px] overflow-x-auto overflow-y-scroll">
                     {treasuryData ? (
-                      <>
-                        {treasuryData.tokens.map((t, i) => (
-                          <div
-                            className="mr-3 flex w-full flex-row items-center  gap-1 py-3 md:mr-6 lg:mr-9"
-                            key={i}
-                          >
-                            <div className="flex items-center gap-1">
-                              <div className="flex items-center gap-1">
+                      <table className="min-w-full divide-y divide-gray-900">
+                        <thead>
+                          <tr>
+                            <th className="py-2 text-left text-xs font-semibold text-primary">
+                              Token
+                            </th>
+                            <th className="hidden py-2 text-left text-xs font-semibold text-primary md:table-cell">
+                              Balance
+                            </th>
+                            <th className="py-2 text-left text-xs font-semibold text-primary">
+                              Value
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-900">
+                          {treasuryData.tokens.map((t, i) => (
+                            <tr key={i} className="text-sm md:text-base">
+                              <td className="flex items-center gap-2 px-2 py-2">
                                 {t.tokenMetadata.logo ? (
                                   <img
-                                    className="h-10 w-10"
+                                    className="h-8 w-8 md:h-10 md:w-10"
                                     src={t.tokenMetadata.logo}
                                     alt={t.tokenMetadata.name || ''}
                                   />
@@ -166,65 +176,65 @@ const DashboardPage: NextPageWithLayout = () => {
                                     t.contractAddress as `0x${string}`,
                                     ascensionTokenAddress
                                   ) ? (
-                                  <LogoSVG className="h-10" />
+                                  <LogoSVG className="h-8 md:h-10" />
                                 ) : (
-                                  <div className=" flex h-10 w-10 items-center justify-center rounded-full  bg-gray-800 text-center text-xs">
+                                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 text-center text-xs md:h-10 md:w-10">
                                     {t.tokenMetadata.symbol}
                                   </div>
                                 )}
-                              </div>
-
-                              <div className="flex flex-col">
                                 <ExternalLink
                                   href={`https://${
                                     SCAN_INFO[t.chainId].name
                                   }/token/${t.contractAddress}`}
-                                  className=" truncate text-sm after:content-['_↗'] md:text-base"
+                                  className="truncate after:content-['_↗']"
                                 >
-                                  {`${t.tokenMetadata.name}`}
+                                  {t.tokenMetadata.name}
                                 </ExternalLink>
+                              </td>
+                              <td className="hidden px-2 py-2 md:table-cell">
                                 <span className="text-xs text-secondary md:text-sm">
                                   {commify(t.tokenBalance.toFixed(2))}
                                 </span>
-                              </div>
-                            </div>
-
-                            <p className="ml-auto truncate text-sm md:text-base">
-                              {t.priceUSD === 0
-                                ? '$-'
-                                : t.priceUSD &&
-                                  t.tokenBalance &&
-                                  `$${commify(
-                                    (t.priceUSD * t.tokenBalance).toFixed(2)
-                                  )}`}
-                            </p>
-                          </div>
-                        ))}
-                      </>
-                    ) : (
-                      <>
-                        {Array(7)
-                          .fill(true)
-                          .map((_, i) => (
-                            <div key={i} className="w-full">
-                              <div className="mr-3  flex  items-center gap-1 py-3 md:mr-6 lg:mr-9">
-                                <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200/30 backdrop-blur" />
-
-                                <div className="w-1/4">
-                                  <Skeleton />
-                                </div>
-                                <div className="ml-auto ">
-                                  <Skeleton />
-                                </div>
-                              </div>
-                            </div>
+                              </td>
+                              <td className="px-2 py-2">
+                                {t.priceUSD === 0
+                                  ? '$-'
+                                  : t.priceUSD &&
+                                    t.tokenBalance &&
+                                    `$${commify(
+                                      (t.priceUSD * t.tokenBalance).toFixed(2)
+                                    )}`}
+                              </td>
+                            </tr>
                           ))}
-                      </>
+                        </tbody>
+                      </table>
+                    ) : (
+                      <table className="min-w-full">
+                        <tbody>
+                          {Array(7)
+                            .fill(true)
+                            .map((_, i) => (
+                              <tr key={i} className="text-sm md:text-base">
+                                <td className="flex items-center gap-2 px-2 py-2">
+                                  <div className="h-8 w-8 animate-pulse rounded-full bg-gray-500/60 md:h-10 md:w-10"></div>
+                                  <div className="h-4 w-1/2 animate-pulse bg-gray-500/60"></div>
+                                </td>
+                                <td className="hidden px-2 py-2 md:table-cell">
+                                  <div className="h-4 w-1/2 animate-pulse bg-gray-500/60"></div>
+                                </td>
+                                <td className="px-2 py-2">
+                                  <div className="h-4 w-1/2 animate-pulse bg-gray-500/60"></div>
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
                     )}
                   </div>
                   <Divider />
                   <div className="flex w-full">
-                    <h2 className="ml-auto flex gap-1  text-xl">
+                    <h2 className="ml-auto flex gap-1 text-xl">
                       Total Value:{' '}
                       <span className="text-green">
                         {treasuryData ? (

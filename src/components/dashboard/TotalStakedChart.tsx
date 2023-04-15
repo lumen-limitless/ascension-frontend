@@ -70,7 +70,7 @@ export default function TotalStakedChart({
               <Tooltip content={<CustomTooltip />} />
               <Area
                 type="monotone"
-                dataKey="totalStaked"
+                dataKey="totalAssets"
                 stroke="#943259"
                 strokeWidth={3}
                 fillOpacity={1}

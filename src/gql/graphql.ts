@@ -29,7 +29,6 @@ export type Block_Height = {
 
 export type DailySnapshot = {
   __typename?: 'DailySnapshot';
-  date: Scalars['BigInt'];
   id: Scalars['ID'];
   totalAssets: Scalars['BigDecimal'];
 };
@@ -38,14 +37,6 @@ export type DailySnapshot_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<DailySnapshot_Filter>>>;
-  date?: InputMaybe<Scalars['BigInt']>;
-  date_gt?: InputMaybe<Scalars['BigInt']>;
-  date_gte?: InputMaybe<Scalars['BigInt']>;
-  date_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  date_lt?: InputMaybe<Scalars['BigInt']>;
-  date_lte?: InputMaybe<Scalars['BigInt']>;
-  date_not?: InputMaybe<Scalars['BigInt']>;
-  date_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -66,7 +57,6 @@ export type DailySnapshot_Filter = {
 };
 
 export enum DailySnapshot_OrderBy {
-  Date = 'date',
   Id = 'id',
   TotalAssets = 'totalAssets'
 }
@@ -267,10 +257,10 @@ export enum _SubgraphErrorPolicy_ {
   Deny = 'deny'
 }
 
-export type StakingMetricQueryVariables = Exact<{ [key: string]: never; }>;
+export type DailySnapshotQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StakingMetricQuery = { __typename?: 'Query', dailySnapshots: Array<{ __typename?: 'DailySnapshot', id: string, date: any, totalAssets: any }> };
+export type DailySnapshotQuery = { __typename?: 'Query', dailySnapshots: Array<{ __typename?: 'DailySnapshot', id: string, totalAssets: any }> };
 
 
-export const StakingMetricDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"StakingMetric"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailySnapshots"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"orderDirection"},"value":{"kind":"EnumValue","value":"asc"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"totalAssets"}}]}}]}}]} as unknown as DocumentNode<StakingMetricQuery, StakingMetricQueryVariables>;
+export const DailySnapshotDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DailySnapshot"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailySnapshots"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"orderDirection"},"value":{"kind":"EnumValue","value":"asc"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalAssets"}}]}}]}}]} as unknown as DocumentNode<DailySnapshotQuery, DailySnapshotQueryVariables>;

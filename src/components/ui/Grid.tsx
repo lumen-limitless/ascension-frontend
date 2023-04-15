@@ -1,16 +1,19 @@
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
+type GapSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type AutoFlow = 'row' | 'column' | 'row-dense' | 'column-dense'
+type AutoSize = 'auto' | 'min' | 'max' | 'fr'
 
-interface Props
+interface GridProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  gap?: GapSize
+  autoFlow?: AutoFlow
+  autoColumns?: AutoSize
+  autoRows?: AutoSize
 }
 
-const GAP = {
+const GAP: Record<GapSize, string> = {
   none: '',
   xs: 'gap-1',
   sm: 'gap-2',
@@ -19,15 +22,32 @@ const GAP = {
   xl: 'gap-6',
 }
 
-export default function Grid({
+const Grid: React.FC<GridProps> = ({
   gap = 'none',
+  autoFlow,
+  autoColumns,
+  autoRows,
   children,
   className = '',
-  ...props
-}: Props) {
-  return (
-    <div className={cn('grid grid-cols-12', GAP[gap], className)} {...props}>
-      {children}
-    </div>
-  )
-}
+  ...rest
+}) => (
+  <div
+    className={[
+      'grid grid-cols-12',
+      GAP[gap],
+      autoFlow && `grid-auto-flow-autoFlow`,
+      autoColumns && `grid-auto-columns-autoColumns`,
+      autoRows && `grid-auto-rows-autoRows`,
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ')}
+    {...rest}
+  >
+    {children}
+  </div>
+)
+
+Grid.displayName = 'Grid'
+
+export default Grid

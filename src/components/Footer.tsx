@@ -154,10 +154,10 @@ export default function Footer() {
   return (
     <footer
       className={clsx(
-        'relative border-t-2 border-purple-500/50 bg-purple-900 text-center'
+        'relative border-t-2 border-purple-500/60 bg-purple-900 text-center'
       )}
     >
-      <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex w-full  items-center justify-center">
           <LogoMonoWhiteSVG className="h-32" />
         </div>
@@ -171,7 +171,7 @@ export default function Footer() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-base text-gray-500 transition hover:text-white"
+                className="text-base text-secondary transition hover:brightness-150"
               >
                 {item.name}
               </a>
@@ -185,7 +185,7 @@ export default function Footer() {
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="text-gray-400 transition hover:text-white"
+              className="text-secondary transition hover:brightness-150"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon

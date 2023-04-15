@@ -277,14 +277,14 @@ export default function SingleStaking() {
                   <Card.Header>
                     <div className="mx-3 inline-flex w-full justify-center rounded bg-black p-2 md:mx-6">
                       <Button
-                        variant={!isWithdrawing ? 'gray' : 'default'}
+                        variant={!isWithdrawing ? 'gray' : 'none'}
                         full
                         onClick={() => toggleWithdrawing(false)}
                       >
                         Deposit
                       </Button>
                       <Button
-                        variant={isWithdrawing ? 'gray' : 'default'}
+                        variant={isWithdrawing ? 'gray' : 'none'}
                         full
                         onClick={() => toggleWithdrawing(true)}
                       >

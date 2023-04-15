@@ -44,7 +44,7 @@ export default function Nav() {
               <CustomConnectButton />
               <Popover.Button
                 className={
-                  'z-30 inline-flex rounded border border-purple-500/50 p-2 text-sm hover:brightness-125'
+                  'z-30 inline-flex rounded border border-purple-500/60 p-2 text-sm hover:brightness-125'
                 }
               >
                 {!open ? (
@@ -143,7 +143,7 @@ export default function Nav() {
                   >
                     <Popover.Panel
                       static
-                      className="absolute z-20 -ml-4 min-w-max  max-w-md transform rounded border-2 border-purple-500/50 bg-purple-900 lg:max-w-3xl "
+                      className="absolute z-20 -ml-4 min-w-max  max-w-md transform rounded border-2 border-purple-500/60 bg-purple-900 lg:max-w-3xl "
                     >
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="bg-purple-1000 p-5">
@@ -190,14 +190,14 @@ export default function Nav() {
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0  top-20   origin-top-right transform overflow-hidden border-t-2 border-purple-500/50 bg-purple-900 transition lg:hidden"
+              className="fixed inset-x-0  top-20   origin-top-right transform overflow-hidden border-t-2 border-purple-500/60 bg-purple-900 transition lg:hidden"
             >
               <div className=" divide-purple-900 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="flex flex-col items-center text-center">
                   <Link
                     href="/"
                     onClick={close}
-                    className="w-full border-b-2 border-purple/50 py-9 text-center  "
+                    className="w-full border-b-2 border-purple/60 py-9 text-center  "
                   >
                     Home
                   </Link>
@@ -205,7 +205,7 @@ export default function Nav() {
                   <Link
                     href="/dashboard"
                     onClick={close}
-                    className="w-full  border-b-2 border-purple/50 py-9 text-center "
+                    className="w-full  border-b-2 border-purple/60 py-9 text-center "
                   >
                     Dashboard
                   </Link>
@@ -213,7 +213,7 @@ export default function Nav() {
                   <Link
                     href="/earn"
                     onClick={close}
-                    className="w-full border-b-2 border-purple/50 py-9 text-center  "
+                    className="w-full border-b-2 border-purple/60 py-9 text-center  "
                   >
                     Earn
                   </Link>
@@ -221,7 +221,7 @@ export default function Nav() {
                   <Link
                     href="/tools"
                     onClick={close}
-                    className="w-full border-b-2 border-purple/50 py-9 text-center  "
+                    className="w-full border-b-2 border-purple/60 py-9 text-center  "
                   >
                     Tools
                   </Link>

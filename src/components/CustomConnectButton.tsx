@@ -118,7 +118,7 @@ export default function CustomConnectButton() {
                   <Popover>
                     <Popover.Button
                       className={
-                        'z-20 inline-flex items-center rounded bg-gray-800  drop-shadow transition-all hover:brightness-125'
+                        'z-20 inline-flex items-center rounded bg-gray-800  drop-shadow transition-all hover:bg-gray-900'
                       }
                     >
                       {' '}

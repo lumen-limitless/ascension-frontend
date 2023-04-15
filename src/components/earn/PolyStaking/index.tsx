@@ -183,14 +183,14 @@ export default function PolyStaking() {
                   <Card.Header>
                     <div className="mx-3 inline-flex w-full justify-center rounded bg-black p-3 md:mx-6">
                       <Button
-                        variant={!isWithdrawing ? 'gray' : 'default'}
+                        variant={!isWithdrawing ? 'gray' : 'none'}
                         full
                         onClick={() => toggleWithdrawing(false)}
                       >
                         Deposit
                       </Button>
                       <Button
-                        variant={isWithdrawing ? 'gray' : 'default'}
+                        variant={isWithdrawing ? 'gray' : 'none'}
                         full
                         onClick={() => toggleWithdrawing(true)}
                       >
@@ -229,7 +229,7 @@ export default function PolyStaking() {
                       </Button>
                     ) : amount === '' ? (
                       <>
-                        <Button variant="default" full disabled>
+                        <Button variant="none" full disabled>
                           Enter an amount
                         </Button>
                       </>

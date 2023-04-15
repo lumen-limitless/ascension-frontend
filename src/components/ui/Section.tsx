@@ -5,14 +5,14 @@ interface SectionProps
   col?: boolean
 }
 
-export default function Section({
+const Section: React.FC<SectionProps> = ({
   children,
   className,
   fullscreen,
   centered,
   col,
   ...props
-}: SectionProps) {
+}: SectionProps) => {
   return (
     <section
       className={[
@@ -30,3 +30,5 @@ export default function Section({
     </section>
   )
 }
+
+export default Section

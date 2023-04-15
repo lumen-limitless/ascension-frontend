@@ -1,8 +1,13 @@
-export default function Spinner({ size = 24 }: { size?: number }) {
+interface SpinnerProps {
+  size?: number
+  className?: string
+}
+
+const Spinner: React.FC<SpinnerProps> = ({ size = 24, className = '' }) => {
   return (
     <svg
       role="status"
-      className=" mx-auto animate-spin fill-transparent text-gray-300"
+      className={`className mx-auto animate-spin fill-transparent text-gray-300`}
       height={size}
       width={size}
       viewBox="0 0 100 101"
@@ -20,3 +25,7 @@ export default function Spinner({ size = 24 }: { size?: number }) {
     </svg>
   )
 }
+
+Spinner.displayName = 'Spinner'
+
+export default Spinner

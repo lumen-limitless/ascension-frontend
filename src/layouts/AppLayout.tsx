@@ -14,7 +14,7 @@ import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import {
   connectorsForWallets,
-  midnightTheme,
+  darkTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
 import {
@@ -129,7 +129,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               process.env.NODE_ENV === 'production' ? arbitrum.id : foundry.id
             }
             chains={chains}
-            theme={midnightTheme({
+            theme={darkTheme({
               overlayBlur: 'large',
               accentColor: '#0346a2',
             })}
@@ -143,7 +143,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             <header
               id="header"
               className={
-                'sticky top-0 z-20 w-full border-b-2 border-purple-500/50 bg-purple-900'
+                'sticky top-0 z-20 w-full border-b-2 border-purple-500/60 bg-purple-900'
               }
             >
               <Nav />
