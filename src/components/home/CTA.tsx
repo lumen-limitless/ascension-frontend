@@ -2,7 +2,8 @@ import Button from '../ui/Button'
 import Container from '../ui/Container'
 import { m } from 'framer-motion'
 import Section from '../ui/Section'
-import AscendTokenSVG from 'public/assets/ascendtoken.svg'
+import LogoSVG from 'public/assets/logo.svg'
+
 export default function CTA() {
   return (
     <>
@@ -26,11 +27,11 @@ export default function CTA() {
                 rel="noreferrer"
               >
                 <Button size="lg" full variant="gray">
-                  <AscendTokenSVG className="h-10" />
+                  <LogoSVG className="h-10" />
                   Buy ASCEND on SushiSwap
                 </Button>
               </a>
-              <div className="flex w-full gap-3">
+              <div className="flex w-full flex-col gap-3 sm:flex-row">
                 <a
                   href="https://t.me/AscensionProtocolChat"
                   target={'_blank'}

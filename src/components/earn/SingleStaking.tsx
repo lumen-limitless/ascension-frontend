@@ -20,7 +20,7 @@ import {
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenTotalSupply,
 } from '../../wagmi/generated'
-import { useAccount, useSignTypedData } from 'wagmi'
+import { useAccount, useContractReads, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'
 import { BigNumber, ethers } from 'ethers'
 import { formatBalance, parseBalance, formatPercent } from '../../functions'
@@ -215,9 +215,13 @@ export default function SingleStaking() {
                     {
                       name: 'Rewards End',
                       stat: periodFinish ? (
-                        new Date(
-                          Math.floor(periodFinish?.toNumber() * 1000)
-                        ).toLocaleDateString()
+                        periodFinish.toNumber() * 1000 < Date.now() ? (
+                          '--'
+                        ) : (
+                          new Date(
+                            Math.floor(periodFinish?.toNumber() * 1000)
+                          ).toLocaleDateString()
+                        )
                       ) : (
                         <Skeleton />
                       ),

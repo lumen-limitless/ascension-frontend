@@ -1,17 +1,14 @@
 import { graphql } from '../gql'
 
 // Jan 1st 2023 epock timestamp: 1672531200
-const stakingMetricQueryDocument = graphql(/* GraphQL */ `
+const stakingDailySnapshotDocument = graphql(/* GraphQL */ `
   query StakingMetric {
-    stakingMetrics(
-      first: 1000
-      orderDirection: asc
-      where: { id_gt: 1672531200 }
-    ) {
+    dailySnapshots(first: 1000, orderDirection: asc) {
       id
-      totalStaked
+      date
+      totalAssets
     }
   }
 `)
 
-export default stakingMetricQueryDocument
+export default stakingDailySnapshotDocument

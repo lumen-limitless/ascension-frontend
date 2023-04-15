@@ -32,14 +32,14 @@ const DashboardPage: NextPageWithLayout = () => {
   const treasuryData = useTreasuryData()
   console.debug('TREASURY DATA', treasuryData)
 
-  const { data: stakingMetrics } = useQuery(['stakingMetrics'], async () => {
-    const { stakingMetrics } = await request(
+  const { data: dailySnapshots } = useQuery(['dailySnapshots'], async () => {
+    const { dailySnapshots } = await request(
       'https://api.thegraph.com/subgraphs/name/ascension-group/ascension-token',
       stakingMetricQueryDocument
     )
-    return stakingMetrics
+    return dailySnapshots
   })
-  console.debug('STAKING METRICS', stakingMetrics)
+  console.debug('DAILY SNAPSHOTS', dailySnapshots)
 
   const { data: priceData, isFetched: isFetchedPriceData } =
     useDefiLlamaPriceChart(
@@ -106,10 +106,10 @@ const DashboardPage: NextPageWithLayout = () => {
                     },
                     {
                       name: 'Staked Supply',
-                      stat: stakingMetrics ? (
+                      stat: dailySnapshots ? (
                         `${(
                           (parseFloat(
-                            (last(stakingMetrics) as any).totalStaked
+                            (last(dailySnapshots) as any).totalAssets
                           ) /
                             14400000) *
                           100
@@ -128,7 +128,7 @@ const DashboardPage: NextPageWithLayout = () => {
                     <h2 className="text-lg">Total Staked</h2>
                   </Card.Header>
                   <Card.Body>
-                    <TotalStakedChart stakingData={stakingMetrics} />
+                    <TotalStakedChart stakingData={dailySnapshots} />
                   </Card.Body>
                 </Card>
               </div>

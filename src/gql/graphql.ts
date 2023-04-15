@@ -27,6 +27,50 @@ export type Block_Height = {
   number_gte?: InputMaybe<Scalars['Int']>;
 };
 
+export type DailySnapshot = {
+  __typename?: 'DailySnapshot';
+  date: Scalars['BigInt'];
+  id: Scalars['ID'];
+  totalAssets: Scalars['BigDecimal'];
+};
+
+export type DailySnapshot_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<DailySnapshot_Filter>>>;
+  date?: InputMaybe<Scalars['BigInt']>;
+  date_gt?: InputMaybe<Scalars['BigInt']>;
+  date_gte?: InputMaybe<Scalars['BigInt']>;
+  date_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  date_lt?: InputMaybe<Scalars['BigInt']>;
+  date_lte?: InputMaybe<Scalars['BigInt']>;
+  date_not?: InputMaybe<Scalars['BigInt']>;
+  date_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<DailySnapshot_Filter>>>;
+  totalAssets?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_gt?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_gte?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  totalAssets_lt?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_lte?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_not?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+};
+
+export enum DailySnapshot_OrderBy {
+  Date = 'date',
+  Id = 'id',
+  TotalAssets = 'totalAssets'
+}
+
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
@@ -37,8 +81,8 @@ export type Query = {
   __typename?: 'Query';
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
-  stakingMetric?: Maybe<StakingMetric>;
-  stakingMetrics: Array<StakingMetric>;
+  dailySnapshot?: Maybe<DailySnapshot>;
+  dailySnapshots: Array<DailySnapshot>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -49,21 +93,21 @@ export type Query_MetaArgs = {
 };
 
 
-export type QueryStakingMetricArgs = {
+export type QueryDailySnapshotArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QueryStakingMetricsArgs = {
+export type QueryDailySnapshotsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<StakingMetric_OrderBy>;
+  orderBy?: InputMaybe<DailySnapshot_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<StakingMetric_Filter>;
+  where?: InputMaybe<DailySnapshot_Filter>;
 };
 
 
@@ -84,46 +128,12 @@ export type QueryUsersArgs = {
   where?: InputMaybe<User_Filter>;
 };
 
-export type StakingMetric = {
-  __typename?: 'StakingMetric';
-  id: Scalars['ID'];
-  totalStaked: Scalars['BigDecimal'];
-};
-
-export type StakingMetric_Filter = {
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<StakingMetric_Filter>>>;
-  id?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  or?: InputMaybe<Array<InputMaybe<StakingMetric_Filter>>>;
-  totalStaked?: InputMaybe<Scalars['BigDecimal']>;
-  totalStaked_gt?: InputMaybe<Scalars['BigDecimal']>;
-  totalStaked_gte?: InputMaybe<Scalars['BigDecimal']>;
-  totalStaked_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-  totalStaked_lt?: InputMaybe<Scalars['BigDecimal']>;
-  totalStaked_lte?: InputMaybe<Scalars['BigDecimal']>;
-  totalStaked_not?: InputMaybe<Scalars['BigDecimal']>;
-  totalStaked_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-};
-
-export enum StakingMetric_OrderBy {
-  Id = 'id',
-  TotalStaked = 'totalStaked'
-}
-
 export type Subscription = {
   __typename?: 'Subscription';
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
-  stakingMetric?: Maybe<StakingMetric>;
-  stakingMetrics: Array<StakingMetric>;
+  dailySnapshot?: Maybe<DailySnapshot>;
+  dailySnapshots: Array<DailySnapshot>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -134,21 +144,21 @@ export type Subscription_MetaArgs = {
 };
 
 
-export type SubscriptionStakingMetricArgs = {
+export type SubscriptionDailySnapshotArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionStakingMetricsArgs = {
+export type SubscriptionDailySnapshotsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<StakingMetric_OrderBy>;
+  orderBy?: InputMaybe<DailySnapshot_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<StakingMetric_Filter>;
+  where?: InputMaybe<DailySnapshot_Filter>;
 };
 
 
@@ -174,9 +184,7 @@ export type User = {
   balance: Scalars['BigDecimal'];
   id: Scalars['ID'];
   stakedBalance: Scalars['BigDecimal'];
-  stakedVotes: Scalars['BigDecimal'];
   totalBalance: Scalars['BigDecimal'];
-  votes: Scalars['BigDecimal'];
 };
 
 export type User_Filter = {
@@ -208,14 +216,6 @@ export type User_Filter = {
   stakedBalance_lte?: InputMaybe<Scalars['BigDecimal']>;
   stakedBalance_not?: InputMaybe<Scalars['BigDecimal']>;
   stakedBalance_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-  stakedVotes?: InputMaybe<Scalars['BigDecimal']>;
-  stakedVotes_gt?: InputMaybe<Scalars['BigDecimal']>;
-  stakedVotes_gte?: InputMaybe<Scalars['BigDecimal']>;
-  stakedVotes_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-  stakedVotes_lt?: InputMaybe<Scalars['BigDecimal']>;
-  stakedVotes_lte?: InputMaybe<Scalars['BigDecimal']>;
-  stakedVotes_not?: InputMaybe<Scalars['BigDecimal']>;
-  stakedVotes_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
   totalBalance?: InputMaybe<Scalars['BigDecimal']>;
   totalBalance_gt?: InputMaybe<Scalars['BigDecimal']>;
   totalBalance_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -224,23 +224,13 @@ export type User_Filter = {
   totalBalance_lte?: InputMaybe<Scalars['BigDecimal']>;
   totalBalance_not?: InputMaybe<Scalars['BigDecimal']>;
   totalBalance_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-  votes?: InputMaybe<Scalars['BigDecimal']>;
-  votes_gt?: InputMaybe<Scalars['BigDecimal']>;
-  votes_gte?: InputMaybe<Scalars['BigDecimal']>;
-  votes_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-  votes_lt?: InputMaybe<Scalars['BigDecimal']>;
-  votes_lte?: InputMaybe<Scalars['BigDecimal']>;
-  votes_not?: InputMaybe<Scalars['BigDecimal']>;
-  votes_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
 };
 
 export enum User_OrderBy {
   Balance = 'balance',
   Id = 'id',
   StakedBalance = 'stakedBalance',
-  StakedVotes = 'stakedVotes',
-  TotalBalance = 'totalBalance',
-  Votes = 'votes'
+  TotalBalance = 'totalBalance'
 }
 
 export type _Block_ = {
@@ -280,7 +270,7 @@ export enum _SubgraphErrorPolicy_ {
 export type StakingMetricQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StakingMetricQuery = { __typename?: 'Query', stakingMetrics: Array<{ __typename?: 'StakingMetric', id: string, totalStaked: any }> };
+export type StakingMetricQuery = { __typename?: 'Query', dailySnapshots: Array<{ __typename?: 'DailySnapshot', id: string, date: any, totalAssets: any }> };
 
 
-export const StakingMetricDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"StakingMetric"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stakingMetrics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"orderDirection"},"value":{"kind":"EnumValue","value":"asc"}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id_gt"},"value":{"kind":"IntValue","value":"1672531200"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalStaked"}}]}}]}}]} as unknown as DocumentNode<StakingMetricQuery, StakingMetricQueryVariables>;
+export const StakingMetricDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"StakingMetric"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailySnapshots"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"orderDirection"},"value":{"kind":"EnumValue","value":"asc"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"totalAssets"}}]}}]}}]} as unknown as DocumentNode<StakingMetricQuery, StakingMetricQueryVariables>;

@@ -8,7 +8,7 @@
     "analyze": "ANALYZE=true next build",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "generate": "wagmi generate && graphql-codegen",
+    "codegen": "wagmi generate && graphql-codegen",
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
