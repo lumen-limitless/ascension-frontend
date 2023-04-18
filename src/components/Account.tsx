@@ -19,7 +19,6 @@ import {
   ascensionRevenueDistributionTokenAddress,
   ascensionTokenAddress,
   useAscensionRevenueDistributionTokenBalanceOf,
-  useAscensionRevenueDistributionTokenBalanceOfAssets,
   useAscensionTokenBalanceOf,
 } from '../wagmi/generated'
 import { commify } from '@ethersproject/units'
@@ -172,7 +171,13 @@ export default function Account() {
         </button>
       </div>
 
-      <Button full variant="green" onClick={() => setModalView(VIEW.DELEGATE)}>
+      <Button
+        full
+        variant="green"
+        onClick={() => {
+          setModalView(VIEW.DELEGATE)
+        }}
+      >
         <DelegateSVG className="h-5" />
         Delegate
       </Button>

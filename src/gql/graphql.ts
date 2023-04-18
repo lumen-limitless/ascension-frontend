@@ -27,40 +27,6 @@ export type Block_Height = {
   number_gte?: InputMaybe<Scalars['Int']>;
 };
 
-export type DailySnapshot = {
-  __typename?: 'DailySnapshot';
-  id: Scalars['ID'];
-  totalAssets: Scalars['BigDecimal'];
-};
-
-export type DailySnapshot_Filter = {
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<DailySnapshot_Filter>>>;
-  id?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  or?: InputMaybe<Array<InputMaybe<DailySnapshot_Filter>>>;
-  totalAssets?: InputMaybe<Scalars['BigDecimal']>;
-  totalAssets_gt?: InputMaybe<Scalars['BigDecimal']>;
-  totalAssets_gte?: InputMaybe<Scalars['BigDecimal']>;
-  totalAssets_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-  totalAssets_lt?: InputMaybe<Scalars['BigDecimal']>;
-  totalAssets_lte?: InputMaybe<Scalars['BigDecimal']>;
-  totalAssets_not?: InputMaybe<Scalars['BigDecimal']>;
-  totalAssets_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
-};
-
-export enum DailySnapshot_OrderBy {
-  Id = 'id',
-  TotalAssets = 'totalAssets'
-}
-
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
@@ -71,8 +37,8 @@ export type Query = {
   __typename?: 'Query';
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
-  dailySnapshot?: Maybe<DailySnapshot>;
-  dailySnapshots: Array<DailySnapshot>;
+  stakingSnapshot?: Maybe<StakingSnapshot>;
+  stakingSnapshots: Array<StakingSnapshot>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -83,21 +49,21 @@ export type Query_MetaArgs = {
 };
 
 
-export type QueryDailySnapshotArgs = {
+export type QueryStakingSnapshotArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QueryDailySnapshotsArgs = {
+export type QueryStakingSnapshotsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<DailySnapshot_OrderBy>;
+  orderBy?: InputMaybe<StakingSnapshot_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<DailySnapshot_Filter>;
+  where?: InputMaybe<StakingSnapshot_Filter>;
 };
 
 
@@ -118,12 +84,56 @@ export type QueryUsersArgs = {
   where?: InputMaybe<User_Filter>;
 };
 
+export type StakingSnapshot = {
+  __typename?: 'StakingSnapshot';
+  id: Scalars['ID'];
+  totalAssets: Scalars['BigDecimal'];
+  totalSupply: Scalars['BigDecimal'];
+};
+
+export type StakingSnapshot_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<StakingSnapshot_Filter>>>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<StakingSnapshot_Filter>>>;
+  totalAssets?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_gt?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_gte?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  totalAssets_lt?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_lte?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_not?: InputMaybe<Scalars['BigDecimal']>;
+  totalAssets_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  totalSupply?: InputMaybe<Scalars['BigDecimal']>;
+  totalSupply_gt?: InputMaybe<Scalars['BigDecimal']>;
+  totalSupply_gte?: InputMaybe<Scalars['BigDecimal']>;
+  totalSupply_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  totalSupply_lt?: InputMaybe<Scalars['BigDecimal']>;
+  totalSupply_lte?: InputMaybe<Scalars['BigDecimal']>;
+  totalSupply_not?: InputMaybe<Scalars['BigDecimal']>;
+  totalSupply_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+};
+
+export enum StakingSnapshot_OrderBy {
+  Id = 'id',
+  TotalAssets = 'totalAssets',
+  TotalSupply = 'totalSupply'
+}
+
 export type Subscription = {
   __typename?: 'Subscription';
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
-  dailySnapshot?: Maybe<DailySnapshot>;
-  dailySnapshots: Array<DailySnapshot>;
+  stakingSnapshot?: Maybe<StakingSnapshot>;
+  stakingSnapshots: Array<StakingSnapshot>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -134,21 +144,21 @@ export type Subscription_MetaArgs = {
 };
 
 
-export type SubscriptionDailySnapshotArgs = {
+export type SubscriptionStakingSnapshotArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionDailySnapshotsArgs = {
+export type SubscriptionStakingSnapshotsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<DailySnapshot_OrderBy>;
+  orderBy?: InputMaybe<StakingSnapshot_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<DailySnapshot_Filter>;
+  where?: InputMaybe<StakingSnapshot_Filter>;
 };
 
 
@@ -257,10 +267,10 @@ export enum _SubgraphErrorPolicy_ {
   Deny = 'deny'
 }
 
-export type DailySnapshotQueryVariables = Exact<{ [key: string]: never; }>;
+export type StakingSnapshotQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DailySnapshotQuery = { __typename?: 'Query', dailySnapshots: Array<{ __typename?: 'DailySnapshot', id: string, totalAssets: any }> };
+export type StakingSnapshotQuery = { __typename?: 'Query', stakingSnapshots: Array<{ __typename?: 'StakingSnapshot', id: string, totalSupply: any, totalAssets: any }> };
 
 
-export const DailySnapshotDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DailySnapshot"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailySnapshots"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"orderDirection"},"value":{"kind":"EnumValue","value":"asc"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalAssets"}}]}}]}}]} as unknown as DocumentNode<DailySnapshotQuery, DailySnapshotQueryVariables>;
+export const StakingSnapshotDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"StakingSnapshot"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stakingSnapshots"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"orderDirection"},"value":{"kind":"EnumValue","value":"asc"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalSupply"}},{"kind":"Field","name":{"kind":"Name","value":"totalAssets"}}]}}]}}]} as unknown as DocumentNode<StakingSnapshotQuery, StakingSnapshotQueryVariables>;

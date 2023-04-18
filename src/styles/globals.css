@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
 --font-text: "Jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
 }
@@ -14,22 +12,15 @@
   box-sizing: inherit;
 }
 
-
-html,
-body {  
+html {
   font-family: var(--font-text);
   text-rendering: optimizeLegibility;
   @apply  box-border touch-manipulation scroll-smooth bg-purple-900 antialiased text-primary;
-}
 
+}
 
 #__next, [data-rk] {
-  @apply flex min-h-screen flex-col;
-}
-
-
-a {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  @apply flex min-h-screen  flex-col;
 }
 
 /* width */

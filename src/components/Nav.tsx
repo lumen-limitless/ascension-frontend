@@ -3,7 +3,7 @@ import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import Badge from './ui/Badge'
 import { clsx } from 'clsx'
-import { useBoolean } from 'react-use'
+import { useBoolean, useLockBodyScroll } from 'react-use'
 import CustomConnectButton from './CustomConnectButton'
 import LogoSVG from 'public/assets/logo.svg'
 
@@ -28,7 +28,8 @@ const tools = [
 
 export default function Nav() {
   const [viewing, toggleViewing] = useBoolean(false)
-
+  const [open, toggleOpen] = useBoolean(false)
+  useLockBodyScroll(open)
   return (
     <Popover as="nav">
       {({ open, close }) => (
@@ -43,6 +44,7 @@ export default function Nav() {
             <div className=" ml-auto flex items-center gap-3 lg:hidden">
               <CustomConnectButton />
               <Popover.Button
+                onClick={toggleOpen}
                 className={
                   'z-30 inline-flex rounded border border-purple-500/60 p-2 text-sm hover:brightness-125'
                 }
@@ -190,13 +192,16 @@ export default function Nav() {
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0  top-20   origin-top-right transform overflow-hidden border-t-2 border-purple-500/60 bg-purple-900 transition lg:hidden"
+              className="fixed inset-x-0  top-20 origin-top-right transform overflow-hidden border-t-2 border-purple-500/60 bg-purple-900 transition lg:hidden"
             >
               <div className=" divide-purple-900 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="flex flex-col items-center text-center">
                   <Link
                     href="/"
-                    onClick={close}
+                    onClick={() => {
+                      close()
+                      toggleViewing(false)
+                    }}
                     className="w-full border-b-2 border-purple/60 py-9 text-center  "
                   >
                     Home
@@ -204,7 +209,10 @@ export default function Nav() {
 
                   <Link
                     href="/dashboard"
-                    onClick={close}
+                    onClick={() => {
+                      close()
+                      toggleOpen(false)
+                    }}
                     className="w-full  border-b-2 border-purple/60 py-9 text-center "
                   >
                     Dashboard
@@ -212,7 +220,10 @@ export default function Nav() {
 
                   <Link
                     href="/earn"
-                    onClick={close}
+                    onClick={() => {
+                      close()
+                      toggleOpen(false)
+                    }}
                     className="w-full border-b-2 border-purple/60 py-9 text-center  "
                   >
                     Earn
@@ -220,7 +231,10 @@ export default function Nav() {
 
                   <Link
                     href="/tools"
-                    onClick={close}
+                    onClick={() => {
+                      close()
+                      toggleOpen(false)
+                    }}
                     className="w-full border-b-2 border-purple/60 py-9 text-center  "
                   >
                     Tools

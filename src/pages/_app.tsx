@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react'
 import { APP_DESCRIPTION, APP_NAME } from '../constants'
 import { NextPageWithLayout } from '../types'
 import Layout from '../layouts/Layout'
-import ErrorBoundary from '../components/ErrorBoundary'
 import { domAnimation, LazyMotion } from 'framer-motion'
 
 type AppPropsWithLayout = AppProps & {
@@ -40,11 +39,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
       <Layout>
         {getLayout(
-          <ErrorBoundary>
-            <LazyMotion features={domAnimation} strict>
-              <Component {...pageProps} />
-            </LazyMotion>
-          </ErrorBoundary>
+          <LazyMotion features={domAnimation} strict>
+            <Component {...pageProps} />
+          </LazyMotion>
         )}
       </Layout>
     </>

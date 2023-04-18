@@ -32,7 +32,7 @@ export default function TotalStakedChart({
   const max = useMemo(() => {
     if (!stakingData || stakingData.length === 0) return 0
     return Math.ceil(
-      Math.max(...stakingData.map((d: any) => d.totalStaked)) * 1.1
+      Math.max(...stakingData.map((d: any) => d.totalAssets)) * 1.1
     )
   }, [stakingData])
   return (

@@ -23,7 +23,7 @@ import PriceChart from '../components/dashboard/PriceChart'
 import TotalStakedChart from '../components/dashboard/TotalStakedChart'
 import { useQuery } from '@tanstack/react-query'
 import request from 'graphql-request'
-import dailySnapshotDocument from '../queries/dailySnapshotDocument'
+import stakingSnapshotDocument from '../queries/stakingSnapshotDocument'
 import StatGrid from '../components/ui/StatGrid'
 import LogoSVG from 'public/assets/logo.svg'
 import { isAddressEqual } from 'viem'
@@ -33,14 +33,17 @@ const DashboardPage: NextPageWithLayout = () => {
   const treasuryData = useTreasuryData()
   console.debug('TREASURY DATA', treasuryData)
 
-  const { data: dailySnapshots } = useQuery(['dailySnapshots'], async () => {
-    const { dailySnapshots } = await request(
-      'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
-      dailySnapshotDocument
-    )
-    return dailySnapshots
-  })
-  console.debug('DAILY SNAPSHOTS', dailySnapshots)
+  const { data: stakingSnapshots } = useQuery(
+    ['stakingSnapshots'],
+    async () => {
+      const { stakingSnapshots } = await request(
+        'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
+        stakingSnapshotDocument
+      )
+      return stakingSnapshots
+    }
+  )
+  console.debug('staking SNAPSHOTS', stakingSnapshots)
 
   const { data: priceData, isFetched: isFetchedPriceData } =
     useDefiLlamaPriceChart(
@@ -107,9 +110,9 @@ const DashboardPage: NextPageWithLayout = () => {
                     },
                     {
                       name: 'Staked Supply',
-                      stat: dailySnapshots ? (
+                      stat: stakingSnapshots ? (
                         `${formatPercent(
-                          (parseFloat(last(dailySnapshots)?.totalAssets) /
+                          (parseFloat(last(stakingSnapshots)?.totalAssets) /
                             14400000) *
                             100
                         )}`
@@ -127,7 +130,7 @@ const DashboardPage: NextPageWithLayout = () => {
                     <h2 className="text-lg">Total Staked</h2>
                   </Card.Header>
                   <Card.Body>
-                    <TotalStakedChart stakingData={dailySnapshots} />
+                    <TotalStakedChart stakingData={stakingSnapshots} />
                   </Card.Body>
                 </Card>
               </div>
