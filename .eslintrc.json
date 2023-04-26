@@ -1,6 +1,13 @@
 {
-  "extends": ["next", "next/core-web-vitals", "prettier"],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:react-query/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "rules": { "@next/next/no-img-element": "off" }
+  "plugins": ["@typescript-eslint", "react-query"],
+  "rules": {
+    "@next/next/no-img-element": "off"
+  }
 }

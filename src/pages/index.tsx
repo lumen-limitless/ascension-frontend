@@ -1,15 +1,15 @@
-import Container from '../components/ui/Container'
+import Container from '@/components/ui/Container'
 import Link from 'next/link'
-import Button from '../components/ui/Button'
-import Section from '../components/ui/Section'
+import Button from '@/components/ui/Button'
+import Section from '@/components/ui/Section'
 import { m } from 'framer-motion'
 import { NextSeo } from 'next-seo'
 import { ReactElement } from 'react'
-import { NextPageWithLayout } from '../types'
-import LandingLayout from '../layouts/LandingLayout'
-import Partners from '../components/home/Partners'
-import CTA from '../components/home/CTA'
-import Features from '../components/home/Features'
+import { NextPageWithLayout } from '@/types'
+import LandingLayout from '@/layouts/LandingLayout'
+import Partners from '@/components/home/Partners'
+import CTA from '@/components/home/CTA'
+import Features from '@/components/home/Features'
 import Script from 'next/script'
 import Logo from 'public/assets/logo.svg'
 
@@ -19,9 +19,9 @@ const HomePage: NextPageWithLayout = () => {
       <NextSeo />
       <Script src="https://platform.twitter.com/widgets.js" async />
       <Section
-        fullscreen
         col
-        className="bg-purple-900 bg-[url('/assets/bg.jpg')] bg-cover bg-center "
+        fullscreen
+        className="bg-purple-900 bg-[url('/assets/bg.jpg')] bg-cover bg-center"
         id="hero"
       >
         <Container className="mt-9 md:mt-24 lg:mt-32">
@@ -69,7 +69,7 @@ const HomePage: NextPageWithLayout = () => {
       </Section>
       <Features />
       <Partners />
-      <Section centered className="pb-48">
+      <Section centered className="min-h-[800px]">
         <Container>
           <a
             className="twitter-timeline"

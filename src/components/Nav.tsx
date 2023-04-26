@@ -13,16 +13,30 @@ const links = [
 ]
 const tools = [
   {
-    title: 'Ascension Reactor',
-    href: 'https://reactor.ascensionprotocol.io/',
-    description: 'View and react to smart contract events.',
-    badges: ['Beta'],
+    title: 'join DAO',
+    href: 'https://discord.com/channels/954952786041258004/1094139169619591258',
+    description: 'Join the DAO discord and access the features of the DAO',
+    badges: [],
   },
   {
-    title: 'All Tools',
-    href: '/tools/',
-    description: 'View all tools.',
+    title: 'Vote',
+    href: 'https://vote.ascensionprotocol.io',
+    description:
+      'Vote on proposals and help shape the future of Ascension Protocol',
     badges: [],
+  },
+  {
+    title: 'Listing Sniper',
+    href: 'https://discord.com/channels/954952786041258004/1067288166601588927',
+    description: "Get notified when a new token is listed on DEX's",
+    badges: ['New'],
+  },
+  {
+    title: 'Supernova',
+    href: '',
+    description:
+      'Suite of DeFi tools that supercharges your wallet with automation and AI.',
+    badges: ['New', 'Alpha'],
   },
 ]
 
@@ -38,7 +52,7 @@ export default function Nav() {
             <Link href="/" className="z-30 p-3">
               <>
                 <span className="sr-only">Ascension Protocol</span>
-                <LogoSVG className="h-8 " />
+                <LogoSVG className="h-8" />
               </>
             </Link>
             <div className=" ml-auto flex items-center gap-3 lg:hidden">
@@ -110,7 +124,7 @@ export default function Nav() {
                       'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-primary'
                     )}
                   >
-                    <p>Tools</p>
+                    <p>Explore</p>
                     <svg
                       className={clsx(
                         viewing ? 'rotate-180 text-primary' : 'text-secondary',
@@ -150,14 +164,18 @@ export default function Nav() {
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="bg-purple-1000 p-5">
                           {tools.map((tool) => (
-                            <Link
+                            <a
                               key={tool.title}
                               href={tool.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="-m-3 flow-root rounded-md p-3 hover:bg-purple-700"
                             >
                               <>
                                 <div className="flex items-center">
-                                  <div className="">{tool.title}</div>
+                                  <div className="after:content-['_↗']">
+                                    {tool.title}
+                                  </div>
                                   {tool.badges &&
                                     tool.badges.map((badge, i) => (
                                       <Badge key={i} text={badge} />
@@ -167,7 +185,7 @@ export default function Nav() {
                                   {tool.description}
                                 </p>
                               </>
-                            </Link>
+                            </a>
                           ))}
                         </div>
                       </div>
@@ -185,62 +203,71 @@ export default function Nav() {
             as={Fragment}
             enter="duration-200 ease-out transition-all"
             enterFrom="opacity-0 h-0"
-            enterTo="opacity-100 h-screen"
+            enterTo="opacity-100 h-[calc(100vh-80px)]"
             leave="duration-200 ease-in transition-all"
-            leaveFrom="opacity-100  h-screen"
-            leaveTo="opacity-0  h-0"
+            leaveFrom="opacity-100  h-[calc(100vh-80px)]"
+            leaveTo="opacity-0 h-0"
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0  top-20 origin-top-right transform overflow-hidden border-t-2 border-purple-500/60 bg-purple-900 transition lg:hidden"
+              className="fixed inset-x-0 top-20 flex origin-top-right transform flex-col items-center justify-evenly divide-y divide-purple-500 overflow-hidden border-t-2 border-purple-500/60 bg-purple-900 transition lg:hidden"
             >
-              <div className=" divide-purple-900 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="flex flex-col items-center text-center">
-                  <Link
-                    href="/"
-                    onClick={() => {
-                      close()
-                      toggleViewing(false)
-                    }}
-                    className="w-full border-b-2 border-purple/60 py-9 text-center  "
-                  >
-                    Home
-                  </Link>
+              <div className="flex h-full w-full items-center justify-center text-center">
+                <Link
+                  href="/"
+                  onClick={() => {
+                    close()
+                    toggleViewing(false)
+                  }}
+                >
+                  Home
+                </Link>
+              </div>
 
-                  <Link
-                    href="/dashboard"
-                    onClick={() => {
-                      close()
-                      toggleOpen(false)
-                    }}
-                    className="w-full  border-b-2 border-purple/60 py-9 text-center "
-                  >
-                    Dashboard
-                  </Link>
+              <div className="flex h-full w-full items-center justify-center text-center">
+                <Link
+                  href="/dashboard"
+                  onClick={() => {
+                    close()
+                    toggleOpen(false)
+                  }}
+                >
+                  Dashboard
+                </Link>
+              </div>
 
-                  <Link
-                    href="/earn"
-                    onClick={() => {
-                      close()
-                      toggleOpen(false)
-                    }}
-                    className="w-full border-b-2 border-purple/60 py-9 text-center  "
-                  >
-                    Earn
-                  </Link>
+              <div className="flex h-full w-full items-center justify-center text-center">
+                <Link
+                  href="/earn"
+                  onClick={() => {
+                    close()
+                    toggleOpen(false)
+                  }}
+                >
+                  Earn
+                </Link>
+              </div>
 
-                  <Link
+              {/* <Link
                     href="/tools"
                     onClick={() => {
                       close()
                       toggleOpen(false)
                     }}
-                    className="w-full border-b-2 border-purple/60 py-9 text-center  "
+
                   >
                     Tools
-                  </Link>
+                  </Link> */}
+              {tools.map((tool) => (
+                <div
+                  className="flex h-full w-full items-center justify-center text-center"
+                  key={tool.title}
+                >
+                  <a href={tool.href} target="_blank" rel="noopener noreferrer">
+                    <div className="after:content-['_↗']">{tool.title}</div>
+                  </a>
                 </div>
-              </div>
+              ))}
             </Popover.Panel>
           </Transition>
         </>

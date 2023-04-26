@@ -40,5 +40,33 @@ describe('localhost:3000', () => {
       )
       expect(buttonText).toMatch('Connect Wallet')
     })
+
+    it('should have a button with text "Connect Wallet" that is clickable', async () => {
+      const button = await page.waitForSelector('button', {
+        text: 'Connect Wallet',
+      })
+      await button.click()
+    })
+
+    it('should have a button with text "Connect Wallet" that is clickable and opens a modal', async () => {
+      const button = await page.waitForSelector('button', {
+        text: 'Connect Wallet',
+      })
+      await button.click()
+      await page.waitForSelector('div', { text: 'Metamask' })
+    })
+
+    it('should allow user to connect wallet', async () => {
+      const button = await page.waitForSelector('button', {
+        text: 'Connect Wallet',
+      })
+      await button.click()
+      await page.waitForSelector('div', { text: 'Metamask' })
+      const metamaskButton = await page.waitForSelector('button', {
+        text: 'Metamask',
+      })
+      await metamaskButton.click()
+      await page.waitForSelector('div', { text: 'MetaMask' })
+    })
   })
 })

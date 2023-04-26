@@ -1,11 +1,11 @@
-import Section from '../../components/ui/Section'
-import Container from '../../components/ui/Container'
-import Grid from '../../components/ui/Grid'
-import Card from '../../components/ui/Card'
-import Button from '../../components/ui/Button'
-import Divider from '../../components/ui/Divider'
+import Section from '@/components/ui/Section'
+import Container from '@/components/ui/Container'
+import Grid from '@/components/ui/Grid'
+import Card from '@/components/ui/Card'
+import Button from '@/components/ui/Button'
+import Divider from '@/components/ui/Divider'
 import { useMemo, useRef, useState } from 'react'
-import Input from '../../components/ui/Input'
+import Input from '@/components/ui/Input'
 import {
   ascensionTokenAddress,
   ascensionRevenueDistributionTokenAddress,
@@ -19,20 +19,20 @@ import {
   usePrepareAscensionRevenueDistributionTokenWithdraw,
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenTotalSupply,
-} from '../../wagmi/generated'
+} from '@/wagmi/generated'
 import { useAccount, useContractReads, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'
 import { BigNumber, ethers } from 'ethers'
-import { formatBalance, parseBalance, formatPercent } from '../../functions'
-import Skeleton from '../../components/ui/Skeleton'
+import { formatBalance, parseBalance, formatPercent } from '@/functions'
+import Skeleton from '@/components/ui/Skeleton'
 import { useBoolean } from 'react-use'
-import WagmiTransactionButton from '../../components/WagmiTransactionButton'
+import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { m } from 'framer-motion'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useToast } from '../../hooks'
-import { CHAIN_ID } from '../../constants'
-import StatGrid from '../../components/ui/StatGrid'
-import PermitButton from '../PermitButton'
+import { useToast } from '@/hooks'
+import { CHAIN_ID } from '@/constants'
+import StatGrid from '@/components/ui/StatGrid'
+import PermitButton from '@/components/PermitButton'
 
 export default function SingleStaking() {
   const t = useToast()

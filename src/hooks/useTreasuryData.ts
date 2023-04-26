@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { getAddress } from 'viem'
 import { mainnet, useBalance } from 'wagmi'
 import { arbitrum } from 'wagmi/chains'
-import { ASCENSION_TREASURY_ADDRESS, WETH9_ADDRESS } from '../constants'
+import { ASCENSION_TREASURY_ADDRESS, WETH9_ADDRESS } from '@/constants'
 import { useNFTData } from './useNFTData'
 import { TokenData, useTokenData } from './useTokenData'
 

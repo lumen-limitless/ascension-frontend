@@ -1,8 +1,8 @@
-import Button from '../ui/Button'
-import Container from '../ui/Container'
-import { m } from 'framer-motion'
-import Section from '../ui/Section'
+import Button from '@/components/ui/Button'
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
 import LogoSVG from 'public/assets/logo.svg'
+import { m } from 'framer-motion'
 
 export default function CTA() {
   return (
@@ -27,8 +27,8 @@ export default function CTA() {
                 rel="noreferrer"
               >
                 <Button size="lg" full variant="gray">
-                  <LogoSVG className="h-10" />
-                  Buy ASCEND on SushiSwap
+                  <LogoSVG className="h-8" />
+                  Trade ASCEND
                 </Button>
               </a>
               <div className="flex w-full flex-col gap-3 sm:flex-row">

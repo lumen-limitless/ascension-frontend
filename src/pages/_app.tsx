@@ -1,18 +1,23 @@
 import '@rainbow-me/rainbowkit/styles.css'
-import '@fontsource/jura/400.css'
 import '../styles/globals.css'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Jura } from 'next/font/google'
 import React, { useEffect, useState } from 'react'
 import { APP_DESCRIPTION, APP_NAME } from '../constants'
 import { NextPageWithLayout } from '../types'
 import Layout from '../layouts/Layout'
 import { domAnimation, LazyMotion } from 'framer-motion'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
+
+const jura = Jura({
+  subsets: ['latin'],
+})
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
@@ -37,13 +42,22 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         />
       </Head>
 
-      <Layout>
-        {getLayout(
-          <LazyMotion features={domAnimation} strict>
-            <Component {...pageProps} />
-          </LazyMotion>
-        )}
-      </Layout>
+      <style jsx global>
+        {`
+          html {
+            font-family: ${jura.style.fontFamily};
+          }
+        `}
+      </style>
+      <ErrorBoundary>
+        <Layout>
+          {getLayout(
+            <LazyMotion features={domAnimation} strict>
+              <Component {...pageProps} />
+            </LazyMotion>
+          )}
+        </Layout>
+      </ErrorBoundary>
     </>
   )
 }

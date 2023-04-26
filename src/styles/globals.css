@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
---font-text: "Jura", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
-}
-
 *,
 *:before,
 *:after {
@@ -13,7 +9,6 @@
 }
 
 html {
-  font-family: var(--font-text);
   text-rendering: optimizeLegibility;
   @apply  box-border touch-manipulation scroll-smooth bg-purple-900 antialiased text-primary;
 
@@ -27,25 +22,25 @@ html {
 ::-webkit-scrollbar {
     width: 12px;
     height: 16px;
-   
+
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
     border-radius: 100vh;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
 
     background: hsl(243, 5%, 12%);
     border-radius: 100px;
-    
+
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(243, 5%, 24%);
-    
+
   }
-  
+

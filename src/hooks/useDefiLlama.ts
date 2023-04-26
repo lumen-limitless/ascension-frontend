@@ -1,4 +1,4 @@
-import { CHAIN_NAME } from '../constants/networks'
+import { CHAIN_NAME } from '@/constants/networks'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 

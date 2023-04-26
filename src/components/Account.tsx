@@ -1,7 +1,7 @@
 import React from 'react'
 import Skeleton from './ui/Skeleton'
 import Button from './ui/Button'
-import { useToast, useUI, useWatchAsset } from '../hooks'
+import { useToast, useUI, useWatchAsset } from '@/hooks'
 import { VIEW } from '../constants/enums'
 import ExternalLink from './ui/ExternalLink'
 import { useCopyToClipboard } from 'react-use'
@@ -13,14 +13,14 @@ import {
   useEnsName,
   useNetwork,
 } from 'wagmi'
-import { formatBalance, shortenString } from '../functions'
+import { formatBalance, shortenString } from '@/functions'
 import { BigNumberish } from 'ethers'
 import {
   ascensionRevenueDistributionTokenAddress,
   ascensionTokenAddress,
   useAscensionRevenueDistributionTokenBalanceOf,
   useAscensionTokenBalanceOf,
-} from '../wagmi/generated'
+} from '@/wagmi/generated'
 import { commify } from '@ethersproject/units'
 import CopySVG from 'public/assets/copy.svg'
 import GoToSVG from 'public/assets/goto.svg'
