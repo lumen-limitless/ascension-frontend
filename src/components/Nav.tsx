@@ -13,31 +13,31 @@ const links = [
 ]
 const tools = [
   {
-    title: 'join DAO',
+    title: 'Join DAO',
     href: 'https://discord.com/channels/954952786041258004/1094139169619591258',
     description: 'Join the DAO discord and access the features of the DAO',
     badges: [],
   },
   {
-    title: 'Vote',
+    title: 'Governance',
     href: 'https://vote.ascensionprotocol.io',
     description:
       'Vote on proposals and help shape the future of Ascension Protocol',
     badges: [],
   },
-  {
-    title: 'Listing Sniper',
-    href: 'https://discord.com/channels/954952786041258004/1067288166601588927',
-    description: "Get notified when a new token is listed on DEX's",
-    badges: ['New'],
-  },
-  {
-    title: 'Supernova',
-    href: '',
-    description:
-      'Suite of DeFi tools that supercharges your wallet with automation and AI.',
-    badges: ['New', 'Alpha'],
-  },
+  // {
+  //   title: 'Listing Sniper',
+  //   href: 'https://discord.com/channels/954952786041258004/1067288166601588927',
+  //   description: "Get notified when a new token is listed on DEX's",
+  //   badges: ['New'],
+  // },
+  // {
+  //   title: 'Supernova',
+  //   href: '',
+  //   description:
+  //     'Suite of DeFi tools that supercharges your wallet with automation and AI.',
+  //   badges: ['New', 'Alpha'],
+  // },
 ]
 
 export default function Nav() {
@@ -203,14 +203,14 @@ export default function Nav() {
             as={Fragment}
             enter="duration-200 ease-out transition-all"
             enterFrom="opacity-0 h-0"
-            enterTo="opacity-100 h-[calc(100vh-80px)]"
+            enterTo="opacity-100 h-[calc(100svh-80px)]"
             leave="duration-200 ease-in transition-all"
-            leaveFrom="opacity-100  h-[calc(100vh-80px)]"
+            leaveFrom="opacity-100  h-[calc(100svh-80px)]"
             leaveTo="opacity-0 h-0"
           >
             <Popover.Panel
               focus
-              className="fixed inset-x-0 top-20 flex origin-top-right transform flex-col items-center justify-evenly divide-y divide-purple-500 overflow-hidden border-t-2 border-purple-500/60 bg-purple-900 transition lg:hidden"
+              className="fixed inset-x-0 top-20 flex origin-top-right transform flex-col items-center justify-evenly divide-y divide-purple-500 overflow-hidden border-b border-t-2 border-purple-500 border-purple-500/60 bg-purple-900 transition lg:hidden"
             >
               <div className="flex h-full w-full items-center justify-center text-center">
                 <Link

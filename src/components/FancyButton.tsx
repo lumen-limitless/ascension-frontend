@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { ReactNode } from 'react'
 import Button, { ButtonProps } from './ui/Button'
 
 interface FancyButtonProps extends ButtonProps {

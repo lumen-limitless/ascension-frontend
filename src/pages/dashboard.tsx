@@ -171,7 +171,7 @@ const DashboardPage: NextPageWithLayout = () => {
                               <td className="flex items-center gap-2 px-2 py-2">
                                 {t.tokenMetadata.logo ? (
                                   <img
-                                    className="h-8 w-8 md:h-10 md:w-10"
+                                    className="h-8 w-8 rounded-full md:h-10 md:w-10"
                                     src={t.tokenMetadata.logo}
                                     alt={t.tokenMetadata.name || ''}
                                   />

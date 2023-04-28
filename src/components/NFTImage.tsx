@@ -7,7 +7,7 @@ export default function NFTImage({ nft }: { nft: OwnedNft }) {
       ['png', 'svg+xml', 'jpg', 'gif'].includes(nft.media[0].format) ? (
         <img
           role={'img'}
-          className=" w-full"
+          className="w-full"
           src={nft.media[0].thumbnail}
           alt={nft.title}
         />
