@@ -15,7 +15,7 @@ const tools = [
   {
     title: 'Join DAO',
     href: 'https://discord.com/channels/954952786041258004/1094139169619591258',
-    description: 'Join the DAO discord and access the features of the DAO',
+    description: 'Verify your balance in discord and join the DAO',
     badges: [],
   },
   {

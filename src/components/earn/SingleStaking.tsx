@@ -19,6 +19,8 @@ import {
   usePrepareAscensionRevenueDistributionTokenWithdraw,
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenTotalSupply,
+  ascensionRevenueDistributionTokenABI,
+  ascensionTokenABI,
 } from '@/wagmi/generated'
 import { useAccount, useContractReads, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'

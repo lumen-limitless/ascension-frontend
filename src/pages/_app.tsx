@@ -49,6 +49,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
           }
         `}
       </style>
+
       <ErrorBoundary>
         <Layout>
           {getLayout(
