@@ -9,7 +9,7 @@ import LogoSVG from 'public/assets/logo.svg'
 
 const links = [
   { title: 'Dashboard', href: '/dashboard' },
-  { title: 'Earn', href: '/earn' },
+  { title: 'Stake', href: '/stake' },
 ]
 const tools = [
   {
@@ -238,13 +238,13 @@ export default function Nav() {
 
               <div className="flex h-full w-full items-center justify-center text-center">
                 <Link
-                  href="/earn"
+                  href="/Stake"
                   onClick={() => {
                     close()
                     toggleOpen(false)
                   }}
                 >
-                  Earn
+                  Stake
                 </Link>
               </div>
 

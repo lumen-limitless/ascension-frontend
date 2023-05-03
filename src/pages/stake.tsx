@@ -2,10 +2,10 @@ import React from 'react'
 import { NextPageWithLayout } from '@/types'
 import AppLayout from '@/layouts/AppLayout'
 import { NextSeo } from 'next-seo'
-import PolyStaking from '@/components/earn/PolyStaking'
+// import PolyStaking from '@/components/earn/PolyStaking'
 import SingleStaking from '@/components/earn/SingleStaking'
 
-const EarnPage: NextPageWithLayout = () => {
+const StakePage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
@@ -19,7 +19,7 @@ const EarnPage: NextPageWithLayout = () => {
   )
 }
 
-EarnPage.getLayout = (page) => {
+StakePage.getLayout = (page) => {
   return <AppLayout>{page}</AppLayout>
 }
-export default EarnPage
+export default StakePage
