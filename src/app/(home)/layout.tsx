@@ -144,7 +144,7 @@ export default function HomeLayout({
           skip to main content
         </a>
         <HomeProviders>
-          <main id="main" className="flex h-full w-full flex-grow flex-col">
+          <main id="main" className="flex flex-grow flex-col">
             {children}
           </main>
 

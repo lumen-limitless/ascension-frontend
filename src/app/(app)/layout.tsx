@@ -146,11 +146,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </a>
         <AppProviders>
           <UI />
-          <header className="z-20">
+          <header className="z-20 border-b border-purple-500">
             <Nav />
           </header>
-          <main> {children}</main>
-          <footer>
+          <main className="flex flex-grow flex-col"> {children}</main>
+          <footer className="border-t border-purple-500">
             <Footer />
           </footer>
 

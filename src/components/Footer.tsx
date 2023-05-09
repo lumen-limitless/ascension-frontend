@@ -1,5 +1,4 @@
 'use client'
-import { clsx } from 'clsx'
 import LogoMonoWhiteSVG from 'public/assets/logomonowhite.svg'
 
 const navigation = {
@@ -153,11 +152,7 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <footer
-      className={clsx(
-        'relative border-t-2 border-purple-500/60 bg-purple-900 text-center'
-      )}
-    >
+    <nav className={'relative bg-purple-900 text-center'}>
       <div className="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex w-full items-center justify-center">
           <LogoMonoWhiteSVG className="h-32" />
@@ -199,6 +194,6 @@ export default function Footer() {
           ))}
         </div>
       </div>
-    </footer>
+    </nav>
   )
 }

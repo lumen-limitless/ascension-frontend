@@ -22,7 +22,6 @@ import {
 } from '@/wagmi/generated'
 import { useAccount, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'
-import { BigNumber, ethers } from 'ethers'
 import { formatBalance, parseBalance, formatPercent } from '@/utils'
 import Skeleton from 'react-loading-skeleton'
 import { useBoolean } from 'react-use'
@@ -33,6 +32,7 @@ import { useToast } from '@/hooks'
 import { CHAIN_ID } from '@/constants'
 import StatGrid from '@/components/StatGrid'
 import PermitButton from '@/components/PermitButton'
+import { BigNumber, ethers } from 'ethers'
 
 export default function SingleStaking() {
   const t = useToast()

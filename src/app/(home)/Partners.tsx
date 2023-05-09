@@ -1,12 +1,13 @@
-import Container from '../../components/ui/Container'
-import Section from '../../components/ui/Section'
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
 import { m } from 'framer-motion'
-import ExternalLink from '../../components/ui/ExternalLink'
+import ExternalLink from '@/components/ui/ExternalLink'
 import FactorSVG from 'public/assets/factor.svg'
 import GMXSVG from 'public/assets/GMX.svg'
 import FrensSVG from 'public/assets/frens.svg'
 import CryptoJinglesSVG from 'public/assets/cryptojingles.svg'
 import L2DAOSVG from 'public/assets/l2dao.svg'
+
 export default function Partners() {
   return (
     <>
