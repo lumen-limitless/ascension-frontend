@@ -1,13 +1,13 @@
 import clsx from 'clsx'
-import FancyButton from '../FancyButton'
-import Container from '../ui/Container'
-import Divider from '../ui/Divider'
-import Section from '../ui/Section'
+import FancyButton from '@/components/FancyButton'
+import Container from '@/components/ui/Container'
+import Divider from '@/components/ui/Divider'
+import Section from '@/components/ui/Section'
 import { m } from 'framer-motion'
 import GovernanceSVG from 'public/assets/governance.svg'
 import ToolsSVG from 'public/assets/tools.svg'
 import RewardsSVG from 'public/assets/rewards.svg'
-import ExternalLink from '../ui/ExternalLink'
+import ExternalLink from '@/components/ui/ExternalLink'
 
 const features = [
   {
@@ -66,7 +66,7 @@ export default function Features() {
               >
                 <div
                   className={clsx(
-                    'flex flex-col items-start gap-9 py-12 px-3 md:items-center',
+                    'flex flex-col items-start gap-9 px-3 py-12 md:items-center',
                     f.alignment === 'right'
                       ? 'md:flex-row-reverse'
                       : 'md:flex-row'

@@ -3,7 +3,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Avatar from './Avatar'
 import Button from './ui/Button'
 import Account from './Account'
-import Skeleton from './ui/Skeleton'
+import Skeleton from 'react-loading-skeleton'
 import { Fragment } from 'react'
 
 export default function CustomConnectButton() {

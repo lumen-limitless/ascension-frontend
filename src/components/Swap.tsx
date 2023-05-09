@@ -1,7 +1,7 @@
 import { formatUnits } from 'ethers/lib/utils'
 import { useState } from 'react'
 import { useSessionStorage, useToggle } from 'react-use'
-import { formatBalance } from '../functions'
+import { formatBalance } from '../utils'
 import Button from './ui/Button'
 import Card from './ui/Card'
 import Input from './ui/Input'

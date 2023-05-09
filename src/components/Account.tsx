@@ -1,5 +1,5 @@
 import React from 'react'
-import Skeleton from './ui/Skeleton'
+import Skeleton from 'react-loading-skeleton'
 import Button from './ui/Button'
 import { useToast, useUI, useWatchAsset } from '@/hooks'
 import { VIEW } from '../constants/enums'
@@ -13,7 +13,7 @@ import {
   useEnsName,
   useNetwork,
 } from 'wagmi'
-import { formatBalance, shortenString } from '@/functions'
+import { formatBalance, shortenString } from '@/utils'
 import { BigNumberish } from 'ethers'
 import {
   ascensionRevenueDistributionTokenAddress,

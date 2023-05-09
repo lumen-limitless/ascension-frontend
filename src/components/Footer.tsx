@@ -1,3 +1,4 @@
+'use client'
 import { clsx } from 'clsx'
 import LogoMonoWhiteSVG from 'public/assets/logomonowhite.svg'
 
@@ -158,7 +159,7 @@ export default function Footer() {
       )}
     >
       <div className="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex w-full  items-center justify-center">
+        <div className="flex w-full items-center justify-center">
           <LogoMonoWhiteSVG className="h-32" />
         </div>
         <nav

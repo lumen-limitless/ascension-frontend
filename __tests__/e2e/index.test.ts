@@ -1,7 +1,7 @@
 describe('localhost:3000', () => {
   describe('homepage', () => {
     beforeEach(async () => {
-      await page.goto('http://localhost:3000/')
+      await page.goto('http://localhost:3000')
     })
 
     it("should be titled 'Ascension Protocol'", async () => {
@@ -11,7 +11,7 @@ describe('localhost:3000', () => {
 
   describe('dashboard page', () => {
     beforeEach(async () => {
-      await page.goto('http://localhost:3000/dashboard/')
+      await page.goto('http://localhost:3000/dashboard')
     })
 
     it('should be titled "Dashboard | Ascension Protocol" when dashboard page is loaded', async () => {
@@ -21,13 +21,13 @@ describe('localhost:3000', () => {
     })
   })
 
-  describe('Earn page', () => {
+  describe('Stake page', () => {
     beforeEach(async () => {
-      await page.goto('http://localhost:3000/earn/')
+      await page.goto('http://localhost:3000/stake')
     })
 
-    it('should be titled "Earn | Ascension Protocol" when Earn page is loaded', async () => {
-      await expect(page.title()).resolves.toMatch('Earn | Ascension Protocol')
+    it('should be titled "Stake | Ascension Protocol" when Stake page is loaded', async () => {
+      await expect(page.title()).resolves.toMatch('Stake | Ascension Protocol')
     })
 
     it('should have a button with text "Connect Wallet"', async () => {

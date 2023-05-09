@@ -1,7 +1,7 @@
 import { useAccount, useContractReads, useSignTypedData } from 'wagmi'
-import { CHAIN_ID } from '../../../constants'
-import { formatBalance, isAddress, shortenString } from '../../../functions'
-import { useToast } from '../../../hooks'
+import { CHAIN_ID } from '@/constants'
+import { formatBalance, isAddress, shortenString } from '@/utils'
+import { useToast } from '@/hooks'
 import {
   ascensionPolyStakingPoolABI,
   ascensionPolyStakingPoolAddress,
@@ -10,21 +10,21 @@ import {
   useAscensionPolyStakingPoolReward,
   useAscensionPolyStakingPoolTotalRewardsTokens,
   usePrepareAscensionPolyStakingPoolMulticall,
-} from '../../../wagmi/generated'
+} from '@/wagmi/generated'
 import RewardsSVG from 'public/assets/rewards.svg'
 import PermitSVG from 'public/assets/permit.svg'
-import Card from '../../ui/Card'
-import Skeleton from '../../ui/Skeleton'
-import WagmiTransactionButton from '../../WagmiTransactionButton'
+import Card from '@/components/ui/Card'
+import Skeleton from 'react-loading-skeleton'
+import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { m } from 'framer-motion'
 import { Suspense, useMemo } from 'react'
 import { BigNumber, ethers } from 'ethers'
-import tokenList from '../../../json/arbitrum-tokens.json'
+import tokenList from '@/json/arbitrum-tokens.json'
 import { getAddress } from 'ethers/lib/utils.js'
 import { useAsync, useLocalStorage } from 'react-use'
-import Toggle from '../../ui/Toggle'
-import Button from '../../ui/Button'
-import Spinner from '../../ui/Spinner'
+import Toggle from '@/components/ui/Toggle'
+import Button from '@/components/ui/Button'
+import Spinner from '@/components/ui/Spinner'
 
 export default function RewardsCard({
   nonces,

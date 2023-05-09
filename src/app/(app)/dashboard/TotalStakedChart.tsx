@@ -1,3 +1,6 @@
+'use client'
+import { commify } from '@ethersproject/units'
+import { useMemo } from 'react'
 import {
   Area,
   AreaChart,
@@ -6,10 +9,7 @@ import {
   YAxis,
   Tooltip,
 } from 'recharts'
-import { CHAIN_NAME } from '../../constants'
-import Loader from '../ui/Loader'
-import { arbitrum } from 'wagmi/chains'
-import { ascensionTokenAddress } from '../../wagmi/generated'
+import Loader from '@/components/ui/Loader'
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -17,9 +17,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
       <div className="border border-purple-500 bg-purple-900 p-2">
         <p className="label">{`${new Date(
           parseInt(label) * 1000
-        ).toLocaleDateString()}: $${parseFloat(payload[0].value).toFixed(
-          3
-        )}`}</p>
+        ).toLocaleDateString()}: ${commify(payload[0].value)}`}</p>
       </div>
     )
   }
@@ -27,20 +25,26 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null
 }
 
-export default function PriceChart({ priceData }: { priceData: any }) {
+export default function TotalStakedChart({
+  stakingData,
+}: {
+  stakingData: any
+}) {
+  const max = useMemo(() => {
+    if (!stakingData || stakingData.length === 0) return 0
+    return Math.ceil(
+      Math.max(...stakingData.map((d: any) => d.totalAssets)) * 1.1
+    )
+  }, [stakingData])
   return (
-    <div className="h-[500px] w-full">
-      {!priceData ? (
-        <Loader />
-      ) : (
-        <>
+    <>
+      <div className="h-[500px] w-full">
+        {!stakingData || stakingData.length === 0 ? (
+          <Loader />
+        ) : (
           <ResponsiveContainer height={500}>
             <AreaChart
-              data={
-                priceData.coins[
-                  `${CHAIN_NAME[arbitrum.id]}:${ascensionTokenAddress}`
-                ].prices
-              }
+              data={stakingData}
               margin={{
                 top: 10,
                 right: 20,
@@ -55,16 +59,19 @@ export default function PriceChart({ priceData }: { priceData: any }) {
                 </linearGradient>
               </defs>
               <XAxis
-                dataKey="timestamp"
+                dataKey="id"
                 tickFormatter={(value) =>
                   new Date(value * 1000).toLocaleDateString()
                 }
               />
-              <YAxis tickFormatter={(value) => `$${value}`} />
+              <YAxis
+                domain={[0, max]}
+                tickFormatter={(value) => commify(value)}
+              />
               <Tooltip content={<CustomTooltip />} />
               <Area
                 type="monotone"
-                dataKey="price"
+                dataKey="totalAssets"
                 stroke="#943259"
                 strokeWidth={3}
                 fillOpacity={1}
@@ -72,8 +79,8 @@ export default function PriceChart({ priceData }: { priceData: any }) {
               />
             </AreaChart>
           </ResponsiveContainer>
-        </>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   )
 }

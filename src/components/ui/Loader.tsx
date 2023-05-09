@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import LogoSVG from 'public/assets/logo.svg'
 export interface LoaderProps {

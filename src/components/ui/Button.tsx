@@ -47,7 +47,6 @@ const Button: React.FC<ButtonProps> = ({
         SIZE[size],
         full && 'w-full',
         'inline-flex items-center justify-center gap-1 rounded text-white transition duration-200 ease-in-out',
-
         className,
       ]
         .filter(Boolean)

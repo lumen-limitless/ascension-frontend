@@ -19,21 +19,19 @@ import {
   usePrepareAscensionRevenueDistributionTokenWithdraw,
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenTotalSupply,
-  ascensionRevenueDistributionTokenABI,
-  ascensionTokenABI,
 } from '@/wagmi/generated'
-import { useAccount, useContractReads, useSignTypedData } from 'wagmi'
+import { useAccount, useSignTypedData } from 'wagmi'
 import { commify, formatUnits, parseUnits } from '@ethersproject/units'
 import { BigNumber, ethers } from 'ethers'
-import { formatBalance, parseBalance, formatPercent } from '@/functions'
-import Skeleton from '@/components/ui/Skeleton'
+import { formatBalance, parseBalance, formatPercent } from '@/utils'
+import Skeleton from 'react-loading-skeleton'
 import { useBoolean } from 'react-use'
 import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { m } from 'framer-motion'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useToast } from '@/hooks'
 import { CHAIN_ID } from '@/constants'
-import StatGrid from '@/components/ui/StatGrid'
+import StatGrid from '@/components/StatGrid'
 import PermitButton from '@/components/PermitButton'
 
 export default function SingleStaking() {
@@ -205,28 +203,22 @@ export default function SingleStaking() {
               <div className="col-span-12 md:col-span-8">
                 <StatGrid
                   stats={[
-                    { name: 'APR', stat: apr ?? <Skeleton /> },
+                    { name: 'APR', stat: apr },
                     {
                       name: 'Total Staked',
-                      stat: totalAssets ? (
-                        commify(formatBalance(totalAssets) as string)
-                      ) : (
-                        <Skeleton />
-                      ),
+                      stat:
+                        totalAssets &&
+                        commify(formatBalance(totalAssets) as string),
                     },
                     {
                       name: 'Rewards End',
-                      stat: periodFinish ? (
-                        periodFinish.toNumber() * 1000 < Date.now() ? (
-                          '--'
-                        ) : (
-                          new Date(
-                            Math.floor(periodFinish?.toNumber() * 1000)
-                          ).toLocaleDateString()
-                        )
-                      ) : (
-                        <Skeleton />
-                      ),
+                      stat:
+                        periodFinish &&
+                        (periodFinish.toNumber() * 1000 < Date.now()
+                          ? '--'
+                          : new Date(
+                              Math.floor(periodFinish?.toNumber() * 1000)
+                            ).toLocaleDateString()),
                     },
                   ]}
                 />

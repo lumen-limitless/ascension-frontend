@@ -1,9 +1,6 @@
 import Link from 'next/link'
-import { NextPageWithLayout } from '../types'
-import LogoSVG from 'public/assets/logo.svg'
-import AppLayout from '../layouts/AppLayout'
 
-const Custom404Page: NextPageWithLayout = () => {
+export default function NotFound() {
   return (
     <div className="flex min-h-full flex-grow flex-col py-24">
       <div className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -11,7 +8,6 @@ const Custom404Page: NextPageWithLayout = () => {
           <Link href="/" className="inline-flex">
             <>
               <span className="sr-only">Ascension Protocol</span>
-              <LogoSVG className="h-32" />
             </>
           </Link>
         </div>
@@ -40,8 +36,3 @@ const Custom404Page: NextPageWithLayout = () => {
     </div>
   )
 }
-
-Custom404Page.getLayout = (page) => {
-  return <AppLayout>{page}</AppLayout>
-}
-export default Custom404Page

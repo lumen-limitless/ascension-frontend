@@ -1,13 +1,17 @@
 import { formatUnits } from '@ethersproject/units'
 import { BigNumberish } from 'ethers'
 import { useBlockNumber, useFeeData } from 'wagmi'
-import Skeleton from './ui/Skeleton'
+import Skeleton from 'react-loading-skeleton'
 
 export default function NetworkStats() {
-  const { data: blockNumber } = useBlockNumber()
-  const { data: feeData } = useFeeData()
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+  })
+
+  const { data: feeData } = useFeeData({ watch: true })
+
   return (
-    <div className="ml-auto  flex items-center justify-end gap-1  py-1 px-3 text-secondary">
+    <div className="ml-auto  flex items-center justify-end gap-1  px-3 py-1 text-secondary">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"

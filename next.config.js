@@ -1,5 +1,3 @@
-const withPlugins = require('next-compose-plugins')
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
@@ -7,8 +5,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  trailingSlash: true,
-  output: 'export',
+  trailingSlash: false,
+  output: undefined,
+  transpilePackages: undefined,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
 
   webpack(config) {
     config.module.rules.push({
@@ -26,4 +28,5 @@ const nextConfig = {
   },
 }
 
-module.exports = withPlugins([withBundleAnalyzer], nextConfig)
+const nextConfigWithBundleAnalyzer = withBundleAnalyzer(nextConfig)
+module.exports = nextConfigWithBundleAnalyzer

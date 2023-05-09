@@ -1,10 +1,10 @@
 import { commify } from '@ethersproject/units'
 import { BigNumber } from 'ethers'
-import { formatBalance } from '../../../functions'
-import Card from '../../ui/Card'
-import Divider from '../../ui/Divider'
-import Skeleton from '../../ui/Skeleton'
+import { formatBalance } from '@/components/../utils'
+import Card from '@/components/ui/Card'
+import Divider from '@/components/ui/Divider'
 import AscendTokenSVG from 'public/assets/ascendtoken.svg'
+import Skeleton from 'react-loading-skeleton'
 
 export default function BalanceCard({
   ascendBalance,

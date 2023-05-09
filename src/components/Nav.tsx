@@ -1,3 +1,4 @@
+'use client'
 import React, { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'

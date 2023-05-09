@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import React from 'react'
-import { escapeRegExp } from '../../../functions'
+import { escapeRegExp } from '../../../utils'
 const inputRegex = RegExp(`^\\d*$`) // match escaped "." characters via in a non-capturing group
 
 export const Input = React.memo(

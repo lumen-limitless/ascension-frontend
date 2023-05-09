@@ -1,14 +1,13 @@
-import React, { ReactElement } from 'react'
-import Section from '../../components/ui/Section'
+'use client'
+import React from 'react'
+import Section from '@/components/ui/Section'
 import { NextSeo } from 'next-seo'
-import WagmiTransactionButton from '../../components/WagmiTransactionButton'
+import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { usePrepareContractWrite } from 'wagmi'
-import AppLayout from '../../layouts/AppLayout'
-import { NextPageWithLayout } from '../../types'
-import { useToast } from '../../hooks'
+import { useToast } from '@/hooks'
 import Logo from 'public/assets/logo.svg'
 
-const StakeLegacyPage: NextPageWithLayout = () => {
+const StakeLegacyPage = () => {
   const t = useToast()
 
   const exitConfig = usePrepareContractWrite({
@@ -41,14 +40,6 @@ const StakeLegacyPage: NextPageWithLayout = () => {
           />
         </div>
       </Section>
-    </>
-  )
-}
-
-StakeLegacyPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <>
-      <AppLayout>{page}</AppLayout>
     </>
   )
 }

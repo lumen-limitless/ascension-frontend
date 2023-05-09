@@ -1,12 +1,12 @@
-import { formatBalance, isAddress, shortenString } from '../functions'
-import Button from '../components/ui/Button'
-import Loader from '../components/ui/Loader'
-import Skeleton from '../components/ui/Skeleton'
+import { formatBalance, isAddress, shortenString } from '@/utils'
+import Button from '@/components/ui/Button'
+import Loader from '@/components/ui/Loader'
+import Skeleton from 'react-loading-skeleton'
 import { useBoolean } from 'react-use'
 import { useState } from 'react'
-import Input from '../components/ui/Input'
-import Avatar from '../components/Avatar'
-import ChainIcon from '../components/ChainIcon'
+import Input from '@/components/ui/Input'
+import Avatar from '@/components/Avatar'
+import ChainIcon from '@/components/ChainIcon'
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
 import {
   useAscensionRevenueDistributionTokenBalanceOf,
@@ -17,10 +17,10 @@ import {
   useAscensionTokenGetVotes,
   usePrepareAscensionRevenueDistributionTokenDelegate,
   usePrepareAscensionTokenDelegate,
-} from '../wagmi/generated'
-import WagmiTransactionButton from '../components/WagmiTransactionButton'
+} from '@/wagmi/generated'
+import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { commify } from '@ethersproject/units'
-import { CHAIN_ID } from '../constants'
+import { CHAIN_ID } from '@/constants'
 
 export default function Delegate() {
   const [token, setToken] = useState<'ASCEND' | 'xASCEND'>('ASCEND')

@@ -1,22 +1,18 @@
+'use client'
 import Container from '@/components/ui/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import Section from '@/components/ui/Section'
 import { m } from 'framer-motion'
-import { NextSeo } from 'next-seo'
-import { ReactElement } from 'react'
-import { NextPageWithLayout } from '@/types'
-import LandingLayout from '@/layouts/LandingLayout'
-import Partners from '@/components/home/Partners'
-import CTA from '@/components/home/CTA'
-import Features from '@/components/home/Features'
+import Partners from './Partners'
+import CTA from './CTA'
+import Features from './Features'
 import Script from 'next/script'
-import Logo from 'public/assets/logo.svg'
+import LogoSVG from 'public/assets/logo.svg'
 
-const HomePage: NextPageWithLayout = () => {
+const HomePage = () => {
   return (
     <>
-      <NextSeo />
       <Script src="https://platform.twitter.com/widgets.js" async />
       <Section
         col
@@ -32,7 +28,7 @@ const HomePage: NextPageWithLayout = () => {
             className="relative  space-y-3  text-center"
           >
             <div className=" flex w-full  items-center justify-center">
-              <Logo className="h-32" />
+              <LogoSVG className="h-32" />
             </div>
             <h1 className=" text-5xl font-bold  text-primary drop-shadow-2xl md:text-6xl lg:text-7xl">
               Prepare for{' '}
@@ -90,11 +86,4 @@ const HomePage: NextPageWithLayout = () => {
   )
 }
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <>
-      <LandingLayout>{page}</LandingLayout>
-    </>
-  )
-}
 export default HomePage

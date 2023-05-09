@@ -1,35 +1,32 @@
+'use client'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
-import { NextSeo } from 'next-seo'
 import Card from '@/components/ui/Card'
 import { commify } from 'ethers/lib/utils'
-import { SCAN_INFO, CHAIN_NAME } from '../constants'
+import { SCAN_INFO, CHAIN_NAME } from '@/constants'
 import Loader from '@/components/ui/Loader'
-import { useTreasuryData } from '../hooks'
+import { useTreasuryData } from '@/hooks'
 import Grid from '@/components/ui/Grid'
 import { m } from 'framer-motion'
 import { last, truncate } from 'lodash'
-import ExternalLink from '@/components/ui/ExternalLink'
-import { ReactElement } from 'react'
-import Skeleton from '@/components/ui/Skeleton'
+import Skeleton from 'react-loading-skeleton'
 import NFTImage from '@/components/NFTImage'
 import Divider from '@/components/ui/Divider'
 import { useDefiLlamaPriceChart } from '@/hooks'
-import { NextPageWithLayout } from '@/types'
-import AppLayout from '@/layouts/AppLayout'
 import { ascensionTokenAddress } from '@/wagmi/generated'
 import { arbitrum } from 'wagmi/chains'
-import PriceChart from '@/components/dashboard/PriceChart'
-import TotalStakedChart from '@/components/dashboard/TotalStakedChart'
+import ExternalLink from '@/components/ui/ExternalLink'
+import PriceChart from './PriceChart'
+import TotalStakedChart from './TotalStakedChart'
 import { useQuery } from '@tanstack/react-query'
 import request from 'graphql-request'
 import stakingSnapshotDocument from '@/queries/stakingSnapshotDocument'
-import StatGrid from '@/components/ui/StatGrid'
+import StatGrid from '@/components/StatGrid'
 import LogoSVG from 'public/assets/logo.svg'
 import { isAddressEqual } from 'viem'
-import { formatPercent } from '@/functions'
+import { formatPercent } from '@/utils'
 
-const DashboardPage: NextPageWithLayout = () => {
+export default function DashboardPage() {
   const treasuryData = useTreasuryData()
   console.debug('TREASURY DATA', treasuryData)
 
@@ -56,8 +53,6 @@ const DashboardPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <NextSeo title="Dashboard" description="Ascension Protocol Dashboard" />
-
       <Section className="pb-24 pt-9">
         <Container className="max-w-7xl">
           <m.div
@@ -71,10 +66,8 @@ const DashboardPage: NextPageWithLayout = () => {
                   stats={[
                     {
                       name: 'Price',
-                      stat: !isFetchedPriceData ? (
-                        <Skeleton />
-                      ) : (
-                        '$' +
+                      stat:
+                        isFetchedPriceData &&
                         parseFloat(
                           (
                             last(
@@ -85,14 +78,12 @@ const DashboardPage: NextPageWithLayout = () => {
                               ]?.prices
                             ) as any
                           )?.price
-                        ).toFixed(3)
-                      ),
+                        ).toFixed(3),
                     },
                     {
                       name: 'Market Cap',
-                      stat: !isFetchedPriceData ? (
-                        <Skeleton />
-                      ) : (
+                      stat:
+                        isFetchedPriceData &&
                         `$${commify(
                           (
                             (
@@ -105,20 +96,17 @@ const DashboardPage: NextPageWithLayout = () => {
                               ) as any
                             )?.price * 14400000
                           ).toFixed(2)
-                        )}`
-                      ),
+                        )}`,
                     },
                     {
                       name: 'Staked Supply',
-                      stat: stakingSnapshots ? (
+                      stat:
+                        stakingSnapshots &&
                         `${formatPercent(
                           (parseFloat(last(stakingSnapshots)?.totalAssets) /
                             14400000) *
                             100
-                        )}`
-                      ) : (
-                        <Skeleton />
-                      ),
+                        )}`,
                     },
                   ]}
                 />
@@ -214,20 +202,24 @@ const DashboardPage: NextPageWithLayout = () => {
                       </table>
                     ) : (
                       <table className="min-w-full">
-                        <tbody>
-                          {Array(7)
+                        <tbody className="divide-y divide-gray-900">
+                          {Array(10)
                             .fill(true)
                             .map((_, i) => (
                               <tr key={i} className="text-sm md:text-base">
                                 <td className="flex items-center gap-2 px-2 py-2">
-                                  <div className="h-8 w-8 animate-pulse rounded-full bg-gray-500/60 md:h-10 md:w-10"></div>
-                                  <div className="h-4 w-1/2 animate-pulse bg-gray-500/60"></div>
+                                  <Skeleton
+                                    circle={true}
+                                    height={32}
+                                    width={32}
+                                  />
+                                  <Skeleton />
                                 </td>
                                 <td className="hidden px-2 py-2 md:table-cell">
-                                  <div className="h-4 w-1/2 animate-pulse bg-gray-500/60"></div>
+                                  <Skeleton />
                                 </td>
                                 <td className="px-2 py-2">
-                                  <div className="h-4 w-1/2 animate-pulse bg-gray-500/60"></div>
+                                  <Skeleton />
                                 </td>
                               </tr>
                             ))}
@@ -295,9 +287,3 @@ const DashboardPage: NextPageWithLayout = () => {
     </>
   )
 }
-
-DashboardPage.getLayout = function getLayout(page: ReactElement) {
-  return <AppLayout>{page}</AppLayout>
-}
-
-export default DashboardPage
