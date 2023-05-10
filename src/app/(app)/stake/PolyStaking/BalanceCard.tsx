@@ -1,6 +1,4 @@
-import { commify } from '@ethersproject/units'
-import { BigNumber } from 'ethers'
-import { formatBalance } from '@/components/../utils'
+import { commify, formatBalance } from '@/utils'
 import Card from '@/components/ui/Card'
 import Divider from '@/components/ui/Divider'
 import AscendTokenSVG from 'public/assets/ascendtoken.svg'
@@ -10,8 +8,8 @@ export default function BalanceCard({
   ascendBalance,
   stakedBalance,
 }: {
-  ascendBalance?: BigNumber
-  stakedBalance?: BigNumber
+  ascendBalance?: bigint
+  stakedBalance?: bigint
 }) {
   return (
     <>

@@ -2,10 +2,7 @@
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
 import Card from '@/components/ui/Card'
-import { commify } from 'ethers/lib/utils'
 import { SCAN_INFO, CHAIN_NAME } from '@/constants'
-import Loader from '@/components/ui/Loader'
-import { useTreasuryData } from '@/hooks'
 import Grid from '@/components/ui/Grid'
 import { m } from 'framer-motion'
 import { last, truncate } from 'lodash'
@@ -23,13 +20,32 @@ import request from 'graphql-request'
 import stakingSnapshotDocument from '@/queries/stakingSnapshotDocument'
 import StatGrid from '@/components/StatGrid'
 import LogoSVG from 'public/assets/logo.svg'
-import { isAddressEqual } from 'viem'
-import { formatPercent } from '@/utils'
+import { formatUnits, isAddressEqual } from 'viem'
+import { commify, formatPercent } from '@/utils'
+import { TokenData } from '@/types'
+import { useMemo } from 'react'
 
-export default function DashboardPage() {
-  const treasuryData = useTreasuryData()
-  console.debug('TREASURY DATA', treasuryData)
+export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
+  // const treasuryData = useTreasuryData()
+  console.debug(tokens)
 
+  const totalValueUSD = useMemo(() => {
+    if (!tokens) return null
+    const t = tokens.reduce(
+      (sum, token) =>
+        sum +
+        token.priceUSD *
+          parseFloat(
+            formatUnits(
+              BigInt(token.tokenBalance),
+              token.tokenMetadata.decimals || 18
+            )
+          ),
+      0
+    )
+
+    return t
+  }, [tokens])
   const { data: stakingSnapshots } = useQuery(
     ['stakingSnapshots'],
     async () => {
@@ -138,7 +154,7 @@ export default function DashboardPage() {
                   <h2 className="mb-3 text-2xl">Treasury Token Portfolio</h2>
                   <Divider />
                   <div className="max-h-[2400px] overflow-x-auto overflow-y-scroll">
-                    {treasuryData ? (
+                    {tokens ? (
                       <table className="min-w-full divide-y divide-gray-900">
                         <thead>
                           <tr>
@@ -154,7 +170,7 @@ export default function DashboardPage() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-900">
-                          {treasuryData.tokens.map((t, i) => (
+                          {tokens.map((t, i) => (
                             <tr key={i} className="text-sm md:text-base">
                               <td className="flex items-center gap-2 px-2 py-2">
                                 {t.tokenMetadata.logo ? (
@@ -184,7 +200,14 @@ export default function DashboardPage() {
                               </td>
                               <td className="hidden px-2 py-2 md:table-cell">
                                 <span className="text-xs text-secondary md:text-sm">
-                                  {commify(t.tokenBalance.toFixed(2))}
+                                  {commify(
+                                    parseFloat(
+                                      formatUnits(
+                                        BigInt(t.tokenBalance),
+                                        t.tokenMetadata.decimals || 18
+                                      )
+                                    ).toFixed(2)
+                                  )}
                                 </span>
                               </td>
                               <td className="px-2 py-2">
@@ -193,7 +216,15 @@ export default function DashboardPage() {
                                   : t.priceUSD &&
                                     t.tokenBalance &&
                                     `$${commify(
-                                      (t.priceUSD * t.tokenBalance).toFixed(2)
+                                      (
+                                        t.priceUSD *
+                                        parseFloat(
+                                          formatUnits(
+                                            BigInt(t.tokenBalance),
+                                            t.tokenMetadata.decimals || 18
+                                          )
+                                        )
+                                      ).toFixed(2)
                                     )}`}
                               </td>
                             </tr>
@@ -201,49 +232,20 @@ export default function DashboardPage() {
                         </tbody>
                       </table>
                     ) : (
-                      <table className="min-w-full">
-                        <tbody className="divide-y divide-gray-900">
-                          {Array(10)
-                            .fill(true)
-                            .map((_, i) => (
-                              <tr key={i} className="text-sm md:text-base">
-                                <td className="flex items-center gap-2 px-2 py-2">
-                                  <Skeleton
-                                    circle={true}
-                                    height={32}
-                                    width={32}
-                                  />
-                                  <Skeleton />
-                                </td>
-                                <td className="hidden px-2 py-2 md:table-cell">
-                                  <Skeleton />
-                                </td>
-                                <td className="px-2 py-2">
-                                  <Skeleton />
-                                </td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
+                      <></>
                     )}
                   </div>
                   <Divider />
-                  <div className="flex w-full">
-                    <h2 className="ml-auto flex gap-1 text-xl">
-                      Total Value:{' '}
-                      <span className="text-green">
-                        {treasuryData ? (
-                          `$${commify(treasuryData.totalValueUSD.toFixed(2))}`
-                        ) : (
-                          <Skeleton />
-                        )}
-                      </span>{' '}
-                    </h2>
+                  <div className="flex w-full items-center justify-end gap-1">
+                    <h2 className="text-xl">Total Value: </h2>
+                    <span className="text-green">
+                      ${commify(totalValueUSD) || <Skeleton />}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="col-span-12">
+              {/* <div className="col-span-12">
                 <div className="w-full py-12">
                   <h2 className="mb-3 text-2xl">Treasury NFT Collection</h2>
                   <Divider />
@@ -279,7 +281,7 @@ export default function DashboardPage() {
                     )}
                   </div>
                 </div>
-              </div>
+              </div> */}
             </Grid>
           </m.div>
         </Container>

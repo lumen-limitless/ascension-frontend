@@ -18,7 +18,7 @@ const Section: React.FC<SectionProps> = ({
       className={[
         'relative flex h-full w-full flex-grow items-center',
         col ? 'flex-col' : 'flex-row',
-        fullscreen && 'min-h-[100lvh]',
+        fullscreen && 'min-h-screen',
         centered ? ' justify-center' : 'justify-start',
         className,
       ]

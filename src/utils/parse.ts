@@ -1,9 +1,8 @@
 /// @dev CONVENTION parseFoo -> number
 
-import { formatUnits } from '@ethersproject/units'
-import { BigNumberish } from 'ethers'
+import { formatUnits } from 'viem'
 
-export const parseBalance = (value: BigNumberish, decimals = 18) => {
+export const parseBalance = (value: bigint, decimals = 18) => {
   if (!value) return null
   return parseFloat(formatUnits(value, decimals))
 }

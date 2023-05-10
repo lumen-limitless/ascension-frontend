@@ -1,5 +1,4 @@
 'use client'
-import { commify } from '@ethersproject/units'
 import { useMemo } from 'react'
 import {
   Area,
@@ -10,6 +9,7 @@ import {
   Tooltip,
 } from 'recharts'
 import Loader from '@/components/ui/Loader'
+import { commify } from '@/utils'
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {

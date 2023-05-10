@@ -1,14 +1,16 @@
-import { formatUnits } from '@ethersproject/units'
-import { BigNumberish } from 'ethers'
+'use client'
 import { useBlockNumber, useFeeData } from 'wagmi'
 import Skeleton from 'react-loading-skeleton'
+import { formatUnits } from 'viem'
 
 export default function NetworkStats() {
   const { data: blockNumber } = useBlockNumber({
     watch: true,
   })
 
-  const { data: feeData } = useFeeData({ watch: true })
+  const { data: feeData, isSuccess: isSuccessFeeData } = useFeeData({
+    watch: true,
+  })
 
   return (
     <div className="ml-auto  flex items-center justify-end gap-1  px-3 py-1 text-secondary">
@@ -27,12 +29,10 @@ export default function NetworkStats() {
         />
       </svg>{' '}
       <div>
-        {feeData ? (
-          parseFloat(
-            formatUnits(feeData.lastBaseFeePerGas as BigNumberish, 'gwei')
-          ).toFixed(1) + ' Gwei'
+        {isSuccessFeeData ? (
+          feeData?.formatted.gasPrice
         ) : (
-          <Skeleton />
+          <Skeleton className="w-12" />
         )}
       </div>
       <svg
@@ -48,8 +48,8 @@ export default function NetworkStats() {
           strokeWidth={2}
           d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
         />
-      </svg>{' '}
-      <div>{blockNumber || <Skeleton />}</div>
+      </svg>
+      <div>{Number(blockNumber) || <Skeleton />}</div>
     </div>
   )
 }

@@ -1,8 +1,7 @@
-import { commify } from '@ethersproject/units'
 import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 import { CHAIN_ID } from '@/constants'
-import { formatBalance, formatPercent, parseBalance } from '@/utils'
+import { commify, formatBalance, formatPercent, parseBalance } from '@/utils'
 import {
   ascensionTokenAddress,
   useAscensionPolyStakingPoolPoolInfo,

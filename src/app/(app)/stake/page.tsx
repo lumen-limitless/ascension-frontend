@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   title: 'Stake',
 }
 
-export default function Stake() {
+export default function Page() {
   return <StakePage />
 }

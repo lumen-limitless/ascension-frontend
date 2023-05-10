@@ -1,7 +1,4 @@
-import { arbitrum, foundry } from 'wagmi/chains'
-
-export const CHAIN_ID =
-  process.env.NODE_ENV === 'production' ? arbitrum.id : foundry.id
+export const CHAIN_ID = process.env.NODE_ENV === 'production' ? 42161 : 31337
 
 export const CHAIN_NAME: { [chainId: number]: string } = {
   [42161]: 'arbitrum',

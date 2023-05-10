@@ -1,9 +1,8 @@
 'use client'
 import { ReactNode } from 'react'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { arbitrum, foundry } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
 import {
   darkTheme,
   getDefaultWallets,
@@ -19,12 +18,11 @@ import { domAnimation, LazyMotion } from 'framer-motion'
 import { SkeletonTheme } from 'react-loading-skeleton'
 
 // Wagmi client
-const { chains, provider } = configureChains(
+const { chains, publicClient } = configureChains(
   [
     arbitrum,
     {
       ...foundry,
-      // Add multicall3 contract to Foundry (arbitrum fork)
       contracts: {
         multicall3: {
           address: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -33,23 +31,17 @@ const { chains, provider } = configureChains(
       },
     },
   ],
-  [
-    alchemyProvider({
-      priority: 0,
-      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY_ARB || '',
-    }),
-    publicProvider({ priority: 1 }),
-  ]
+  [publicProvider()]
 )
 const { connectors } = getDefaultWallets({
   appName: APP_NAME,
   projectId: '',
   chains,
 })
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider,
+  publicClient,
 })
 
 const queryClient = new QueryClient()
@@ -59,7 +51,7 @@ export default function AppProviders({ children }: { children: ReactNode }) {
     <>
       <LazyMotion features={domAnimation} strict>
         <QueryClientProvider client={queryClient}>
-          <WagmiConfig client={wagmiClient}>
+          <WagmiConfig config={wagmiConfig}>
             <RainbowKitProvider
               chains={chains}
               avatar={Avatar}

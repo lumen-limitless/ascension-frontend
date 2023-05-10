@@ -11,3 +11,19 @@ export function generateGradientFromAddress(address?: string): string {
   // Return the gradient string
   return gradient
 }
+
+export function splitSignature(signature: string) {
+  if (signature.length !== 132) {
+    throw new Error('Invalid signature length')
+  }
+
+  const r = `0x${signature.slice(2, 66)}` as `0x${string}`
+  const s = `0x${signature.slice(66, 130)}` as `0x${string}`
+  const v = parseInt(`0x${signature.slice(130, 132)}`, 16)
+
+  console.log('r component:', r)
+  console.log('s component:', s)
+  console.log('v component:', v)
+
+  return { r, s, v }
+}

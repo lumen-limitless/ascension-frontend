@@ -1,8 +1,9 @@
+'use client'
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import Button from './ui/Button'
 import { useToast, useUI, useWatchAsset } from '@/hooks'
-import { VIEW } from '../constants/enums'
+import { VIEW } from '@/constants/enums'
 import ExternalLink from './ui/ExternalLink'
 import { useCopyToClipboard } from 'react-use'
 import Avatar from './Avatar'
@@ -13,15 +14,13 @@ import {
   useEnsName,
   useNetwork,
 } from 'wagmi'
-import { formatBalance, shortenString } from '@/utils'
-import { BigNumberish } from 'ethers'
+import { commify, formatBalance, shortenString } from '@/utils'
 import {
   ascensionRevenueDistributionTokenAddress,
   ascensionTokenAddress,
   useAscensionRevenueDistributionTokenBalanceOf,
   useAscensionTokenBalanceOf,
 } from '@/wagmi/generated'
-import { commify } from '@ethersproject/units'
 import CopySVG from 'public/assets/copy.svg'
 import GoToSVG from 'public/assets/goto.svg'
 import LogoutSVG from 'public/assets/logout.svg'
@@ -128,12 +127,7 @@ export default function Account() {
           <div className="flex gap-9 ">
             <div className="flex flex-col text-center">
               {ascendBalance ? (
-                <span>
-                  {commify(
-                    formatBalance(ascendBalance as BigNumberish) as string
-                  )}{' '}
-                  ASCEND
-                </span>
+                <span>{commify(formatBalance(ascendBalance))} ASCEND</span>
               ) : (
                 <Skeleton />
               )}
@@ -158,10 +152,7 @@ export default function Account() {
             <div className="flex text-center">
               <div>
                 {stakedBalance ? (
-                  <span>
-                    {' '}
-                    {commify(formatBalance(stakedBalance) as string)} xASCEND
-                  </span>
+                  <span> {commify(formatBalance(stakedBalance))} xASCEND</span>
                 ) : (
                   <Skeleton />
                 )}

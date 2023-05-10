@@ -1,7 +1,21 @@
 import { NextPage } from 'next'
 import { ReactElement, ReactNode } from 'react'
 
-export type AddressMap = { [chainId: number]: string }
+export type AddressMap = Record<number, string>
+
+export interface TokenData {
+  contractAddress: string
+  tokenBalance: string
+  priceUSD: number
+  owner: string
+  chainId: number
+  tokenMetadata: {
+    decimals: number | null
+    logo: string | null
+    name: string | null
+    symbol: string | null
+  }
+}
 
 export type Token = {
   address: string

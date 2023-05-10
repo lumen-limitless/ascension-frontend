@@ -1,9 +1,6 @@
-import {
-  TransactionReceipt,
-  TransactionResponse,
-} from '@ethersproject/providers'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 import Button, { ButtonProps } from './ui/Button'
+import { TransactionReceipt } from 'viem'
 
 const Spinner = () => {
   return (
@@ -28,10 +25,10 @@ const Spinner = () => {
 interface WagmiTransactionButtonProps extends ButtonProps {
   className?: string
   config: any
-  onWriteSuccess?: (data: TransactionResponse) => void
-  onWriteError?: (data: TransactionResponse) => void
-  onWriteSettled?: (data: TransactionResponse) => void
-  onWriteMutate?: (data: TransactionResponse) => void
+  onWriteSuccess?: (data: unknown) => void
+  onWriteError?: (data: unknown) => void
+  onWriteSettled?: (data: unknown) => void
+  onWriteMutate?: (data: unknown) => void
   onTransactionSuccess?: (data: TransactionReceipt) => void
   onTransactionError?: (data: Error) => void
   onTransactionSettled?: (

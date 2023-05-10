@@ -4,10 +4,9 @@ import Grid from '@/components/ui/Grid'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Divider from '@/components/ui/Divider'
-import { useMemo, useRef, useState } from 'react'
 import Input from '@/components/ui/Input'
+import { useMemo, useRef, useState } from 'react'
 import {
-  ascensionTokenAddress,
   ascensionRevenueDistributionTokenAddress,
   useAscensionTokenBalanceOf,
   useAscensionTokenNonces,
@@ -16,13 +15,17 @@ import {
   useAscensionRevenueDistributionTokenIssuanceRate,
   useAscensionRevenueDistributionTokenTotalAssets,
   useAscensionRevenueDistributionTokenVestingPeriodFinish,
-  usePrepareAscensionRevenueDistributionTokenWithdraw,
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenTotalSupply,
 } from '@/wagmi/generated'
 import { useAccount, useSignTypedData } from 'wagmi'
-import { commify, formatUnits, parseUnits } from '@ethersproject/units'
-import { formatBalance, parseBalance, formatPercent } from '@/utils'
+import {
+  formatBalance,
+  parseBalance,
+  formatPercent,
+  commify,
+  splitSignature,
+} from '@/utils'
 import Skeleton from 'react-loading-skeleton'
 import { useBoolean } from 'react-use'
 import WagmiTransactionButton from '@/components/WagmiTransactionButton'
@@ -32,15 +35,15 @@ import { useToast } from '@/hooks'
 import { CHAIN_ID } from '@/constants'
 import StatGrid from '@/components/StatGrid'
 import PermitButton from '@/components/PermitButton'
-import { BigNumber, ethers } from 'ethers'
+import { formatUnits, parseUnits } from 'viem'
 
 export default function SingleStaking() {
   const t = useToast()
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState<string>('')
   const [isWithdrawing, toggleWithdrawing] = useBoolean(false)
   const { openConnectModal } = useConnectModal()
   const { address, isConnected } = useAccount()
-  const deadline = useRef(BigNumber.from(Math.floor(Date.now() / 1000 + 3600))) //1 hour from now
+  const deadline = useRef(BigInt(Math.floor(Date.now() / 1000 + 3600))) //1 hour from now
 
   const { data: ascendBalance } = useAscensionTokenBalanceOf({
     args: [address as `0x${string}`],
@@ -65,7 +68,7 @@ export default function SingleStaking() {
 
   const { data: conversionRate } =
     useAscensionRevenueDistributionTokenConvertToAssets({
-      args: [parseUnits('1')],
+      args: [parseUnits('1', 18)],
       watch: true,
       chainId: CHAIN_ID,
     })
@@ -118,7 +121,6 @@ export default function SingleStaking() {
       name: 'Ascension Protocol',
       version: '1',
       chainId: CHAIN_ID,
-      verifyingContract: ascensionTokenAddress,
     },
     types: {
       Permit: [
@@ -129,19 +131,20 @@ export default function SingleStaking() {
         { name: 'deadline', type: 'uint256' },
       ],
     },
-    value: {
+    primaryType: 'Permit',
+    message: {
       owner: address as `0x${string}`,
       spender: ascensionRevenueDistributionTokenAddress,
-      value: parseUnits(amount || '0'),
-      nonce: nonces ?? ethers.constants.Zero,
+      value: parseUnits(amount as `${number}`, 18),
+      nonce: nonces ?? 0n,
       deadline: deadline.current,
     },
   })
 
-  const permit: ethers.Signature | null = useMemo(() => {
+  const permit = useMemo(() => {
     if (!sig) return null
     try {
-      return ethers.utils.splitSignature(sig)
+      return splitSignature(sig)
     } catch (e) {
       console.error(e)
       return null
@@ -151,25 +154,25 @@ export default function SingleStaking() {
   const { config: depositWithPermitConfig } =
     usePrepareAscensionRevenueDistributionTokenDepositWithPermit({
       args: [
-        parseUnits(amount || '0'),
+        parseUnits(amount as `${number}`, 18),
         address as `0x${string}`,
         deadline.current,
         permit?.v as number,
         permit?.r as `0x${string}`,
         permit?.s as `0x${string}`,
       ],
-      enabled: !!amount && !!permit && !isWithdrawing,
+      enabled: !!amount && !isWithdrawing,
     })
 
-  const { data: withdrawConfig } =
-    usePrepareAscensionRevenueDistributionTokenWithdraw({
-      args: [
-        parseUnits(amount || '0'),
-        address as `0x${string}`,
-        address as `0x${string}`,
-      ],
-      enabled: !!amount && isWithdrawing,
-    })
+  // const { data: withdrawConfig } =
+  //   usePrepareAscensionRevenueDistributionTokenWithdraw({
+  //     args: [
+  //       parseUnits(amount || '0'),
+  //       address as `0x${string}`,
+  //       address as `0x${string}`,
+  //     ],
+  //     enabled: !!amount && isWithdrawing,
+  //   })
 
   const handleAmountInput = (input: string) => {
     // Ensure input is a number
@@ -182,12 +185,12 @@ export default function SingleStaking() {
     // extra decimals from input.
     const decimals = input.split('.')[1]
     if (decimals && decimals.length > 2) {
-      setAmount(input.replace(/[^0-9.]/g, ''))
+      setAmount(input.replace(/[^0-9.]/g, '') as `${number}`)
       return
     }
 
     // Replace any non-digit characters from input
-    setAmount(input.replace(/[^0-9.]/g, ''))
+    setAmount(input.replace(/[^0-9.]/g, '') as `${number}`)
   }
 
   return (
@@ -206,19 +209,17 @@ export default function SingleStaking() {
                     { name: 'APR', stat: apr },
                     {
                       name: 'Total Staked',
-                      stat:
-                        totalAssets &&
-                        commify(formatBalance(totalAssets) as string),
+                      stat: commify(formatBalance(totalAssets || 0n)),
                     },
                     {
                       name: 'Rewards End',
                       stat:
-                        periodFinish &&
-                        (periodFinish.toNumber() * 1000 < Date.now()
+                        !!periodFinish &&
+                        Number(periodFinish) * 1000 < Date.now()
                           ? '--'
                           : new Date(
-                              Math.floor(periodFinish?.toNumber() * 1000)
-                            ).toLocaleDateString()),
+                              Math.floor(Number(periodFinish) * 1000)
+                            ).toLocaleDateString(),
                     },
                   ]}
                 />
@@ -232,11 +233,7 @@ export default function SingleStaking() {
                         <span>
                           {stakedBalance ? (
                             commify(
-                              formatBalance(
-                                stakedBalance as BigNumber,
-                                18,
-                                2
-                              ) as string
+                              formatBalance(stakedBalance, 18, 2) as string
                             )
                           ) : (
                             <Skeleton />
@@ -251,11 +248,7 @@ export default function SingleStaking() {
                         <span>
                           {ascendBalance ? (
                             commify(
-                              formatBalance(
-                                ascendBalance as BigNumber,
-                                18,
-                                2
-                              ) as string
+                              formatBalance(ascendBalance, 18, 2) as string
                             )
                           ) : (
                             <Skeleton />
@@ -302,7 +295,7 @@ export default function SingleStaking() {
                             {' '}
                             1 xASCEND ={' '}
                             {conversionRate ? (
-                              formatBalance(conversionRate as BigNumber, 18, 6)
+                              formatBalance(conversionRate, 18, 6)
                             ) : (
                               <Skeleton />
                             )}{' '}
@@ -317,14 +310,10 @@ export default function SingleStaking() {
                           resetSig()
                         }}
                         max={
-                          ascendBalance
+                          !!ascendBalance && !!stakedBalance
                             ? isWithdrawing
-                              ? (formatUnits(
-                                  stakedBalance as BigNumber
-                                ) as string)
-                              : (formatUnits(
-                                  ascendBalance as BigNumber
-                                ) as string)
+                              ? (formatUnits(stakedBalance, 18) as string)
+                              : (formatUnits(ascendBalance, 18) as string)
                             : '0'
                         }
                       />
@@ -345,7 +334,7 @@ export default function SingleStaking() {
                       <WagmiTransactionButton
                         full
                         variant="green"
-                        config={withdrawConfig}
+                        config={null}
                         name={`Withdraw ${commify(amount)} ASCEND`}
                         onTransactionSuccess={(receipt) => {
                           resetSig()

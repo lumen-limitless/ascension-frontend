@@ -1,4 +1,4 @@
-import { formatBalance, isAddress, shortenString } from '@/utils'
+import { commify, formatBalance, isAddress, shortenString } from '@/utils'
 import Button from '@/components/ui/Button'
 import Loader from '@/components/ui/Loader'
 import Skeleton from 'react-loading-skeleton'
@@ -19,7 +19,6 @@ import {
   usePrepareAscensionTokenDelegate,
 } from '@/wagmi/generated'
 import WagmiTransactionButton from '@/components/WagmiTransactionButton'
-import { commify } from '@ethersproject/units'
 import { CHAIN_ID } from '@/constants'
 
 export default function Delegate() {

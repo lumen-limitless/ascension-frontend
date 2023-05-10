@@ -1,11 +1,25 @@
 /// @dev CONVENTION formatFoo -> string
 
-import { BigNumberish } from '@ethersproject/bignumber'
-import { commify, formatUnits } from '@ethersproject/units'
+import { formatUnits } from 'viem'
 
 export function capitalize(s: string) {
   if (typeof s !== 'string') return ''
   return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+export function commify(num: number | string | null): string {
+  if (!num) return ''
+  // Ensure input is a number
+  const inputNumber = typeof num === 'string' ? parseFloat(num) : num
+
+  // Convert the number to a string and split it into integer and fractional parts
+  const [integerPart, fractionalPart] = inputNumber.toFixed(2).split('.')
+
+  // Add commas to the integer part using a regular expression
+  const withCommas = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+  // Return the formatted number with the fractional part, if any
+  return fractionalPart ? `${withCommas}.${fractionalPart}` : withCommas
 }
 
 // shorten string to its maximum length using three dots
@@ -53,7 +67,7 @@ export function formatPercent(percentString: any) {
 }
 
 export function formatBalance(
-  value: BigNumberish,
+  value: bigint | number,
   decimals = 18,
   maxFraction = 2
 ) {
