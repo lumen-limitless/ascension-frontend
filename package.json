@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "wagmi generate && graphql-codegen",
-    "prebuild": "wagmi generate && graphql-codegen",
+    "prebuild": "",
     "dev": "NODE_ENV=development next dev",
     "analyze": "ANALYZE=true next build",
     "build": "next build",

@@ -35,7 +35,7 @@ const { chains, publicClient } = configureChains(
 )
 const { connectors } = getDefaultWallets({
   appName: APP_NAME,
-  projectId: '',
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
   chains,
 })
 const wagmiConfig = createConfig({
