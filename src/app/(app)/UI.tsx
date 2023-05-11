@@ -6,9 +6,8 @@ import { useUI } from '@/hooks'
 import dynamic from 'next/dynamic'
 
 //dynamic imports
-const Toaster = dynamic(
-  () => import('react-hot-toast').then((mod) => mod.Toaster),
-  { ssr: false }
+const Toaster = dynamic(() =>
+  import('react-hot-toast').then((mod) => mod.Toaster)
 )
 
 const Delegate = dynamic(() => import('@/views/Delegate'), {
@@ -34,7 +33,7 @@ function ModalUI() {
 export default function UI() {
   return (
     <>
-      <Toaster />
+      <Toaster position="top-right" containerClassName="mt-24" />
       <ModalUI />
     </>
   )

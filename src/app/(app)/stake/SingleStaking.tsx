@@ -17,6 +17,9 @@ import {
   useAscensionRevenueDistributionTokenVestingPeriodFinish,
   usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenTotalSupply,
+  useAscensionRevenueDistributionTokenDepositWithPermit,
+  useAscensionRevenueDistributionTokenWithdraw,
+  ascensionTokenAddress,
 } from '@/wagmi/generated'
 import { useAccount, useSignTypedData } from 'wagmi'
 import {
@@ -43,7 +46,7 @@ export default function SingleStaking() {
   const [isWithdrawing, toggleWithdrawing] = useBoolean(false)
   const { openConnectModal } = useConnectModal()
   const { address, isConnected } = useAccount()
-  const deadline = useRef(BigInt(Math.floor(Date.now() / 1000 + 3600))) //1 hour from now
+  const deadline = useRef(Math.floor(Date.now() / 1000 + 3600)) //1 hour from now
 
   const { data: ascendBalance } = useAscensionTokenBalanceOf({
     args: [address as `0x${string}`],
@@ -121,6 +124,7 @@ export default function SingleStaking() {
       name: 'Ascension Protocol',
       version: '1',
       chainId: CHAIN_ID,
+      verifyingContract: ascensionTokenAddress,
     },
     types: {
       Permit: [
@@ -137,7 +141,7 @@ export default function SingleStaking() {
       spender: ascensionRevenueDistributionTokenAddress,
       value: parseUnits(amount as `${number}`, 18),
       nonce: nonces ?? 0n,
-      deadline: deadline.current,
+      deadline: BigInt(deadline.current),
     },
   })
 
@@ -151,28 +155,25 @@ export default function SingleStaking() {
     }
   }, [sig])
 
-  const { config: depositWithPermitConfig } =
-    usePrepareAscensionRevenueDistributionTokenDepositWithPermit({
+  const depositWithPermit =
+    useAscensionRevenueDistributionTokenDepositWithPermit({
       args: [
         parseUnits(amount as `${number}`, 18),
         address as `0x${string}`,
-        deadline.current,
+        BigInt(deadline.current),
         permit?.v as number,
         permit?.r as `0x${string}`,
         permit?.s as `0x${string}`,
       ],
-      enabled: !!amount && !isWithdrawing,
     })
 
-  // const { data: withdrawConfig } =
-  //   usePrepareAscensionRevenueDistributionTokenWithdraw({
-  //     args: [
-  //       parseUnits(amount || '0'),
-  //       address as `0x${string}`,
-  //       address as `0x${string}`,
-  //     ],
-  //     enabled: !!amount && isWithdrawing,
-  //   })
+  const withdraw = useAscensionRevenueDistributionTokenWithdraw({
+    args: [
+      parseUnits(amount as `${number}`, 18),
+      address as `0x${string}`,
+      address as `0x${string}`,
+    ],
+  })
 
   const handleAmountInput = (input: string) => {
     // Ensure input is a number
@@ -310,7 +311,7 @@ export default function SingleStaking() {
                           resetSig()
                         }}
                         max={
-                          !!ascendBalance && !!stakedBalance
+                          ascendBalance && stakedBalance
                             ? isWithdrawing
                               ? (formatUnits(stakedBalance, 18) as string)
                               : (formatUnits(ascendBalance, 18) as string)
@@ -334,7 +335,7 @@ export default function SingleStaking() {
                       <WagmiTransactionButton
                         full
                         variant="green"
-                        config={null}
+                        transaction={withdraw}
                         name={`Withdraw ${commify(amount)} ASCEND`}
                         onTransactionSuccess={(receipt) => {
                           resetSig()
@@ -353,7 +354,7 @@ export default function SingleStaking() {
                       <WagmiTransactionButton
                         full
                         variant="green"
-                        config={depositWithPermitConfig}
+                        transaction={depositWithPermit}
                         name={`Deposit ${commify(amount)} ASCEND`}
                         onTransactionSuccess={(receipt) => {
                           resetSig()

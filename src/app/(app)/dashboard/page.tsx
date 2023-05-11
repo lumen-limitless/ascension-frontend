@@ -133,17 +133,12 @@ export default async function Page() {
     stakingData,
   ])
 
-  const tokens = [...props[0], ...props[1]]
-  const nfts = [props[2], props[3]]
-  const prices = props[4]
-  const stakingSnapshots = props[5]
-
   return (
     <DashboardPage
-      tokens={tokens}
-      nfts={nfts}
-      prices={prices}
-      stakingSnapshots={stakingSnapshots}
+      tokens={[...props[0], ...props[1]]}
+      nfts={[props[2], props[3]]}
+      prices={props[4]}
+      stakingSnapshots={props[5]}
     />
   )
 }

@@ -1,6 +1,7 @@
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 import Button, { ButtonProps } from './ui/Button'
 import { TransactionReceipt } from 'viem'
+import { WriteContractResult } from 'wagmi/dist/actions'
 
 const Spinner = () => {
   return (
@@ -24,7 +25,7 @@ const Spinner = () => {
 }
 interface WagmiTransactionButtonProps extends ButtonProps {
   className?: string
-  config: any
+  transaction?: any
   onWriteSuccess?: (data: unknown) => void
   onWriteError?: (data: unknown) => void
   onWriteSettled?: (data: unknown) => void
@@ -40,7 +41,7 @@ interface WagmiTransactionButtonProps extends ButtonProps {
 
 export default function WagmiTransactionButton({
   className,
-  config,
+  transaction,
   onWriteSuccess,
   onWriteError,
   onWriteSettled,
@@ -51,31 +52,16 @@ export default function WagmiTransactionButton({
   name,
   ...props
 }: WagmiTransactionButtonProps) {
-  const contractWrite = useContractWrite({
-    ...config,
-    onSuccess: onWriteSuccess,
-    onError: onWriteError,
-    onSettled: onWriteSettled,
-    onMutate: onWriteMutate,
-  })
-
-  const transaction = useWaitForTransaction({
-    hash: contractWrite.data?.hash,
+  useWaitForTransaction({
+    hash: transaction.data?.hash,
     onSuccess: onTransactionSuccess,
     onError: onTransactionError,
     onSettled: onTransactionSettled,
   })
+
   return (
-    <Button
-      {...props}
-      disabled={
-        !contractWrite?.write ||
-        contractWrite?.isLoading ||
-        transaction?.isLoading
-      }
-      onClick={() => contractWrite.write?.()}
-    >
-      {contractWrite?.isLoading ? (
+    <Button {...props} disabled={false} onClick={() => transaction.write()}>
+      {transaction?.isLoading ? (
         <>
           <span>Confirm in wallet</span>
           <Spinner />

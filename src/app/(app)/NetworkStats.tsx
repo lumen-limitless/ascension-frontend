@@ -1,7 +1,6 @@
 'use client'
 import { useBlockNumber, useFeeData } from 'wagmi'
 import Skeleton from 'react-loading-skeleton'
-import { formatUnits } from 'viem'
 
 export default function NetworkStats() {
   const { data: blockNumber } = useBlockNumber({

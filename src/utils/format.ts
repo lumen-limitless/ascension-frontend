@@ -8,7 +8,8 @@ export function capitalize(s: string) {
 }
 
 export function commify(num: number | string | null): string {
-  if (!num) return ''
+  if (num === null || num === undefined) return ''
+
   // Ensure input is a number
   const inputNumber = typeof num === 'string' ? parseFloat(num) : num
 
