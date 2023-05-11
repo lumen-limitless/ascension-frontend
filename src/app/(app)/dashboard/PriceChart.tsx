@@ -28,17 +28,17 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null
 }
 
-export default function PriceChart({ priceData }: { priceData: any }) {
+export default function PriceChart({ data }: { data: any }) {
   return (
     <div className="h-[500px] w-full">
-      {!priceData ? (
+      {!data ? (
         <Loader />
       ) : (
         <>
           <ResponsiveContainer height={500}>
             <AreaChart
               data={
-                priceData.coins[
+                data.coins[
                   `${CHAIN_NAME[arbitrum.id]}:${ascensionTokenAddress}`
                 ].prices
               }

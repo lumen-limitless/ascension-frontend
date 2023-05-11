@@ -1,18 +1,16 @@
-import { Alchemy, BigNumber, Network } from 'alchemy-sdk'
+import { Alchemy, Network } from 'alchemy-sdk'
 import DashboardPage from './dashboard-page'
 import { Metadata } from 'next'
 import { TokenData } from '@/types'
-import { ASCENSION_TREASURY_ADDRESS } from '@/constants'
-import { formatUnits, getAddress } from 'viem'
+import { ASCENSION_TREASURY_ADDRESS, CHAIN_NAME } from '@/constants'
+import { getAddress } from 'viem'
+import { ascensionTokenAddress } from '@/wagmi/generated'
+import { StakingSnapshotDocument } from '@/gql/graphql'
+import request from 'graphql-request'
 
 export const metadata: Metadata = {
   title: 'Dashboard',
 }
-
-// async function getSleep() {
-//   // mock async function with sleep to test loading state
-//   await new Promise((resolve) => setTimeout(resolve, 1000))
-// }
 
 const ALCHEMY_API_KEY: { [chainId: number]: string } = {
   1: process.env.NEXT_PUBLIC_ALCHEMY_KEY_MAINNET || '',
@@ -74,6 +72,44 @@ async function getTokenData(
   )
 }
 
+async function getNFTData(chainId: number) {
+  const alchemy = new Alchemy({
+    apiKey: ALCHEMY_API_KEY[chainId],
+    network: NETWORK_BY_CHAINID[chainId],
+  })
+
+  const d = await alchemy.nft.getNftsForOwner(
+    ASCENSION_TREASURY_ADDRESS[chainId]
+  )
+
+  return { nfts: d, chainId, owner: ASCENSION_TREASURY_ADDRESS[chainId] }
+}
+async function getPriceData() {
+  const res = await fetch(
+    `https://coins.llama.fi/chart/arbitrum:${ascensionTokenAddress}?start=${1638234087}&span=${1000}&period=1d`,
+    {
+      headers: {
+        accept: 'application/json',
+      },
+    }
+  )
+
+  if (!res.ok) {
+    return []
+  }
+
+  return res.json()
+}
+
+async function getStakingData() {
+  const { stakingSnapshots } = await request(
+    'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
+    StakingSnapshotDocument
+  )
+
+  return stakingSnapshots
+}
+
 export default async function Page() {
   const tokenDataMainnet = getTokenData(ASCENSION_TREASURY_ADDRESS[1], 1)
   const tokenDataArbitrum = getTokenData(
@@ -81,10 +117,33 @@ export default async function Page() {
     42161
   )
 
-  const [mainnetTokenData, arbitrumTokenData] = await Promise.all([
+  const nftDataMainnet = getNFTData(1)
+  const nftDataArbitrum = getNFTData(42161)
+
+  const priceData = getPriceData()
+
+  const stakingData = getStakingData()
+
+  const props = await Promise.all([
     tokenDataMainnet,
     tokenDataArbitrum,
+    nftDataMainnet,
+    nftDataArbitrum,
+    priceData,
+    stakingData,
   ])
 
-  return <DashboardPage tokens={[...mainnetTokenData, ...arbitrumTokenData]} />
+  const tokens = [...props[0], ...props[1]]
+  const nfts = [props[2], props[3]]
+  const prices = props[4]
+  const stakingSnapshots = props[5]
+
+  return (
+    <DashboardPage
+      tokens={tokens}
+      nfts={nfts}
+      prices={prices}
+      stakingSnapshots={stakingSnapshots}
+    />
+  )
 }

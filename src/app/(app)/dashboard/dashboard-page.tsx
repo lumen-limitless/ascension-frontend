@@ -9,25 +9,35 @@ import { last, truncate } from 'lodash'
 import Skeleton from 'react-loading-skeleton'
 import NFTImage from '@/components/NFTImage'
 import Divider from '@/components/ui/Divider'
-import { useDefiLlamaPriceChart } from '@/hooks'
 import { ascensionTokenAddress } from '@/wagmi/generated'
 import { arbitrum } from 'wagmi/chains'
 import ExternalLink from '@/components/ui/ExternalLink'
 import PriceChart from './PriceChart'
 import TotalStakedChart from './TotalStakedChart'
-import { useQuery } from '@tanstack/react-query'
-import request from 'graphql-request'
-import stakingSnapshotDocument from '@/queries/stakingSnapshotDocument'
 import StatGrid from '@/components/StatGrid'
 import LogoSVG from 'public/assets/logo.svg'
 import { formatUnits, isAddressEqual } from 'viem'
 import { commify, formatPercent } from '@/utils'
 import { TokenData } from '@/types'
 import { useMemo } from 'react'
+import { OwnedNftsResponse } from 'alchemy-sdk'
+import { StakingSnapshot } from '@/gql/graphql'
 
-export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
-  // const treasuryData = useTreasuryData()
+export default function DashboardPage({
+  tokens,
+  nfts,
+  prices,
+  stakingSnapshots,
+}: {
+  tokens: TokenData[]
+  nfts: { nfts: OwnedNftsResponse; chainId: number; owner: `0x${string}` }[]
+  prices: any
+  stakingSnapshots: StakingSnapshot[]
+}) {
   console.debug(tokens)
+  console.debug(nfts)
+  console.debug(prices)
+  console.debug(stakingSnapshots)
 
   const totalValueUSD = useMemo(() => {
     if (!tokens) return null
@@ -46,26 +56,6 @@ export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
 
     return t
   }, [tokens])
-  const { data: stakingSnapshots } = useQuery(
-    ['stakingSnapshots'],
-    async () => {
-      const { stakingSnapshots } = await request(
-        'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
-        stakingSnapshotDocument
-      )
-      return stakingSnapshots
-    }
-  )
-  console.debug('staking SNAPSHOTS', stakingSnapshots)
-
-  const { data: priceData, isFetched: isFetchedPriceData } =
-    useDefiLlamaPriceChart(
-      ascensionTokenAddress,
-      arbitrum.id,
-      1638234087, //timestamp of ascend launch
-      1000 //max data points
-    )
-  console.debug('PRICE DATA', priceData)
 
   return (
     <>
@@ -82,37 +72,33 @@ export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
                   stats={[
                     {
                       name: 'Price',
-                      stat:
-                        isFetchedPriceData &&
-                        parseFloat(
+                      stat: parseFloat(
+                        (
+                          last(
+                            prices?.coins[
+                              `${
+                                CHAIN_NAME[arbitrum.id]
+                              }:${ascensionTokenAddress}`
+                            ]?.prices
+                          ) as any
+                        )?.price
+                      ).toFixed(3),
+                    },
+                    {
+                      name: 'Market Cap',
+                      stat: `$${commify(
+                        (
                           (
                             last(
-                              priceData?.coins[
+                              prices?.coins[
                                 `${
                                   CHAIN_NAME[arbitrum.id]
                                 }:${ascensionTokenAddress}`
                               ]?.prices
                             ) as any
-                          )?.price
-                        ).toFixed(3),
-                    },
-                    {
-                      name: 'Market Cap',
-                      stat:
-                        isFetchedPriceData &&
-                        `$${commify(
-                          (
-                            (
-                              last(
-                                priceData?.coins[
-                                  `${
-                                    CHAIN_NAME[arbitrum.id]
-                                  }:${ascensionTokenAddress}`
-                                ]?.prices
-                              ) as any
-                            )?.price * 14400000
-                          ).toFixed(2)
-                        )}`,
+                          )?.price * 14400000
+                        ).toFixed(2)
+                      )}`,
                     },
                     {
                       name: 'Staked Supply',
@@ -144,7 +130,7 @@ export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
                     <h2 className="text-lg">ASCEND Price</h2>
                   </Card.Header>
                   <Card.Body>
-                    <PriceChart priceData={priceData} />
+                    <PriceChart data={prices} />
                   </Card.Body>
                 </Card>
               </div>
@@ -245,20 +231,20 @@ export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
                 </div>
               </div>
 
-              {/* <div className="col-span-12">
-                <div className="w-full py-12">
-                  <h2 className="mb-3 text-2xl">Treasury NFT Collection</h2>
-                  <Divider />
-                  <div className="flex h-full flex-col gap-3  p-3">
-                    {!treasuryData ? (
-                      <Loader />
-                    ) : (
+              {!nfts ? (
+                <></>
+              ) : (
+                <div className="col-span-12">
+                  <div className="w-full py-12">
+                    <h2 className="mb-3 text-2xl">Treasury NFT Collection</h2>
+                    <Divider />
+                    <div className="flex h-full flex-col gap-3  p-3">
                       <Grid gap="sm">
-                        {treasuryData.nftData.map((nftData) =>
-                          nftData.nfts?.map((nft) => (
+                        {nfts.map((data) =>
+                          data.nfts.ownedNfts.map((nft) => (
                             <ExternalLink
                               href={`https://opensea.io/assets/${
-                                CHAIN_NAME[nftData.chainId]
+                                CHAIN_NAME[data.chainId]
                               }/${nft.contract.address}/${nft.tokenId}`}
                               className="col-span-12 w-full md:col-span-6 xl:col-span-3"
                               key={nft.title}
@@ -278,10 +264,10 @@ export default function DashboardPage({ tokens }: { tokens: TokenData[] }) {
                           ))
                         )}
                       </Grid>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div> */}
+              )}
             </Grid>
           </m.div>
         </Container>
