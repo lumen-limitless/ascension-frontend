@@ -13,7 +13,7 @@ import LogoSVG from 'public/assets/logo.svg'
 const HomePage = () => {
   return (
     <>
-      <Script src="https://platform.twitter.com/widgets.js" async />
+      {/* <Script src="https://platform.twitter.com/widgets.js" async /> */}
       <Section
         col
         fullscreen
@@ -65,11 +65,10 @@ const HomePage = () => {
       </Section>
       <Features />
       <Partners />
-      <Section centered className="min-h-[800px]">
+      {/* <Section centered className="min-h-[800px]">
         <Container>
           <a
             className="twitter-timeline"
-            // data-width="1200"
             data-height="500"
             data-dnt="true"
             data-theme="dark"
@@ -78,7 +77,7 @@ const HomePage = () => {
             <span className="sr-only">Tweets by AscendProtocol</span>
           </a>
         </Container>
-      </Section>
+      </Section> */}
 
       <CTA />
       <div className="bg-purple-900 py-12" />

@@ -197,7 +197,7 @@ export default function SingleStaking() {
   return (
     <>
       <Section className="mb-32 py-8 md:mb-0">
-        <Container className="max-w-5xl">
+        <Container>
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

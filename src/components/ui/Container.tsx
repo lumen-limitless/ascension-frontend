@@ -11,7 +11,7 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
   return (
     <div
-      className={[className, 'container z-10 mx-auto px-5']
+      className={[className, 'z-10 mx-auto max-w-7xl px-5']
         .filter(Boolean)
         .join(' ')}
       id={id}

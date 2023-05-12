@@ -59,7 +59,7 @@ export default function DashboardPage({
 
   return (
     <Section className="pb-24 pt-9">
-      <Container className="max-w-7xl">
+      <Container>
         <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
