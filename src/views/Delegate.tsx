@@ -10,13 +10,13 @@ import ChainIcon from '@/components/ChainIcon'
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
 import {
   useAscensionRevenueDistributionTokenBalanceOf,
+  useAscensionRevenueDistributionTokenDelegate,
   useAscensionRevenueDistributionTokenDelegates,
   useAscensionRevenueDistributionTokenGetAssetVotes,
   useAscensionTokenBalanceOf,
+  useAscensionTokenDelegate,
   useAscensionTokenDelegates,
   useAscensionTokenGetVotes,
-  usePrepareAscensionRevenueDistributionTokenDelegate,
-  usePrepareAscensionTokenDelegate,
 } from '@/wagmi/generated'
 import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { CHAIN_ID } from '@/constants'
@@ -29,7 +29,7 @@ export default function Delegate() {
   const { chain } = useNetwork()
   const { address, isConnected } = useAccount()
 
-  const { config: delegateConfig } = usePrepareAscensionTokenDelegate({
+  const delegate = useAscensionTokenDelegate({
     args: [
       delegating
         ? (delegateAddress as `0x${string}`)
@@ -37,14 +37,13 @@ export default function Delegate() {
     ],
   })
 
-  const { config: stakedDelegateConfig } =
-    usePrepareAscensionRevenueDistributionTokenDelegate({
-      args: [
-        delegating
-          ? (delegateAddress as `0x${string}`)
-          : (address as `0x${string}`),
-      ],
-    })
+  const delegateStaked = useAscensionRevenueDistributionTokenDelegate({
+    args: [
+      delegating
+        ? (delegateAddress as `0x${string}`)
+        : (address as `0x${string}`),
+    ],
+  })
 
   const { data: balance } = useAscensionTokenBalanceOf({
     args: [address as `0x${string}`],
@@ -202,9 +201,7 @@ export default function Delegate() {
               <WagmiTransactionButton
                 variant="blue"
                 full
-                config={
-                  token === 'ASCEND' ? delegateConfig : stakedDelegateConfig
-                }
+                transaction={token === 'ASCEND' ? delegate : delegateStaked}
                 name={
                   delegating
                     ? isAddress(delegateAddress)

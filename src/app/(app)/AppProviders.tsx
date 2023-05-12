@@ -14,6 +14,7 @@ import Disclaimer from '@/components/Disclaimer'
 import { QueryClient } from '@tanstack/react-query'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { domAnimation, LazyMotion } from 'framer-motion'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 // Wagmi client
 const { chains, publicClient } = configureChains(
@@ -65,7 +66,9 @@ export default function AppProviders({ children }: { children: ReactNode }) {
                 accentColor: '#0346a2',
               })}
             >
-              {children}
+              <SkeletonTheme baseColor="#1a1a1a" highlightColor="#2a2a2a">
+                {children}
+              </SkeletonTheme>
             </RainbowKitProvider>
           </WagmiConfig>
         </QueryClientProvider>

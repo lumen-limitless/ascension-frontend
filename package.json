@@ -10,7 +10,7 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "codegen": "wagmi generate && graphql-codegen",
-    "start": "npx serve@latest out",
+    "start": "next start",
     "lint": "next lint",
     "test": "jest --config jest.e2e.config.js --testPathPattern=e2e --watchAll --verbose --runInBand --testTimeout=1000000"
   },
