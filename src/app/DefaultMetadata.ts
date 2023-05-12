@@ -83,7 +83,7 @@ export const defaultMetadata: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: '',
+        url: '/og.jpg',
       },
     ],
   },
@@ -92,7 +92,7 @@ export const defaultMetadata: Metadata = {
     title: APP_NAME,
     site: APP_URL,
     images: '',
-    creator: '@lumenlimitless',
+    creator: '@ascendprotocol',
     description: APP_DESCRIPTION,
     card: 'summary_large_image',
   },
@@ -106,6 +106,12 @@ export const defaultMetadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+
+  metadataBase: null,
+  alternates: {
+    canonical: '/',
+  },
+
   manifest: '/manifest.json',
 
   other: {
