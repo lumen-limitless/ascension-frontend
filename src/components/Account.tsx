@@ -25,6 +25,7 @@ import CopySVG from 'public/assets/copy.svg'
 import GoToSVG from 'public/assets/goto.svg'
 import LogoutSVG from 'public/assets/logout.svg'
 import DelegateSVG from 'public/assets/delegate.svg'
+import { formatUnits } from 'viem'
 
 export default function Account() {
   const [, setCopy] = useCopyToClipboard()
@@ -33,23 +34,26 @@ export default function Account() {
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { address } = useAccount()
-  const { data: ethBalance } = useBalance({
+  const { data: ethBalance, isFetched: ethBalanceIsFetched } = useBalance({
     address,
     enabled: !!address,
     watch: true,
   })
-  const { data: ascendBalance } = useAscensionTokenBalanceOf({
-    args: [address as `0x${string}`],
-    enabled: !!address,
-    watch: true,
-  })
-  const { data: stakedBalance } = useAscensionRevenueDistributionTokenBalanceOf(
-    {
+  const { data: ascendBalance, isFetched: ascendBalanceIsFetched } =
+    useAscensionTokenBalanceOf({
       args: [address as `0x${string}`],
       enabled: !!address,
       watch: true,
-    }
-  )
+    })
+  console.debug(ascendBalance)
+
+  const { data: stakedBalance, isFetched: stakedBalanceIsFetched } =
+    useAscensionRevenueDistributionTokenBalanceOf({
+      args: [address as `0x${string}`],
+      enabled: !!address,
+      watch: true,
+    })
+
   const { data: ens } = useEnsName({
     address,
     enabled: !!address,
@@ -100,8 +104,8 @@ export default function Account() {
 
       <div className=" flex h-full w-full items-center  justify-center   py-3 ">
         <div className="mx-auto w-36 text-center text-3xl">
-          {ethBalance ? (
-            ` ${formatBalance(ethBalance.value, 18, 3)} ${
+          {ethBalanceIsFetched ? (
+            ` ${commify(ethBalance?.formatted || '0')} ${
               chain?.nativeCurrency.symbol
             }`
           ) : (
@@ -126,8 +130,10 @@ export default function Account() {
         >
           <div className="flex gap-9 ">
             <div className="flex flex-col text-center">
-              {ascendBalance ? (
-                <span>{commify(formatBalance(ascendBalance))} ASCEND</span>
+              {ascendBalanceIsFetched ? (
+                <span>
+                  {commify(formatUnits(ascendBalance ?? 0n, 18))} ASCEND
+                </span>
               ) : (
                 <Skeleton />
               )}
@@ -151,8 +157,10 @@ export default function Account() {
           <div className="flex gap-9 ">
             <div className="flex text-center">
               <div>
-                {stakedBalance ? (
-                  <span> {commify(formatBalance(stakedBalance))} xASCEND</span>
+                {stakedBalanceIsFetched ? (
+                  <span>
+                    {commify(formatUnits(stakedBalance ?? 0n, 18))} xASCEND
+                  </span>
                 ) : (
                   <Skeleton />
                 )}

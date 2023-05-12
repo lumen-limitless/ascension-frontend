@@ -15,19 +15,18 @@ import {
   useAscensionRevenueDistributionTokenIssuanceRate,
   useAscensionRevenueDistributionTokenTotalAssets,
   useAscensionRevenueDistributionTokenVestingPeriodFinish,
-  usePrepareAscensionRevenueDistributionTokenDepositWithPermit,
-  useAscensionRevenueDistributionTokenTotalSupply,
   useAscensionRevenueDistributionTokenDepositWithPermit,
   useAscensionRevenueDistributionTokenWithdraw,
   ascensionTokenAddress,
+  useAscensionRevenueDistributionTokenTotalSupply,
 } from '@/wagmi/generated'
 import { useAccount, useSignTypedData } from 'wagmi'
 import {
   formatBalance,
-  parseBalance,
   formatPercent,
   commify,
   splitSignature,
+  parseBalance,
 } from '@/utils'
 import Skeleton from 'react-loading-skeleton'
 import { useBoolean } from 'react-use'
@@ -48,12 +47,13 @@ export default function SingleStaking() {
   const { address, isConnected } = useAccount()
   const deadline = useRef(Math.floor(Date.now() / 1000 + 3600)) //1 hour from now
 
-  const { data: ascendBalance } = useAscensionTokenBalanceOf({
-    args: [address as `0x${string}`],
-    enabled: !!address,
-    watch: true,
-    chainId: CHAIN_ID,
-  })
+  const { data: ascendBalance, isFetched: ascendBalanceIsFetched } =
+    useAscensionTokenBalanceOf({
+      args: [address as `0x${string}`],
+      enabled: !!address,
+      watch: true,
+      chainId: CHAIN_ID,
+    })
 
   const { data: nonces } = useAscensionTokenNonces({
     watch: true,
@@ -61,7 +61,7 @@ export default function SingleStaking() {
     chainId: CHAIN_ID,
   })
 
-  const { data: stakedBalance } =
+  const { data: stakedBalance, isFetched: stakedBalanceIsFetched } =
     useAscensionRevenueDistributionTokenBalanceOfAssets({
       args: [address || '0x'],
       watch: true,
@@ -210,7 +210,11 @@ export default function SingleStaking() {
                     { name: 'APR', stat: apr },
                     {
                       name: 'Total Staked',
-                      stat: commify(formatBalance(totalAssets || 0n)),
+                      stat: totalAssets ? (
+                        commify(formatUnits(totalAssets, 18))
+                      ) : (
+                        <Skeleton />
+                      ),
                     },
                     {
                       name: 'Rewards End',
@@ -232,10 +236,8 @@ export default function SingleStaking() {
                       <div>
                         <h2 className="text-3xl text-secondary">Staked</h2>
                         <span>
-                          {stakedBalance ? (
-                            commify(
-                              formatBalance(stakedBalance, 18, 2) as string
-                            )
+                          {stakedBalanceIsFetched ? (
+                            commify(formatUnits(stakedBalance ?? 0n, 18))
                           ) : (
                             <Skeleton />
                           )}
@@ -247,10 +249,8 @@ export default function SingleStaking() {
                       <div>
                         <h2 className="text-3xl text-secondary">Balance</h2>
                         <span>
-                          {ascendBalance ? (
-                            commify(
-                              formatBalance(ascendBalance, 18, 2) as string
-                            )
+                          {ascendBalanceIsFetched ? (
+                            commify(formatUnits(ascendBalance ?? 0n, 18))
                           ) : (
                             <Skeleton />
                           )}
@@ -296,7 +296,7 @@ export default function SingleStaking() {
                             {' '}
                             1 xASCEND ={' '}
                             {conversionRate ? (
-                              formatBalance(conversionRate, 18, 6)
+                              commify(formatUnits(conversionRate, 18))
                             ) : (
                               <Skeleton />
                             )}{' '}
@@ -313,8 +313,8 @@ export default function SingleStaking() {
                         max={
                           ascendBalance && stakedBalance
                             ? isWithdrawing
-                              ? (formatUnits(stakedBalance, 18) as string)
-                              : (formatUnits(ascendBalance, 18) as string)
+                              ? formatUnits(stakedBalance, 18)
+                              : formatUnits(ascendBalance, 18)
                             : '0'
                         }
                       />

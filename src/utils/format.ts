@@ -7,9 +7,7 @@ export function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export function commify(num: number | string | null): string {
-  if (num === null || num === undefined) return ''
-
+export function commify(num: number | string): string {
   // Ensure input is a number
   const inputNumber = typeof num === 'string' ? parseFloat(num) : num
 

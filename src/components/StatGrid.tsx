@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 export default function StatGrid({
   stats,
@@ -21,7 +20,7 @@ export default function StatGrid({
               {item.name}
             </dt>
             <dd className="mt-1 text-2xl font-semibold text-primary">
-              <span>{item?.stat || <Skeleton className="max-w-[50%]" />}</span>
+              <span>{item?.stat}</span>
             </dd>
           </div>
         ))}

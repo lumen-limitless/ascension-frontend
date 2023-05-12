@@ -26,10 +26,6 @@ const Spinner = () => {
 interface WagmiTransactionButtonProps extends ButtonProps {
   className?: string
   transaction?: any
-  onWriteSuccess?: (data: unknown) => void
-  onWriteError?: (data: unknown) => void
-  onWriteSettled?: (data: unknown) => void
-  onWriteMutate?: (data: unknown) => void
   onTransactionSuccess?: (data: TransactionReceipt) => void
   onTransactionError?: (data: Error) => void
   onTransactionSettled?: (
@@ -42,10 +38,6 @@ interface WagmiTransactionButtonProps extends ButtonProps {
 export default function WagmiTransactionButton({
   className,
   transaction,
-  onWriteSuccess,
-  onWriteError,
-  onWriteSettled,
-  onWriteMutate,
   onTransactionSuccess,
   onTransactionError,
   onTransactionSettled,
@@ -60,7 +52,11 @@ export default function WagmiTransactionButton({
   })
 
   return (
-    <Button {...props} disabled={false} onClick={() => transaction.write()}>
+    <Button
+      {...props}
+      disabled={!transaction?.write}
+      onClick={() => transaction.write()}
+    >
       {transaction?.isLoading ? (
         <>
           <span>Confirm in wallet</span>

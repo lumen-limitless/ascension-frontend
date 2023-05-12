@@ -1,3 +1,4 @@
+'use client'
 import { ReactNode } from 'react'
 import { useSessionStorage } from 'react-use'
 
@@ -7,7 +8,7 @@ export default function Banner({ children }: { children?: ReactNode }) {
     <>
       {viewing && (
         <div
-          className="relative flex w-full items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 p-3"
+          className="relative flex h-8 w-full items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600"
           id="banner"
           aria-label="banner"
         >
