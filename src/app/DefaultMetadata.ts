@@ -107,7 +107,7 @@ export const defaultMetadata: Metadata = {
     telephone: false,
   },
 
-  metadataBase: null,
+  metadataBase: new URL(APP_URL),
   alternates: {
     canonical: '/',
   },
