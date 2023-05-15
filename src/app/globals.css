@@ -41,8 +41,13 @@
   * {
     @apply border-border;
   }
+
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
-    @apply box-border flex min-h-screen touch-manipulation flex-col scroll-smooth bg-background text-foreground antialiased;
+    @apply box-border flex min-h-screen touch-manipulation flex-col bg-background text-foreground antialiased;
     font-feature-settings: 'rlig' 1, 'calt' 1;
     text-rendering: optimizeLegibility;
   }
