@@ -296,7 +296,7 @@ export default function SingleStaking() {
                               commify(
                                 formatUnits(conversionRate.data as bigint, 18),
                                 2
-                              ) + 'ASCEND'
+                              ) + ' ASCEND'
                             ) : (
                               <Skeleton className="h-5 w-16" />
                             )}{' '}

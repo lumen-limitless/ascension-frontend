@@ -18,15 +18,17 @@ import { domAnimation, LazyMotion } from 'framer-motion'
 const { chains, publicClient } = configureChains(
   [
     arbitrum,
-    {
-      ...foundry,
-      contracts: {
-        multicall3: {
-          address: '0xca11bde05977b3631167028862be2a173976ca11',
-          blockCreated: 7654707,
-        },
-      },
-    },
+    process.env.NODE_ENV === 'development'
+      ? {
+          ...foundry,
+          contracts: {
+            multicall3: {
+              address: '0xca11bde05977b3631167028862be2a173976ca11',
+              blockCreated: 7654707,
+            },
+          },
+        }
+      : arbitrum,
   ],
   [publicProvider()]
 )
