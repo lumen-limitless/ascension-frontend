@@ -289,18 +289,17 @@ export default function SingleStaking() {
                               'absolute inset-0 bg-gradient-to-r from-orange to-pink p-px blur'
                             }
                           ></div>
-                          <div className="z-10 inline-flex min-w-max gap-1 rounded bg-gray-900 p-3">
+                          <div className="z-10 inline-flex min-w-max items-center gap-1 rounded bg-gray-900 p-3">
                             {' '}
                             1 xASCEND ={' '}
                             {conversionRate.isSuccess ? (
                               commify(
                                 formatUnits(conversionRate.data as bigint, 18),
                                 2
-                              )
+                              ) + 'ASCEND'
                             ) : (
-                              <Skeleton />
+                              <Skeleton className="h-5 w-16" />
                             )}{' '}
-                            ASCEND
                           </div>
                         </div>
                       </div>

@@ -18,7 +18,7 @@ const HomePage = () => {
         <Image src={backgroundImage} fill className="object-cover" alt="" />
         <Container className="mt-9 md:mt-24 lg:mt-32">
           <m.div
-            initial={{ opacity: 0, translateY: 33 }}
+            initial={{ opacity: 0, translateY: 0 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ ease: 'easeOut', delay: 0, duration: 1 }}
             className="relative  space-y-3  text-center"

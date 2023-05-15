@@ -6,8 +6,8 @@ import GovernanceSVG from 'public/assets/governance.svg'
 import ToolsSVG from 'public/assets/tools.svg'
 import RewardsSVG from 'public/assets/rewards.svg'
 import ExternalLink from '@/components/ui/ExternalLink'
-import { Separator } from '@radix-ui/react-separator'
 import { cn } from '@/lib/utils'
+import { Separator } from '@/components/ui/separator'
 
 const features = [
   {
@@ -76,13 +76,11 @@ export default function Features() {
                   <div
                     className={cn(f.alignment === 'right' && 'md:text-right')}
                   >
-                    <h2 className="pb-3 text-5xl font-bold leading-3 text-primary lg:pb-0  lg:text-6xl">
+                    <h2 className="pb-3 text-5xl font-bold leading-3  lg:pb-0  lg:text-6xl">
                       {f.title}
                     </h2>
-                    <Separator className="bg-purple" />
-                    <p className="mt-3 text-lg text-primary lg:text-xl">
-                      {f.description}
-                    </p>
+                    <Separator className="my-4" />
+                    <p className="mt-3 text-lg  lg:text-xl">{f.description}</p>
                     <div
                       className={cn(
                         ' relative  mt-9 flex max-w-min  items-center p-2 transition-all ',

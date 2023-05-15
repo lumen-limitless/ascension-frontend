@@ -9,7 +9,9 @@ import UI from './UI'
 import NetworkStats from './NetworkStats'
 import Analytics from '../Analytics'
 import { defaultMetadata } from '../DefaultMetadata'
-import Banner from '@/components/Banner'
+import dynamic from 'next/dynamic'
+
+const Banner = dynamic(() => import('@/components/Banner'))
 
 const jura = Jura({
   subsets: ['latin'],
@@ -36,7 +38,7 @@ export default function RootLayout({
         <AppProviders>
           <UI />
           <header className="z-20 border-b border-purple-500">
-            <Banner>TEST</Banner>
+            {/* <Banner>TEST</Banner> */}
             <Nav />
           </header>
           <main className="flex flex-grow flex-col"> {children}</main>

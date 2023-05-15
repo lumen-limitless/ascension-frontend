@@ -213,7 +213,7 @@ export default function Nav() {
 
               <div className="flex h-full w-full items-center justify-center text-center">
                 <Link
-                  href="/Stake"
+                  href="/stake"
                   onClick={() => {
                     close()
                     toggleOpen(false)
