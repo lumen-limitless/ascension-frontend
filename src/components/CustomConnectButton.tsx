@@ -1,10 +1,11 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Avatar from './Avatar'
-import Button from './ui/Button'
 import Account from './Account'
-import Skeleton from 'react-loading-skeleton'
 import { Fragment } from 'react'
+import { Button } from './ui/button'
+import { Skeleton } from './ui/skeleton'
+import { Wallet, WalletIcon } from 'lucide-react'
 
 export default function CustomConnectButton() {
   return (
@@ -34,20 +35,7 @@ export default function CustomConnectButton() {
                     type="button"
                     id="connect-wallet-button"
                   >
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                      />
-                    </svg>
+                    <WalletIcon />
                     Connect Wallet
                   </Button>
                 )
@@ -56,7 +44,7 @@ export default function CustomConnectButton() {
               if (chain.unsupported) {
                 return (
                   <Button
-                    variant="red"
+                    variant={'destructive'}
                     size="sm"
                     onClick={openChainModal}
                     type="button"
@@ -83,7 +71,7 @@ export default function CustomConnectButton() {
 
               return (
                 <div className="flex gap-3">
-                  <Button variant="gray" size="sm" type="button">
+                  <Button size="sm" type="button" variant="gray">
                     {chain.hasIcon && (
                       <div
                         className="h-6 w-6 overflow-hidden rounded-full"
@@ -118,7 +106,7 @@ export default function CustomConnectButton() {
                   <Popover>
                     <Popover.Button
                       className={
-                        'z-20 inline-flex items-center rounded bg-gray-800  drop-shadow transition-all hover:bg-gray-900'
+                        'z-20 inline-flex items-center rounded bg-gray-800 drop-shadow transition-all hover:bg-gray-900'
                       }
                     >
                       {' '}
@@ -126,7 +114,7 @@ export default function CustomConnectButton() {
                         {account.displayBalance ? (
                           ` ${account.displayBalance}`
                         ) : (
-                          <Skeleton />
+                          <Skeleton className="h-5 w-24" />
                         )}
                       </div>{' '}
                       <div className="inline-flex items-center gap-1 rounded p-2 md:mr-1 lg:bg-gray-900 lg:p-1">

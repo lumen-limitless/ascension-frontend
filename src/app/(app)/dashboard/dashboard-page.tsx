@@ -1,14 +1,11 @@
 'use client'
-import Container from '@/components/ui/Container'
+import Container from '@/components/ui/container'
 import Section from '@/components/ui/Section'
-import Card from '@/components/ui/Card'
 import { SCAN_INFO, CHAIN_NAME } from '@/constants'
 import Grid from '@/components/ui/Grid'
 import { m } from 'framer-motion'
 import { last, truncate } from 'lodash'
-import Skeleton from 'react-loading-skeleton'
 import NFTImage from '@/components/NFTImage'
-import Divider from '@/components/ui/Divider'
 import { ascensionTokenAddress } from '@/wagmi/generated'
 import { arbitrum } from 'wagmi/chains'
 import ExternalLink from '@/components/ui/ExternalLink'
@@ -22,6 +19,9 @@ import { TokenData } from '@/types'
 import { useMemo } from 'react'
 import { OwnedNftsResponse } from 'alchemy-sdk'
 import { StakingSnapshot } from '@/gql/graphql'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Separator } from '@/components/ui/separator'
 
 export default function DashboardPage({
   tokens,
@@ -115,41 +115,41 @@ export default function DashboardPage({
 
             <div className="col-span-12 md:col-span-6">
               <Card>
-                <Card.Header>
+                <CardHeader>
                   <h2 className="text-lg">Total Staked</h2>
-                </Card.Header>
-                <Card.Body>
+                </CardHeader>
+                <CardContent>
                   <TotalStakedChart stakingData={stakingSnapshots} />
-                </Card.Body>
+                </CardContent>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6">
               <Card>
-                <Card.Header>
+                <CardHeader>
                   <h2 className="text-lg">ASCEND Price</h2>
-                </Card.Header>
-                <Card.Body>
+                </CardHeader>
+                <CardContent>
                   <PriceChart data={prices} />
-                </Card.Body>
+                </CardContent>
               </Card>
             </div>
 
             <div className="col-span-12">
               <div className="w-full py-12">
                 <h2 className="mb-3 text-2xl">Treasury Token Portfolio</h2>
-                <Divider />
+                <Separator className="my-4" />
                 <div className="max-h-[2400px] overflow-x-auto overflow-y-scroll">
                   {tokens ? (
                     <table className="min-w-full divide-y divide-gray-900">
                       <thead>
                         <tr>
-                          <th className="py-2 text-left text-xs font-semibold text-primary">
+                          <th className="py-2 text-left text-xs font-semibold ">
                             Token
                           </th>
-                          <th className="hidden py-2 text-left text-xs font-semibold text-primary md:table-cell">
+                          <th className="hidden py-2 text-left text-xs font-semibold  md:table-cell">
                             Balance
                           </th>
-                          <th className="py-2 text-left text-xs font-semibold text-primary">
+                          <th className="py-2 text-left text-xs font-semibold ">
                             Value
                           </th>
                         </tr>
@@ -160,7 +160,7 @@ export default function DashboardPage({
                             <td className="flex items-center gap-2 px-2 py-2">
                               {t.tokenMetadata.logo ? (
                                 <img
-                                  className="h-8 w-8 rounded-full md:h-10 md:w-10"
+                                  className="h-8 w-8 rounded-full md:h-12 md:w-12"
                                   src={t.tokenMetadata.logo}
                                   alt={t.tokenMetadata.name || ''}
                                 />
@@ -170,7 +170,7 @@ export default function DashboardPage({
                                 ) ? (
                                 <LogoSVG className="h-8 md:h-10" />
                               ) : (
-                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 text-center text-xs md:h-10 md:w-10">
+                                <div className="flex h-8 w-8 items-center justify-center truncate rounded-full bg-gray-800 text-center text-xs md:h-12 md:w-12">
                                   {t.tokenMetadata.symbol}
                                 </div>
                               )}
@@ -184,7 +184,7 @@ export default function DashboardPage({
                               </ExternalLink>
                             </td>
                             <td className="hidden px-2 py-2 md:table-cell">
-                              <span className="text-xs text-secondary md:text-sm">
+                              <span className="text-sm  md:text-base">
                                 {commify(
                                   parseFloat(
                                     formatUnits(
@@ -209,7 +209,8 @@ export default function DashboardPage({
                                           t.tokenMetadata.decimals || 18
                                         )
                                       )
-                                    ).toFixed(2)
+                                    ).toFixed(2),
+                                    2
                                   )}`}
                             </td>
                           </tr>
@@ -220,14 +221,14 @@ export default function DashboardPage({
                     <></>
                   )}
                 </div>
-                <Divider />
+                <Separator className="my-4" />
                 <div className="flex w-full items-center justify-end gap-1">
                   <h2 className="text-xl">Total Value: </h2>
                   <span className="text-xl text-green">
                     {totalValueUSD ? (
-                      '$' + commify(totalValueUSD)
+                      '$' + commify(totalValueUSD, 2)
                     ) : (
-                      <Skeleton />
+                      <Skeleton className="h-5 w-24" />
                     )}
                   </span>
                 </div>
@@ -240,7 +241,7 @@ export default function DashboardPage({
               <div className="col-span-12">
                 <div className="w-full py-12">
                   <h2 className="mb-3 text-2xl">Treasury NFT Collection</h2>
-                  <Divider />
+                  <Separator className="my-4" />
                   <div className="flex h-full flex-col gap-3  p-3">
                     <Grid gap="sm">
                       {nfts.map((data) =>

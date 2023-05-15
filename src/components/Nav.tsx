@@ -2,11 +2,14 @@
 import React, { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import Badge from './ui/Badge'
-import { clsx } from 'clsx'
 import { useBoolean, useLockBodyScroll } from 'react-use'
 import CustomConnectButton from './CustomConnectButton'
 import LogoSVG from 'public/assets/logo.svg'
+import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import { MenuIcon } from 'lucide-react'
+import { XIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const links = [
   { title: 'Dashboard', href: '/dashboard' },
@@ -58,49 +61,21 @@ export default function Nav() {
             </Link>
             <div className=" ml-auto flex items-center gap-3 lg:hidden">
               <CustomConnectButton />
-              <Popover.Button
-                onClick={toggleOpen}
-                className={
-                  'z-30 inline-flex rounded border border-purple-500/60 p-2 text-sm hover:brightness-125'
-                }
-              >
-                {!open ? (
-                  <>
-                    <span className="sr-only">Open menu</span>
+              <Popover.Button as={Fragment}>
+                <Button onClick={toggleOpen} variant={'outline'} size="sm">
+                  {!open ? (
+                    <>
+                      <span className="sr-only">Open menu</span>
 
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden={true}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h7"
-                      />
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    <span className="sr-only">Close menu</span>
-                    <svg
-                      className="h-6 w-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </>
-                )}
+                      <MenuIcon />
+                    </>
+                  ) : (
+                    <>
+                      <span className="sr-only">Close menu</span>
+                      <XIcon />
+                    </>
+                  )}
+                </Button>
               </Popover.Button>
             </div>
             <div className="hidden md:flex-1 md:items-center md:justify-between lg:flex">
@@ -109,7 +84,7 @@ export default function Nav() {
                   <Link
                     key={link.title}
                     href={link.href}
-                    className="  text-base font-medium text-secondary transition hover:text-primary"
+                    className="text-base font-medium transition hover:text-muted-foreground"
                   >
                     {link.title}
                   </Link>
@@ -120,16 +95,15 @@ export default function Nav() {
                     onClick={toggleViewing}
                     onMouseEnter={() => toggleViewing(true)}
                     onMouseLeave={() => toggleViewing(false)}
-                    className={clsx(
-                      viewing ? 'text-primary' : 'text-secondary',
-                      'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-primary'
+                    className={cn(
+                      'group inline-flex items-center rounded-md  text-base font-medium transition hover:text-muted-foreground'
                     )}
                   >
                     <p>Explore</p>
                     <svg
-                      className={clsx(
-                        viewing ? 'rotate-180 text-primary' : 'text-secondary',
-                        'ml-2 h-5 w-5 transition group-hover:text-primary'
+                      className={cn(
+                        viewing ? 'rotate-180 text-foreground' : '',
+                        'group- ml-2 h-5 w-5 transition'
                       )}
                       fill="none"
                       stroke="currentColor"
@@ -179,7 +153,7 @@ export default function Nav() {
                                   </div>
                                   {tool.badges &&
                                     tool.badges.map((badge, i) => (
-                                      <Badge key={i} text={badge} />
+                                      <Badge key={i}>{badge}</Badge>
                                     ))}
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
@@ -249,16 +223,6 @@ export default function Nav() {
                 </Link>
               </div>
 
-              {/* <Link
-                    href="/tools"
-                    onClick={() => {
-                      close()
-                      toggleOpen(false)
-                    }}
-
-                  >
-                    Tools
-                  </Link> */}
               {tools.map((tool) => (
                 <div
                   className="flex h-full w-full items-center justify-center text-center"

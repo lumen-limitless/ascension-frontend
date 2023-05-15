@@ -12,7 +12,7 @@ export function generateGradientFromAddress(address?: string): string {
   return gradient
 }
 
-export function splitSignature(signature: string) {
+export function splitSignature(signature: `0x${string}`) {
   if (signature.length !== 132) {
     throw new Error('Invalid signature length')
   }

@@ -1,8 +1,8 @@
 import { commify, formatBalance } from '@/utils'
-import Card from '@/components/ui/Card'
-import Divider from '@/components/ui/Divider'
+import { Card } from '@/components/ui/card'
 import AscendTokenSVG from 'public/assets/ascendtoken.svg'
-import Skeleton from 'react-loading-skeleton'
+import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function BalanceCard({
   ascendBalance,
@@ -41,7 +41,7 @@ export default function BalanceCard({
               </span>
             </div>
           </div>
-          <Divider />
+          <Separator className="my-4" />
           <div className="flex min-w-max items-center gap-3 ">
             <AscendTokenSVG className="h-10 w-10" />
             <div>
@@ -50,7 +50,7 @@ export default function BalanceCard({
                 {ascendBalance ? (
                   commify(formatBalance(ascendBalance, 18, 2) as string)
                 ) : (
-                  <Skeleton />
+                  <Skeleton className="h-5 w-24" />
                 )}
               </span>
             </div>

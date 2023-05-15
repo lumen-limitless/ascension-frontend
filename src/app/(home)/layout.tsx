@@ -15,16 +15,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en"
-      className="m-0 box-border touch-manipulation scroll-smooth bg-purple-900 p-0 text-primary antialiased"
-    >
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       </head>
 
-      <body className={`flex min-h-screen flex-col ${jura.className}`}>
+      <body className={`${jura.className}`}>
         <a href="#main" className="sr-only" aria-label="skip">
           skip to main content
         </a>

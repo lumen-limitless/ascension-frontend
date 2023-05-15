@@ -7,18 +7,14 @@ export function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export function commify(num: number | string): string {
-  // Ensure input is a number
-  const inputNumber = typeof num === 'string' ? parseFloat(num) : num
-
-  // Convert the number to a string and split it into integer and fractional parts
-  const [integerPart, fractionalPart] = inputNumber.toFixed(2).split('.')
-
-  // Add commas to the integer part using a regular expression
-  const withCommas = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-  // Return the formatted number with the fractional part, if any
-  return fractionalPart ? `${withCommas}.${fractionalPart}` : withCommas
+export function commify(n: number | string, maxDecimals?: number): string {
+  let str = typeof n === 'number' ? n.toString() : n
+  const parts = str.split('.')
+  if (maxDecimals !== undefined && parts[1]) {
+    parts[1] = parts[1].slice(0, maxDecimals)
+  }
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return parts.join('.')
 }
 
 // shorten string to its maximum length using three dots

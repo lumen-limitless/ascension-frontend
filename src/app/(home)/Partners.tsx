@@ -1,4 +1,4 @@
-import Container from '@/components/ui/Container'
+import Container from '@/components/ui/container'
 import Section from '@/components/ui/Section'
 import { m } from 'framer-motion'
 import ExternalLink from '@/components/ui/ExternalLink'

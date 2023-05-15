@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import Skeleton from 'react-loading-skeleton'
-import Button from './ui/Button'
 import { useToast, useUI, useWatchAsset } from '@/hooks'
 import { VIEW } from '@/constants/enums'
 import ExternalLink from './ui/ExternalLink'
@@ -14,7 +12,7 @@ import {
   useEnsName,
   useNetwork,
 } from 'wagmi'
-import { commify, formatBalance, shortenString } from '@/utils'
+import { commify, shortenString } from '@/utils'
 import {
   ascensionRevenueDistributionTokenAddress,
   ascensionTokenAddress,
@@ -26,6 +24,9 @@ import GoToSVG from 'public/assets/goto.svg'
 import LogoutSVG from 'public/assets/logout.svg'
 import DelegateSVG from 'public/assets/delegate.svg'
 import { formatUnits } from 'viem'
+import { Skeleton } from './ui/skeleton'
+import { Button } from './ui/button'
+import { Dialog, DialogContent } from './ui/dialog'
 
 export default function Account() {
   const [, setCopy] = useCopyToClipboard()
@@ -72,7 +73,7 @@ export default function Account() {
             variant="gray"
             aria-label="copy to clipboard"
             onClick={() => {
-              setCopy(address as string)
+              setCopy(address || '')
               t('success', 'Copied address to clipboard')
             }}
             title="copy to clipboard"
@@ -90,7 +91,7 @@ export default function Account() {
             </Button>
           </ExternalLink>
           <Button
-            variant="gray"
+            variant="destructive"
             title="logout"
             aria-label="logout"
             onClick={() => {
@@ -105,11 +106,11 @@ export default function Account() {
       <div className=" flex h-full w-full items-center  justify-center   py-3 ">
         <div className="mx-auto w-36 text-center text-3xl">
           {ethBalanceIsFetched ? (
-            ` ${commify(ethBalance?.formatted || '0')} ${
+            ` ${commify(ethBalance?.formatted || '0', 2)} ${
               chain?.nativeCurrency.symbol
             }`
           ) : (
-            <Skeleton />
+            <Skeleton className="h-5 w-24" />
           )}
         </div>
       </div>
@@ -132,10 +133,10 @@ export default function Account() {
             <div className="flex flex-col text-center">
               {ascendBalanceIsFetched ? (
                 <span>
-                  {commify(formatUnits(ascendBalance ?? 0n, 18))} ASCEND
+                  {commify(formatUnits(ascendBalance ?? 0n, 18), 2)} ASCEND
                 </span>
               ) : (
-                <Skeleton />
+                <Skeleton className="h-5 w-24" />
               )}
             </div>
           </div>
@@ -159,10 +160,10 @@ export default function Account() {
               <div>
                 {stakedBalanceIsFetched ? (
                   <span>
-                    {commify(formatUnits(stakedBalance ?? 0n, 18))} xASCEND
+                    {commify(formatUnits(stakedBalance ?? 0n, 18), 2)} xASCEND
                   </span>
                 ) : (
-                  <Skeleton />
+                  <Skeleton className="h-5 w-24" />
                 )}
               </div>
             </div>
@@ -171,8 +172,8 @@ export default function Account() {
       </div>
 
       <Button
-        full
-        variant="green"
+        className="w-full"
+        variant={'green'}
         onClick={() => {
           setModalView(VIEW.DELEGATE)
         }}

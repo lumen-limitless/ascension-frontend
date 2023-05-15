@@ -1,13 +1,13 @@
-import clsx from 'clsx'
 import FancyButton from '@/components/FancyButton'
-import Container from '@/components/ui/Container'
-import Divider from '@/components/ui/Divider'
+import Container from '@/components/ui/container'
 import Section from '@/components/ui/Section'
 import { m } from 'framer-motion'
 import GovernanceSVG from 'public/assets/governance.svg'
 import ToolsSVG from 'public/assets/tools.svg'
 import RewardsSVG from 'public/assets/rewards.svg'
 import ExternalLink from '@/components/ui/ExternalLink'
+import { Separator } from '@radix-ui/react-separator'
+import { cn } from '@/lib/utils'
 
 const features = [
   {
@@ -65,7 +65,7 @@ export default function Features() {
                 className="w-full"
               >
                 <div
-                  className={clsx(
+                  className={cn(
                     'flex flex-col items-start gap-9 px-3 py-12 md:items-center',
                     f.alignment === 'right'
                       ? 'md:flex-row-reverse'
@@ -74,23 +74,23 @@ export default function Features() {
                 >
                   <div>{f.icon}</div>
                   <div
-                    className={clsx(f.alignment === 'right' && 'md:text-right')}
+                    className={cn(f.alignment === 'right' && 'md:text-right')}
                   >
                     <h2 className="pb-3 text-5xl font-bold leading-3 text-primary lg:pb-0  lg:text-6xl">
                       {f.title}
                     </h2>
-                    <Divider />
+                    <Separator className="bg-purple" />
                     <p className="mt-3 text-lg text-primary lg:text-xl">
                       {f.description}
                     </p>
                     <div
-                      className={clsx(
+                      className={cn(
                         ' relative  mt-9 flex max-w-min  items-center p-2 transition-all ',
                         f.alignment === 'right' ? 'md:ml-auto' : 'md:mr-auto'
                       )}
                     >
                       <div
-                        className={clsx(
+                        className={cn(
                           ' absolute inset-0  h-12 w-12 rounded bg-gradient-to-r blur-3xl',
                           f.buttonGradient
                         )}

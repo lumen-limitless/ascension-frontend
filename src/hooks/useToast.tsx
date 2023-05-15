@@ -72,7 +72,7 @@ export default function ToastComponent({
                 ) : null}
               </div>
               <div className="ml-3 w-0 flex-1 ">
-                <p className="text-sm text-primary">{message}</p>
+                <p className="text-sm ">{message}</p>
               </div>
               <div className="ml-4 flex flex-shrink-0">
                 <button

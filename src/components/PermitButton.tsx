@@ -1,26 +1,25 @@
-import Button from './ui/Button'
-import Spinner from './ui/Spinner'
 import PermitSVG from 'public/assets/permit.svg'
+import { Button, ButtonProps } from './ui/button'
+import { Loader2 } from 'lucide-react'
 
+interface PermitButtonProps extends ButtonProps {
+  isLoadingSig: boolean
+  signTypedData: () => void
+  children?: React.ReactNode
+}
 export default function PermitButton({
   isLoadingSig,
   signTypedData,
   children,
-}: {
-  isLoadingSig: boolean
-  signTypedData: () => void
-  children?: React.ReactNode
-}) {
+  ...props
+}: PermitButtonProps) {
   return (
     <>
-      <Button
-        full
-        disabled={isLoadingSig}
-        onClick={signTypedData}
-        variant="blue"
-      >
+      <Button {...props} disabled={isLoadingSig} onClick={signTypedData}>
         {isLoadingSig ? (
-          <Spinner />
+          <>
+            <Loader2 className="animate-spin" /> Sign Message{' '}
+          </>
         ) : (
           <>
             <PermitSVG className="h-4" />

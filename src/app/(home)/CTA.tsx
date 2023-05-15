@@ -1,15 +1,15 @@
-import Button from '@/components/ui/Button'
-import Container from '@/components/ui/Container'
+import Container from '@/components/ui/container'
 import Section from '@/components/ui/Section'
 import LogoSVG from 'public/assets/logo.svg'
 import { m } from 'framer-motion'
+import { Button } from '@/components/ui/button'
 
 export default function CTA() {
   return (
     <>
       <Section className="  bg-purple-900 py-24" id="cta">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-purple via-pink to-yellow opacity-100 blur-3xl" />
-        <Container className="max-w-6xl">
+        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-tr from-purple via-pink to-yellow opacity-100 blur-3xl" />
+        <Container className="z-10">
           <m.div
             initial={{ opacity: 0 }}
             viewport={{ once: true }}
@@ -21,24 +21,26 @@ export default function CTA() {
               Join the Ascension
             </h4>
             <div className="flex flex-col gap-3">
-              <a
-                href="https://app.sushi.com/swap?&outputCurrency=0x9e724698051da34994f281bd81c3e7372d1960ae"
-                target={'_blank'}
-                rel="noreferrer"
-              >
-                <Button size="lg" full variant="gray">
-                  <LogoSVG className="h-8" />
-                  Trade ASCEND
-                </Button>
-              </a>
-              <div className="flex w-full flex-col gap-3 sm:flex-row">
+              <Button asChild variant={'gray'} size="lg">
                 <a
-                  href="https://t.me/AscensionProtocolChat"
+                  href="https://app.sushi.com/swap?&outputCurrency=0x9e724698051da34994f281bd81c3e7372d1960ae"
                   target={'_blank'}
                   rel="noreferrer"
-                  className="w-full"
+                  className="inline-flex w-full items-center justify-center gap-2"
                 >
-                  <Button size="lg" full variant="telegram">
+                  <LogoSVG className="h-6" />
+                  Trade ASCEND
+                </a>
+              </Button>
+
+              <div className="flex w-full flex-col gap-3 sm:flex-row">
+                <Button asChild variant={'gray'} size="lg">
+                  <a
+                    href="https://t.me/AscensionProtocolChat"
+                    target={'_blank'}
+                    rel="noreferrer"
+                    className="inline-flex w-full items-center justify-center gap-2"
+                  >
                     <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                       <path
                         fillRule="evenodd"
@@ -47,15 +49,15 @@ export default function CTA() {
                       />
                     </svg>
                     Join Telegram
-                  </Button>
-                </a>
-                <a
-                  href="https://discord.gg/8k2zGuGeAZ"
-                  target={'_blank'}
-                  rel="noreferrer"
-                  className="w-full"
-                >
-                  <Button size="lg" full variant="discord">
+                  </a>
+                </Button>
+                <Button asChild size="lg" variant={'gray'}>
+                  <a
+                    href="https://discord.gg/8k2zGuGeAZ"
+                    target={'_blank'}
+                    rel="noreferrer"
+                    className="inline-flex w-full items-center justify-center gap-2"
+                  >
                     <svg fill="currentColor" viewBox="0 0 24 24" height={24}>
                       <path
                         fillRule="evenodd"
@@ -64,8 +66,8 @@ export default function CTA() {
                       />
                     </svg>
                     Join Discord
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               </div>
             </div>
           </m.div>

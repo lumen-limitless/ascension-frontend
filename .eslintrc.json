@@ -6,7 +6,5 @@
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "react-query"],
-  "rules": {
-    "@next/next/no-img-element": "off"
-  }
+  "rules": {}
 }

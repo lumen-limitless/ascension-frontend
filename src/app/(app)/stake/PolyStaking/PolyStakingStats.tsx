@@ -7,8 +7,8 @@ import {
   useAscensionPolyStakingPoolPoolInfo,
   useAscensionPolyStakingPoolTotalAssets,
 } from '@/wagmi/generated'
-import Skeleton from 'react-loading-skeleton'
 import StatGrid from '@/components/StatGrid'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function EarnStats() {
   const { address } = useAccount()
@@ -53,19 +53,19 @@ export default function EarnStats() {
             stat: totalAssets ? (
               commify(formatBalance(totalAssets) as string)
             ) : (
-              <Skeleton />
+              <Skeleton className="h-5 w-24" />
             ),
           },
           {
             name: 'ASCEND APY',
-            stat: apy ?? <Skeleton />,
+            stat: apy ?? <Skeleton className="h-5 w-24" />,
           },
           {
             name: 'Total Staked',
             stat: totalAssets ? (
               commify(formatBalance(totalAssets) as string)
             ) : (
-              <Skeleton />
+              <Skeleton className="h-5 w-24" />
             ),
           },
         ]}

@@ -2,43 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+@layer base {
+  :root {
+    --background: 256, 60%, 5%;
+    --foreground: 0 0% 98%;
+
+    --muted: 0, 0%, 15%;
+    --muted-foreground: 0 0% 90%;
+
+    --popover: 256, 60%, 5%;
+    --popover-foreground: 0 0% 98%;
+
+    --card: 256, 60%, 5%;
+    --card-foreground: 0 0% 98%;
+
+    --border: 256, 58%, 24%;
+    --input: 256, 58%, 24%;
+
+    --primary: 222, 8%, 25%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 210 40% 96%;
+
+    --accent: 255, 57%, 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 256, 58%, 24%;
+
+    --radius: 0.5rem;
+  }
 }
 
-body {
-  text-rendering: optimizeLegibility;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply box-border flex min-h-screen touch-manipulation flex-col scroll-smooth bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    text-rendering: optimizeLegibility;
+  }
+
+
+  /* width */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 16px;
+
 }
 
- [data-rk] {
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+
+  background: hsl(243, 5%, 12%);
+  border-radius: 100px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(243, 5%, 24%);
+
+}
+
+[data-rk] {
   @apply flex min-h-screen  flex-col;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 12px;
-    height: 16px;
-
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    border-radius: 100vh;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-
-    background: hsl(243, 5%, 12%);
-    border-radius: 100px;
-
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(243, 5%, 24%);
-
-  }
-
+}

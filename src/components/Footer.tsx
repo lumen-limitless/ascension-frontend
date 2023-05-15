@@ -152,7 +152,7 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <nav className={'relative bg-purple-900 text-center'}>
+    <nav className={'relative bg-background text-center'}>
       <div className="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex w-full items-center justify-center">
           <LogoMonoWhiteSVG className="h-32" />
@@ -167,7 +167,7 @@ export default function Footer() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-base text-secondary transition hover:brightness-150"
+                className="text-base  transition hover:brightness-150"
               >
                 {item.name}
               </a>
@@ -181,7 +181,7 @@ export default function Footer() {
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="text-secondary transition hover:brightness-150"
+              className=" transition hover:brightness-150"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon
