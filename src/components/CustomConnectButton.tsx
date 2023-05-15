@@ -92,41 +92,38 @@ export default function CustomConnectButton() {
                   </Button>
 
                   <Popover>
-                    <Popover.Button
-                      className={
-                        'z-20 inline-flex items-center rounded bg-gray-800 drop-shadow transition-all hover:bg-gray-900'
-                      }
-                    >
-                      {' '}
-                      <div className="hidden rounded-l px-2 py-2 md:inline-flex">
-                        {account.displayBalance ? (
-                          ` ${account.displayBalance}`
-                        ) : (
-                          <Skeleton className="h-5 w-24" />
-                        )}
-                      </div>{' '}
-                      <div className="inline-flex items-center gap-1 rounded p-2 md:mr-1 lg:bg-gray-900 lg:p-1">
-                        <Avatar
-                          ensImage={avatar}
-                          address={account.address}
-                          size={24}
-                        />
-                        <span className="hidden lg:inline-block">
-                          {account.displayName}
-                        </span>{' '}
-                        <svg
-                          className="h-6 w-6  "
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clipRule="evenodd"
+                    <Popover.Button as={Fragment}>
+                      <Button variant="gray" size="sm">
+                        <div className="hidden rounded-l px-2 py-2 md:inline-flex">
+                          {account.displayBalance ? (
+                            ` ${account.displayBalance}`
+                          ) : (
+                            <Skeleton className="h-5 w-24" />
+                          )}
+                        </div>{' '}
+                        <div className="inline-flex items-center gap-1 rounded p-2 md:mr-1 lg:bg-gray-900 lg:p-1">
+                          <Avatar
+                            ensImage={avatar}
+                            address={account.address}
+                            size={24}
                           />
-                        </svg>
-                      </div>
+                          <span className="hidden lg:inline-block">
+                            {account.displayName}
+                          </span>{' '}
+                          <svg
+                            className="h-6 w-6  "
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </Button>
                     </Popover.Button>
                     <Transition
                       as={Fragment}

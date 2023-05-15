@@ -17,7 +17,7 @@ export default function CTA() {
             transition={{ ease: 'easeOut', duration: 1 }}
             className=""
           >
-            <h4 className="mb-12 text-center text-5xl font-bold  text-primary md:text-6xl lg:text-7xl">
+            <h4 className="mb-12 text-center text-5xl font-bold  md:text-6xl lg:text-7xl">
               Join the Ascension
             </h4>
             <div className="flex flex-col gap-3">

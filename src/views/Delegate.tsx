@@ -216,7 +216,7 @@ export default function Delegate() {
             />
 
             {!delegating && (
-              <Button onClick={toggleDelegating}>
+              <Button variant={'ghost'} onClick={toggleDelegating}>
                 Delegate to different address
               </Button>
             )}
