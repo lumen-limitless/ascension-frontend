@@ -52,6 +52,17 @@
     text-rendering: optimizeLegibility;
   }
 
+  header {
+  @apply sticky top-0 z-20 bg-background border-b border-border;
+  }
+
+  main {
+  @apply flex flex-grow flex-col;
+  }
+
+  footer {
+  @apply bg-background border-t border-border;
+  }
 
   /* width */
 ::-webkit-scrollbar {
@@ -80,7 +91,7 @@
 }
 
 [data-rk] {
-  @apply flex min-h-screen  flex-col;
+  @apply flex min-h-screen flex-col;
 }
 
 }

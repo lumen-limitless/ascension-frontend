@@ -26,11 +26,8 @@ export default function RootLayout({
           skip to main content
         </a>
         <HomeProviders>
-          <main id="main" className="flex flex-grow flex-col">
-            {children}
-          </main>
-
-          <footer>
+          <main id="main">{children}</main>
+          <footer id="footer">
             <Footer />
           </footer>
         </HomeProviders>

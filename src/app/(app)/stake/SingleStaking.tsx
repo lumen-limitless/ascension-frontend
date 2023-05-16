@@ -222,8 +222,8 @@ export default function SingleStaking() {
                 />
               </div>
               <div className="col-span-12 md:order-last md:col-span-4">
-                <Card className="h-full">
-                  <CardContent className="flex h-full items-center justify-center gap-1 md:flex-col">
+                <Card>
+                  <CardContent className="flex items-center justify-center gap-1 md:flex-col">
                     <Scale className="h-24 w-24 " />
 
                     <div className="space-y-1 text-center">
@@ -321,33 +321,35 @@ export default function SingleStaking() {
                               : '0'
                           }
                         />
-                        <div className="flex w-full justify-between p-1">
+                        <div className="flex w-full items-center p-1">
                           <p
-                            className="text-opacity-80"
+                            className="mr-1 text-opacity-80"
                             onClick={() => {
                               return
                             }}
                           >
                             {' '}
                             Balance:{' '}
-                            {ascendBalance.isSuccess &&
-                            stakedBalance.isSuccess ? (
-                              isWithdrawing ? (
-                                commify(
-                                  formatUnits(stakedBalance.data as bigint, 18),
-                                  2
-                                )
-                              ) : (
-                                commify(
-                                  formatUnits(ascendBalance.data as bigint, 18),
-                                  2
-                                )
+                          </p>
+                          {ascendBalance.isSuccess &&
+                          stakedBalance.isSuccess ? (
+                            isWithdrawing ? (
+                              commify(
+                                formatUnits(stakedBalance.data as bigint, 18),
+                                2
                               )
                             ) : (
-                              <Skeleton />
-                            )}
-                          </p>
-                          <button
+                              commify(
+                                formatUnits(ascendBalance.data as bigint, 18),
+                                2
+                              )
+                            )
+                          ) : (
+                            <Skeleton className="h-5 w-24" />
+                          )}
+                          <Button
+                            variant="ghost"
+                            className="ml-auto"
                             onClick={() => {
                               ascendBalance.isSuccess && stakedBalance.isSuccess
                                 ? isWithdrawing
@@ -368,7 +370,7 @@ export default function SingleStaking() {
                           >
                             {' '}
                             Max
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     </div>

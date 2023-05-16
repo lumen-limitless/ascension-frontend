@@ -10,7 +10,7 @@ const Toaster = dynamic(() =>
   import('react-hot-toast').then((mod) => mod.Toaster)
 )
 
-const Delegate = dynamic(() => import('@/views/Delegate'), {
+const Delegate = dynamic(() => import('@/components/Delegate'), {
   loading: () => <Loader />,
 })
 

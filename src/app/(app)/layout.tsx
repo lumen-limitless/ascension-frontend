@@ -37,12 +37,12 @@ export default function RootLayout({
         </a>
         <AppProviders>
           <UI />
-          <header className="z-20 border-b border-purple-500">
+          <header id="header">
             {/* <Banner>TEST</Banner> */}
             <Nav />
           </header>
-          <main className="flex flex-grow flex-col"> {children}</main>
-          <footer className="border-t border-purple-500">
+          <main id="main"> {children}</main>
+          <footer id="footer">
             <Footer />
             <NetworkStats />
           </footer>

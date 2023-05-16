@@ -14,8 +14,13 @@ const HomePage = () => {
   return (
     <>
       {/* <Script src="https://platform.twitter.com/widgets.js" async /> */}
-      <Section col fullscreen className="bg-cover bg-center" id="hero">
-        <Image src={backgroundImage} fill className="object-cover" alt="" />
+      <Section col fullscreen className="bg-cover bg-center " id="hero">
+        <Image
+          src={backgroundImage}
+          fill
+          className="object-cover object-center"
+          alt=""
+        />
         <Container className="mt-9 md:mt-24 lg:mt-32">
           <m.div
             initial={{ opacity: 0, translateY: 0 }}
