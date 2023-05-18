@@ -95,10 +95,8 @@ export default function CustomConnectButton() {
                     <Popover.Button as={Fragment}>
                       <Button variant="gray" size="sm">
                         <div className="hidden rounded-l px-2 py-2 md:inline-flex">
-                          {account.displayBalance ? (
-                            ` ${account.displayBalance}`
-                          ) : (
-                            <Skeleton className="h-5 w-24" />
+                          {account.displayBalance || (
+                            <Skeleton className="h-5 w-8" />
                           )}
                         </div>{' '}
                         <div className="inline-flex items-center gap-1 rounded p-2 md:mr-1 lg:bg-gray-900 lg:p-1">

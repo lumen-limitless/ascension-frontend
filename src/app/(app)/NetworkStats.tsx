@@ -19,7 +19,7 @@ export default function NetworkStats() {
       <Fuel className="h-5 stroke-blue" />
       <div>
         {feeData.isSuccess ? (
-          commify(feeData?.data?.formatted.gasPrice ?? '0', 3)
+          commify(feeData?.data?.formatted.gasPrice || '0', 0)
         ) : (
           <Skeleton className="h-5 w-8" />
         )}

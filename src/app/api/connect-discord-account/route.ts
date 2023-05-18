@@ -5,6 +5,7 @@ import {
   ascensionTokenAddress,
 } from '@/wagmi/generated'
 import { MongoClient } from 'mongodb'
+import { redirect } from 'next/dist/server/api-utils'
 import { NextResponse, NextRequest } from 'next/server'
 import {
   createPublicClient,
@@ -22,7 +23,7 @@ interface AscensionUser {
 }
 
 const messageText =
-  'Ascension Protocol (connect.ascensionprotocol.io) asks you to sign this message for the purpose of verifying your account ownership. This is READ-ONLY access and will NOT trigger any blockchain transactions or incur any fees.  '
+  'Ascension Protocol asks you to sign this message for the purpose of verifying your account ownership. This is READ-ONLY access and will NOT trigger any blockchain transactions or incur any fees.  '
 
 // This function modifies a Discord guild member
 async function modifyDiscordGuildMember(
