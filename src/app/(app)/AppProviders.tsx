@@ -32,7 +32,7 @@ const { chains, publicClient } = configureChains(
   [publicProvider()]
 )
 const { connectors } = getDefaultWallets({
-  appName: process.env.NEXT_PUBLIC_APP_NAME || '',
+  appName: 'Ascension Protocol',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
   chains,
 })
@@ -54,7 +54,7 @@ export default function AppProviders({ children }: { children: ReactNode }) {
               chains={chains}
               avatar={Avatar}
               appInfo={{
-                appName: process.env.NEXT_PUBLIC_APP_NAME || '',
+                appName: 'Ascension Protocol',
                 disclaimer: Disclaimer,
               }}
               initialChain={

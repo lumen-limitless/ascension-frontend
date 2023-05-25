@@ -6,7 +6,7 @@ import { ImageResponse } from 'next/server'
 export const runtime = 'edge'
 
 // Image metadata
-export const alt = 'About Acme'
+export const alt = 'Ascension Protocol'
 export const size = {
   width: 1200,
   height: 630,
@@ -30,8 +30,7 @@ export default function Image() {
         }}
       >
         <svg
-          width="754"
-          height="754"
+          height={96}
           viewBox="0 0 754 754"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
