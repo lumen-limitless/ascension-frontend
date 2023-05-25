@@ -5,7 +5,6 @@
   "scripts": {
     "predev": "wagmi generate && graphql-codegen",
     "dev": "NODE_ENV=development next dev",
-    "prebuild": "wagmi generate && graphql-codegen",
     "build": "next build",
     "codegen": "wagmi generate && graphql-codegen",
     "start": "next start",
