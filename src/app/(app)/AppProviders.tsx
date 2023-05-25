@@ -8,7 +8,6 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
-import { APP_NAME } from '@/constants'
 import Avatar from '@/components/Avatar'
 import Disclaimer from '@/components/Disclaimer'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -33,7 +32,7 @@ const { chains, publicClient } = configureChains(
   [publicProvider()]
 )
 const { connectors } = getDefaultWallets({
-  appName: APP_NAME,
+  appName: process.env.NEXT_PUBLIC_APP_NAME || '',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
   chains,
 })
@@ -55,7 +54,7 @@ export default function AppProviders({ children }: { children: ReactNode }) {
               chains={chains}
               avatar={Avatar}
               appInfo={{
-                appName: APP_NAME,
+                appName: process.env.NEXT_PUBLIC_APP_NAME || '',
                 disclaimer: Disclaimer,
               }}
               initialChain={
