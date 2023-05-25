@@ -12,7 +12,7 @@ import {
   useEnsName,
   useNetwork,
 } from 'wagmi'
-import { commify, shortenString } from '@/utils'
+import { commify, shortenString } from '@/lib'
 import {
   ascensionRevenueDistributionTokenAddress,
   ascensionTokenAddress,

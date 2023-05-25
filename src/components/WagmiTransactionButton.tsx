@@ -39,16 +39,16 @@ export default function WagmiTransactionButton({
     >
       {transaction?.isLoading ? (
         <>
-          <Loader2 className="animate-spin" />
-          <span>Confirm in wallet</span>
+          <Loader2 className="mr-1 animate-spin" />
+          Confirm in wallet
         </>
       ) : confirmation?.isLoading ? (
         <>
-          <Loader2 className="animate-spin" />
-          <span>Confirming</span>
+          <Loader2 className="mr-1 animate-spin" />
+          Confirming
         </>
       ) : (
-        <span>{name}</span>
+        name
       )}
     </Button>
   )

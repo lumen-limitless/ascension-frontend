@@ -62,7 +62,7 @@ export default function CustomConnectButton() {
                   <Button size="sm" type="button" variant="gray">
                     {chain.hasIcon && (
                       <div
-                        className="h-6 w-6 overflow-hidden rounded-full"
+                        className="mr-1 h-6 w-6 overflow-hidden rounded-full"
                         style={{
                           background: chain.iconBackground,
                         }}

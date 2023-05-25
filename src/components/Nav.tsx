@@ -4,12 +4,12 @@ import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import { useBoolean, useLockBodyScroll } from 'react-use'
 import CustomConnectButton from './CustomConnectButton'
-import LogoSVG from 'public/assets/logo.svg'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { MenuIcon } from 'lucide-react'
 import { XIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib'
+import LogoSVG from 'public/assets/logo.svg'
 
 const links = [
   { title: 'Dashboard', href: '/dashboard' },
@@ -54,10 +54,8 @@ export default function Nav() {
         <>
           <div className=" flex h-20 items-center justify-between px-3 md:space-x-10  md:px-12 lg:justify-start  lg:px-24 xl:px-32">
             <Link href="/" className="z-30 p-3">
-              <>
-                <span className="sr-only">Ascension Protocol</span>
-                <LogoSVG className="h-8" />
-              </>
+              <span className="sr-only">Ascension Protocol</span>
+              <LogoSVG className="h-8" />
             </Link>
             <div className=" ml-auto flex items-center gap-3 lg:hidden">
               <CustomConnectButton />

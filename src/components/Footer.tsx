@@ -1,5 +1,4 @@
 'use client'
-import LogoMonoWhiteSVG from 'public/assets/logomonowhite.svg'
 
 const navigation = {
   main: [
@@ -155,7 +154,7 @@ export default function Footer() {
     <nav className={'relative bg-background text-center'}>
       <div className="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex w-full items-center justify-center">
-          <LogoMonoWhiteSVG className="h-32" />
+          <object data="assets/logomonowhite.svg" className="h-32" />
         </div>
         <nav
           className="-mx-5 -my-2 flex flex-wrap justify-center"

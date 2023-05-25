@@ -1,5 +1,8 @@
-import { APP_DESCRIPTION, APP_NAME, APP_URL } from '@/constants'
 import { Metadata } from 'next'
+
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME as string
+const APP_DESCRIPTION = process.env.NEXT_PUBLIC_APP_DESCRIPTION as string
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL as string
 
 export const defaultMetadata: Metadata = {
   title: {
@@ -10,10 +13,22 @@ export const defaultMetadata: Metadata = {
   applicationName: APP_NAME,
   description: APP_DESCRIPTION,
   themeColor: '#090514',
+  metadataBase: new URL(APP_URL),
   generator: 'Next.js',
-  keywords: [],
+  keywords: [
+    'ascend',
+    'ascend finance',
+    'ascend protocol',
+    'ascend.finance',
+    'Ascension Protocol',
+    'DAO',
+    'DeFi',
+    'Decentralized Finance',
+    'arbitrum',
+    'arbitrum one',
+    'arbitrum l2',
+  ],
   icons: [
-    { rel: 'icon', url: '/favicon.ico', sizes: 'any', type: undefined },
     {
       rel: 'apple-touch-icon',
       url: '/apple-icon-57x57.png',
@@ -103,11 +118,26 @@ export const defaultMetadata: Metadata = {
     capable: true,
   },
 
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
   formatDetection: {
+    email: false,
+    address: false,
     telephone: false,
   },
 
-  metadataBase: new URL(APP_URL),
   alternates: {
     canonical: '/',
   },

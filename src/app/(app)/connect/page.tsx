@@ -4,9 +4,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useAccount, useSignMessage } from 'wagmi'
 import { useBoolean } from 'react-use'
 import { Loader2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import PermitSVG from 'public/assets/permit.svg'
 import Section from '@/components/ui/Section'
+import PermitButton from '@/components/PermitButton'
 
 const messageText =
   'Ascension Protocol asks you to sign this message for the purpose of verifying your account ownership. This is READ-ONLY access and will NOT trigger any blockchain transactions or incur any fees.  '
@@ -18,7 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useBoolean(false)
   const { push } = useRouter()
 
-  const { signMessage, data, status } = useSignMessage({
+  const { signMessage, data, status, isLoading } = useSignMessage({
     message:
       messageText +
       '\n- Discord ID: ' +
@@ -78,16 +77,7 @@ export default function Home() {
               Link Discord Account
             </button>
           ) : (
-            <Button onClick={() => signMessage()}>
-              {status === 'loading' ? (
-                <Loader2 className="animate-spin" />
-              ) : (
-                <>
-                  <PermitSVG className="h-6 w-6" />
-                  Sign Message
-                </>
-              )}
-            </Button>
+            <PermitButton isLoading={isLoading} sign={signMessage} />
           )}
         </>
       ) : (

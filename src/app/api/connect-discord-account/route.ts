@@ -5,7 +5,6 @@ import {
   ascensionTokenAddress,
 } from '@/wagmi/generated'
 import { MongoClient } from 'mongodb'
-import { redirect } from 'next/dist/server/api-utils'
 import { NextResponse, NextRequest } from 'next/server'
 import {
   createPublicClient,

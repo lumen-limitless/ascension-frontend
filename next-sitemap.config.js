@@ -1,6 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://ascensionprotocol.io',
-  generateRobotsTxt: true, // (optional)
-  exclude: ['/404', '/deprecated/**/*'],
+  generateRobotsTxt: false, // (optional)
+  generateIndexSitemap: false,
+  outDir: 'src/app',
+  exclude: ['/favicon.ico', '/sitemap.xml'],
 }

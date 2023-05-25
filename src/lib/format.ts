@@ -7,14 +7,21 @@ export function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export function commify(n: number | string, maxDecimals?: number): string {
-  let str = typeof n === 'number' ? n.toString() : n
-  const parts = str.split('.')
-  if (maxDecimals !== undefined && parts[1]) {
-    parts[1] = parts[1].slice(0, maxDecimals)
+export function commify(n: number | string, maxDecimals: number = 2): string {
+  if (n === null || n === undefined) {
+    return ''
   }
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  return parts.join('.')
+
+  let str = typeof n === 'number' ? n.toFixed(maxDecimals) : n
+  const [integer, decimal] = str.split('.')
+  const integerWithCommas = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+  if (decimal) {
+    const truncatedDecimal = decimal.slice(0, maxDecimals)
+    return `${integerWithCommas}.${truncatedDecimal}`
+  } else {
+    return integerWithCommas
+  }
 }
 
 // shorten string to its maximum length using three dots

@@ -1,4 +1,4 @@
-import { commify, formatBalance } from '@/utils'
+import { commify, formatBalance } from '@/lib'
 import { Card } from '@/components/ui/card'
 import AscendTokenSVG from 'public/assets/ascendtoken.svg'
 import { Separator } from '@/components/ui/separator'

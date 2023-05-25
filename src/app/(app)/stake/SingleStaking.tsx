@@ -17,7 +17,7 @@ import {
   useAscensionRevenueDistributionTokenTotalSupply,
 } from '@/wagmi/generated'
 import { useAccount, useSignTypedData } from 'wagmi'
-import { formatPercent, commify, splitSignature, parseBalance } from '@/utils'
+import { formatPercent, commify, splitSignature, parseBalance } from '@/lib'
 import { useBoolean } from 'react-use'
 import WagmiTransactionButton from '@/components/WagmiTransactionButton'
 import { m } from 'framer-motion'
@@ -204,7 +204,7 @@ export default function SingleStaking() {
                       name: 'Total Staked',
                       stat:
                         totalAssets.isSuccess &&
-                        commify(formatUnits(totalAssets.data as bigint, 18), 2),
+                        commify(formatUnits(totalAssets.data as bigint, 18)),
                     },
                     {
                       name: 'Rewards End',
@@ -400,8 +400,8 @@ export default function SingleStaking() {
                     ) : !permit ? (
                       <PermitButton
                         variant="blue"
-                        isLoadingSig={permitTypedData.isLoading}
-                        signTypedData={permitTypedData.signTypedData}
+                        isLoading={permitTypedData.isLoading}
+                        sign={permitTypedData.signTypedData}
                       >
                         Permit Deposit{' '}
                       </PermitButton>

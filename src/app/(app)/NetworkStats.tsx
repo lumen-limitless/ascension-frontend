@@ -1,6 +1,5 @@
 'use client'
 import { Skeleton } from '@/components/ui/skeleton'
-import { commify } from '@/utils'
 import { CubeIcon } from '@heroicons/react/24/outline'
 import { Fuel } from 'lucide-react'
 import { useBlockNumber, useFeeData } from 'wagmi'
@@ -19,7 +18,7 @@ export default function NetworkStats() {
       <Fuel className="h-5 stroke-blue" />
       <div>
         {feeData.isSuccess ? (
-          commify(feeData?.data?.formatted.gasPrice || '0', 0)
+          feeData.data?.formatted.gasPrice
         ) : (
           <Skeleton className="h-5 w-8" />
         )}

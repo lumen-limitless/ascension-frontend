@@ -1,4 +1,4 @@
-import { commify, isAddress, shortenString } from '@/utils'
+import { commify, isAddress, shortenString } from '@/lib'
 import Loader from '@/components/ui/Loader'
 import { useBoolean } from 'react-use'
 import { useState } from 'react'
@@ -21,6 +21,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { formatUnits } from 'viem'
+import { arbitrum } from 'viem/chains'
 
 export default function Delegate() {
   const [token, setToken] = useState<'ASCEND' | 'xASCEND'>('ASCEND')

@@ -6,7 +6,6 @@ import { m } from 'framer-motion'
 import Partners from './Partners'
 import CTA from './CTA'
 import Features from './Features'
-import LogoSVG from 'public/assets/logo.svg'
 import backgroundImage from 'public/assets/bg.jpg'
 import Image from 'next/image'
 
@@ -29,7 +28,7 @@ const HomePage = () => {
             className="relative  space-y-3  text-center"
           >
             <div className=" flex w-full  items-center justify-center">
-              <LogoSVG className="h-32" />
+              <object data="assets/logo.svg" className="h-32" />
             </div>
             <h1 className=" text-5xl font-bold   drop-shadow-2xl md:text-6xl lg:text-7xl">
               Prepare for{' '}

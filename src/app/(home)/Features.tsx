@@ -45,7 +45,7 @@ const features = [
 export default function Features() {
   return (
     <>
-      <Section id="features" className="bg-purple-900 py-24">
+      <Section id="features" className="overflow-clip bg-purple-900 py-24">
         <Container className="max-w-7xl">
           <div className="block space-y-24">
             {features.map((f, i) => (

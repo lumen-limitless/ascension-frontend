@@ -2,8 +2,8 @@ import '../globals.css'
 import { Jura } from 'next/font/google'
 import HomeProviders from './HomeProviders'
 import Footer from '@/components/Footer'
-import Analytics from '../Analytics'
-import { defaultMetadata } from '../DefaultMetadata'
+import Analytics from '../analytics'
+import { defaultMetadata } from '../metadata'
 
 const jura = Jura({
   subsets: ['latin'],

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from 'recharts'
 import Loader from '@/components/ui/Loader'
-import { commify } from '@/utils'
+import { commify } from '@/lib'
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {

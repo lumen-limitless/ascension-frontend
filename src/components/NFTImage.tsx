@@ -3,7 +3,7 @@ import { OwnedNft } from 'alchemy-sdk'
 export default function NFTImage({ nft }: { nft: OwnedNft }) {
   return (
     <>
-      {nft.media[0].format &&
+      {nft?.media[0]?.format &&
       ['png', 'svg+xml', 'jpg', 'gif'].includes(nft.media[0].format) ? (
         <img
           role={'img'}

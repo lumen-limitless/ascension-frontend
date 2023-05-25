@@ -1,5 +1,5 @@
 import { AvatarComponent } from '@rainbow-me/rainbowkit'
-import { generateGradientFromAddress } from '../utils'
+import { generateGradientFromAddress } from '../lib'
 
 const Avatar: AvatarComponent = ({ address, ensImage, size }) => {
   const color = generateGradientFromAddress(address)

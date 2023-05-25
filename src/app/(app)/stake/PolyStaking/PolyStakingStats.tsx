@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 import { CHAIN_ID } from '@/constants'
-import { commify, formatBalance, formatPercent, parseBalance } from '@/utils'
+import { commify, formatBalance, formatPercent, parseBalance } from '@/lib'
 import {
   ascensionTokenAddress,
   useAscensionPolyStakingPoolPoolInfo,

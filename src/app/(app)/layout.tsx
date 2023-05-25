@@ -7,11 +7,8 @@ import Footer from '@/components/Footer'
 import { Jura } from 'next/font/google'
 import UI from './UI'
 import NetworkStats from './NetworkStats'
-import Analytics from '../Analytics'
-import { defaultMetadata } from '../DefaultMetadata'
-import dynamic from 'next/dynamic'
-
-const Banner = dynamic(() => import('@/components/Banner'))
+import Analytics from '../analytics'
+import { defaultMetadata } from '../metadata'
 
 const jura = Jura({
   subsets: ['latin'],
