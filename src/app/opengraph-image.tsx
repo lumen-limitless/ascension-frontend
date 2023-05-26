@@ -1,7 +1,6 @@
 // default opengraph image, if separate twitter image is required, add a twitter-image.tsx file
 
 import { ImageResponse } from 'next/server'
-
 // Route segment config
 export const runtime = 'edge'
 
@@ -27,10 +26,11 @@ export default function Image() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'relative',
         }}
       >
         <svg
-          height={96}
+          height={128}
           viewBox="0 0 754 754"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

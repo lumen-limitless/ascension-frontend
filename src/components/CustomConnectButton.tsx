@@ -37,7 +37,7 @@ export default function CustomConnectButton() {
                     type="button"
                     id="connect-wallet-button"
                   >
-                    <WalletIcon />
+                    <WalletIcon className="mr-1 h-5" />
                     Connect Wallet
                   </Button>
                 )
