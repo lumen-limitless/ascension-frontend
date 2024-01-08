@@ -145,7 +145,7 @@ export default function Account() {
           type="button"
           title="Add to Metamask"
           aria-label="watch-asset"
-          className="flex w-full   items-center justify-start gap-3  rounded bg-gradient-to-r from-purple to-pink p-2 shadow-md "
+          className="flex w-full items-center justify-start gap-3  rounded bg-gradient-to-r from-purple to-pink p-2 shadow-md "
           onClick={() => {
             watchAsset(
               ascensionRevenueDistributionTokenAddress,

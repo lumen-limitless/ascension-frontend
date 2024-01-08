@@ -13,7 +13,7 @@ import LogoSVG from 'public/assets/logo.svg'
 
 const links = [
   { title: 'Dashboard', href: '/dashboard' },
-  { title: 'Stake', href: '/stake' },
+  // { title: 'Stake', href: '/stake' },
 ]
 const tools = [
   {
