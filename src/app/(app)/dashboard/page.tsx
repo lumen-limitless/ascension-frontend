@@ -101,14 +101,14 @@ async function getPriceData() {
   return res.json()
 }
 
-async function getStakingData() {
-  const { stakingSnapshots } = await request(
-    'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
-    StakingSnapshotDocument
-  )
+// async function getStakingData() {
+//   const { stakingSnapshots } = await request(
+//     'https://api.thegraph.com/subgraphs/name/lumen-limitless/ascension-subgraph',
+//     StakingSnapshotDocument
+//   )
 
-  return stakingSnapshots
-}
+//   return stakingSnapshots
+// }
 
 export default async function Page() {
   const tokenDataMainnet = getTokenData(ASCENSION_TREASURY_ADDRESS[1], 1)
@@ -122,7 +122,7 @@ export default async function Page() {
 
   const priceData = getPriceData()
 
-  const stakingData = getStakingData()
+  // const stakingData = getStakingData()
 
   const props = await Promise.all([
     tokenDataMainnet,
@@ -130,7 +130,7 @@ export default async function Page() {
     nftDataMainnet,
     nftDataArbitrum,
     priceData,
-    stakingData,
+    // stakingData,
   ])
 
   return (
@@ -138,7 +138,7 @@ export default async function Page() {
       tokens={[...props[0], ...props[1]]}
       nfts={[props[2], props[3]]}
       prices={props[4]}
-      stakingSnapshots={props[5]}
+      // stakingSnapshots={props[5]}
     />
   )
 }

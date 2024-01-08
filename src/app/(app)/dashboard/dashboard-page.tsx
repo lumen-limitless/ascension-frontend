@@ -27,17 +27,17 @@ export default function DashboardPage({
   tokens,
   nfts,
   prices,
-  stakingSnapshots,
-}: {
+}: // stakingSnapshots,
+{
   tokens: TokenData[]
   nfts: { nfts: OwnedNftsResponse; chainId: number; owner: `0x${string}` }[]
   prices: any
-  stakingSnapshots: StakingSnapshot[]
+  // stakingSnapshots: StakingSnapshot[]
 }) {
   console.debug(tokens)
   console.debug(nfts)
   console.debug(prices)
-  console.debug(stakingSnapshots)
+  // console.debug(stakingSnapshots)
 
   const totalValueUSD = useMemo(() => {
     if (!tokens) return null
@@ -99,21 +99,21 @@ export default function DashboardPage({
                       ).toFixed(2)
                     )}`,
                   },
-                  {
-                    name: 'Staked Supply',
-                    stat:
-                      stakingSnapshots &&
-                      `${formatPercent(
-                        (parseFloat(last(stakingSnapshots)?.totalAssets) /
-                          14400000) *
-                          100
-                      )}`,
-                  },
+                  // {
+                  //   name: 'Staked Supply',
+                  //   stat:
+                  //     stakingSnapshots &&
+                  //     `${formatPercent(
+                  //       (parseFloat(last(stakingSnapshots)?.totalAssets) /
+                  //         14400000) *
+                  //         100
+                  //     )}`,
+                  // },
                 ]}
               />
             </div>
 
-            <div className="col-span-12 md:col-span-6">
+            {/* <div className="col-span-12 md:col-span-6">
               <Card>
                 <CardHeader>
                   <h2 className="text-lg">Total Staked</h2>
@@ -122,8 +122,8 @@ export default function DashboardPage({
                   <TotalStakedChart stakingData={stakingSnapshots} />
                 </CardContent>
               </Card>
-            </div>
-            <div className="col-span-12 md:col-span-6">
+            </div> */}
+            <div className="col-span-12">
               <Card>
                 <CardHeader>
                   <h2 className="text-lg">ASCEND Price</h2>
