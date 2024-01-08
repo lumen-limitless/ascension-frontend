@@ -33,7 +33,7 @@ const { chains, publicClient } = configureChains(
 )
 const { connectors } = getDefaultWallets({
   appName: 'Ascension Protocol',
-  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID as string,
   chains,
 })
 const wagmiConfig = createConfig({
